@@ -11,9 +11,14 @@ const PORT = ENV_VARS.PORT;
 app.use(express.json());
 app.use(cookieParser());
 
-//routes
+import authRoutes from "./routes/authroutes.js";
+import societyRoutes from "./routes/societyRoutes.js";
+
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/societies", societyRoutes);
 
 app.listen(PORT, () => {
-	console.log("server is running on port http://localhost:" + PORT);
-	connectDB();
+  console.log("server is running on port http://localhost:" + PORT);
+  connectDB();
 });
