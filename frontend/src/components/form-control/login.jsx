@@ -43,17 +43,24 @@ export default function LoginForm() {
 					</div>
 
 					{/* //TODO : SET FORGET PASSWORD AT THE END */}
-					<div className="grid grid-cols-2 md:grid-cols-2">
+					<div className="grid grid-cols-2 md:grid-cols-2 gap-64">
 						{/* remember me */}
 						<div className="flex items-center">
 							<Checkbox />
 							<Label htmlFor="terms" className="ml-2">
-								remember me 
+								remember me
 							</Label>
 						</div>
 						<div>
-							<Label htmlFor="password" className="justify-items-end">
-								<Link to="/forgot-pass"><span className="text-orange-500">Forgot Password ?</span></Link>
+							<Label
+								htmlFor="password"
+								className="justify-items-end"
+							>
+								<Link to="/forgot-pass">
+									<span className="text-orange-500">
+										Forgot Password ?
+									</span>
+								</Link>
 							</Label>
 						</div>
 					</div>
