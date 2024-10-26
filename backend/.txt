@@ -1,0 +1,17 @@
+// user registration api
+
+router.post("/register", register);
+router.post("/login", login);
+router.post("/logout", logout);
+
+
+
+// society management api
+
+
+router.post("/createSociety", createSociety); // Create a new society
+router.get("/getSocieties", getSocieties); // Get all societies
+
+// forget api 
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password/:token", resetPassword);"
