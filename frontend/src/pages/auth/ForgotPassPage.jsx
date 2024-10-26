@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
+
 
 export default function ForgotPassPage() {
 	// States for the process
@@ -135,6 +137,13 @@ export default function ForgotPassPage() {
 									Get OTP
 								</Button>
 							</div>
+							<div className="text-center text-sm">
+								<p>
+									<Link to="/login" className="text-orange-500">
+										Back to Login
+									</Link>
+								</p>
+							</div>
 						</form>
 					</>
 				) : otpVerified ? (
@@ -192,7 +201,7 @@ export default function ForgotPassPage() {
 						</form>
 					</>
 				) : (
-					<>
+					<div>
 						<h2 className="text-2xl font-semibold text-gray-800 mb-4">
 							Enter OTP
 						</h2>
@@ -238,7 +247,7 @@ export default function ForgotPassPage() {
 								</Button>
 							</div>
 						</form>
-					</>
+					</div>
 				)}
 			</div>
 		</div>
