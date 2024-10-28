@@ -2,13 +2,13 @@ import { NavLink } from "react-router-dom";
 import * as Icons from "lucide-react";
 import menuItems from "@/data/menuItems";
 
-function Sidebar({ userRole = "admin" }) {
+export default function Sidebar({ userRole = "admin" }) {
 	const userMenuItems = menuItems[userRole] || [];
 
 	return (
 		<div className="fixed h-screen w-64 bg-white shadow-lg">
-			<div className="p-4 font-bold text-xl text-orange-600">
-				DashStack
+			<div className="p-4 font-bold text-xl ">
+				<img src="./src/assets/Logo.png" alt="" />
 			</div>
 			<div className="mt-8 space-y-2">
 				{userMenuItems.map((item) => {
@@ -34,5 +34,3 @@ function Sidebar({ userRole = "admin" }) {
 		</div>
 	);
 }
-
-export default Sidebar;
