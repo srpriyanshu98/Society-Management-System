@@ -28,54 +28,54 @@ export default function SignUpForm() {
 		confirmPassword: "",
 		society: "",
 		termsAccepted: false,
-	  });
-	  const [errors, setErrors] = useState({});
+	});
+	const [errors, setErrors] = useState({});
 
-	  const handleInputChange = (e) => {
+	const handleInputChange = (e) => {
 		const { name, value, type, checked } = e.target;
 		setFormData({
-		  ...formData,
-		  [name]: type === "checkbox" ? checked : value,
+			...formData,
+			[name]: type === "checkbox" ? checked : value,
 		});
-	  };
-	
-	  const validateForm = () => {
+	};
+
+	const validateForm = () => {
 		const newErrors = {};
-	
+
 		if (!formData.firstName) newErrors.firstName = "First Name is required";
 		if (!formData.lastName) newErrors.lastName = "Last Name is required";
 		if (!formData.email) {
-		  newErrors.email = "Email is required";
+			newErrors.email = "Email is required";
 		} else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-		  newErrors.email = "Email format is invalid";
+			newErrors.email = "Email format is invalid";
 		}
 		if (!formData.phone) {
-		  newErrors.phone = "Phone number is required";
+			newErrors.phone = "Phone number is required";
 		} else if (!/^\d{10}$/.test(formData.phone)) {
-		  newErrors.phone = "Phone number must be 10 digits";
+			newErrors.phone = "Phone number must be 10 digits";
 		}
 		if (!formData.country) newErrors.country = "Country is required";
 		if (!formData.state) newErrors.state = "State is required";
 		if (!formData.city) newErrors.city = "City is required";
 		if (!formData.password) newErrors.password = "Password is required";
 		if (formData.password !== formData.confirmPassword) {
-		  newErrors.confirmPassword = "Passwords do not match";
+			newErrors.confirmPassword = "Passwords do not match";
 		}
 		if (!formData.termsAccepted) {
-		  newErrors.termsAccepted = "You must accept the terms and privacy policies";
+			newErrors.termsAccepted =
+				"You must accept the terms and privacy policies";
 		}
-	
+
 		setErrors(newErrors);
 		return Object.keys(newErrors).length === 0;
-	  };
-	  const handleSubmit = (e) => {
+	};
+	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (validateForm()) {
-		  // Proceed with form submission
-		  console.log("Form submitted successfully", formData);
+			console.log("Form submitted successfully", formData);
 		}
-	  };
-	
+	};
+
 	return (
 		<Card className="max-w-[630px] md:w-1/2 m-auto shadow-md p-6 rounded-2xl ">
 			<CardHeader>
@@ -100,7 +100,11 @@ export default function SignUpForm() {
 								value={formData.firstName}
 								onChange={handleInputChange}
 							/>
-							 {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
+							{errors.firstName && (
+								<p className="text-red-500 text-sm">
+									{errors.firstName}
+								</p>
+							)}
 						</div>
 						<div>
 							<Label htmlFor="lastName">
@@ -113,9 +117,13 @@ export default function SignUpForm() {
 								placeholder="last name"
 								className="rounded-xl  w-64"
 								value={formData.lastName}
-                                onChange={handleInputChange}
+								onChange={handleInputChange}
 							/>
-							{errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
+							{errors.lastName && (
+								<p className="text-red-500 text-sm">
+									{errors.lastName}
+								</p>
+							)}
 						</div>
 					</div>
 
@@ -132,9 +140,13 @@ export default function SignUpForm() {
 								placeholder="email"
 								className="rounded-xl w-64"
 								value={formData.email}
-                                onChange={handleInputChange}
+								onChange={handleInputChange}
 							/>
-							{errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+							{errors.email && (
+								<p className="text-red-500 text-sm">
+									{errors.email}
+								</p>
+							)}
 						</div>
 						<div>
 							<Label htmlFor="phone">
@@ -147,9 +159,13 @@ export default function SignUpForm() {
 								placeholder="91+"
 								className="rounded-xl w-64"
 								value={formData.phone}
-                                onChange={handleInputChange}
+								onChange={handleInputChange}
 							/>
-							{errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+							{errors.phone && (
+								<p className="text-red-500 text-sm">
+									{errors.phone}
+								</p>
+							)}
 						</div>
 					</div>
 
@@ -165,9 +181,13 @@ export default function SignUpForm() {
 								placeholder="country"
 								className="rounded-xl"
 								value={formData.country}
-                                onChange={handleInputChange}
+								onChange={handleInputChange}
 							/>
-							{errors.country && <p className="text-red-500 text-sm">{errors.country}</p>}
+							{errors.country && (
+								<p className="text-red-500 text-sm">
+									{errors.country}
+								</p>
+							)}
 						</div>
 						<div>
 							<Label htmlFor="state">
@@ -179,9 +199,13 @@ export default function SignUpForm() {
 								placeholder="state"
 								className="rounded-xl"
 								value={formData.state}
-                                onChange={handleInputChange}
+								onChange={handleInputChange}
 							/>
-							{errors.state && <p className="text-red-500 text-sm">{errors.state}</p>}
+							{errors.state && (
+								<p className="text-red-500 text-sm">
+									{errors.state}
+								</p>
+							)}
 						</div>
 						<div>
 							<Label htmlFor="state">
@@ -193,9 +217,13 @@ export default function SignUpForm() {
 								placeholder="city"
 								className="rounded-xl"
 								value={formData.city}
-                                onChange={handleInputChange}
+								onChange={handleInputChange}
 							/>
-							{errors.city && <p className="text-red-500 text-sm">{errors.city}</p>}
+							{errors.city && (
+								<p className="text-red-500 text-sm">
+									{errors.city}
+								</p>
+							)}
 						</div>
 					</div>
 
@@ -244,9 +272,13 @@ export default function SignUpForm() {
 							placeholder="password"
 							className="rounded-xl"
 							value={formData.password}
-                            onChange={handleInputChange}
+							onChange={handleInputChange}
 						/>
-						{errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+						{errors.password && (
+							<p className="text-red-500 text-sm">
+								{errors.password}
+							</p>
+						)}
 					</div>
 
 					{/* Confirm Password */}
@@ -261,9 +293,13 @@ export default function SignUpForm() {
 							placeholder="confirm password"
 							className="rounded-xl"
 							value={formData.confirmPassword}
-                            onChange={handleInputChange}
+							onChange={handleInputChange}
 						/>
-						{errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
+						{errors.confirmPassword && (
+							<p className="text-red-500 text-sm">
+								{errors.confirmPassword}
+							</p>
+						)}
 					</div>
 
 					{/* Terms & Conditions */}
