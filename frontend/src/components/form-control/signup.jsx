@@ -1,19 +1,11 @@
-import { SelectItem } from "@radix-ui/react-select";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import {
-	Select,
-	SelectContent,
-	SelectTrigger,
-	SelectValue,
-} from "../ui/select";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 import { Link } from "react-router-dom";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
-import Society from "./society";
-import { useState } from "react";
+import SellectSociety from "./SellectSociety";
 
 export default function SignUpForm() {
 	const [formData, setFormData] = useState({
@@ -233,32 +225,7 @@ export default function SignUpForm() {
 							Select Society{" "}
 							<span className="text-red-500">*</span>
 						</Label>
-						<Select defaultValue="">
-							<SelectTrigger>
-								<SelectValue
-									placeholder="select society"
-									className="rounded-xl"
-								/>
-							</SelectTrigger>
-							<SelectContent>
-								<SelectItem value="light">Light</SelectItem>
-								<SelectItem value="dark">Dark</SelectItem>
-								<SelectItem value="dark">Dark</SelectItem>
-								<SelectItem value="dark">Dark</SelectItem>
-								<SelectItem value="dark">Dark</SelectItem>
-								<SelectItem value="system">System</SelectItem>
-
-								{/* Create Society */}
-								<Dialog>
-									<DialogTrigger className="w-full bg-gradient-to-r  from-orange-600 to-orange-400 h-[51px] rounded-md text-white">
-										Create Society
-									</DialogTrigger>
-									<DialogContent>
-										<Society />
-									</DialogContent>
-								</Dialog>
-							</SelectContent>
-						</Select>
+						<SellectSociety />
 					</div>
 
 					{/* Password */}

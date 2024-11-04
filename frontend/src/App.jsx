@@ -6,6 +6,7 @@ import Login from "./pages/auth/LoginPage";
 import ForgotPassPage from "./pages/auth/ForgotPassPage";
 //TEST IMPORTS
 import Slider from "./test/Slider";
+import Sellect from "./test/Sellect";
 
 //ADMIN IMPORTS
 import Dashboard from "./pages/admin/Dashboard";
@@ -20,6 +21,7 @@ import Announcement from "./pages/admin/Announcement";
 function App() {
 	return (
 		<Routes>
+			{/* AUTH ROUTES */}
 			<Route path="/signup" element={<Signup />} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/forgot-pass" element={<ForgotPassPage />} />
@@ -37,8 +39,9 @@ function App() {
 			{/* RESIDENTS ROUTES */}
 			{/* SECURITY ROUTES */}
 
-			{/* TEST */}
+			{/* TEST ROUTES*/}
 			<Route path="/slider" element={<Slider />} />
+			<Route path="/select" element={<Sellect />} />
 		</Routes>
 	);
 }
