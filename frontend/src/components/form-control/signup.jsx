@@ -1,19 +1,45 @@
-import { SelectItem } from "@radix-ui/react-select";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import {
-	Select,
-	SelectContent,
-	SelectTrigger,
-	SelectValue,
-} from "../ui/select";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 import { Link } from "react-router-dom";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
-import Society from "./society";
-import { useState } from "react";
+import SellectSociety from "./SellectSociety";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+
+// Custom PasswordInput component
+function PasswordInput({ name, placeholder, value, onChange, error }) {
+	const [showPassword, setShowPassword] = useState(false);
+
+	const togglePasswordVisibility = () => {
+		setShowPassword(!showPassword);
+	};
+
+	return (
+		<div className="relative">
+			<Input
+				name={name}
+				type={showPassword ? "text" : "password"}
+				placeholder={placeholder}
+				className="rounded-xl w-full pr-10"
+				value={value}
+				onChange={onChange}
+			/>
+			<div
+				onClick={togglePasswordVisibility}
+				className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+			>
+				{showPassword ? (
+					<EyeIcon className="w-5 h-5 text-gray-500" />
+				) : (
+					<EyeOffIcon className="w-5 h-5 text-gray-500" />
+				)}
+			</div>
+			{error && <p className="text-red-500 text-sm">{error}</p>}
+		</div>
+	);
+}
 
 export default function SignUpForm() {
 	const [formData, setFormData] = useState({
@@ -28,266 +54,250 @@ export default function SignUpForm() {
 		confirmPassword: "",
 		society: "",
 		termsAccepted: false,
-	  });
-	  const [errors, setErrors] = useState({});
+	});
+	const [errors, setErrors] = useState({});
+	const [isSubmitDisabled, setSubmitDisabled] = useState(true);
 
-	  const handleInputChange = (e) => {
+	const handleInputChange = (e) => {
 		const { name, value, type, checked } = e.target;
 		setFormData({
-		  ...formData,
-		  [name]: type === "checkbox" ? checked : value,
+			...formData,
+			[name]: type === "checkbox" ? checked : value,
 		});
-	  };
-	
-	  const validateForm = () => {
+	};
+
+	const validateForm = () => {
 		const newErrors = {};
-	
+
 		if (!formData.firstName) newErrors.firstName = "First Name is required";
 		if (!formData.lastName) newErrors.lastName = "Last Name is required";
 		if (!formData.email) {
-		  newErrors.email = "Email is required";
+			newErrors.email = "Email is required";
 		} else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-		  newErrors.email = "Email format is invalid";
+			newErrors.email = "Email format is invalid";
 		}
 		if (!formData.phone) {
-		  newErrors.phone = "Phone number is required";
+			newErrors.phone = "Phone number is required";
 		} else if (!/^\d{10}$/.test(formData.phone)) {
-		  newErrors.phone = "Phone number must be 10 digits";
+			newErrors.phone = "Phone number must be 10 digits";
 		}
 		if (!formData.country) newErrors.country = "Country is required";
 		if (!formData.state) newErrors.state = "State is required";
 		if (!formData.city) newErrors.city = "City is required";
 		if (!formData.password) newErrors.password = "Password is required";
 		if (formData.password !== formData.confirmPassword) {
-		  newErrors.confirmPassword = "Passwords do not match";
+			newErrors.confirmPassword = "Passwords do not match";
 		}
 		if (!formData.termsAccepted) {
-		  newErrors.termsAccepted = "You must accept the terms and privacy policies";
+			newErrors.termsAccepted = "You must accept the terms and privacy policies";
 		}
-	
+
 		setErrors(newErrors);
+		setSubmitDisabled(Object.keys(newErrors).length > 0);
 		return Object.keys(newErrors).length === 0;
-	  };
-	  const handleSubmit = (e) => {
+	};
+
+	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (validateForm()) {
-		  // Proceed with form submission
-		  console.log("Form submitted successfully", formData);
+			console.log("Form submitted successfully", formData);
 		}
-	  };
-	
+	};
+
 	return (
-		<Card className="max-w-[630px] md:w-1/2 m-auto shadow-md p-6 rounded-2xl ">
+		<Card className="max-w-[630px] w-full md:w-1/2 m-auto shadow-md p-6 rounded-2xl">
 			<CardHeader>
-				<CardTitle className="text-4xl font-bold ">
+				<CardTitle className="text-3xl md:text-4xl font-bold">
 					Registration
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<form onSubmit={handleSubmit} className="space-y-4">
+				<form onSubmit={handleSubmit} onChange={validateForm} className="space-y-4">
 					{/* First Name & Last Name */}
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
 							<Label htmlFor="firstName" className="text-sm">
-								First Name{" "}
-								<span className="text-red-500">*</span>
+								First Name <span className="text-red-500">*</span>
 							</Label>
 							<Input
 								name="firstName"
 								type="text"
 								placeholder="First name"
-								className="rounded-xl w-64"
+								className="rounded-xl w-full"
 								value={formData.firstName}
 								onChange={handleInputChange}
 							/>
-							 {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
+							{errors.firstName && (
+								<p className="text-red-500 text-sm">
+									{errors.firstName}
+								</p>
+							)}
 						</div>
 						<div>
-							<Label htmlFor="lastName">
-								Last Name{" "}
-								<span className="text-red-500">*</span>
+							<Label htmlFor="lastName" className="text-sm">
+								Last Name <span className="text-red-500">*</span>
 							</Label>
 							<Input
 								name="lastName"
 								type="text"
-								placeholder="last name"
-								className="rounded-xl  w-64"
+								placeholder="Last name"
+								className="rounded-xl w-full"
 								value={formData.lastName}
-                                onChange={handleInputChange}
+								onChange={handleInputChange}
 							/>
-							{errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
+							{errors.lastName && (
+								<p className="text-red-500 text-sm">
+									{errors.lastName}
+								</p>
+							)}
 						</div>
 					</div>
 
-					{/* Email & Phone number */}
+					{/* Email & Phone Number */}
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
-							<Label htmlFor="email">
-								Email Address{" "}
-								<span className="text-red-500">*</span>
+							<Label htmlFor="email" className="text-sm">
+								Email Address <span className="text-red-500">*</span>
 							</Label>
 							<Input
 								name="email"
 								type="email"
-								placeholder="email"
-								className="rounded-xl w-64"
+								placeholder="Email"
+								className="rounded-xl w-full"
 								value={formData.email}
-                                onChange={handleInputChange}
+								onChange={handleInputChange}
 							/>
-							{errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+							{errors.email && (
+								<p className="text-red-500 text-sm">{errors.email}</p>
+							)}
 						</div>
 						<div>
-							<Label htmlFor="phone">
-								Phone Number{" "}
-								<span className="text-red-500">*</span>
+							<Label htmlFor="phone" className="text-sm">
+								Phone Number <span className="text-red-500">*</span>
 							</Label>
 							<Input
 								name="phone"
 								type="tel"
 								placeholder="91+"
-								className="rounded-xl w-64"
+								className="rounded-xl w-full"
 								value={formData.phone}
-                                onChange={handleInputChange}
+								onChange={handleInputChange}
 							/>
-							{errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+							{errors.phone && (
+								<p className="text-red-500 text-sm">{errors.phone}</p>
+							)}
 						</div>
 					</div>
 
-					{/* Country & State */}
+					{/* Country, State, and City */}
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 						<div>
-							<Label htmlFor="country">
+							<Label htmlFor="country" className="text-sm">
 								Country <span className="text-red-500">*</span>
 							</Label>
 							<Input
 								name="country"
 								type="text"
-								placeholder="country"
-								className="rounded-xl"
+								placeholder="Country"
+								className="rounded-xl w-full"
 								value={formData.country}
-                                onChange={handleInputChange}
+								onChange={handleInputChange}
 							/>
-							{errors.country && <p className="text-red-500 text-sm">{errors.country}</p>}
+							{errors.country && (
+								<p className="text-red-500 text-sm">{errors.country}</p>
+							)}
 						</div>
 						<div>
-							<Label htmlFor="state">
+							<Label htmlFor="state" className="text-sm">
 								State <span className="text-red-500">*</span>
 							</Label>
 							<Input
 								name="state"
 								type="text"
-								placeholder="state"
-								className="rounded-xl"
+								placeholder="State"
+								className="rounded-xl w-full"
 								value={formData.state}
-                                onChange={handleInputChange}
+								onChange={handleInputChange}
 							/>
-							{errors.state && <p className="text-red-500 text-sm">{errors.state}</p>}
+							{errors.state && (
+								<p className="text-red-500 text-sm">{errors.state}</p>
+							)}
 						</div>
 						<div>
-							<Label htmlFor="state">
+							<Label htmlFor="city" className="text-sm">
 								City <span className="text-red-500">*</span>
 							</Label>
 							<Input
 								name="city"
 								type="text"
-								placeholder="city"
-								className="rounded-xl"
+								placeholder="City"
+								className="rounded-xl w-full"
 								value={formData.city}
-                                onChange={handleInputChange}
+								onChange={handleInputChange}
 							/>
-							{errors.city && <p className="text-red-500 text-sm">{errors.city}</p>}
+							{errors.city && (
+								<p className="text-red-500 text-sm">{errors.city}</p>
+							)}
 						</div>
 					</div>
 
 					{/* Select Society */}
 					<div>
-						<Label htmlFor="society">
-							Select Society{" "}
-							<span className="text-red-500">*</span>
+						<Label htmlFor="society" className="text-sm">
+							Select Society <span className="text-red-500">*</span>
 						</Label>
-						<Select defaultValue="">
-							<SelectTrigger>
-								<SelectValue
-									placeholder="select society"
-									className="rounded-xl"
-								/>
-							</SelectTrigger>
-							<SelectContent>
-								<SelectItem value="light">Light</SelectItem>
-								<SelectItem value="dark">Dark</SelectItem>
-								<SelectItem value="dark">Dark</SelectItem>
-								<SelectItem value="dark">Dark</SelectItem>
-								<SelectItem value="dark">Dark</SelectItem>
-								<SelectItem value="system">System</SelectItem>
-
-								{/* Create Society */}
-								<Dialog>
-									<DialogTrigger className="w-full bg-gradient-to-r  from-orange-600 to-orange-400 h-[51px] rounded-md text-white">
-										Create Society
-									</DialogTrigger>
-									<DialogContent>
-										<Society />
-									</DialogContent>
-								</Dialog>
-							</SelectContent>
-						</Select>
+						<SellectSociety />
 					</div>
 
-					{/* Password */}
+					{/* Password & Confirm Password */}
 					<div>
-						<Label htmlFor="password">
+						<Label htmlFor="password" className="text-sm">
 							Password <span className="text-red-500">*</span>
 						</Label>
-						<Input
+						<PasswordInput
 							name="password"
-							type="password"
-							placeholder="password"
-							className="rounded-xl"
+							placeholder="Enter your password"
 							value={formData.password}
-                            onChange={handleInputChange}
+							onChange={handleInputChange}
+							error={errors.password}
 						/>
-						{errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
 					</div>
 
-					{/* Confirm Password */}
+					{/* Confirm Password Field */}
 					<div>
-						<Label htmlFor="confirmPassword">
-							Confirm Password{" "}
-							<span className="text-red-500">*</span>
+						<Label htmlFor="confirmPassword" className="text-sm">
+							Confirm Password <span className="text-red-500">*</span>
 						</Label>
-						<Input
+						<PasswordInput
 							name="confirmPassword"
-							type="Password"
-							placeholder="confirm password"
-							className="rounded-xl"
+							placeholder="Confirm your password"
 							value={formData.confirmPassword}
-                            onChange={handleInputChange}
+							onChange={handleInputChange}
+							error={errors.confirmPassword}
 						/>
-						{errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
 					</div>
 
 					{/* Terms & Conditions */}
 					<div className="flex items-center">
-						<Checkbox />
-						<Label htmlFor="terms" className="ml-2">
+						<Checkbox name="termsAccepted" onChange={handleInputChange} />
+						<Label htmlFor="terms" className="ml-2 text-sm">
 							I agree to all the Terms and{" "}
-							<span className="text-orange-500">
-								Privacy Policies.
-							</span>
+							<span className="text-orange-500">Privacy Policies.</span>
 						</Label>
 					</div>
 
 					{/* Submit Button */}
 					<Button
 						type="submit"
-						className="w-full bg-gradient-to-r  from-orange-600 to-orange-400 h-[51px]"
+						disabled={isSubmitDisabled}
+						className="w-full bg-gradient-to-r from-orange-600 to-orange-400 h-[51px] rounded-xl text-white disabled:opacity-50"
 					>
 						Register
 					</Button>
 				</form>
 
 				{/* Already have an account */}
-				<div className="text-center mt-4">
+				<div className="text-center mt-4 text-sm">
 					<p>
 						Already have an account?{" "}
 						<Link to="/login" className="text-orange-500">
