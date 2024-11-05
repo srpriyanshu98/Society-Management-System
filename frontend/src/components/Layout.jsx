@@ -4,12 +4,12 @@ import Header from "./Header";
 export default function Layout({ userRole, children }) {
 	return (
 		<div className="flex flex-col h-screen">
-			<div className="flex flex-1">
+			<div className="flex flex-col">
 				<Sidebar userRole={userRole} />
-				<div className="flex-1 p-6 ml-64 bg-gray-50 overflow-auto">
-					<Header />
-					{children}
-				</div>
+				<Header />
+			</div>
+			<div className="flex-1 p-6 ml-64 bg-gray-50 overflow-auto">
+				{children}
 			</div>
 		</div>
 	);

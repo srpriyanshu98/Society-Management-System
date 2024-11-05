@@ -4,7 +4,6 @@ import {
 	BreadcrumbItem,
 	BreadcrumbLink,
 	BreadcrumbList,
-	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from "./ui/breadcrumb";
 import { useLocation } from "react-router-dom";
@@ -19,7 +18,7 @@ export default function Header() {
 
 	const breadcrumbItems = getBreadcrumbItems();
 	return (
-		<header className="flex justify-between items-center p-4 bg-white shadow-md">
+		<header className="flex justify-between items-center p-4 ml-64 bg-white shadow-md h-[100px]">
 			<div className="flex items-center space-x-4">
 				<Breadcrumb>
 					<BreadcrumbList>
@@ -35,10 +34,6 @@ export default function Header() {
 								)}
 							</React.Fragment>
 						))}
-						<BreadcrumbSeparator />
-						<BreadcrumbItem>
-							<BreadcrumbPage>Breadcrumb</BreadcrumbPage>
-						</BreadcrumbItem>
 					</BreadcrumbList>
 				</Breadcrumb>
 			</div>
