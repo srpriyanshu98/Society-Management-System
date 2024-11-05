@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { InputOTP, InputOTPSlot } from "../ui/input-otp";
 import { EyeIcon, EyeOffIcon } from "lucide-react"; // Assume lucide-react icons are used
+import { Link } from "react-router-dom";
 
 // Custom Password Input Component
 function PasswordInput({ label, value, onChange, placeholder }) {
@@ -144,10 +145,24 @@ export default function ResetPassword() {
 								/>
 							</div>
 
-							<Button type="submit" className="w-full py-2 md:py-3 bg-gradient-to-r from-orange-600 to-orange-400 text-white rounded-xl">
+							<Button
+								type="submit"
+								className={`w-full py-2 md:py-3 rounded-xl text-white ${emailOrPhone ? "bg-gradient-to-r from-orange-600 to-orange-400" : "bg-gray-400 cursor-not-allowed"
+									}`}
+								disabled={!emailOrPhone}
+							>
 								Get OTP
 							</Button>
+
+							<div className="text-center mt-4 text-sm">
+								<p>
+									<Link to="/login" className="text-orange-500">
+										Back To Login
+									</Link>
+								</p>
+							</div>
 						</form>
+
 					</>
 				) : otpVerified ? (
 					<>

@@ -8,9 +8,12 @@ import { Link } from "react-router-dom";
 import SellectSociety from "./SellectSociety";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 
+
+
 // Custom PasswordInput component
 function PasswordInput({ name, placeholder, value, onChange, error }) {
 	const [showPassword, setShowPassword] = useState(false);
+
 
 	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
@@ -42,6 +45,12 @@ function PasswordInput({ name, placeholder, value, onChange, error }) {
 }
 
 export default function SignUpForm() {
+	const [isChecked, setIsChecked] = useState(false);
+
+	const handleCheckboxChange = () => {
+		setIsChecked((prev) => !prev);
+	};
+
 	const [formData, setFormData] = useState({
 		firstName: "",
 		lastName: "",
@@ -56,7 +65,6 @@ export default function SignUpForm() {
 		termsAccepted: false,
 	});
 	const [errors, setErrors] = useState({});
-	const [isSubmitDisabled, setSubmitDisabled] = useState(true);
 
 	const handleInputChange = (e) => {
 		const { name, value, type, checked } = e.target;
@@ -89,14 +97,13 @@ export default function SignUpForm() {
 			newErrors.confirmPassword = "Passwords do not match";
 		}
 		if (!formData.termsAccepted) {
-			newErrors.termsAccepted = "You must accept the terms and privacy policies";
+			newErrors.termsAccepted =
+				"You must accept the terms and privacy policies";
 		}
 
 		setErrors(newErrors);
-		setSubmitDisabled(Object.keys(newErrors).length > 0);
 		return Object.keys(newErrors).length === 0;
 	};
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (validateForm()) {
@@ -112,7 +119,7 @@ export default function SignUpForm() {
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<form onSubmit={handleSubmit} onChange={validateForm} className="space-y-4">
+				<form onSubmit={handleSubmit} className="space-y-4">
 					{/* First Name & Last Name */}
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
@@ -250,6 +257,7 @@ export default function SignUpForm() {
 					</div>
 
 					{/* Password & Confirm Password */}
+
 					<div>
 						<Label htmlFor="password" className="text-sm">
 							Password <span className="text-red-500">*</span>
@@ -261,6 +269,11 @@ export default function SignUpForm() {
 							onChange={handleInputChange}
 							error={errors.password}
 						/>
+						{errors.password && (
+							<p className="text-red-500 text-sm">
+								{errors.password}
+							</p>
+						)}
 					</div>
 
 					{/* Confirm Password Field */}
@@ -275,22 +288,35 @@ export default function SignUpForm() {
 							onChange={handleInputChange}
 							error={errors.confirmPassword}
 						/>
+						{errors.confirmPassword && (
+							<p className="text-red-500 text-sm">
+								{errors.confirmPassword}
+							</p>
+						)}
 					</div>
 
 					{/* Terms & Conditions */}
 					<div className="flex items-center">
-						<Checkbox name="termsAccepted" onChange={handleInputChange} />
+						<input
+							type="checkbox"
+							id="terms"
+							checked={isChecked}
+							onChange={handleCheckboxChange}
+							className="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
+						/>
 						<Label htmlFor="terms" className="ml-2 text-sm">
 							I agree to all the Terms and{" "}
-							<span className="text-orange-500">Privacy Policies.</span>
+							<span className="text-orange-500">
+								Privacy Policies.
+							</span>
 						</Label>
 					</div>
 
 					{/* Submit Button */}
 					<Button
 						type="submit"
-						disabled={isSubmitDisabled}
-						className="w-full bg-gradient-to-r from-orange-600 to-orange-400 h-[51px] rounded-xl text-white disabled:opacity-50"
+						className="w-full bg-gradient-to-r from-orange-600 to-orange-400 h-[51px] rounded-xl text-white"
+						disabled={!isChecked} // Disable button when checkbox is not checked
 					>
 						Register
 					</Button>
@@ -307,5 +333,6 @@ export default function SignUpForm() {
 				</div>
 			</CardContent>
 		</Card>
+
 	);
 }

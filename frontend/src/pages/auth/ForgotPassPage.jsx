@@ -29,14 +29,14 @@ export default function ForgotPassPage() {
 			</div>
 	  
 			{/* Right side - Form */}
-			<div className="w-full md:w-1/2 h-screen flex items-start md:items-start justify-center p-4 relative">
+			
 				<img
 					src="./src/assets/bg-graphic.png"
 					alt=""
 					className="absolute top-0 right-0 h-full md:h-screen -z-10"
 				/>
 				<ResetPassword />
-			</div>
+			
 		</div>
 	);
 }

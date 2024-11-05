@@ -4,17 +4,17 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
-import { Checkbox } from "../ui/checkbox";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 // Custom PasswordInput component
 function PasswordInput({ placeholder, value, onChange }) {
 	const [showPassword, setShowPassword] = useState(false);
+	
 
 	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
 	};
-
+	
 	return (
 		<div className="relative">
 			<Input
@@ -42,6 +42,7 @@ export default function LoginForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [errors, setErrors] = useState({ email: "", password: "" });
+	const [isChecked, setIsChecked] = useState(false);
 
 	const validateForm = () => {
 		let valid = true;
@@ -65,6 +66,10 @@ export default function LoginForm() {
 		if (validateForm()) {
 			console.log("Form submitted");
 		}
+	};
+
+	const handleCheckboxChange = () => {
+		setIsChecked((prev) => !prev);
 	};
 
 	return (
@@ -106,7 +111,13 @@ export default function LoginForm() {
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						{/* Remember me */}
 						<div className="flex items-center">
-							<Checkbox />
+							<input
+								type="checkbox"
+								id="terms"
+								checked={isChecked}
+								onChange={handleCheckboxChange}
+								className="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
+							/>
 							<Label htmlFor="terms" className="ml-2">
 								Remember me
 							</Label>
@@ -122,12 +133,8 @@ export default function LoginForm() {
 					{/* Submit Button */}
 					<Button
 						type="submit"
-						disabled={!email || !password}
-						className={`w-full h-12 md:h-[51px] mt-2 ${
-							email && password
-								? "bg-gradient-to-r from-orange-600 to-orange-400 hover:from-orange-500 hover:to-orange-300"
-								: "bg-gray-300 cursor-not-allowed"
-						}`}
+						className="w-full h-12 md:h-[51px] mt-2 bg-gradient-to-r from-orange-600 to-orange-400 hover:from-orange-500 hover:to-orange-300"
+						disabled={!isChecked} // Disable button when checkbox is not checked
 					>
 						Sign In
 					</Button>
