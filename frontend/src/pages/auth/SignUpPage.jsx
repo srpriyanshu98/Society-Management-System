@@ -2,6 +2,7 @@ import SignUpForm from "@/components/form-control/signup";
 import { useState, useEffect } from "react";
 
 export default function Signup() {
+
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	const slides = [
@@ -73,7 +74,7 @@ export default function Signup() {
 
 				</div>
 				{/* Pagination */}
-				{/* <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 top-[770px] flex space-x-2">
+				<div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 top-[770px] flex space-x-2">
 					{slides.map((_, index) => (
 						<span
 							key={index}
@@ -82,7 +83,7 @@ export default function Signup() {
 							onClick={() => setCurrentIndex(index)}
 						></span>
 					))}
-				</div> */}
+				</div>
 
 
 			</div>
@@ -101,4 +102,6 @@ export default function Signup() {
 
 		</div>
 	);
+
+
 }
