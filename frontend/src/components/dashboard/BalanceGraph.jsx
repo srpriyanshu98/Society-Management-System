@@ -1,29 +1,85 @@
-import { Card } from "@/components/ui/card";
 import {
-	Select,
-	SelectTrigger,
-	SelectContent,
-	SelectItem,
-} from "@/components/ui/select";
+	CartesianGrid,
+	Line,
+	LineChart,
+	XAxis,
+	YAxis,
+	Tooltip,
+	ResponsiveContainer,
+} from "recharts";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { chartData } from "@/data/chartData";
+
+export const description =
+	"A line chart with blue color, shadow, and padding before and after the line.";
 
 export default function BalanceGraph() {
 	return (
-		<Card className="p-4">
-			<div className="flex justify-between items-center">
-				<h3 className="text-lg font-semibold">Total Balance</h3>
-				<Select>
-					<SelectTrigger className="w-32">
-						<SelectItem>Last month</SelectItem>
-					</SelectTrigger>
-					<SelectContent>
-						<SelectItem>Last week</SelectItem>
-						<SelectItem>Last month</SelectItem>
-						<SelectItem>Last year</SelectItem>
-					</SelectContent>
-				</Select>
-			</div>
-			{/* Placeholder for chart - integrate a chart library here */}
-			<div className="mt-4 h-32 bg-gray-100 rounded-md">[Chart]</div>
+		<Card>
+			<CardHeader>
+				<CardTitle>Total Balance</CardTitle>
+			</CardHeader>
+			<CardContent className="flex flex-col h-full justify-center">
+				<div className="w-full h-[300px]">
+					<ResponsiveContainer>
+						<LineChart
+							data={chartData}
+							margin={{
+								top: 10,
+								right: 10,
+								left: 10,
+								bottom: 20,
+							}}
+						>
+							<defs>
+								<filter
+									id="shadow"
+									x="-50%"
+									y="-50%"
+									width="200%"
+									height="200%"
+								>
+									<feDropShadow floodColor="#a79cf9" />
+								</filter>
+								<linearGradient id="colorGradient" y2="1">
+									<stop
+										offset="100%"
+										stopColor="#a79cf9"
+										stopOpacity={0.1}
+									/>
+								</linearGradient>
+							</defs>
+							<CartesianGrid vertical={false} />
+							<XAxis
+								dataKey="month"
+								tickLine={false}
+								tickMargin={20}
+								tickFormatter={(value) => value.slice(0, 3)}
+							/>
+							<YAxis
+								tickLine={false}
+								tickMargin={20}
+								tickFormatter={(value) => `${value / 10}k`}
+							/>
+							<Tooltip
+								contentStyle={{
+									borderRadius: "8px",
+									borderColor: "#a79cf9",
+								}}
+							/>
+							<Line
+								type="monotone"
+								dataKey="desktop"
+								// stroke="url(#colorGradient)"
+								strokeWidth={2}
+								dot={{ r: 4, fill: "#a79cf9" }}
+								activeDot={{ r: 6, fill: "#a79cf9" }}
+								style={{ filter: "url(#shadow)" }}
+							/>
+						</LineChart>
+					</ResponsiveContainer>
+				</div>
+			</CardContent>
 		</Card>
 	);
 }
