@@ -13,7 +13,6 @@ export default function CreateSociety({ onCreateSociety }) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const newSociety = {
-			// value: societyName.toLowerCase().replace(/\s+/g, "-"),
 			label: societyName,
 		};
 		onCreateSociety(newSociety);

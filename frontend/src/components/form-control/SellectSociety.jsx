@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+	Dialog,
+	DialogContent,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
 import {
 	Select,
 	SelectContent,
@@ -15,7 +20,12 @@ export default function SelectSociety() {
 	const [societies, setSocieties] = useState([]);
 
 	const handleCreateSociety = (newSociety) => {
-		setSocieties([...societies, newSociety]);
+		const uniqueValue = `${newSociety.label
+			.toLowerCase()
+			.replace(/\s+/g, "-")}-${Date.now()}`;
+		const societyWithUniqueValue = { ...newSociety, value: uniqueValue };
+		setSocieties([...societies, societyWithUniqueValue]);
+		setSelectedValue(uniqueValue); // Set the newly created society as the selected value
 	};
 
 	return (
@@ -28,7 +38,11 @@ export default function SelectSociety() {
 					placeholder="Select society"
 					className="rounded-xl"
 				>
-					{selectedValue || "Select society"}
+					{selectedValue
+						? societies.find(
+								(society) => society.value === selectedValue
+						  ).label
+						: "Select society"}
 				</SelectValue>
 			</SelectTrigger>
 			<SelectContent>
@@ -46,6 +60,7 @@ export default function SelectSociety() {
 						Create Society
 					</DialogTrigger>
 					<DialogContent>
+						<DialogTitle></DialogTitle>
 						<CreateSociety onCreateSociety={handleCreateSociety} />
 					</DialogContent>
 				</Dialog>
