@@ -23,11 +23,11 @@ function App() {
 		<Routes>
 			{/* AUTH ROUTES */}
 			<Route path="/signup" element={<Signup />} />
-			<Route path="/login" element={<Login />} />
+			<Route path="/" element={<Login />} />
 			<Route path="/forgot-pass" element={<ForgotPassPage />} />
 
 			{/* ADMIN ROUTES*/}
-			<Route path="/" element={<Dashboard />} />
+			<Route path="/dashboard" element={<Dashboard />} />
 			<Route path="/residents" element={<ResidentManagement />} />
 			<Route path="/financial" element={<FinancialManagement />} />
 			<Route path="/facilities" element={<FacilityManagement />} />
