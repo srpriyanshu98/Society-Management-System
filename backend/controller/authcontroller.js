@@ -96,7 +96,7 @@ export const forgotPassword = async (req, res) => {
 			from: "vishal@gmail.com",
 			subject: "Password Reset",
 			text: `You requested a password reset.\n\n
-                 Click the link below to reset your password:${ENV_VARS.CLIENT_URL}\n
+                 Click the link below to reset your password:http://localhost:5000/api/auth \n
                  /reset-password/${resetToken}\n\n`,
 		};
 
@@ -136,4 +136,20 @@ export const resetPassword = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({ message: "Server error" });
 	}
+};
+
+// Update a user profile by ID
+export const updateProfile = async (req, res) => {
+  try {
+    const userprofile = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!userprofile) {
+      return res.status(404).json({ message: "userprofile not found" });
+    }
+    res.status(200).json(userprofile);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 };

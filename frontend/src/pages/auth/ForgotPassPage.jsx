@@ -4,8 +4,10 @@ export default function ForgotPassPage() {
 	// States for the process
 
 	return (
+		
 		<div className="min-h-screen flex flex-col md:flex-row items-center relative">
-			{/* LOGO */}
+			{/* Left side - Image */}
+			<div className="w-full md:w-1/2 bg-transparent md:bg-[#F6F8FB] h-screen flex items-center justify-center p-4 relative">
 			<img
 				src="./src/assets/Bright Web.png"
 				alt="Illustration"
@@ -24,9 +26,17 @@ export default function ForgotPassPage() {
 					className="absolute top-0 right-0 h-screen -z-10"
 				/>
 			</div>
-
+			</div>
+	  
 			{/* Right side - Form */}
-			<ResetPassword />
+			
+				<img
+					src="./src/assets/bg-graphic.png"
+					alt=""
+					className="absolute top-0 right-0 h-full md:h-screen -z-10"
+				/>
+				<ResetPassword />
+			
 		</div>
 	);
 }

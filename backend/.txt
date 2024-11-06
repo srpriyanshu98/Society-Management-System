@@ -4,8 +4,8 @@ router.post("/register", register);
 router.post("/login", login);
 router.post("/logout", logout);
 
-
-
+671adb5bda297528780cf57c
+formData.society
 // society management api
 
 
@@ -15,3 +15,21 @@ router.get("/getSocieties", getSocieties); // Get all societies
 // forget api 
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password/:token", resetPassword);"
+
+//Create complain
+http://localhost:5000/api/complaints/
+
+//Create important number
+http://localhost:5000/api/important-numbers/
+
+//Create owners
+http://localhost:5000/api/owners
+
+//Create tenant
+http://localhost:5000/api/tenants
+
+//Create vehicle
+http://localhost:5000/api/vehicles
+
+
+
