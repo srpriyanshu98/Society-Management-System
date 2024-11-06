@@ -23,13 +23,31 @@ http://localhost:5000/api/complaints/
 http://localhost:5000/api/important-numbers/
 
 //Create owners
-http://localhost:5000/api/owners
+http://localhost:5000/api/owners/
 
 //Create tenant
-http://localhost:5000/api/tenants
+http://localhost:5000/api/tenants/
 
 //Create vehicle
-http://localhost:5000/api/vehicles
+http://localhost:5000/api/vehicles/
 
+//Create maintenance
+http://localhost:5000/api/maintenance/
 
+//Create otherincome
+http://localhost:5000/api/otherIncome/
 
+//Create expense
+http://localhost:5000/api/expense/
+
+//Create note
+http://localhost:5000/api/notes/
+
+//Create facilities
+http://localhost:5000/api/facilities/
+
+//Create requests
+http://localhost:5000/api/requests/
+
+//Create security-protocols
+http://localhost:5000/api/security-protocols/

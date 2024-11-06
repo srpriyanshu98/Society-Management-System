@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
+import { sendMail } from "../config/mailer.js";
 
 export const register = async (req, res) => {
   const {
@@ -64,72 +65,56 @@ export const logout = (req, res) => {
   res.status(200).json({ message: "Logged out successfully" });
 };
 
+// Generate a 6-digit OTP
+const generateOtp = () => crypto.randomInt(100000, 999999).toString();
+
+// Request OTP for password reset
 export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
   try {
-    const { email } = req.body;
-
-    // Check if the user exists
     const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    // Generate a reset token and set expiration
-    const resetToken = crypto.randomBytes(32).toString("hex");
-    user.resetPasswordToken = resetToken;
-    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    // Generate OTP and expiry (5 minutes from now)
+    const otp = generateOtp();
+    const otpExpiry = Date.now() + 5 * 60 * 1000;
+
+    // Update user with OTP and expiry
+    user.otp = otp;
+    user.otpExpiry = otpExpiry;
     await user.save();
 
-    // Set up email transport
-    const transporter = nodemailer.createTransport({
-      service: "Gmail",
-      auth: {
-        user: ENV_VARS.MY_GMAIL,
-        pass: ENV_VARS.MY_PASSWORD,
-      },
-    });
+    // Send OTP email
+    await sendMail(
+      email,
+      "Password Reset OTP",
+      `Your OTP code is ${otp}. It will expire in 5 minutes.`
+    );
 
-    // Send the email
-    const mailOptions = {
-      to: email,
-      from: "vishal@gmail.com",
-      subject: "Password Reset",
-      text: `You requested a password reset.\n\n
-                 Click the link below to reset your password:${ENV_VARS.CLIENT_URL}\n
-                 /reset-password/${resetToken}\n\n`,
-    };
-
-    await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: "Password reset email sent" });
+    res.status(200).json({ message: "OTP sent to your email" });
   } catch (error) {
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: error.message });
   }
 };
 
+// Verify OTP and reset password
 export const resetPassword = async (req, res) => {
+  const { email, otp, newPassword } = req.body;
   try {
-    const { token } = req.params;
-    const { password } = req.body;
-
-    // Find user by reset token and check expiration
-    const user = await User.findOne({
-      resetPasswordToken: token,
-      resetPasswordExpires: { $gt: Date.now() },
-    });
-
-    if (!user) {
-      return res.status(400).json({ message: "Invalid or expired token" });
+    const user = await User.findOne({ email });
+    if (!user || user.otp !== otp || Date.now() > user.otpExpiry) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
     }
 
-    // Hash the new password and update user
-    user.password = await bcrypt.hash(password, 10);
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
+    // Update password and clear OTP
+    user.password = newPassword;
+    user.otp = undefined;
+    user.otpExpiry = undefined;
     await user.save();
 
-    res.status(200).json({ message: "Password has been reset successfully" });
+    res.status(200).json({ message: "Password updated successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: error.message });
   }
 };
 

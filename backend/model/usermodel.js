@@ -17,8 +17,8 @@ const userSchema = new mongoose.Schema(
       required: true,
     }, // This can be an ID if you have a Society model
     password: { type: String, required: true },
-    resetPasswordToken: String,
-    resetPasswordExpires: Date,
+    otp: { type: String },
+    otpExpiry: { type: Date },
   },
   { timestamps: true }
 );
