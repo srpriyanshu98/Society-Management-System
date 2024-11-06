@@ -3,6 +3,41 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { InputOTP, InputOTPSlot } from "../ui/input-otp";
+import { EyeIcon, EyeOffIcon } from "lucide-react"; // Assume lucide-react icons are used
+import { Link } from "react-router-dom";
+
+// Custom Password Input Component
+function PasswordInput({ label, value, onChange, placeholder }) {
+	const [showPassword, setShowPassword] = useState(false);
+
+	const toggleShowPassword = () => setShowPassword(!showPassword);
+
+	return (
+		<div className="relative">
+			<label className="block text-sm font-medium text-gray-700">
+				{label} <span className="text-red-500">*</span>
+			</label>
+			<Input
+				type={showPassword ? "text" : "password"}
+				value={value}
+				onChange={onChange}
+				className="mt-1 block w-full pr-10"
+				placeholder={placeholder}
+				required
+			/>
+			<div
+				className="absolute inset-y-0 right-3 top-6 flex items-center cursor-pointer"
+				onClick={toggleShowPassword}
+			>
+				{showPassword ? (
+					<EyeIcon className="h-5 w-5 text-gray-400" />
+				) : (
+					<EyeOffIcon className="h-5 w-5 text-gray-400" />
+				)}
+			</div>
+		</div>
+	);
+}
 
 export default function ResetPassword() {
 	const [otpSent, setOtpSent] = useState(false);
@@ -71,9 +106,9 @@ export default function ResetPassword() {
 	};
 
 	return (
-		<Card className="max-w-[630px] md:w-1/2 m-auto shadow-md p-6 rounded-2xl">
-			<CardHeader className="text-center">
-				<CardTitle className="text-4xl font-bold text-gray-800">
+		<Card className="max-w-[630px] w-full md:w-1/2 m-auto shadow-md p-4 md:p-6 rounded-2xl">
+			<CardHeader>
+				<CardTitle className="text-2xl md:text-4xl font-bold text-gray-800">
 					{otpSent
 						? otpVerified
 							? "Reset Password"
@@ -84,137 +119,97 @@ export default function ResetPassword() {
 
 			<CardContent>
 				{errorMessage && (
-					<p className="text-red-500 mb-4 text-center">
+					<p className="text-red-500 mb-4 text-center text-sm md:text-base">
 						{errorMessage}
 					</p>
 				)}
 
 				{!otpSent ? (
 					<>
-						<p className="text-sm text-gray-600 mb-6 text-center">
-							Enter your email, and we&apos;ll send you an OTP to
-							reset your password.
+						<p className="text-sm text-gray-600 mb-6">
+							Enter your email, and we&apos;ll send you an OTP to reset your password.
 						</p>
 
-						<form
-							onSubmit={handleGetOtpSubmit}
-							className="space-y-4"
-						>
-							{/* Email or Phone Input */}
+						<form onSubmit={handleGetOtpSubmit} className="space-y-4">
 							<div>
 								<label className="block text-sm font-medium text-gray-700">
-									Email or Phone{" "}
-									<span className="text-red-500">*</span>
+									Email or Phone <span className="text-red-500">*</span>
 								</label>
 								<Input
 									type="text"
 									value={emailOrPhone}
-									onChange={(e) =>
-										setEmailOrPhone(e.target.value)
-									}
+									onChange={(e) => setEmailOrPhone(e.target.value)}
 									className="mt-1 block w-full"
 									placeholder="Enter Email or Phone number"
 									required
 								/>
 							</div>
 
-							{/* Get OTP Button */}
 							<Button
 								type="submit"
-								className="w-full py-3 bg-gradient-to-r from-orange-600 to-orange-400 text-white rounded-xl"
+								className={`w-full py-2 md:py-3 rounded-xl text-white ${emailOrPhone ? "bg-gradient-to-r from-orange-600 to-orange-400" : "bg-gray-400 cursor-not-allowed"
+									}`}
+								disabled={!emailOrPhone}
 							>
 								Get OTP
 							</Button>
+
+							<div className="text-center mt-4 text-sm">
+								<p>
+									<Link to="/login" className="text-orange-500">
+										Back To Login
+									</Link>
+								</p>
+							</div>
 						</form>
+
 					</>
 				) : otpVerified ? (
 					<>
-						<form
-							onSubmit={handlePasswordResetSubmit}
-							className="space-y-4"
-						>
-							<div>
-								<label className="block text-sm font-medium text-gray-700">
-									New Password{" "}
-									<span className="text-red-500">*</span>
-								</label>
-								<Input
-									type="password"
-									value={newPassword}
-									onChange={(e) =>
-										setNewPassword(e.target.value)
-									}
-									className="mt-1 block w-full"
-									placeholder="Enter New Password"
-									required
-								/>
-							</div>
-
-							<div>
-								<label className="block text-sm font-medium text-gray-700">
-									Confirm Password{" "}
-									<span className="text-red-500">*</span>
-								</label>
-								<Input
-									type="password"
-									value={confirmPassword}
-									onChange={(e) =>
-										setConfirmPassword(e.target.value)
-									}
-									className="mt-1 block w-full"
-									placeholder="Confirm New Password"
-									required
-								/>
-							</div>
-							<Button
-								type="submit"
-								className="w-full py-3 bg-gradient-to-r from-orange-600 to-orange-400 text-white rounded-xl"
-							>
+						<form onSubmit={handlePasswordResetSubmit} className="space-y-4">
+							<PasswordInput
+								label="New Password"
+								value={newPassword}
+								onChange={(e) => setNewPassword(e.target.value)}
+								placeholder="Enter New Password"
+							/>
+							<PasswordInput
+								label="Confirm Password"
+								value={confirmPassword}
+								onChange={(e) => setConfirmPassword(e.target.value)}
+								placeholder="Confirm New Password"
+							/>
+							<Button type="submit" className="w-full py-2 md:py-3 bg-gradient-to-r from-orange-600 to-orange-400 text-white rounded-xl">
 								Reset Password
 							</Button>
 						</form>
 					</>
 				) : (
 					<>
-						<p className="text-sm text-gray-600 mb-6 text-center">
+						<p className="text-sm text-gray-600 mb-6">
 							We&apos;ve sent an OTP to {emailOrPhone}.
 						</p>
 
 						<form onSubmit={handleOtpSubmit} className="space-y-4">
 							<div>
 								<label className="block text-sm font-medium text-gray-700">
-									OTP <span className="text-red-500">*</span>
+									Please enter the 6 digit code sent to your phone number
 								</label>
 
-								<InputOTP
-									maxLength={6}
-									onChange={handleOtpChange}
-								>
-									<InputOTPSlot index={0} />
-									<InputOTPSlot index={1} />
-									<InputOTPSlot index={2} />
-									<InputOTPSlot index={3} />
-									<InputOTPSlot index={4} />
-									<InputOTPSlot index={5} />
+								<InputOTP maxLength={6} onChange={handleOtpChange} className="mt-1 w-full">
+									{Array.from({ length: 6 }).map((_, index) => (
+										<InputOTPSlot key={index} index={index} />
+									))}
 								</InputOTP>
 							</div>
 
-							{/* Countdown Timer */}
-							{countdown > 0 ? (
-								<p className="text-center text-sm text-gray-500">
-									You can request a new OTP in {countdown}{" "}
-									seconds.
-								</p>
-							) : (
-								<p className="text-center text-sm text-gray-500">
-									You can now request a new OTP.
-								</p>
-							)}
+							<p className="text-center text-sm text-gray-500">
+								{countdown > 0
+									? `You can request a new OTP in ${countdown} seconds.`
+									: "You can now request a new OTP."}
+							</p>
 
-							<Button
-								type="submit"
-								className="w-full py-3 bg-gradient-to-r from-orange-600 to-orange-400 text-white rounded-xl"
-							>
+							<Button type="submit" className="w-full py-2 md:py-3 bg-gradient-to-r from-orange-600 to-orange-400 text-white rounded-xl">
 								Verify OTP
 							</Button>
 						</form>
