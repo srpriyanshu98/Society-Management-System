@@ -9,21 +9,69 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { chartData } from "@/data/chartData";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "../ui/select";
+import React from "react";
 
 export const description =
 	"A line chart with blue color, shadow, and padding before and after the line.";
 
 export default function BalanceGraph() {
+	const [timeRange, setTimeRange] = React.useState("all");
+
+	const filteredData = React.useMemo(() => {
+		const now = new Date();
+		if (timeRange === "all") {
+			return chartData; // Return all data
+		}
+
+		let daysToSubtract = 90; // Default to 90 days
+		if (timeRange === "30d") {
+			daysToSubtract = 30;
+		} else if (timeRange === "7d") {
+			daysToSubtract = 7;
+		}
+
+		now.setDate(now.getDate() - daysToSubtract);
+		return chartData.filter((item) => new Date(item.date) >= now);
+	}, [timeRange]);
+
 	return (
 		<Card>
-			<CardHeader>
-				<CardTitle>Total Balance</CardTitle>
+			<CardHeader className="">
+				<div className="flex  justify-between">
+					<CardTitle>Total Balance</CardTitle>
+					<Select value={timeRange} onValueChange={setTimeRange}>
+						<SelectTrigger className="w-[160px]">
+							<SelectValue placeholder="Select time range" />
+						</SelectTrigger>
+						<SelectContent className="rounded-xl">
+							<SelectItem value="all" className="rounded-lg">
+								All Data
+							</SelectItem>
+							<SelectItem value="90d" className="rounded-lg">
+								Last 3 months
+							</SelectItem>
+							<SelectItem value="30d" className="rounded-lg">
+								Last 30 days
+							</SelectItem>
+							<SelectItem value="7d" className="rounded-lg">
+								Last 7 days
+							</SelectItem>
+						</SelectContent>
+					</Select>
+				</div>
 			</CardHeader>
 			<CardContent className="flex flex-col h-full justify-center">
-				<div className="w-full h-[300px]">
+				<div className="w-full h-[285px]">
 					<ResponsiveContainer>
 						<LineChart
-							data={chartData}
+							data={filteredData} // Use filtered data for the chart
 							margin={{
 								top: 10,
 								right: 10,
@@ -70,7 +118,6 @@ export default function BalanceGraph() {
 							<Line
 								type="monotone"
 								dataKey="desktop"
-								// stroke="url(#colorGradient)"
 								strokeWidth={2}
 								dot={{ r: 4, fill: "#a79cf9" }}
 								activeDot={{ r: 6, fill: "#a79cf9" }}
