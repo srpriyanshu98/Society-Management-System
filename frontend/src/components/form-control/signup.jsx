@@ -3,9 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SellectSociety from "./SellectSociety";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import axiosInstance from "../../test/axiosInstance";
 
 // Custom PasswordInput component
 function PasswordInput({ name, placeholder, value, onChange, error }) {
@@ -57,11 +58,11 @@ export default function SignUpForm() {
         city: "",
         password: "",
         confirmPassword: "",
-        society: "",
+        // society: "",
         termsAccepted: false,
     });
     const [errors, setErrors] = useState({});
-
+    const navigate = useNavigate();
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData({
@@ -92,21 +93,43 @@ export default function SignUpForm() {
         if (formData.password !== formData.confirmPassword) {
             newErrors.confirmPassword = "Passwords do not match";
         }
-        if (!formData.termsAccepted) {
-            newErrors.termsAccepted =
-                "You must accept the terms and privacy policies";
-        }
+        // if (!formData.termsAccepted) {
+        //     newErrors.termsAccepted =
+        //         "You must accept the terms and privacy policies";
+        // }
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("Form submitted");
         if (validateForm()) {
-            console.log("Form submitted successfully", formData);
+            console.log("Form data is valid, submitting...");
+            try {
+                const response = await axiosInstance.post("/auth/register", {
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    email: formData.email,
+                    phoneNumber: formData.phone,
+                    country: formData.country,
+                    state: formData.state,
+                    city: formData.city,
+                    societyId: "671adb5bda297528780cf57c", // Assuming society is the ID
+                    password: formData.password,
+                    confirmPassword: formData.confirmPassword,
+                });
+                console.log("Form submitted successfully", response.data);
+                // Redirect to the login page after successful registration
+                navigate("/login");
+            } catch (error) {
+                console.error("Error submitting form", error);
+                // Handle error, show error message to the user
+            }
+        } else {
+            console.log("Form data is invalid, not submitting.");
         }
     };
-
     return (
         <Card className="max-w-[630px] w-full md:w-1/2 m-auto shadow-md p-6 rounded-2xl">
             <CardHeader>
