@@ -1,14 +1,28 @@
-import { complaintsData } from "@/data/complaintsData ";
-import { useState, useEffect } from "react";
+import {
+	complaintsData,
+	getPriorityColor,
+	getStatusColor,
+} from "@/data/complaintsData";
+import { useEffect, useState } from "react";
 import { Card } from "../ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
 import { ScrollArea } from "../ui/scroll-area";
 import { Skeleton } from "../ui/skeleton";
+import ConfirmationDialog from "../ConfirmationDialog ";
+import ComplaintViewModal from "./ComplaintViewModal ";
+import ComplaintEditModal from "./ComplaintEditModal";
 
 export default function ComplaintList() {
 	const [complaints, setComplaints] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [filter, setFilter] = useState("All");
+	const [selectedComplaint, setSelectedComplaint] = useState(null);
+	const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+	const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] =
+		useState(false);
+	const [complaintToDelete, setComplaintToDelete] = useState(null);
+	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+	const [complaintToEdit, setComplaintToEdit] = useState(null);
 
 	const fetchComplaints = async () => {
 		try {
@@ -16,7 +30,7 @@ export default function ComplaintList() {
 			// Simulating an API call with a delay
 			const response = await new Promise((resolve) => {
 				setTimeout(() => {
-					resolve(complaintsData); // Resolve with dummy data
+					resolve(complaintsData);
 				});
 			});
 			setComplaints(response);
@@ -36,34 +50,44 @@ export default function ComplaintList() {
 		return complaint.status === filter;
 	});
 
-	const getPriorityColor = (priority) => {
-		switch (priority) {
-			case "High":
-				return "text-red-500";
-			case "Medium":
-				return "text-yellow-500";
-			case "Low":
-				return "text-green-500";
-			default:
-				return "text-gray-500";
-		}
+	const handleViewComplaint = (complaint) => {
+		setSelectedComplaint(complaint);
+		setIsViewModalOpen(true);
 	};
 
-	const getStatusColor = (status) => {
-		switch (status) {
-			case "Open":
-				return "text-blue-500";
-			case "Pending":
-				return "text-orange-500";
-			case "Solve":
-				return "text-green-500";
-			default:
-				return "text-gray-500";
-		}
+	const handleDeleteComplaint = (complaint) => {
+		setComplaintToDelete(complaint);
+		setIsConfirmationDialogOpen(true);
+	};
+
+	const confirmDeleteComplaint = () => {
+		setComplaints(complaints.filter((c) => c.id !== complaintToDelete.id));
+		setIsConfirmationDialogOpen(false);
+		setComplaintToDelete(null);
+	};
+
+	const cancelDeleteComplaint = () => {
+		setIsConfirmationDialogOpen(false);
+		setComplaintToDelete(null);
+	};
+
+	const handleEditComplaint = (complaint) => {
+		setComplaintToEdit(complaint);
+		setIsEditDialogOpen(true);
+	};
+
+	const saveEditedComplaint = (editedComplaint) => {
+		setComplaints(
+			complaints.map((c) =>
+				c.id === editedComplaint.id ? editedComplaint : c
+			)
+		);
+		setIsEditDialogOpen(false);
+		setComplaintToEdit(null);
 	};
 
 	return (
-		<Card className="bg-white p-4 shadow-md rounded-xl max-w-md w-[450px]">
+		<Card className="bg-white p-4 shadow-md rounded-xl w-full">
 			<div className="flex justify-between items-center mb-4">
 				<h2 className="text-xl font-bold">Complaint List</h2>
 				<Select value={filter} onValueChange={setFilter}>
@@ -79,53 +103,143 @@ export default function ComplaintList() {
 				</Select>
 			</div>
 			<ScrollArea className="h-80">
-				<div className="space-y-4">
-					{isLoading ? (
-						<Skeleton />
-					) : filteredComplaints.length > 0 ? (
-						filteredComplaints.map((complaint) => (
-							<div
-								key={complaint.id}
-								className="flex justify-between items-center border-b pb-2"
-							>
-								<div className="flex items-center space-x-4">
-									<div>
-										<div className="font-semibold">
-											{complaint.complainerName}
-										</div>
-										<div className="text-gray-500 text-sm">
+				<div className="overflow-auto">
+					<table className="w-full text-left border-collapse">
+						<thead className="text-center text-gray-600">
+							<tr className="bg-blue-50">
+								<th className="p-3">Complainer Name</th>
+								<th className="p-3">Complaint Name</th>
+								<th className="p-3">Date</th>
+								<th className="p-3">Priority</th>
+								<th className="p-3">Complain Status</th>
+								<th className="p-3">Action</th>
+							</tr>
+						</thead>
+						<tbody className="text-center">
+							{isLoading ? (
+								<tr>
+									<td colSpan="6" className="p-4">
+										<Skeleton />
+									</td>
+								</tr>
+							) : filteredComplaints.length > 0 ? (
+								filteredComplaints.map((complaint) => (
+									<tr key={complaint.id} className="border-b">
+										<td className="p-3 flex items-center space-x-3">
+											<img
+												src={complaint.complainerImg}
+												alt={complaint.complainerName}
+												className="w-10 h-10 rounded-full object-cover"
+											/>
+											<span className="font-semibold">
+												{complaint.complainerName}
+											</span>
+										</td>
+										<td className="p-3 text-gray-700">
 											{complaint.complaintName}
-										</div>
-										<div className="text-gray-500 text-sm">
+										</td>
+										<td className="p-3 text-gray-500">
 											{complaint.date}
-										</div>
-									</div>
-								</div>
-								<div className="flex flex-col items-end">
-									<div
-										className={`text-sm ${getPriorityColor(
-											complaint.priority
-										)}`}
+										</td>
+										<td className="p-3">
+											<span
+												className={`px-2 py-1 rounded-full text-sm font-thin block text-white ${getPriorityColor(
+													complaint.priority
+												)}`}
+											>
+												{complaint.priority}
+											</span>
+										</td>
+										<td className="p-3">
+											<p
+												className={`px-2 py-1 rounded-full text-sm font-thin  ${getStatusColor(
+													complaint.status
+												)}`}
+											>
+												{complaint.status}
+											</p>
+										</td>
+										<td className="flex justify-center space-x-4">
+											<button
+												className="rounded-md bg-gray-100 p-2"
+												onClick={() =>
+													handleEditComplaint(
+														complaint
+													)
+												}
+											>
+												<img
+													src="./src/assets/edit.svg"
+													alt=""
+												/>
+											</button>
+											<button
+												className="rounded-md bg-gray-100 p-2"
+												onClick={() =>
+													handleViewComplaint(
+														complaint
+													)
+												}
+											>
+												<img
+													src="./src/assets/view.svg"
+													alt=""
+												/>
+											</button>
+											<button
+												className="rounded-md bg-gray-100 p-2"
+												onClick={() =>
+													handleDeleteComplaint(
+														complaint
+													)
+												}
+											>
+												<img
+													src="./src/assets/delete.svg"
+													alt=""
+												/>
+											</button>
+										</td>
+									</tr>
+								))
+							) : (
+								<tr>
+									<td
+										colSpan="6"
+										className="p-4 text-gray-500 text-center"
 									>
-										{complaint.priority}
-									</div>
-									<div
-										className={`text-sm ${getStatusColor(
-											complaint.status
-										)}`}
-									>
-										{complaint.status}
-									</div>
-								</div>
-							</div>
-						))
-					) : (
-						<p className="text-gray-500 text-sm">
-							No complaints found.
-						</p>
-					)}
+										No complaints found.
+									</td>
+								</tr>
+							)}
+						</tbody>
+					</table>
 				</div>
 			</ScrollArea>
+
+			{/* View Complaint Modal */}
+			<ComplaintViewModal
+				isOpen={isViewModalOpen}
+				onClose={() => setIsViewModalOpen(false)}
+				complaint={selectedComplaint}
+			/>
+
+			{/* Confirmation Dialog */}
+			<ConfirmationDialog
+				isOpen={isConfirmationDialogOpen}
+				title="Confirm Deletion"
+				description="Are you sure you want to delete this complaint?"
+				onConfirm={confirmDeleteComplaint}
+				onCancel={cancelDeleteComplaint}
+			/>
+
+			{/* Edit Dialog */}
+			<ComplaintEditModal
+				isOpen={isEditDialogOpen}
+				onClose={() => setIsEditDialogOpen(false)}
+				complaint={complaintToEdit}
+				onSave={saveEditedComplaint}
+			/>
 		</Card>
 	);
 }
