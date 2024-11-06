@@ -4,8 +4,8 @@ router.post("/register", register);
 router.post("/login", login);
 router.post("/logout", logout);
 
-
-
+671adb5bda297528780cf57c
+formData.society
 // society management api
 
 

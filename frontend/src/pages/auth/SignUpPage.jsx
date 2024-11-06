@@ -19,7 +19,7 @@ export default function Signup() {
 				<img
 					src="./src/assets/bg-graphic.png"
 					alt=""
-					className="absolute top-0 right-0 h-screen -z-10"
+					className="absolute top-0 right-0 h-screen -z-10 "
 				/>
 			</div>
 

@@ -96,7 +96,7 @@ export const forgotPassword = async (req, res) => {
 			from: "vishal@gmail.com",
 			subject: "Password Reset",
 			text: `You requested a password reset.\n\n
-                 Click the link below to reset your password:${ENV_VARS.CLIENT_URL}\n
+                 Click the link below to reset your password:http://localhost:5000/api/auth \n
                  /reset-password/${resetToken}\n\n`,
 		};
 
