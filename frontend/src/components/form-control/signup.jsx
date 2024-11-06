@@ -1,20 +1,15 @@
 import { useState } from "react";
-import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { Checkbox } from "../ui/checkbox";
 import { Link } from "react-router-dom";
 import SellectSociety from "./SellectSociety";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 
-
-
 // Custom PasswordInput component
 function PasswordInput({ name, placeholder, value, onChange, error }) {
 	const [showPassword, setShowPassword] = useState(false);
-
 
 	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
@@ -125,7 +120,8 @@ export default function SignUpForm() {
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
 							<Label htmlFor="firstName" className="text-sm">
-								First Name <span className="text-red-500">*</span>
+								First Name{" "}
+								<span className="text-red-500">*</span>
 							</Label>
 							<Input
 								name="firstName"
@@ -143,7 +139,8 @@ export default function SignUpForm() {
 						</div>
 						<div>
 							<Label htmlFor="lastName" className="text-sm">
-								Last Name <span className="text-red-500">*</span>
+								Last Name{" "}
+								<span className="text-red-500">*</span>
 							</Label>
 							<Input
 								name="lastName"
@@ -165,7 +162,8 @@ export default function SignUpForm() {
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
 							<Label htmlFor="email" className="text-sm">
-								Email Address <span className="text-red-500">*</span>
+								Email Address{" "}
+								<span className="text-red-500">*</span>
 							</Label>
 							<Input
 								name="email"
@@ -176,12 +174,15 @@ export default function SignUpForm() {
 								onChange={handleInputChange}
 							/>
 							{errors.email && (
-								<p className="text-red-500 text-sm">{errors.email}</p>
+								<p className="text-red-500 text-sm">
+									{errors.email}
+								</p>
 							)}
 						</div>
 						<div>
 							<Label htmlFor="phone" className="text-sm">
-								Phone Number <span className="text-red-500">*</span>
+								Phone Number{" "}
+								<span className="text-red-500">*</span>
 							</Label>
 							<Input
 								name="phone"
@@ -192,7 +193,9 @@ export default function SignUpForm() {
 								onChange={handleInputChange}
 							/>
 							{errors.phone && (
-								<p className="text-red-500 text-sm">{errors.phone}</p>
+								<p className="text-red-500 text-sm">
+									{errors.phone}
+								</p>
 							)}
 						</div>
 					</div>
@@ -212,7 +215,9 @@ export default function SignUpForm() {
 								onChange={handleInputChange}
 							/>
 							{errors.country && (
-								<p className="text-red-500 text-sm">{errors.country}</p>
+								<p className="text-red-500 text-sm">
+									{errors.country}
+								</p>
 							)}
 						</div>
 						<div>
@@ -228,7 +233,9 @@ export default function SignUpForm() {
 								onChange={handleInputChange}
 							/>
 							{errors.state && (
-								<p className="text-red-500 text-sm">{errors.state}</p>
+								<p className="text-red-500 text-sm">
+									{errors.state}
+								</p>
 							)}
 						</div>
 						<div>
@@ -244,7 +251,9 @@ export default function SignUpForm() {
 								onChange={handleInputChange}
 							/>
 							{errors.city && (
-								<p className="text-red-500 text-sm">{errors.city}</p>
+								<p className="text-red-500 text-sm">
+									{errors.city}
+								</p>
 							)}
 						</div>
 					</div>
@@ -252,7 +261,8 @@ export default function SignUpForm() {
 					{/* Select Society */}
 					<div>
 						<Label htmlFor="society" className="text-sm">
-							Select Society <span className="text-red-500">*</span>
+							Select Society{" "}
+							<span className="text-red-500">*</span>
 						</Label>
 						<SellectSociety />
 					</div>
@@ -280,7 +290,8 @@ export default function SignUpForm() {
 					{/* Confirm Password Field */}
 					<div>
 						<Label htmlFor="confirmPassword" className="text-sm">
-							Confirm Password <span className="text-red-500">*</span>
+							Confirm Password{" "}
+							<span className="text-red-500">*</span>
 						</Label>
 						<PasswordInput
 							name="confirmPassword"
@@ -334,6 +345,5 @@ export default function SignUpForm() {
 				</div>
 			</CardContent>
 		</Card>
-
 	);
 }
