@@ -6,7 +6,7 @@ import {
 	BreadcrumbList,
 	BreadcrumbSeparator,
 } from "./ui/breadcrumb";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import breadcrumbData from "@/data/breadcrumbData";
 
 export default function Header() {
@@ -39,9 +39,9 @@ export default function Header() {
 			</div>
 			<div className="flex items-center space-x-4">
 				<span className="text-gray-700">Main Roy</span>
-				<button className="text-blue-500 hover:underline">
+				<Link className="text-blue-500 hover:underline">
 					Edit Profile
-				</button>
+				</Link>
 			</div>
 		</header>
 	);

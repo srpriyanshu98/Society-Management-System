@@ -7,20 +7,27 @@ export default function Login() {
 	const slides = [
 		{
 			image: "./src/assets/1.png",
-			title: <p class="font-semibold text-center text-[24px] leading-[36px] text-opacity-0 gap-0">
-				Your Space, Your Place: <span class="bg-gradient-to-r from-[#FE512E] to-[#F09619] text-transparent bg-clip-text">
-					Society Management
-				</span> Made Simple.
-			</p>,
-
+			title: (
+				<p className="font-semibold text-center text-[24px] leading-[36px] text-opacity-0 gap-0">
+					Your Space, Your Place:{" "}
+					<span className="bg-gradient-to-r from-[#FE512E] to-[#F09619] text-transparent bg-clip-text">
+						Society Management
+					</span>{" "}
+					Made Simple.
+				</p>
+			),
 		},
 		{
 			image: "./src/assets/2.png",
-			title: <p class="font-semibold text-center text-[24px] leading-[36px] text-opacity-0 gap-0">
-				Connect, Collaborate, and Control - <span class="bg-gradient-to-r from-[#FE512E] to-[#F09619] text-transparent bg-clip-text">
-					Society Management
-				</span> Simplified.
-			</p>,
+			title: (
+				<p className="font-semibold text-center text-[24px] leading-[36px] text-opacity-0 gap-0">
+					Connect, Collaborate, and Control -{" "}
+					<span className="bg-gradient-to-r from-[#FE512E] to-[#F09619] text-transparent bg-clip-text">
+						Society Management
+					</span>{" "}
+					Simplified.
+				</p>
+			),
 		},
 	];
 	// Auto-rotate every 5 seconds
@@ -47,12 +54,17 @@ export default function Login() {
 						<div
 							className="flex"
 							style={{
-								transform: `translateX(-${currentIndex * 100}%)`,
+								transform: `translateX(-${
+									currentIndex * 100
+								}%)`,
 								transition: "transform 0.7s ease-in-out",
 							}}
 						>
 							{slides.map((slide, index) => (
-								<div key={index} className="w-full flex-shrink-0">
+								<div
+									key={index}
+									className="w-full flex-shrink-0"
+								>
 									<img
 										src={slide.image}
 										alt={slide.title}
@@ -70,8 +82,6 @@ export default function Login() {
 							))}
 						</div>
 					</div>
-
-
 				</div>
 				{/* Pagination */}
 				{/* <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 top-[760px] flex space-x-2">
@@ -84,7 +94,6 @@ export default function Login() {
 						></span>
 					))}
 				</div> */}
-				
 			</div>
 
 			{/* Right side - Form */}
@@ -95,7 +104,6 @@ export default function Login() {
 				className="absolute top-0 right-0 h-full md:h-screen -z-10"
 			/>
 			<LoginForm />
-
 		</div>
 	);
 }
