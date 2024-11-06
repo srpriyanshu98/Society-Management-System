@@ -64,3 +64,45 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+.radio-gradient {
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #ccc;
+	border-radius: 50%;
+	outline: none;
+	cursor: pointer;
+	position: relative;
+}
+
+.radio-gradient::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: transparent;
+}
+
+.radio-gradient:checked {
+	border: 2px solid transparent;
+	background-image: linear-gradient(to left, #ffa500, #ff4500);
+	background-origin: border-box;
+	background-clip: content-box, border-box;
+}
+
+.radio-gradient:checked::before {
+	background: white;
+}
+
+.radio-gradient:checked + span {
+	color: #000;
+}
+
+.radio-gradient:not(:checked) + span {
+	color: #ccc;
+}

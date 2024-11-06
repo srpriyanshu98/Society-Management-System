@@ -3,7 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { Checkbox } from "../ui/checkbox";
 import { Link } from "react-router-dom";
 import SellectSociety from "./SellectSociety";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
@@ -348,3 +347,4 @@ export default function SignUpForm() {
         </Card>
     );
 }
+
