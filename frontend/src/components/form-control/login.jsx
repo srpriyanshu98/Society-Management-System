@@ -73,7 +73,7 @@ export default function LoginForm() {
 				});
 				console.log("Login successful", response.data);
 				// Redirect to dashboard after successful login
-				navigate("/dashboard");
+				navigate("/");
 			} catch (error) {
 				console.error("Login failed", error);
 				setLoginError("Invalid credentials. Please try again.");

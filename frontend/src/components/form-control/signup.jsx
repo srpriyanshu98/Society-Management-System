@@ -121,7 +121,7 @@ export default function SignUpForm() {
 				});
 				console.log("Form submitted successfully", response.data);
 				// Redirect to the login page after successful registration
-				navigate("/");
+				navigate("/login");
 			} catch (error) {
 				console.error("Error submitting form", error);
 				// Handle error, show error message to the user

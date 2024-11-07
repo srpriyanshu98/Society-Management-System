@@ -21,34 +21,34 @@ import EditProfile from "./pages/EditProfile";
 import ResidentForm from "./components/residentManagement/ResidentForm";
 
 function App() {
-	return (
-		<Routes>
-			{/* AUTH ROUTES */}
-			<Route path="/signup" element={<Signup />} />
-			<Route path="/" element={<Login />} />
-			<Route path="/forgot-pass" element={<ForgotPassPage />} />
-			<Route path="/edit-profile" element={<EditProfile />} />
+    return (
+        <Routes>
+            {/* AUTH ROUTES */}
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgot-pass" element={<ForgotPassPage />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
 
-			{/* ADMIN ROUTES*/}
-			<Route path="/dashboard" element={<Dashboard />} />
-			<Route path="/residents" element={<ResidentManagement />} />
-			<Route path="/financial" element={<FinancialManagement />} />
-			<Route path="/facilities" element={<FacilityManagement />} />
-			<Route path="/complaints" element={<ComplaintTracking />} />
-			<Route path="/security" element={<SecurityManagement />} />
-			<Route path="/security-guard" element={<SecurityGuard />} />
-			<Route path="/announcements" element={<Announcement />} />
+            {/* ADMIN ROUTES*/}
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/residents" element={<ResidentManagement />} />
+            <Route path="/financial" element={<FinancialManagement />} />
+            <Route path="/facilities" element={<FacilityManagement />} />
+            <Route path="/complaints" element={<ComplaintTracking />} />
+            <Route path="/security" element={<SecurityManagement />} />
+            <Route path="/security-guard" element={<SecurityGuard />} />
+            <Route path="/announcements" element={<Announcement />} />
 
-			<Route path="/resident-form" element={<ResidentForm />} />
+            <Route path="/resident-form" element={<ResidentForm />} />
 
-			{/* RESIDENTS ROUTES */}
-			{/* SECURITY ROUTES */}
+            {/* RESIDENTS ROUTES */}
+            {/* SECURITY ROUTES */}
 
-			{/* TEST ROUTES*/}
-			<Route path="/slider" element={<Slider />} />
-			<Route path="/select" element={<Sellect />} />
-		</Routes>
-	);
+            {/* TEST ROUTES*/}
+            <Route path="/slider" element={<Slider />} />
+            <Route path="/select" element={<Sellect />} />
+        </Routes>
+    );
 }
 
 export default App;
