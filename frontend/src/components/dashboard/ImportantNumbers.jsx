@@ -83,7 +83,6 @@ export default function ImportantNumbers() {
 			<div className="flex justify-between">
 				<h2 className="text-xl font-bold mb-4">Important Numbers</h2>
 				<Button
-					className="bg-gradient-to-l from-orange-400 to-orange-600"
 					onClick={() => {
 						resetForm();
 						setIsDialogOpen(true);
@@ -192,10 +191,7 @@ export default function ImportantNumbers() {
 							value={newWork}
 							onChange={(e) => setNewWork(e.target.value)}
 						/>
-						<Button
-							onClick={handleAdd}
-							className="bg-gradient-to-l from-orange-400 to-orange-600"
-						>
+						<Button onClick={handleAdd}>
 							{editId ? "Save" : "Add"}
 						</Button>
 					</div>

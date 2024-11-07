@@ -9,12 +9,11 @@ import { EyeIcon, EyeOffIcon } from "lucide-react";
 // Custom PasswordInput component
 function PasswordInput({ placeholder, value, onChange }) {
 	const [showPassword, setShowPassword] = useState(false);
-	
 
 	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
 	};
-	
+
 	return (
 		<div className="relative">
 			<Input
@@ -75,14 +74,17 @@ export default function LoginForm() {
 	return (
 		<Card className="max-w-[90%] md:max-w-[630px] lg:w-1/2 m-auto shadow-md p-4 md:p-6 rounded-2xl">
 			<CardHeader>
-				<CardTitle className="text-3xl md:text-4xl font-bold text-center md:text-left">Login</CardTitle>
+				<CardTitle className="text-3xl md:text-4xl font-bold text-center md:text-left">
+					Login
+				</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<form onSubmit={handleSubmit} className="space-y-4">
 					{/* Email & Phone number */}
 					<div>
 						<Label htmlFor="email">
-							Email or Phone <span className="text-red-500">*</span>
+							Email or Phone{" "}
+							<span className="text-red-500">*</span>
 						</Label>
 						<Input
 							type="email"
@@ -91,7 +93,11 @@ export default function LoginForm() {
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 						/>
-						{errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+						{errors.email && (
+							<p className="text-red-500 text-sm">
+								{errors.email}
+							</p>
+						)}
 					</div>
 
 					{/* Password */}
@@ -104,7 +110,11 @@ export default function LoginForm() {
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 						/>
-						{errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+						{errors.password && (
+							<p className="text-red-500 text-sm">
+								{errors.password}
+							</p>
+						)}
 					</div>
 
 					{/* Remember me and Forgot Password */}
@@ -133,7 +143,7 @@ export default function LoginForm() {
 					{/* Submit Button */}
 					<Button
 						type="submit"
-						className="w-full h-12 md:h-[51px] mt-2 bg-gradient-to-r from-orange-600 to-orange-400 hover:from-orange-500 hover:to-orange-300"
+						className="w-full h-12 md:h-[51px] mt-2  hover:from-orange-500 hover:to-orange-300"
 						disabled={!isChecked} // Disable button when checkbox is not checked
 					>
 						Sign In

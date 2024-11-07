@@ -151,7 +151,7 @@ export default function CreateSociety({ onCreateSociety }) {
 					</Button>
 					<Button
 						type="submit"
-						className="px-4 py-2 bg-orange-500 text-white rounded-md"
+						className="px-4 py-2  text-white rounded-md"
 					>
 						Save
 					</Button>

@@ -160,12 +160,7 @@ export default function ComplaintEditModal({
 					<Button variant="outline" onClick={onClose}>
 						Cancel
 					</Button>
-					<Button
-						onClick={handleSave}
-						className="bg-gradient-to-l from-orange-400 to-orange-600"
-					>
-						Save
-					</Button>
+					<Button onClick={handleSave}>Save</Button>
 				</div>
 			</DialogContent>
 		</Dialog>

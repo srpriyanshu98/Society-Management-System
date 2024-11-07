@@ -39,7 +39,10 @@ export default function Header() {
 			</div>
 			<div className="flex items-center space-x-4">
 				<span className="text-gray-700">Main Roy</span>
-				<Link className="text-blue-500 hover:underline">
+				<Link
+					to="/edit-profile"
+					className="text-blue-500 hover:underline"
+				>
 					Edit Profile
 				</Link>
 			</div>

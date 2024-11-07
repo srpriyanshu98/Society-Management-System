@@ -127,18 +127,25 @@ export default function ResetPassword() {
 				{!otpSent ? (
 					<>
 						<p className="text-sm text-gray-600 mb-6">
-							Enter your email, and we&apos;ll send you an OTP to reset your password.
+							Enter your email, and we&apos;ll send you an OTP to
+							reset your password.
 						</p>
 
-						<form onSubmit={handleGetOtpSubmit} className="space-y-4">
+						<form
+							onSubmit={handleGetOtpSubmit}
+							className="space-y-4"
+						>
 							<div>
 								<label className="block text-sm font-medium text-gray-700">
-									Email or Phone <span className="text-red-500">*</span>
+									Email or Phone{" "}
+									<span className="text-red-500">*</span>
 								</label>
 								<Input
 									type="text"
 									value={emailOrPhone}
-									onChange={(e) => setEmailOrPhone(e.target.value)}
+									onChange={(e) =>
+										setEmailOrPhone(e.target.value)
+									}
 									className="mt-1 block w-full"
 									placeholder="Enter Email or Phone number"
 									required
@@ -147,8 +154,11 @@ export default function ResetPassword() {
 
 							<Button
 								type="submit"
-								className={`w-full py-2 md:py-3 rounded-xl text-white ${emailOrPhone ? "bg-gradient-to-r from-orange-600 to-orange-400" : "bg-gray-400 cursor-not-allowed"
-									}`}
+								className={`w-full py-2 md:py-3 rounded-xl text-white ${
+									emailOrPhone
+										? "bg-gradient-to-r from-orange-600 to-orange-400"
+										: "bg-gray-400 cursor-not-allowed"
+								}`}
 								disabled={!emailOrPhone}
 							>
 								Get OTP
@@ -156,17 +166,22 @@ export default function ResetPassword() {
 
 							<div className="text-center mt-4 text-sm">
 								<p>
-									<Link to="/login" className="text-orange-500">
+									<Link
+										to="/login"
+										className="text-orange-500"
+									>
 										Back To Login
 									</Link>
 								</p>
 							</div>
 						</form>
-
 					</>
 				) : otpVerified ? (
 					<>
-						<form onSubmit={handlePasswordResetSubmit} className="space-y-4">
+						<form
+							onSubmit={handlePasswordResetSubmit}
+							className="space-y-4"
+						>
 							<PasswordInput
 								label="New Password"
 								value={newPassword}
@@ -176,10 +191,15 @@ export default function ResetPassword() {
 							<PasswordInput
 								label="Confirm Password"
 								value={confirmPassword}
-								onChange={(e) => setConfirmPassword(e.target.value)}
+								onChange={(e) =>
+									setConfirmPassword(e.target.value)
+								}
 								placeholder="Confirm New Password"
 							/>
-							<Button type="submit" className="w-full py-2 md:py-3 bg-gradient-to-r from-orange-600 to-orange-400 text-white rounded-xl">
+							<Button
+								type="submit"
+								className="w-full py-2 md:py-3  text-white rounded-xl"
+							>
 								Reset Password
 							</Button>
 						</form>
@@ -193,13 +213,23 @@ export default function ResetPassword() {
 						<form onSubmit={handleOtpSubmit} className="space-y-4">
 							<div>
 								<label className="block text-sm font-medium text-gray-700">
-									Please enter the 6 digit code sent to your phone number
+									Please enter the 6 digit code sent to your
+									phone number
 								</label>
 
-								<InputOTP maxLength={6} onChange={handleOtpChange} className="mt-1 w-full">
-									{Array.from({ length: 6 }).map((_, index) => (
-										<InputOTPSlot key={index} index={index} />
-									))}
+								<InputOTP
+									maxLength={6}
+									onChange={handleOtpChange}
+									className="mt-1 w-full"
+								>
+									{Array.from({ length: 6 }).map(
+										(_, index) => (
+											<InputOTPSlot
+												key={index}
+												index={index}
+											/>
+										)
+									)}
 								</InputOTP>
 							</div>
 
@@ -209,7 +239,10 @@ export default function ResetPassword() {
 									: "You can now request a new OTP."}
 							</p>
 
-							<Button type="submit" className="w-full py-2 md:py-3 bg-gradient-to-r from-orange-600 to-orange-400 text-white rounded-xl">
+							<Button
+								type="submit"
+								className="w-full py-2 md:py-3  text-white rounded-xl"
+							>
 								Verify OTP
 							</Button>
 						</form>

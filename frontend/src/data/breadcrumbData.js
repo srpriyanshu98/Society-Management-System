@@ -28,6 +28,10 @@ const breadcrumbData = {
 		{ label: "Home", href: "/" },
 		{ label: "Announcements", href: "/announcements" },
 	],
+	"/edit-profile": [
+		{ label: "Home", href: "/" },
+		{ label: "Edit Profile", href: "/edit-profile" },
+	],
 };
 
 export default breadcrumbData;

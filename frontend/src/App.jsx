@@ -17,6 +17,7 @@ import ComplaintTracking from "./pages/admin/ComplaintTracking";
 import SecurityManagement from "./pages/admin/SecurityManagement";
 import SecurityGuard from "./pages/admin/SecurityGuard";
 import Announcement from "./pages/admin/Announcement";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
 	return (
@@ -25,6 +26,7 @@ function App() {
 			<Route path="/signup" element={<Signup />} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/forgot-pass" element={<ForgotPassPage />} />
+			<Route path="/edit-profile" element={<EditProfile />} />
 
 			{/* ADMIN ROUTES*/}
 			<Route path="/" element={<Dashboard />} />
