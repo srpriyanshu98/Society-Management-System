@@ -18,6 +18,7 @@ import SecurityManagement from "./pages/admin/SecurityManagement";
 import SecurityGuard from "./pages/admin/SecurityGuard";
 import Announcement from "./pages/admin/Announcement";
 import EditProfile from "./pages/EditProfile";
+import ResidentForm from "./components/residentManagement/ResidentForm";
 
 function App() {
 	return (
@@ -37,6 +38,8 @@ function App() {
 			<Route path="/security" element={<SecurityManagement />} />
 			<Route path="/security-guard" element={<SecurityGuard />} />
 			<Route path="/announcements" element={<Announcement />} />
+
+			<Route path="/resident-form" element={<ResidentForm />} />
 
 			{/* RESIDENTS ROUTES */}
 			{/* SECURITY ROUTES */}

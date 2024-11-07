@@ -32,6 +32,11 @@ const breadcrumbData = {
 		{ label: "Home", href: "/" },
 		{ label: "Edit Profile", href: "/edit-profile" },
 	],
+	"/resident-form": [
+		{ label: "Home", href: "/" },
+		{ label: "Residents", href: "/residents" },
+		{ label: "Residents Form", href: "/resident-form" },
+	],
 };
 
 export default breadcrumbData;

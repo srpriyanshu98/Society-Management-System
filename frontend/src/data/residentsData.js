@@ -8,7 +8,6 @@ export const residents = [
 		phoneNumber: "9758785828",
 		member: "2",
 		vehicle: "3",
-		action: "Vacate",
 	},
 	{
 		fullName: "Michael Scott",
@@ -19,7 +18,6 @@ export const residents = [
 		phoneNumber: "9456789012",
 		member: "3",
 		vehicle: "1",
-		action: "Occupied",
 	},
 	{
 		fullName: "Robert Fox",
@@ -30,7 +28,6 @@ export const residents = [
 		phoneNumber: "9758785828",
 		member: "2",
 		vehicle: "",
-		action: "Occupied",
 	},
 	{
 		fullName: "Dwight Schrute",
@@ -41,7 +38,6 @@ export const residents = [
 		phoneNumber: "9456783012",
 		member: "4",
 		vehicle: "2",
-		action: "Occupied",
 	},
 	{
 		fullName: "Pam Beesly",
@@ -52,7 +48,6 @@ export const residents = [
 		phoneNumber: "9356789123",
 		member: "2",
 		vehicle: "",
-		action: "Vacate",
 	},
 	{
 		fullName: "Jim Halpert",
@@ -63,7 +58,6 @@ export const residents = [
 		phoneNumber: "9256789234",
 		member: "3",
 		vehicle: "1",
-		action: "Occupied",
 	},
 	{
 		fullName: "Angela Martin",
@@ -74,18 +68,16 @@ export const residents = [
 		phoneNumber: "9456723456",
 		member: "1",
 		vehicle: "2",
-		action: "Occupied",
 	},
 	{
-		fullName: "Oscar Martinez",
+		fullName: "--",
 		unitWing: "D",
 		unitNumber: "4002",
 		unitStatus: "Vacant",
-		residentStatus: "Tenant",
-		phoneNumber: "9456790123",
-		member: "2",
-		vehicle: "1",
-		action: "Available",
+		residentStatus: "--",
+		phoneNumber: "--",
+		member: "--",
+		vehicle: "--",
 	},
 	{
 		fullName: "Kelly Kapoor",
@@ -96,7 +88,6 @@ export const residents = [
 		phoneNumber: "9356790123",
 		member: "1",
 		vehicle: "",
-		action: "Vacate",
 	},
 	{
 		fullName: "Stanley Hudson",
@@ -107,7 +98,6 @@ export const residents = [
 		phoneNumber: "9256790234",
 		member: "4",
 		vehicle: "3",
-		action: "Occupied",
 	},
 	{
 		fullName: "Ryan Howard",
@@ -118,7 +108,6 @@ export const residents = [
 		phoneNumber: "9156790345",
 		member: "1",
 		vehicle: "",
-		action: "Vacate",
 	},
 	{
 		fullName: "Phyllis Vance",
@@ -129,18 +118,16 @@ export const residents = [
 		phoneNumber: "9056790456",
 		member: "2",
 		vehicle: "1",
-		action: "Occupied",
 	},
 	{
-		fullName: "",
+		fullName: "--",
 		unitWing: "G",
 		unitNumber: "7001",
 		unitStatus: "Vacant",
 		residentStatus: "--",
 		phoneNumber: "",
-		member: "",
-		vehicle: "",
-		action: "Available",
+		member: "--",
+		vehicle: "--",
 	},
 	{
 		fullName: "Creed Bratton",
@@ -151,7 +138,6 @@ export const residents = [
 		phoneNumber: "9856790678",
 		member: "2",
 		vehicle: "1",
-		action: "Vacate",
 	},
 	{
 		fullName: "Toby Flenderson",
@@ -162,7 +148,6 @@ export const residents = [
 		phoneNumber: "9756790789",
 		member: "2",
 		vehicle: "",
-		action: "Occupied",
 	},
 	{
 		fullName: "Darryl Philbin",
@@ -173,6 +158,5 @@ export const residents = [
 		phoneNumber: "9656790890",
 		member: "3",
 		vehicle: "2",
-		action: "Vacate",
 	},
 ];
