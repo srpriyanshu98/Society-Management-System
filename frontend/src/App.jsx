@@ -24,12 +24,12 @@ function App() {
 		<Routes>
 			{/* AUTH ROUTES */}
 			<Route path="/signup" element={<Signup />} />
-			<Route path="/login" element={<Login />} />
+			<Route path="/" element={<Login />} />
 			<Route path="/forgot-pass" element={<ForgotPassPage />} />
 			<Route path="/edit-profile" element={<EditProfile />} />
 
 			{/* ADMIN ROUTES*/}
-			<Route path="/" element={<Dashboard />} />
+			<Route path="/dashboard" element={<Dashboard />} />
 			<Route path="/residents" element={<ResidentManagement />} />
 			<Route path="/financial" element={<FinancialManagement />} />
 			<Route path="/facilities" element={<FacilityManagement />} />

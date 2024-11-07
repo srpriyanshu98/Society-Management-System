@@ -3,8 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import axiosInstance from "../../test/axiosInstance"; // Adjust the import path as necessary
 
 // Custom PasswordInput component
 function PasswordInput({ placeholder, value, onChange }) {
@@ -42,6 +43,8 @@ export default function LoginForm() {
 	const [password, setPassword] = useState("");
 	const [errors, setErrors] = useState({ email: "", password: "" });
 	const [isChecked, setIsChecked] = useState(false);
+	const [loginError, setLoginError] = useState("");
+	const navigate = useNavigate(); // Initialize useHistory hook
 
 	const validateForm = () => {
 		let valid = true;
@@ -60,10 +63,21 @@ export default function LoginForm() {
 		return valid;
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (validateForm()) {
-			console.log("Form submitted");
+			try {
+				const response = await axiosInstance.post("/auth/login", {
+					email,
+					password,
+				});
+				console.log("Login successful", response.data);
+				// Redirect to dashboard after successful login
+				navigate("/dashboard");
+			} catch (error) {
+				console.error("Login failed", error);
+				setLoginError("Invalid credentials. Please try again.");
+			}
 		}
 	};
 
@@ -143,11 +157,16 @@ export default function LoginForm() {
 					{/* Submit Button */}
 					<Button
 						type="submit"
-						className="w-full h-12 md:h-[51px] mt-2  hover:from-orange-500 hover:to-orange-300"
+						className="w-full h-12 md:h-[51px] mt-2 bg-gradient-to-r from-orange-600 to-orange-400 hover:from-orange-500 hover:to-orange-300"
 						disabled={!isChecked} // Disable button when checkbox is not checked
 					>
 						Sign In
 					</Button>
+
+					{/* Display login error */}
+					{loginError && (
+						<p className="text-red-500 text-sm">{loginError}</p>
+					)}
 				</form>
 
 				{/* Sign Up Link */}
