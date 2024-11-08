@@ -1,8 +1,10 @@
 import Layout from "@/components/Layout";
 import AddResidentDialog from "@/components/residentManagement/AddResidentDialog";
+import ProfileSheetContent from "@/components/residentManagement/ProfileSheetContent";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { residents } from "@/data/residentsData";
 import { useState } from "react";
 
@@ -246,12 +248,21 @@ export default function ResidentManagement({ userRole }) {
 																	alt="Edit"
 																/>
 															</button>
-															<button className="bg-gray-200 p-2 w-8 h-8 rounded-lg">
-																<img
-																	src="/src/assets/view.svg"
-																	alt="View"
-																/>
-															</button>
+															<Sheet>
+																<SheetTrigger
+																	asChild
+																>
+																	<button className="bg-gray-200 p-2 w-8 h-8 rounded-lg">
+																		<img
+																			src="/src/assets/view.svg"
+																			alt="View"
+																		/>
+																	</button>
+																</SheetTrigger>
+
+																{/* Sheet Content */}
+																<ProfileSheetContent />
+															</Sheet>
 														</div>
 													</>
 												) : (

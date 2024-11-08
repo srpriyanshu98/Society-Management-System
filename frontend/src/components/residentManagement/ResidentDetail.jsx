@@ -1,21 +1,20 @@
 import { Button } from "../ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
 export default function ResidentDetail() {
 	return (
-		<Card className="p-4">
-			<CardHeader>
-				<CardTitle>Resident Details</CardTitle>
-			</CardHeader>
+		<Card className="p-4 pt-10 rounded-xl">
 			<CardContent className="space-y-4">
 				{/* Personal Information */}
 				<div className="flex flex-row gap-4 mb-8">
 					{/* Profile Photo */}
 					<div className="flex-col items-center">
 						<div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center">
-							<span className="text-gray-500">📷</span>
+							<span className="text-gray-500">
+								<img src="./src/assets/add-photo.svg" alt="" />
+							</span>
 						</div>
 						<Button variant="link" className="text-blue-700">
 							Add Photo
@@ -122,7 +121,7 @@ export default function ResidentDetail() {
 						<span className="text-left text-md font-thin">
 							Upload Aadhar Card (Front Side)
 						</span>
-						<div className="border-4 border-dashed border-gray-400 p-6 rounded text-center mt-2">
+						<div className="border-2 border-dashed border-gray-400 p-6 rounded text-center mt-2">
 							<Button variant="link">
 								Upload a file or drag and drop
 							</Button>
@@ -136,7 +135,7 @@ export default function ResidentDetail() {
 						<span className="text-left text-md font-thin">
 							Upload Aadhar Card (Back Side)
 						</span>
-						<div className="border border-dashed p-4 rounded text-center mt-2">
+						<div className="border-2 border-dashed border-gray-400 p-6 rounded text-center mt-2">
 							<Button variant="link">
 								Upload a file or drag and drop
 							</Button>
@@ -150,7 +149,7 @@ export default function ResidentDetail() {
 						<span className="text-left text-md font-thin">
 							Address Proof (Vera Bill OR Light Bill)
 						</span>
-						<div className="border border-dashed p-4 rounded text-center mt-2">
+						<div className="border-2 border-dashed border-gray-400 p-6 rounded text-center mt-2">
 							<Button variant="link">
 								Upload a file or drag and drop
 							</Button>
@@ -164,7 +163,7 @@ export default function ResidentDetail() {
 						<span className="text-left text-md font-thin">
 							Rent Agreement
 						</span>
-						<div className="border border-dashed p-4 rounded text-center mt-2">
+						<div className="border-2 border-dashed border-gray-400 p-6 rounded text-center mt-2">
 							<Button variant="link">
 								Upload a file or drag and drop
 							</Button>
