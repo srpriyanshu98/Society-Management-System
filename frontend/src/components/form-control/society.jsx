@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { DialogHeader } from "../ui/dialog";
+import axiosInstance from "../../test/axiosInstance";
 
 export default function CreateSociety({ onCreateSociety }) {
 	const [societyName, setSocietyName] = useState("");
@@ -10,18 +11,30 @@ export default function CreateSociety({ onCreateSociety }) {
 	const [city, setCity] = useState("");
 	const [zipCode, setZipCode] = useState("");
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const newSociety = {
-			label: societyName,
+			societyname: societyName,
+			societyaddress: societyAddress,
+			country,
+			state,
+			city,
+			zipcode: zipCode,
 		};
-		onCreateSociety(newSociety);
-		setSocietyName("");
-		setSocietyAddress("");
-		setCountry("");
-		setState("");
-		setCity("");
-		setZipCode("");
+
+		try {
+			const response = await axiosInstance.post("/societies/createSociety", newSociety);
+			const createdSociety = response.data.society;
+			onCreateSociety(createdSociety);
+			setSocietyName("");
+			setSocietyAddress("");
+			setCountry("");
+			setState("");
+			setCity("");
+			setZipCode("");
+		} catch (error) {
+			console.error("Error creating society:", error);
+		}
 	};
 
 	return (

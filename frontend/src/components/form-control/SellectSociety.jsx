@@ -1,4 +1,5 @@
-import { useState } from "react";
+// src/components/form-control/SelectSociety.jsx
+import { useState, useEffect } from "react";
 import {
 	Dialog,
 	DialogContent,
@@ -14,24 +15,37 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import CreateSociety from "@/components/form-control/society";
+import axiosInstance from "../../test/axiosInstance";
 
-export default function SelectSociety() {
-	const [selectedValue, setSelectedValue] = useState("");
+export default function SelectSociety({ value, onChange }) {
+	const [selectedValue, setSelectedValue] = useState(value);
 	const [societies, setSocieties] = useState([]);
 
+	useEffect(() => {
+		const fetchSocieties = async () => {
+			try {
+				const response = await axiosInstance.get("/societies/getSocieties");
+				setSocieties(response.data);
+			} catch (error) {
+				console.error("Error fetching societies:", error);
+			}
+		};
+
+		fetchSocieties();
+	}, []);
+
 	const handleCreateSociety = (newSociety) => {
-		const uniqueValue = `${newSociety.label
-			.toLowerCase()
-			.replace(/\s+/g, "-")}-${Date.now()}`;
-		const societyWithUniqueValue = { ...newSociety, value: uniqueValue };
-		setSocieties([...societies, societyWithUniqueValue]);
-		setSelectedValue(uniqueValue); // Set the newly created society as the selected value
+		setSocieties([...societies, newSociety]);
+		onChange(newSociety._id); // Set the newly created society as the selected value
 	};
 
 	return (
 		<Select
 			value={selectedValue}
-			onValueChange={(value) => setSelectedValue(value)}
+			onValueChange={(value) => {
+				setSelectedValue(value);
+				onChange(value);
+			}}
 		>
 			<SelectTrigger>
 				<SelectValue
@@ -40,16 +54,16 @@ export default function SelectSociety() {
 				>
 					{selectedValue
 						? societies.find(
-								(society) => society.value === selectedValue
-						  ).label
+								(society) => society._id === selectedValue
+						  )?.societyname
 						: "Select society"}
 				</SelectValue>
 			</SelectTrigger>
 			<SelectContent>
 				<SelectGroup>
 					{societies.map((society) => (
-						<SelectItem key={society.value} value={society.value}>
-							{society.label}
+						<SelectItem key={society._id} value={society._id}>
+							{society.societyname}
 						</SelectItem>
 					))}
 				</SelectGroup>
