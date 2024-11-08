@@ -3,35 +3,35 @@ import { Dialog, DialogContent } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
 
-export default function AddResidentDialog({ isOpen, onClose, onSave }) {
-	const [unitStatus, setUnitStatus] = useState("");
+export default function AddResidentDialog({
+	isOpen,
+	onClose,
+	onSave,
+	isEditMode,
+}) {
+	const [unitStatus, setUnitStatus] = useState(isEditMode ? "Occupied" : "");
 	const [confirm, setConfirm] = useState(false);
 	const [unitStatusError, setUnitStatusError] = useState("");
 	const [confirmError, setConfirmError] = useState("");
 
 	const navigate = useNavigate();
 
-	// const router = useRoutes();
 	const handleSave = () => {
 		let valid = true;
 
-		// Clear previous errors
 		setUnitStatusError("");
 		setConfirmError("");
 
-		// Validation for unit status
 		if (!unitStatus) {
 			setUnitStatusError("Please select a unit status.");
 			valid = false;
 		}
 
-		// Validation for confirmation checkbox
 		if (!confirm) {
 			setConfirmError("Please confirm the option.");
 			valid = false;
 		}
 
-		// If everything is valid, proceed to save
 		if (valid) {
 			onSave(unitStatus);
 			onClose();
@@ -39,16 +39,14 @@ export default function AddResidentDialog({ isOpen, onClose, onSave }) {
 		navigate("/resident-form");
 	};
 
-	// Handle changing the unit status
 	const handleUnitStatusChange = (value) => {
 		setUnitStatus(value);
-		setUnitStatusError(""); // Clear the error when a selection is made
+		setUnitStatusError("");
 	};
 
-	// Handle changing the confirmation checkbox
 	const handleConfirmChange = () => {
 		setConfirm(!confirm);
-		setConfirmError(""); // Clear the error when the checkbox is checked
+		setConfirmError("");
 	};
 
 	return (
@@ -68,6 +66,7 @@ export default function AddResidentDialog({ isOpen, onClose, onSave }) {
 								onChange={() =>
 									handleUnitStatusChange("Occupied")
 								}
+								disabled={isEditMode}
 							/>
 							<span className="ml-2">Occupied</span>
 						</label>

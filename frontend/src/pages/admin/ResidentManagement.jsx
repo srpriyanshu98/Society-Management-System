@@ -1,10 +1,11 @@
 import Layout from "@/components/Layout";
 import AddResidentDialog from "@/components/residentManagement/AddResidentDialog";
 import ProfileSheetContent from "@/components/residentManagement/ProfileSheetContent";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetTrigger } from "@/components/ui/sheet";
+// import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { residents } from "@/data/residentsData";
 import { useState } from "react";
 
@@ -115,26 +116,16 @@ export default function ResidentManagement({ userRole }) {
 												}}
 											>
 												<div className="flex items-center">
-													<img
-														src={
-															resident.residentStatus
-																? getResidentStatusImage(
-																		resident.residentStatus
-																  )
-																: getUnitStatusImage(
-																		resident.unitStatus
-																  )
-														}
-														alt={
-															resident.fullName ||
-															"No Image"
-														}
-														className="w-8 h-8 rounded-full mr-2"
-													/>
-													<span>
-														{resident.fullName ||
-															"-"}
-													</span>
+													<Avatar className="w-10 h-10 me-3">
+														<AvatarImage
+															src="https://github.com/shadcn.png"
+															alt="@shadcn"
+														/>
+														<AvatarFallback>
+															CN
+														</AvatarFallback>
+													</Avatar>
+													{resident.fullName || "-"}
 												</div>
 											</td>
 											<td className="p-3">
@@ -248,21 +239,7 @@ export default function ResidentManagement({ userRole }) {
 																	alt="Edit"
 																/>
 															</button>
-															<Sheet>
-																<SheetTrigger
-																	asChild
-																>
-																	<button className="bg-gray-200 p-2 w-8 h-8 rounded-lg">
-																		<img
-																			src="/src/assets/view.svg"
-																			alt="View"
-																		/>
-																	</button>
-																</SheetTrigger>
-
-																{/* Sheet Content */}
-																<ProfileSheetContent />
-															</Sheet>
+															<ProfileSheetContent />
 														</div>
 													</>
 												) : (
