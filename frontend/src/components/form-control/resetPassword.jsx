@@ -5,6 +5,7 @@ import { Input } from "../ui/input";
 import { InputOTP, InputOTPSlot } from "../ui/input-otp";
 import { EyeIcon, EyeOffIcon } from "lucide-react"; // Assume lucide-react icons are used
 import { Link } from "react-router-dom";
+import axiosInstance from "../../test/axiosInstance"; // Adjust the path accordingly
 
 // Custom Password Input Component
 function PasswordInput({ label, value, onChange, placeholder }) {
@@ -52,16 +53,26 @@ export default function ResetPassword() {
 
 	useEffect(() => {
 		if (otpSent) {
-			const generatedOtp = "123456";
+			const generatedOtp = "123456"; // This should be replaced with actual OTP generation logic
 			setOtp(generatedOtp);
 		}
 	}, [otpSent]);
 
-	const handleGetOtpSubmit = (e) => {
+	const handleGetOtpSubmit = async (e) => {
 		e.preventDefault();
-		setOtpSent(true);
-		setCountdown(30);
-		setEnteredOtp("");
+		try {
+			const response = await axiosInstance.post("/auth/forgot-password", {
+				email: emailOrPhone,
+			});
+			if (response.status === 200) {
+				setOtpSent(true);
+				setCountdown(30);
+				setEnteredOtp("");
+			}
+		} catch (error) {
+			console.error("Error in handleGetOtpSubmit:", error);
+			setErrorMessage("Failed to send OTP. Please try again.");
+		}
 	};
 
 	const handleOtpSubmit = (e) => {
@@ -74,7 +85,7 @@ export default function ResetPassword() {
 		}
 	};
 
-	const handlePasswordResetSubmit = (e) => {
+	const handlePasswordResetSubmit = async (e) => {
 		e.preventDefault();
 		if (newPassword !== confirmPassword) {
 			setErrorMessage("Passwords do not match.");
@@ -85,8 +96,18 @@ export default function ResetPassword() {
 			return;
 		}
 
-		console.log("Password reset successful:", newPassword);
-		setErrorMessage("");
+		try {
+			const response = await axiosInstance.post(`/auth/reset-password/${otp}`, {
+				password: newPassword,
+			});
+			if (response.status === 200) {
+				console.log("Password reset successful:", newPassword);
+				setErrorMessage("");
+			}
+		} catch (error) {
+			console.error("Error in handlePasswordResetSubmit:", error);
+			setErrorMessage("Failed to reset password. Please try again.");
+		}
 	};
 
 	useEffect(() => {
