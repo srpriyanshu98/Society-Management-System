@@ -39,3 +39,24 @@ export const data = [
 		},
 	},
 ];
+
+export const maintenance = [
+	{
+		label: "Maintenance Amount",
+		value: "₹ 0",
+		colors: {
+			accent: "from-green-400 to-green-600",
+			iconBg: "bg-green-100",
+			iconColor: "text-green-600",
+		},
+	},
+	{
+		label: "Penalty Amount",
+		value: "₹ 0",
+		colors: {
+			accent: "from-red-400 to-red-600",
+			iconBg: "bg-red-100",
+			iconColor: "text-red-600",
+		},
+	},
+];
