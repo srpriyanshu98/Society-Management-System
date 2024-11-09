@@ -89,12 +89,12 @@ export default function ComplaintList() {
 	return (
 		<Card className="bg-white p-4 shadow-md rounded-xl w-full">
 			<div className="flex justify-between items-center mb-4">
-				<h2 className="text-xl font-bold">Complaint List</h2>
+				<h2 className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">Complaint List</h2>
 				<Select value={filter} onValueChange={setFilter}>
 					<SelectTrigger className="border p-2 rounded-md text-sm w-[160px]">
 						{filter}
 					</SelectTrigger>
-					<SelectContent>
+					<SelectContent className="font-semibold font-poppins">
 						<SelectItem value="All">All</SelectItem>
 						<SelectItem value="Open">Open</SelectItem>
 						<SelectItem value="Pending">Pending</SelectItem>
@@ -106,7 +106,7 @@ export default function ComplaintList() {
 				<div className="overflow-auto">
 					<table className="w-full text-left border-collapse">
 						<thead className="text-center text-gray-600">
-							<tr className="bg-blue-50">
+							<tr className="bg-blue-50 font-semibold font-poppins">
 								<th className="p-3">Complainer Name</th>
 								<th className="p-3">Complaint Name</th>
 								<th className="p-3">Date</th>
@@ -131,11 +131,11 @@ export default function ComplaintList() {
 												alt={complaint.complainerName}
 												className="w-10 h-10 rounded-full object-cover"
 											/>
-											<span className="font-semibold">
+											<span className="font-semibold font-poppins">
 												{complaint.complainerName}
 											</span>
 										</td>
-										<td className="p-3 text-gray-700">
+										<td className="p-3 text-gray-700 font-semibold font-poppins">
 											{complaint.complaintName}
 										</td>
 										<td className="p-3 text-gray-500">
@@ -161,7 +161,7 @@ export default function ComplaintList() {
 										</td>
 										<td className="flex justify-center space-x-4">
 											<button
-												className="rounded-md bg-gray-100 p-2"
+												className="rounded-md bg-gray-100 p-2 font-semibold font-poppins"
 												onClick={() =>
 													handleEditComplaint(
 														complaint
@@ -174,7 +174,7 @@ export default function ComplaintList() {
 												/>
 											</button>
 											<button
-												className="rounded-md bg-gray-100 p-2"
+												className="rounded-md bg-gray-100 p-2 font-semibold font-poppins"
 												onClick={() =>
 													handleViewComplaint(
 														complaint
@@ -187,7 +187,7 @@ export default function ComplaintList() {
 												/>
 											</button>
 											<button
-												className="rounded-md bg-gray-100 p-2"
+												className="rounded-md bg-gray-100 p-2 font-semibold font-poppins"
 												onClick={() =>
 													handleDeleteComplaint(
 														complaint
@@ -206,7 +206,7 @@ export default function ComplaintList() {
 								<tr>
 									<td
 										colSpan="6"
-										className="p-4 text-gray-500 text-center"
+										className="p-4 text-gray-500 text-center font-semibold font-poppins"
 									>
 										No complaints found.
 									</td>

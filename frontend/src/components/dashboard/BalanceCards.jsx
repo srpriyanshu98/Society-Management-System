@@ -3,7 +3,7 @@ import { Card } from "../ui/card";
 
 export default function BalanceCards() {
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+		<div className="grid grid-cols-1 md:grid-cols-2 font-poppins lg:grid-cols-4 gap-4">
 			{data.map((item, index) => (
 				<Card
 					key={index}

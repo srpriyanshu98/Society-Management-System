@@ -85,12 +85,12 @@ export default function UpcomingActivity() {
 	return (
 		<Card className="bg-white p-4 shadow-md rounded-xl max-w-md w-[450px]">
 			<div className="flex justify-between items-center mb-4">
-				<h2 className="text-xl font-bold">Upcoming Activity</h2>
+				<h2 className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">Upcoming Activity</h2>
 				<Select value={filter} onValueChange={setFilter}>
 					<SelectTrigger className="border p-2 rounded-md text-sm w-[160px]">
 						{filter}
 					</SelectTrigger>
-					<SelectContent>
+					<SelectContent className="font-semibold font-poppins">
 						<SelectItem value="All">All</SelectItem>
 						<SelectItem value="Month">Month</SelectItem>
 						<SelectItem value="Week">Week</SelectItem>
@@ -126,7 +126,7 @@ export default function UpcomingActivity() {
 												.toUpperCase()}
 										</div>
 										<div>
-											<div className="font-semibold">
+											<div className="font-semibold font-poppins">
 												{activity.name}
 											</div>
 											<div className="text-gray-500 text-sm">
@@ -144,7 +144,7 @@ export default function UpcomingActivity() {
 							);
 						})
 					) : (
-						<p className="text-gray-500 text-sm">
+						<p className="text-gray-500 text-sm font-semibold font-poppins">
 							No activities found.
 						</p>
 					)}

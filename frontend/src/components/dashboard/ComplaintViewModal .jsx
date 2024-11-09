@@ -17,7 +17,7 @@ function ComplaintViewModal({ isOpen, onClose, complaint }) {
 						className="w-12 h-12 rounded-full object-cover"
 					/>
 					<div>
-						<h3 className="text-lg font-semibold">
+						<h3 className="text-lg font-semibold font-poppins">
 							{complaint.complainerName}
 						</h3>
 						<p className="text-sm text-gray-500">
@@ -26,28 +26,28 @@ function ComplaintViewModal({ isOpen, onClose, complaint }) {
 					</div>
 				</div>
 				<div className="mt-4">
-					<p className="text-gray-700 font-semibold">Request Name</p>
+					<p className="text-gray-700 font-semibold font-poppins">Request Name</p>
 					<p className="text-gray-600">{complaint.complaintName}</p>
 				</div>
 				<div className="mt-4">
-					<p className="text-gray-700 font-semibold">Description</p>
+					<p className="text-gray-700 font-semibold font-poppins">Description</p>
 					<p className="text-gray-600">{complaint.description}</p>
 				</div>
 				<div className="mt-4 flex space-x-4">
 					<div className="flex flex-col items-center">
-						<p className="text-gray-700 font-semibold">Wing</p>
+						<p className="text-gray-700 font-semibold font-poppins">Wing</p>
 						<span className="bg-blue-100 text-blue-600 ps-5 pe-5 pt-2 pb-2 rounded-full mt-2 ">
 							{complaint.wing}
 						</span>
 					</div>
 					<div className="flex flex-col items-center">
-						<p className="text-gray-700 font-semibold">Unit</p>
+						<p className="text-gray-700 font-semibold font-poppins">Unit</p>
 						<span className="ps-5 pe-5 pt-2 pb-2 mt-2 ">
 							{complaint.unit}
 						</span>
 					</div>
 					<div className="flex flex-col items-center">
-						<p className="text-gray-700 font-semibold">Priority</p>
+						<p className="text-gray-700 font-semibold font-poppins">Priority</p>
 						<span
 							className={`ps-5 pe-5 pt-2 pb-2 rounded-full text-white mt-2 ${getPriorityColor(
 								complaint.priority
@@ -57,7 +57,7 @@ function ComplaintViewModal({ isOpen, onClose, complaint }) {
 						</span>
 					</div>
 					<div className="flex flex-col items-center">
-						<p className="text-gray-700 font-semibold">Status</p>
+						<p className="text-gray-700 font-semibold font-poppins">Status</p>
 						<span
 							className={`ps-5 pe-5 pt-2 pb-2 rounded-full  mt-2 ${getStatusColor(
 								complaint.status
