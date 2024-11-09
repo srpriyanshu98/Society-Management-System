@@ -167,7 +167,7 @@ export default function ResetPassword() {
 							<div className="text-center mt-4 text-sm">
 								<p>
 									<Link
-										to="/login"
+										to="/"
 										className="text-orange-500"
 									>
 										Back To Login

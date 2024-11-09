@@ -18,7 +18,7 @@ export default function Header() {
 
 	const breadcrumbItems = getBreadcrumbItems();
 	return (
-		<header className="flex justify-between items-center p-4 ml-64 bg-white shadow-md h-[100px]">
+		<header className="flex justify-between font-poppins items-center p-4 ml-64 bg-white shadow-md h-[100px]">
 			<div className="flex items-center space-x-4">
 				<Breadcrumb>
 					<BreadcrumbList>
@@ -38,6 +38,16 @@ export default function Header() {
 				</Breadcrumb>
 			</div>
 			<div className="flex items-center space-x-4">
+				<div className="border border-gray-300 p-1 rounded">
+					<a href="##">
+						<img
+							src="/src/assets/icons8.gif"
+							alt="Active"
+							className="h-6 w-6"
+						/>
+					</a>
+				</div>
+
 				<span className="text-gray-700">Main Roy</span>
 				<Link
 					to="/edit-profile"

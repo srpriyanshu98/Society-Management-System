@@ -27,11 +27,11 @@ export default function ImportantNumbers() {
 					numbers.map((number) =>
 						number.id === editId
 							? {
-									...number,
-									name: newName,
-									phone: newPhone,
-									work: newWork,
-							  }
+								...number,
+								name: newName,
+								phone: newPhone,
+								work: newWork,
+							}
 							: number
 					)
 				);
@@ -81,7 +81,8 @@ export default function ImportantNumbers() {
 	return (
 		<div className="bg-white p-4 shadow-md rounded-xl">
 			<div className="flex justify-between">
-				<h2 className="text-xl font-bold mb-4">Important Numbers</h2>
+				<h2 className="text-[20px] font-semibold font-poppins leading-[30px] decoration-slice"> Important Numbers </h2>
+
 				<Button
 					onClick={() => {
 						resetForm();
@@ -168,29 +169,46 @@ export default function ImportantNumbers() {
 						</DialogTitle>
 					</DialogHeader>
 					<div className="space-y-4">
-						<Input
-							placeholder="Name"
-							type="text"
-							value={newName}
-							onChange={(e) => setNewName(e.target.value)}
-						/>
-						<Input
-							placeholder="Phone"
-							value={newPhone}
-							type="number"
-							maxLength={10}
-							onChange={(e) => {
-								if (e.target.value.length <= 10) {
-									setNewPhone(e.target.value);
-								}
-							}}
-						/>
-						<Input
-							placeholder="Work"
-							type="text"
-							value={newWork}
-							onChange={(e) => setNewWork(e.target.value)}
-						/>
+						<div className="grid grid-cols-1 gap-2">
+							<div className="text-left">
+								Full Name<span className="text-[#E74C3C]">*</span>
+							</div>
+							<Input
+								placeholder="Name"
+								type="text"
+								value={newName}
+								onChange={(e) => setNewName(e.target.value)}
+								className="w-full p-2 border border-gray-300 rounded-lg"
+							/>
+						</div>
+
+						<div className="grid grid-cols-1 gap-2">
+							<div className="text-left">
+							<div>Phone Number<span className="text-[#E74C3C]">*</span></div>
+							<Input
+								placeholder="+91"
+								value={newPhone}
+								type="number"
+								maxLength={10}
+								onChange={(e) => {
+									if (e.target.value.length <= 10) {
+										setNewPhone(e.target.value);
+									}
+								}}
+							/>
+						</div>
+						</div>
+						<div className="grid grid-cols-1 gap-2">
+							<div className="text-left">
+							<div>Work<span className="text-[#E74C3C]">*</span></div>
+							<Input
+								placeholder="Work"
+								type="text"
+								value={newWork}
+								onChange={(e) => setNewWork(e.target.value)}
+							/>
+						</div>
+						</div>
 						<Button onClick={handleAdd}>
 							{editId ? "Save" : "Add"}
 						</Button>

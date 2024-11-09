@@ -361,7 +361,7 @@ export default function SignUpForm() {
 				<div className="text-center mt-4 text-sm">
 					<p>
 						Already have an account?{" "}
-						<Link to="/login" className="text-orange-500">
+						<Link to="/" className="text-orange-500">
 							Login
 						</Link>
 					</p>

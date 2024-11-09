@@ -37,10 +37,9 @@ export default function Sidebar({ userRole = "admin" }) {
 									<NavLink
 										to={item.path}
 										className={({ isActive }) =>
-											`flex items-center space-x-4 w-56 p-3 text-base rounded-lg ${
-												isActive
-													? "bg-gradient-to-r from-orange-600 to-orange-400 text-white shadow-md"
-													: "text-gray-700 hover:bg-gray-100"
+											`flex items-center space-x-4 w-56 font-poppins p-3 text-sm rounded-lg ${isActive
+												? "bg-gradient-to-r from-orange-600 to-orange-400 text-white shadow-md"
+												: "text-gray-700 hover:bg-gray-100"
 											}`
 										}
 										key={item.name}
@@ -48,11 +47,30 @@ export default function Sidebar({ userRole = "admin" }) {
 										<IconComponent className="w-5 h-5" />
 										<span>{item.name}</span>
 									</NavLink>
+
 								</div>
 							</div>
 						</>
 					);
 				})}
+			</div>
+			<div className="relative top-[300px]">
+				<div data-orientation="horizontal" role="none" className="shrink-0 bg-border h-[1px] mb-4 w-[212px] mx-auto"></div>
+				<div>
+					<img
+						src="/src/assets/logout.svg"
+						alt="Logout"
+						className="mr-2 absolute left-5"
+					/>
+					<div className="relative">
+						<a
+							href="##"
+							className="text-[#E74C3C] w-[55px] h-[24px] gap-0 text-[16px] font-poppins leading-[24px] absolute left-12"
+						>
+							Logout
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

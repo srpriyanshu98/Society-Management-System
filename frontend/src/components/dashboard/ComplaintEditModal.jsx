@@ -37,125 +37,151 @@ export default function ComplaintEditModal({
 					<DialogTitle>Edit Complaint</DialogTitle>
 				</DialogHeader>
 				<div className="space-y-4">
-					<Input
-						name="complainerName"
-						value={editedComplaint.complainerName || ""}
-						onChange={handleChange}
-						placeholder="Complainer Name"
-					/>
-					<Input
-						name="complaintName"
-						value={editedComplaint.complaintName || ""}
-						onChange={handleChange}
-						placeholder="Complaint Name"
-					/>
-					<Input
-						name="description"
-						value={editedComplaint.description || ""}
-						onChange={handleChange}
-						placeholder="Description"
-					/>
-					<div className="flex space-x-4">
-						<Input
-							name="wing"
-							value={editedComplaint.wing || ""}
-							onChange={handleChange}
-							placeholder="Wing"
-						/>
-						<Input
-							name="unit"
-							value={editedComplaint.unit || ""}
-							onChange={handleChange}
-							placeholder="Unit"
-						/>
-					</div>
-
-					{/* Radio Group for Priority */}
-					<div>
-						<label className="block font-medium">Priority</label>
-						<div className="flex space-x-4">
-							<label className="flex items-center p-2 border rounded-md cursor-pointer">
-								<input
-									type="radio"
-									name="priority"
-									value="High"
-									checked={
-										editedComplaint.priority === "High"
-									}
-									onChange={handleRadioChange}
-									className="mr-2 radio-gradient"
-								/>
-								<span className="text-gray-500">High</span>
-							</label>
-							<label className="flex items-center p-2 border rounded-md cursor-pointer">
-								<input
-									type="radio"
-									name="priority"
-									value="Medium"
-									checked={
-										editedComplaint.priority === "Medium"
-									}
-									onChange={handleRadioChange}
-									className="mr-2 radio-gradient"
-								/>
-								<span className="text-gray-500">Medium</span>
-							</label>
-							<label className="flex items-center p-2 border rounded-md cursor-pointer">
-								<input
-									type="radio"
-									name="priority"
-									value="Low"
-									checked={editedComplaint.priority === "Low"}
-									onChange={handleRadioChange}
-									className="mr-2 radio-gradient"
-								/>
-								<span className="text-gray-500">Low</span>
-							</label>
+					<div className="grid grid-cols-1 gap-2">
+						<div className="text-left">
+							<div className="font-poppins">Complainer Name<span className="text-[#E74C3C]">*</span></div>
+							<Input
+								name="complainerName"
+								value={editedComplaint.complainerName || ""}
+								onChange={handleChange}
+								placeholder="Complainer Name"
+							/>
 						</div>
 					</div>
-
-					{/* Radio Group for Status */}
-					<div>
-						<label className="block font-medium">Status</label>
-						<div className="flex space-x-4">
-							<label className="flex items-center p-2 border rounded-md cursor-pointer">
-								<input
-									type="radio"
-									name="status"
-									value="Open"
-									checked={editedComplaint.status === "Open"}
-									onChange={handleRadioChange}
-									className="mr-2 radio-gradient"
-								/>
-								<span className="text-gray-500">Open</span>
-							</label>
-							<label className="flex items-center p-2 border rounded-md cursor-pointer">
-								<input
-									type="radio"
-									name="status"
-									value="Pending"
-									checked={
-										editedComplaint.status === "Pending"
-									}
-									onChange={handleRadioChange}
-									className="mr-2 radio-gradient"
-								/>
-								<span className="text-gray-500">Pending</span>
-							</label>
-							<label className="flex items-center p-2 border rounded-md cursor-pointer">
-								<input
-									type="radio"
-									name="status"
-									value="Solve"
-									checked={editedComplaint.status === "Solve"}
-									onChange={handleRadioChange}
-									className="mr-2 radio-gradient"
-								/>
-								<span className="text-gray-500">Solve</span>
-							</label>
+					<div className="grid grid-cols-1 gap-2">
+						<div className="text-left">
+							<div className="font-poppins">Complaint Name<span className="text-[#E74C3C]">*</span></div>
+							<Input
+								name="complaintName"
+								value={editedComplaint.complaintName || ""}
+								onChange={handleChange}
+								placeholder="Complaint Name"
+							/>
+						</div>
+					</div>
+					<div className="grid grid-cols-1 gap-2">
+						<div className="text-left">
+							<div className="font-poppins">Description<span className="text-[#E74C3C]">*</span></div>
+							<Input
+								name="description"
+								value={editedComplaint.description || ""}
+								onChange={handleChange}
+								placeholder="Description"
+							/>
 						</div>
 					</div>
 				</div>
+				<div className="flex  space-x-4">
+					<div className="grid grid-cols-1 gap-2">
+						<div className="text-left">
+							<div className="font-poppins">Wing<span className="text-[#E74C3C]">*</span></div>
+							<Input
+								name="wing"
+								value={editedComplaint.wing || ""}
+								onChange={handleChange}
+								placeholder="Wing"
+							/>
+						</div>
+					</div>
+					<div className="grid grid-cols-1 gap-2">
+						<div className="text-left">
+							<div className="font-poppins">Unit<span className="text-[#E74C3C]">*</span></div>
+							<Input
+								name="unit"
+								value={editedComplaint.unit || ""}
+								onChange={handleChange}
+								placeholder="Unit"
+							/>
+						</div>
+					</div>
+				</div>
+
+				{/* Radio Group for Priority */}
+				<div>
+					<label className="block font-medium">Priority</label>
+					<div className="flex space-x-4">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer">
+							<input
+								type="radio"
+								name="priority"
+								value="High"
+								checked={
+									editedComplaint.priority === "High"
+								}
+								onChange={handleRadioChange}
+								className="mr-2 radio-gradient"
+							/>
+							<span className="text-gray-500">High</span>
+						</label>
+						<label className="flex items-center p-2 border rounded-md cursor-pointer">
+							<input
+								type="radio"
+								name="priority"
+								value="Medium"
+								checked={
+									editedComplaint.priority === "Medium"
+								}
+								onChange={handleRadioChange}
+								className="mr-2 radio-gradient"
+							/>
+							<span className="text-gray-500">Medium</span>
+						</label>
+						<label className="flex items-center p-2 border rounded-md cursor-pointer">
+							<input
+								type="radio"
+								name="priority"
+								value="Low"
+								checked={editedComplaint.priority === "Low"}
+								onChange={handleRadioChange}
+								className="mr-2 radio-gradient"
+							/>
+							<span className="text-gray-500">Low</span>
+						</label>
+					</div>
+				</div>
+
+				{/* Radio Group for Status */}
+				<div>
+					<label className="block font-medium">Status</label>
+					<div className="flex space-x-4">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer">
+							<input
+								type="radio"
+								name="status"
+								value="Open"
+								checked={editedComplaint.status === "Open"}
+								onChange={handleRadioChange}
+								className="mr-2 radio-gradient"
+							/>
+							<span className="text-gray-500">Open</span>
+						</label>
+						<label className="flex items-center p-2 border rounded-md cursor-pointer">
+							<input
+								type="radio"
+								name="status"
+								value="Pending"
+								checked={
+									editedComplaint.status === "Pending"
+								}
+								onChange={handleRadioChange}
+								className="mr-2 radio-gradient"
+							/>
+							<span className="text-gray-500">Pending</span>
+						</label>
+						<label className="flex items-center p-2 border rounded-md cursor-pointer">
+							<input
+								type="radio"
+								name="status"
+								value="Solve"
+								checked={editedComplaint.status === "Solve"}
+								onChange={handleRadioChange}
+								className="mr-2 radio-gradient"
+							/>
+							<span className="text-gray-500">Solve</span>
+						</label>
+					</div>
+				</div>
+
 				<div className="mt-4 flex justify-between space-x-2">
 					<Button variant="outline" onClick={onClose}>
 						Cancel
@@ -163,6 +189,6 @@ export default function ComplaintEditModal({
 					<Button onClick={handleSave}>Save</Button>
 				</div>
 			</DialogContent>
-		</Dialog>
+		</Dialog >
 	);
 }

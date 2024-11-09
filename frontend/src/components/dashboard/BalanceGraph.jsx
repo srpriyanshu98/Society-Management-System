@@ -44,8 +44,8 @@ export default function BalanceGraph() {
 	return (
 		<Card>
 			<CardHeader className="">
-				<div className="flex  justify-between">
-					<CardTitle>Total Balance</CardTitle>
+				<div className="flex  justify-between font-poppins">
+					<CardTitle className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">Total Balance</CardTitle>
 					<Select value={timeRange} onValueChange={setTimeRange}>
 						<SelectTrigger className="w-[160px]">
 							<SelectValue placeholder="Select time range" />
@@ -67,7 +67,7 @@ export default function BalanceGraph() {
 					</Select>
 				</div>
 			</CardHeader>
-			<CardContent className="flex flex-col h-full justify-center">
+			<CardContent className="flex flex-col h-full justify-center font-poppins">
 				<div className="w-full h-[285px]">
 					<ResponsiveContainer>
 						<LineChart
