@@ -167,7 +167,7 @@ export default function ResetPassword() {
 							<div className="text-center mt-4 text-sm">
 								<p>
 									<Link
-										to="/"
+										to="/login"
 										className="text-orange-500"
 									>
 										Back To Login
@@ -199,6 +199,7 @@ export default function ResetPassword() {
 							<Button
 								type="submit"
 								className="w-full py-2 md:py-3  text-white rounded-xl"
+								disabled={!newPassword || !confirmPassword}
 							>
 								Reset Password
 							</Button>
@@ -211,16 +212,16 @@ export default function ResetPassword() {
 						</p>
 
 						<form onSubmit={handleOtpSubmit} className="space-y-4">
-							<div>
+							<div >
 								<label className="block text-sm font-medium text-gray-700">
 									Please enter the 6 digit code sent to your
 									phone number
 								</label>
-
+								
 								<InputOTP
 									maxLength={6}
 									onChange={handleOtpChange}
-									className="mt-1 w-full"
+									className="w-full "
 								>
 									{Array.from({ length: 6 }).map(
 										(_, index) => (
@@ -242,6 +243,7 @@ export default function ResetPassword() {
 							<Button
 								type="submit"
 								className="w-full py-2 md:py-3  text-white rounded-xl"
+								disabled={enteredOtp.length < 6} // Disable button if OTP is less than 6 digits
 							>
 								Verify OTP
 							</Button>
