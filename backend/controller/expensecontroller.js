@@ -1,10 +1,12 @@
 import Expense from "../model/expensemodel.js";
+import fs from "fs";
+import path from "path";
 
 // Add a new expense record
 export const addExpense = async (req, res) => {
   try {
     const { title, description, date, amount } = req.body;
-    const bill = req.file.path;
+    const bill = req.file ? req.file.path : null;
 
     const expense = new Expense({ title, description, date, amount, bill });
     await expense.save();
@@ -71,6 +73,15 @@ export const deleteExpense = async (req, res) => {
     if (!expense) {
       return res.status(404).json({ message: "Expense not found" });
     }
+
+    const deleteFile = (filePath) => {
+      fs.unlink(filePath, (err) => {
+        if (err) console.error(`Failed to delete file: ${filePath}`, err);
+      });
+    };
+
+    deleteFile(expense.bill);
+
     res.status(200).json({ message: "Expense deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
