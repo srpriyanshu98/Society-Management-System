@@ -1,10 +1,22 @@
+import { useState } from "react";
 import { maintenanceData } from "@/data/maintenanceData";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { ScrollArea } from "../ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import MaintenanceViewModal from "./MaintenanceViewModal"; // Import the new modal component
 
 export const MaintenanceDetails = () => {
+	const [selectedMaintenance, setSelectedMaintenance] = useState(null);
+
+	const handleViewClick = (item) => {
+		setSelectedMaintenance(item);
+	};
+
+	const handleCloseModal = () => {
+		setSelectedMaintenance(null);
+	};
+
 	return (
 		<Card>
 			<CardHeader>
@@ -125,8 +137,8 @@ export const MaintenanceDetails = () => {
 													src={
 														item.paymentMode ===
 														"Online"
-															? "./src/assets/wallet-1.svg"
-															: "./src/assets/wallet-2.svg"
+															? "./src/assets/wallet-2.svg"
+															: "./src/assets/wallet-1.svg"
 													}
 													className="w-5 h-5"
 													alt="Payment Icon"
@@ -140,6 +152,9 @@ export const MaintenanceDetails = () => {
 										<Button
 											variant="ghost"
 											className="p-2 bg-gray-100"
+											onClick={() =>
+												handleViewClick(item)
+											}
 										>
 											<img
 												src="/src/assets/view.svg"
@@ -153,6 +168,11 @@ export const MaintenanceDetails = () => {
 					</table>
 				</ScrollArea>
 			</CardContent>
+			<MaintenanceViewModal
+				isOpen={Boolean(selectedMaintenance)}
+				onClose={handleCloseModal}
+				maintenance={selectedMaintenance}
+			/>
 		</Card>
 	);
 };

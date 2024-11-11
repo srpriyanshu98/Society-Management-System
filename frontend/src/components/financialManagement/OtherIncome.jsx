@@ -1,4 +1,5 @@
-import { incomeData } from "@/data/otherIncomeData";
+import { useState } from "react";
+import { incomeData as initialData } from "@/data/otherIncomeData";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { MoreVertical } from "lucide-react";
@@ -8,31 +9,54 @@ import {
 	DropdownMenuContent,
 	DropdownMenuItem,
 } from "../ui/dropdown-menu";
-import React from "react";
+import AddIncomeDialog from "./AddIncomeDialog";
+import EditIncomeDialog from "./EditIncomeDialog";
+import ConfirmationDialog from "../ConfirmationDialog ";
 
 export default function OtherIncome() {
-	const [dropdownOpenId, setDropdownOpenId] = React.useState(null);
+	const [incomeData, setIncomeData] = useState(initialData);
+	const [dropdownOpenId, setDropdownOpenId] = useState(null);
+	const [editingIncome, setEditingIncome] = useState(null);
+	const [deleteItem, setDeleteItem] = useState(null); // State to handle delete dialog
 
 	const toggleDropdown = (id) => {
 		setDropdownOpenId((prevId) => (prevId === id ? null : id));
 	};
 
+	const handleSaveIncome = (newIncome) => {
+		setIncomeData((prevData) => [...prevData, newIncome]);
+	};
+
+	const handleEditSave = (updatedIncome) => {
+		setIncomeData((prevData) =>
+			prevData.map((item) =>
+				item.id === updatedIncome.id ? updatedIncome : item
+			)
+		);
+		setEditingIncome(null);
+	};
+
+	const handleDeleteConfirm = () => {
+		setIncomeData((prevData) =>
+			prevData.filter((item) => item.id !== deleteItem.id)
+		);
+		setDeleteItem(null); // Close the dialog after deletion
+	};
+
 	return (
 		<Card>
-			<CardHeader className="">
+			<CardHeader className="flex flex-row justify-between items-center">
 				<CardTitle className="text-lg font-semibold">
 					Other Income
 				</CardTitle>
-				<Button className="bg-orange-500 text-white hover:bg-orange-600 rounded-xl">
-					Create Other Income
-				</Button>
+				<AddIncomeDialog onSave={handleSaveIncome} />
 			</CardHeader>
 			<CardContent>
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
 					{incomeData.map((item) => (
 						<Card
 							key={item.id}
-							className="border shadow-lg rounded-lg"
+							className="border shadow-lg rounded-xl border-blue-200 pb-8"
 						>
 							<CardHeader className="relative bg-blue-500 text-white p-4 rounded-t-lg">
 								<h3 className="text-lg font-semibold">
@@ -57,7 +81,7 @@ export default function OtherIncome() {
 										<DropdownMenuContent className="bg-white border rounded shadow-md">
 											<DropdownMenuItem
 												onClick={() =>
-													alert("Edit item")
+													setEditingIncome(item)
 												}
 											>
 												Edit
@@ -71,8 +95,8 @@ export default function OtherIncome() {
 											</DropdownMenuItem>
 											<DropdownMenuItem
 												onClick={() =>
-													alert("Delete item")
-												}
+													setDeleteItem(item)
+												} // Open delete confirmation dialog
 											>
 												Delete
 											</DropdownMenuItem>
@@ -80,32 +104,72 @@ export default function OtherIncome() {
 									</DropdownMenu>
 								</div>
 							</CardHeader>
-							<CardContent className="p-4 space-y-1">
+							<CardContent className="p-4 space-y-3">
 								<p>
-									<strong>Amount Per Member:</strong>{" "}
-									<span className="text-blue-600 font-semibold">
-										{item.amount}
+									<span className="inline-block text-slate-600">
+										Amount Per Member:
+									</span>
+									<span className="text-blue-600 bg-blue-200 ps-4 pe-4 rounded-full p-1 font-semibold float-right">
+										₹{item.amount}
 									</span>
 								</p>
 								<p>
-									<strong>Total Member:</strong>{" "}
-									{item.members}
+									<span className="inline-block text-slate-600">
+										Total Member:
+									</span>
+									<span className="float-right">
+										{item.members}
+									</span>
 								</p>
 								<p>
-									<strong>Date:</strong> {item.date}
+									<span className="inline-block text-slate-600">
+										Date:
+									</span>
+									<span className="float-right">
+										{item.date}
+									</span>
 								</p>
 								<p>
-									<strong>Due Date:</strong> {item.dueDate}
+									<span className="inline-block text-slate-600">
+										Due Date:
+									</span>
+									<span className="float-right">
+										{item.dueDate}
+									</span>
 								</p>
 								<p>
-									<strong>Description:</strong>{" "}
-									{item.description}
+									<span className="inline-block text-slate-600 mb-2">
+										Description:
+									</span>
+									<span className="float-right">
+										{item.description}
+									</span>
 								</p>
 							</CardContent>
 						</Card>
 					))}
 				</div>
 			</CardContent>
+
+			{/* Render the EditIncomeDialog only when an item is being edited */}
+			{editingIncome && (
+				<EditIncomeDialog
+					incomeItem={editingIncome}
+					onSave={handleEditSave}
+					onClose={() => setEditingIncome(null)}
+				/>
+			)}
+
+			{/* Render the ConfirmationDialog only when a delete item is selected */}
+			{deleteItem && (
+				<ConfirmationDialog
+					isOpen={!!deleteItem}
+					title={deleteItem.title} // Use deleteItem.title here
+					description={`Are you sure you want to delete "${deleteItem.title}"?`}
+					onConfirm={handleDeleteConfirm}
+					onCancel={() => setDeleteItem(null)}
+				/>
+			)}
 		</Card>
 	);
 }

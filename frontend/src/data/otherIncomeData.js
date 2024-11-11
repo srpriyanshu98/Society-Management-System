@@ -2,7 +2,7 @@ export const incomeData = [
 	{
 		id: 1,
 		title: "Ganesh Chaturthi",
-		amount: "₹1,500",
+		amount: " 1,500",
 		members: 12,
 		date: "01/07/2024",
 		dueDate: "10/07/2024",
@@ -12,7 +12,7 @@ export const incomeData = [
 	{
 		id: 2,
 		title: "Navratri",
-		amount: "₹1,500",
+		amount: " 1,500",
 		members: 12,
 		date: "01/07/2024",
 		dueDate: "10/07/2024",
@@ -22,7 +22,7 @@ export const incomeData = [
 	{
 		id: 3,
 		title: "Diwali",
-		amount: "₹1,500",
+		amount: " 1,500",
 		members: 12,
 		date: "01/07/2024",
 		dueDate: "10/07/2024",
@@ -32,7 +32,7 @@ export const incomeData = [
 	{
 		id: 4,
 		title: "Ganesh Chaturthi",
-		amount: "₹1,500",
+		amount: " 1,500",
 		members: 12,
 		date: "01/07/2024",
 		dueDate: "10/07/2024",
