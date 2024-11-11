@@ -137,8 +137,8 @@ export const MaintenanceDetails = () => {
 													src={
 														item.paymentMode ===
 														"Online"
-															? "./src/assets/wallet-1.svg"
-															: "./src/assets/wallet-2.svg"
+															? "./src/assets/wallet-2.svg"
+															: "./src/assets/wallet-1.svg"
 													}
 													className="w-5 h-5"
 													alt="Payment Icon"
