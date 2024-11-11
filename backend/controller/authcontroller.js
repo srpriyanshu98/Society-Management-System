@@ -3,6 +3,7 @@ import User from "../model/usermodel.js";
 import jwt from "jsonwebtoken";
 import { sendMail } from "../config/mailer.js";
 import otpGenerator from "otp-generator";
+import bcryptjs from "bcryptjs";
 
 export const register = async (req, res) => {
   const {
@@ -76,6 +77,7 @@ export const forgotPassword = async (req, res) => {
       specialChars: false,
     });
     const cdate = new Date();
+    const otpExpiration = new Date(Date.now() + 5 * 60 * 1000);
 
     let user;
     if (email.includes("@")) {
@@ -90,7 +92,7 @@ export const forgotPassword = async (req, res) => {
 
       await User.findOneAndUpdate(
         { email: email },
-        { otp, otpExpiration: new Date(cdate.getTime()) },
+        { otp, otpExpiration },
         { upsert: true, new: true, setDefaultsOnInsert: true }
       );
 
@@ -115,22 +117,57 @@ export const forgotPassword = async (req, res) => {
 
 // Verify OTP and reset password
 export const resetPassword = async (req, res) => {
-  const { email, otp, newPassword } = req.body;
   try {
-    const user = await User.findOne({ email });
-    if (!user || user.otp !== otp || Date.now() > user.otpExpiry) {
-      return res.status(400).json({ message: "Invalid or expired OTP" });
+    const { email, otp, newPassword, confirmPassword } = req.body;
+
+    if (!email || !otp || !newPassword || !confirmPassword) {
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields are required" });
     }
 
-    // Update password and clear OTP
-    user.password = newPassword;
-    user.otp = undefined;
-    user.otpExpiry = undefined;
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    // Verify OTP
+    const currentTime = new Date();
+    if (user.otp !== otp || user.otpExpiration < currentTime) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid or expired OTP" });
+    }
+
+    // Check if passwords match
+    if (newPassword !== confirmPassword) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Passwords do not match" });
+    }
+
+    // Hash the new password
+    const salt = await bcryptjs.genSalt(10);
+    const hashedPassword = await bcryptjs.hash(newPassword, salt);
+
+    // Update user's password and clear OTP fields
+    user.password = hashedPassword;
+    user.otp = null; // Clear OTP after successful reset
+    user.otpExpiration = new Date(Date.now() + 5 * 60 * 1000);
     await user.save();
 
-    res.status(200).json({ message: "Password updated successfully" });
+    return res.status(200).json({
+      success: true,
+      message: "Password reset successfully",
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error in reset password controller:", error.message);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error" });
   }
 };
 
