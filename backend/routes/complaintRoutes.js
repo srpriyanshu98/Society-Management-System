@@ -1,4 +1,5 @@
 import express from "express";
+import { admin } from "../middleware/authmiddleware.js";
 import {
   createComplaint,
   getComplaints,
@@ -9,10 +10,10 @@ import {
 
 const router = express.Router();
 
-router.post("/", createComplaint); // Create a new complaint
+router.post("/", admin, createComplaint); // Create a new complaint
 router.get("/", getComplaints); // Get all complaints
 router.get("/:id", getComplaintById); // Get complaint by ID
-router.put("/:id", updateComplaint); // Update complaint by ID
-router.delete("/:id", deleteComplaint); // Delete complaint by ID
+router.put("/:id", admin, updateComplaint); // Update complaint by ID
+router.delete("/:id", admin, deleteComplaint); // Delete complaint by ID
 
 export default router;

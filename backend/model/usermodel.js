@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema(
       ref: "Society",
       required: true,
     }, // This can be an ID if you have a Society model
+    role: {
+      type: String,
+      enum: ["security", "admin", "resident"],
+      default: "security",
+    },
     password: { type: String, required: true },
     otp: { type: String },
     otpExpiry: { type: Date },

@@ -1,10 +1,8 @@
 import { ENV_VARS } from "../config/envVars.js";
 import User from "../model/usermodel.js";
 import jwt from "jsonwebtoken";
-import crypto from "crypto";
-import bcrypt from "bcrypt";
-import nodemailer from "nodemailer";
 import { sendMail } from "../config/mailer.js";
+import otpGenerator from "otp-generator";
 
 export const register = async (req, res) => {
     const {
@@ -18,6 +16,7 @@ export const register = async (req, res) => {
         societyId,
         password,
         confirmPassword,
+        role,
     } = req.body;
 
     // Check if password and confirmPassword match
@@ -36,9 +35,13 @@ export const register = async (req, res) => {
             city,
             society: societyId,
             password,
+            role,
         });
         await newUser.save();
-        res.status(201).json({ message: "User registered successfully" });
+        res.status(201).json({
+            message: "User registered successfully",
+            user: newUser,
+        });
     } catch (error) {
         res.status(400).json({
             message: "Error registering user",
@@ -66,35 +69,49 @@ export const logout = (req, res) => {
     res.status(200).json({ message: "Logged out successfully" });
 };
 
-// Generate a 6-digit OTP
-const generateOtp = () => crypto.randomInt(100000, 999999).toString();
-
-// Request OTP for password reset
 export const forgotPassword = async (req, res) => {
-    const { email } = req.body;
     try {
-        const user = await User.findOne({ email });
-        if (!user) return res.status(404).json({ message: "User not found" });
+        const { email } = req.body;
+        const otp = otpGenerator.generate(6, {
+            upperCaseAlphabets: false,
+            lowerCaseAlphabets: false,
+            specialChars: false,
+        });
+        const cdate = new Date();
 
-        // Generate OTP and expiry (5 minutes from now)
-        const otp = generateOtp();
-        const otpExpiry = Date.now() + 5 * 60 * 1000;
+        let user;
+        if (email.includes("@")) {
+            // Find user by Email_Address instead of Email
+            user = await User.findOne({ email });
+            if (!user) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Email not registered",
+                });
+            }
 
-        // Update user with OTP and expiry
-        user.otp = otp;
-        user.otpExpiry = otpExpiry;
-        await user.save();
+            await User.findOneAndUpdate(
+                { email: email },
+                { otp, otpExpiration: new Date(cdate.getTime()) },
+                { upsert: true, new: true, setDefaultsOnInsert: true }
+            );
 
-        // Send OTP email
-        await sendMail(
-            email,
-            "Password Reset OTP",
-            `Your OTP code is ${otp}. It will expire in 5 minutes.`
-        );
+            await sendMail(
+                email,
+                "Password Reset OTP",
+                `Your OTP code is ${otp}. It will expire in 5 minutes.`
+            );
 
-        res.status(200).json({ message: "OTP sent to your email" });
+            return res.status(200).json({
+                success: true,
+                message: "OTP sent successfully to email",
+            });
+        } else {
+            // For phone number handling (to be added later)
+        }
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.log(error);
+        return res.status(500);
     }
 };
 
