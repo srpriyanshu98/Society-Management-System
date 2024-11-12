@@ -19,6 +19,7 @@ import SecurityGuard from "./pages/admin/SecurityGuard";
 import Announcement from "./pages/admin/Announcement";
 import EditProfile from "./pages/EditProfile";
 import ResidentForm from "./components/residentManagement/ResidentForm";
+import AddExpenses from "./pages/admin/AddExpenses";
 
 function App() {
 	return (
@@ -40,6 +41,7 @@ function App() {
 			<Route path="/announcements" element={<Announcement />} />
 
 			<Route path="/resident-form" element={<ResidentForm />} />
+			<Route path="/add-expenses" element={<AddExpenses />} />
 
 			{/* RESIDENTS ROUTES */}
 			{/* SECURITY ROUTES */}
