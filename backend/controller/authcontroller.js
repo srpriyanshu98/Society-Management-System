@@ -171,6 +171,19 @@ export const resetPassword = async (req, res) => {
   }
 };
 
+// Get user profile by ID
+export const getUserProfile = async (req, res) => {
+  try {
+    const userprofile = await User.findById(req.params.id);
+    if (!userprofile) {
+      return res.status(404).json({ message: "User profile not found" });
+    }
+    res.status(200).json(userprofile);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 // Update a user profile by ID
 export const updateProfile = async (req, res) => {
   try {
