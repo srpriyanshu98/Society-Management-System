@@ -42,10 +42,12 @@ export default function BalanceGraph() {
 	}, [timeRange]);
 
 	return (
-		<Card>
-			<CardHeader className="">
+		<Card className="rounded-xl">
+			<CardHeader>
 				<div className="flex  justify-between font-poppins">
-					<CardTitle className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">Total Balance</CardTitle>
+					<CardTitle className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">
+						Total Balance
+					</CardTitle>
 					<Select value={timeRange} onValueChange={setTimeRange}>
 						<SelectTrigger className="w-[160px]">
 							<SelectValue placeholder="Select time range" />

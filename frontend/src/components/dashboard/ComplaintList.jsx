@@ -89,7 +89,9 @@ export default function ComplaintList() {
 	return (
 		<Card className="bg-white p-4 shadow-md rounded-xl w-full">
 			<div className="flex justify-between items-center mb-4">
-				<h2 className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">Complaint List</h2>
+				<h2 className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">
+					Complaint List
+				</h2>
 				<Select value={filter} onValueChange={setFilter}>
 					<SelectTrigger className="border p-2 rounded-md text-sm w-[160px]">
 						{filter}
