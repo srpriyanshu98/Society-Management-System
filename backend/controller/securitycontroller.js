@@ -1,4 +1,6 @@
 import Security from "../model/securitymodel.js";
+import fs from "fs";
+import path from "path";
 
 // Create a new security record
 export const createSecurity = async (req, res) => {
@@ -96,21 +98,31 @@ export const updateSecurity = async (req, res) => {
 
 // Delete a security record by ID
 export const deleteSecurity = async (req, res) => {
-  const { id } = req.params;
-
   try {
-    const deletedSecurity = await Security.findByIdAndDelete(id);
-    if (!deletedSecurity) {
-      return res.status(404).json({ message: "Security record not found" });
+    const { id } = req.params;
+    const securityRecord = await Security.findByIdAndDelete(id);
+
+    if (!securityRecord) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Security record not found" });
     }
+
+    // Delete the files associated with the record
+    const deleteFile = (filePath) => {
+      fs.unlink(filePath, (err) => {
+        if (err) console.error(`Failed to delete file: ${filePath}`, err);
+      });
+    };
+
+    deleteFile(securityRecord.photo);
+    deleteFile(securityRecord.aadharCard);
+
     res.status(200).json({
-      message: "Security record deleted successfully",
-      deletedSecurity,
+      success: true,
+      message: "Security record and files deleted successfully",
     });
   } catch (error) {
-    res.status(400).json({
-      message: "Error deleting security record",
-      error: error.message,
-    });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
