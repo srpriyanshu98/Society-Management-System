@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Dialog, DialogContent } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
+import { Separator } from "@radix-ui/react-dropdown-menu";
 
 export default function AddResidentDialog({
 	isOpen,
@@ -53,35 +54,36 @@ export default function AddResidentDialog({
 		<Dialog open={isOpen} onClose={onClose}>
 			<DialogContent className="space-y-4">
 				<div>
-					<label className="block text-sm font-medium text-gray-700">
+					<label className="block text-[20px] font-semibold font-poppins leading-[30px] text-left text-gray-900 decoration-skip-ink-auto">
 						Residence Status
 					</label>
 					<div className="flex items-center space-x-4 mt-2">
-						<label className="border w-36 p-2 rounded-lg ">
+						<label className="border-[1px] p-2 rounded-lg w-36 border-[linear-gradient(90deg,_#FE512E_0%,_#F09619_100%)]">
 							<input
 								type="radio"
 								name="unitStatus"
+								className="font-semibold font-poppins"
 								value="Occupied"
 								checked={unitStatus === "Occupied"}
-								onChange={() =>
-									handleUnitStatusChange("Occupied")
-								}
+								onChange={() => handleUnitStatusChange("Occupied")}
 								disabled={isEditMode}
 							/>
 							<span className="ml-2">Occupied</span>
 						</label>
-						<label className="border w-36 p-2 rounded-lg ">
+
+						<label className="border w-36 p-2 rounded-lg">
 							<input
 								type="radio"
 								name="unitStatus"
+								className="font-semibold font-poppins"
 								value="Vacant"
 								checked={unitStatus === "Vacant"}
-								onChange={() =>
-									handleUnitStatusChange("Vacant")
-								}
+								onChange={() => { } /* Prevent any action on change */}
+								disabled={isEditMode || unitStatus === "Occupied"} // Disable if "Occupied" is selected
 							/>
 							<span className="ml-2">Vacant</span>
 						</label>
+
 					</div>
 					{/* Show error message if unit status is not selected */}
 					{unitStatusError && (
@@ -97,9 +99,13 @@ export default function AddResidentDialog({
 							checked={confirm}
 							onChange={handleConfirmChange}
 						/>
-						<label htmlFor="confirmCheckbox">
+						<label
+							htmlFor="confirmCheckbox"
+							className="text-[#A7A7A7] text-sm font-normal leading-[21px] font-poppins text-left decoration-skip-ink-auto"
+						>
 							By submitting, you agree to select Occupied
 						</label>
+
 					</div>
 					{/* Show error message if confirm is not checked */}
 					{confirmError && (

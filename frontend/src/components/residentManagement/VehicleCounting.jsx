@@ -3,15 +3,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
+import { Controller } from "react-hook-form";
 
-export default function VehicleCounting() {
+export default function VehicleCounting({ control, errors }) {
 	const [vehicleCount, setVehicleCount] = useState(0);
 
 	return (
 		<Card className="shadow-md rounded-xl mt-2">
 			<CardHeader>
 				<div className="flex justify-between items-center">
-					<CardTitle className="text-lg">Vehicle Counting:</CardTitle>
+					<CardTitle className="text-[16px] font-poppins">Vehicle Counting :</CardTitle>
 					<div>
 						<span className="me-3">Select Vehicle</span>
 						<select
@@ -40,33 +41,64 @@ export default function VehicleCounting() {
 						>
 							<div className="mb-5">
 								<Label className="text-left">
-									Vehicle Type*
+									Vehicle Type<span className="text-[#E74C3C]">*</span>
 								</Label>
-								<Input
-									type="text"
-									className="border rounded-xl mt-3 p-2 w-full"
-									placeholder="Enter Vehicle Type"
+								<Controller
+									name={`member[${i}].vehicle`}
+									control={control}
+									rules={{ required: "Vehicle Type is required" }}
+									render={({ field }) => (
+										<select
+											{...field}
+											id="vehicle"
+											className="w-full p-2 border rounded-lg text-[14px] font-poppins"
+										>
+											<option value="">Select Vehicle</option>
+											<option value="Two Wheelers">Two Wheelers</option>
+											<option value="Four Wheelers">Four Wheelers</option>
+
+										</select>
+									)}
 								/>
+								{errors.member?.[i]?.vehicle && <span className="text-red-500 text-[12px]">{errors.member[i].vehicle.message}</span>}
 							</div>
 							<div className="mb-5">
 								<Label className="text-left">
-									Vehicle Name*
+									Vehicle Name<span className="text-[#E74C3C]">*</span>
 								</Label>
-								<Input
-									type="text"
-									className="border rounded-xl mt-3 p-2 w-full"
-									placeholder="Enter Vehicle Name"
+								<Controller
+									name={`vehicle[${i}].vehicleName`}
+									control={control}
+									rules={{ required: "Vehicle Name is required" }}
+									render={({ field }) => (
+										<Input
+											{...field}
+											type="text"
+											className="border rounded-xl w-full"
+											placeholder="Enter Your Vehicle Name"
+										/>
+									)}
 								/>
+								{errors.vehicle?.[i]?.vehicleName && <span className="text-red-500 text-[12px]">{errors.vehicle[i].vehicleName.message}</span>}
 							</div>
 							<div className="mb-5">
 								<Label className="text-left">
-									Vehicle Number*
+									Vehicle Number<span className="text-[#E74C3C]">*</span>
 								</Label>
-								<Input
-									type="text"
-									className="border rounded-xl mt-3 p-2 w-full"
-									placeholder="Enter Vehicle Number"
+								<Controller
+									name={`vehicle[${i}].vehicleNumber`}
+									control={control}
+									rules={{ required: "Vehicle Number is required" }}
+									render={({ field }) => (
+										<Input
+											{...field}
+											type="text"
+											className="border rounded-xl w-full"
+											placeholder="Enter Your Vehicle Number"
+										/>
+									)}
 								/>
+								{errors.vehicle?.[i]?.vehicleNumber && <span className="text-red-500 text-[12px]">{errors.vehicle[i].vehicleNumber.message}</span>}
 							</div>
 						</div>
 					))}

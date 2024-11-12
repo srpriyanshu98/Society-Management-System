@@ -44,7 +44,6 @@ export default function Header() {
 			</div>
 			<div className="flex items-center space-x-4">
 				<div className="relative ">
-					{/* Trigger to open card */}
 					<div className="border border-gray-300 p-1 rounded">
 						<a href="##" onClick={handleCardToggle}>
 							<img
@@ -55,15 +54,14 @@ export default function Header() {
 						</a>
 					</div>
 
-					{/* Conditionally rendered card */}
+					{/* Conditionally rendered card with animation */}
 					{isCardVisible && (
 						<Card
 							className="absolute top-[40px] -left-[505px] w-[540px] h-[741px] space-y-2.5 
-						rounded-tl-[15px] shadow-md bg-white z-50"
+    rounded-tl-[15px] shadow-md bg-white z-50 animate-slide-down"
 						>
 							<CardHeader>
-								<CardTitle className="text-xl  font-bold text-gray-800">
-
+								<CardTitle className="text-xl font-bold text-gray-800">
 									<div className="flex justify-between">
 										<div className="font-poppins font-semibold text-lg leading-[30px] text-left text-[#202224]">
 											Notification
@@ -79,7 +77,6 @@ export default function Header() {
 										</div>
 									</div>
 									<div className="w-[500px] h-0 gap-0 border-t border-gray-200"></div>
-
 								</CardTitle>
 							</CardHeader>
 							<CardContent>
@@ -89,8 +86,10 @@ export default function Header() {
 								</p>
 							</CardContent>
 						</Card>
-
 					)}
+
+
+
 				</div>
 
 				<span className="text-gray-700">Main Roy</span>

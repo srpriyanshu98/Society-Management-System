@@ -85,18 +85,18 @@ export default function ResidentManagement({ userRole }) {
 				<CardContent className="p-0">
 					<ScrollArea className="max-h-[715px] overflow-y-auto m-4 custom-scrollbar">
 						<table className="w-full border-collapse rounded-tl-3xl text-center">
-							<thead className="bg-gray-200 sticky top-0 z-10">
+							<thead className="bg-gray-100 sticky top-0 z-10">
 								<tr>
-									<th className="p-3 text-left rounded-tl-3xl">
+									<th className="p-3 text-left rounded-tl-3xl font-poppins decoration-1 text-slate-900">
 										Full Name
 									</th>
-									<th className="p-3">Unit Number</th>
-									<th className="p-3">Unit Status</th>
-									<th className="p-3">Resident Status</th>
-									<th className="p-3">Phone Number</th>
-									<th className="p-3">Member</th>
-									<th className="p-3">Vehicle</th>
-									<th className="p-3 rounded-tr-3xl">
+									<th className="p-3 font-poppins decoration-1 text-slate-900">Unit Number</th>
+									<th className="p-3 font-poppins decoration-1 text-slate-900">Unit Status</th>
+									<th className="p-3 font-poppins decoration-1 text-slate-900">Resident Status</th>
+									<th className="p-3 font-poppins decoration-1 text-slate-900">Phone Number</th>
+									<th className="p-3 font-poppins decoration-1 text-slate-900">Member</th>
+									<th className="p-3 font-poppins decoration-1 text-slate-900">Vehicle</th>
+									<th className="p-3 rounded-tr-3xl font-poppins decoration-1 text-slate-900">
 										Action
 									</th>
 								</tr>
@@ -115,7 +115,7 @@ export default function ResidentManagement({ userRole }) {
 														: "transparent",
 												}}
 											>
-												<div className="flex items-center">
+												<div className="flex items-center font-poppins decoration-1 text-slate-600">
 													<Avatar className="w-10 h-10 me-3">
 														<AvatarImage
 															src="https://github.com/shadcn.png"
@@ -129,7 +129,7 @@ export default function ResidentManagement({ userRole }) {
 												</div>
 											</td>
 											<td className="p-3">
-												<span className="flex justify-center">
+												<span className="flex justify-center font-poppins decoration-1 text-slate-600">
 													{resident.unitWing}{" "}
 													{resident.unitNumber}
 												</span>
@@ -193,7 +193,7 @@ export default function ResidentManagement({ userRole }) {
 											</td>
 
 											<td
-												className="p-3"
+												className="p-3 font-poppins decoration-1 text-slate-600"
 												style={{
 													backgroundColor: isVacate
 														? vacateBgColor
@@ -203,7 +203,7 @@ export default function ResidentManagement({ userRole }) {
 												{resident.phoneNumber || "--"}
 											</td>
 											<td
-												className="p-3"
+												className="p-3 font-poppins decoration-1 text-slate-600"
 												style={{
 													backgroundColor: isVacate
 														? vacateBgColor
@@ -213,7 +213,7 @@ export default function ResidentManagement({ userRole }) {
 												{resident.member || "--"}
 											</td>
 											<td
-												className="p-3"
+												className="p-3 font-poppins decoration-1 text-slate-600"
 												style={{
 													backgroundColor: isVacate
 														? vacateBgColor
@@ -251,6 +251,7 @@ export default function ResidentManagement({ userRole }) {
 								})}
 							</tbody>
 						</table>
+						
 					</ScrollArea>
 				</CardContent>
 			</Card>
