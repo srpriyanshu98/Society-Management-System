@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -15,6 +15,14 @@ export default function AddExpenses({ userRole }) {
 	const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
 	const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
+	useEffect(() => {
+		setExpenses((prevExpenses) =>
+			[...prevExpenses].sort(
+				(a, b) => new Date(a.date) - new Date(b.date)
+			)
+		);
+	}, [expenses]);
 
 	const handleViewExpense = (expense) => {
 		setSelectedExpense(expense);
@@ -38,15 +46,25 @@ export default function AddExpenses({ userRole }) {
 	};
 
 	const handleAddExpense = (newExpense) => {
-		setExpenses([...expenses, newExpense]);
+		console.log("Adding new expense:", newExpense);
+		setExpenses((prevExpenses) => {
+			const newExpenses = [...prevExpenses, newExpense];
+			return newExpenses.sort(
+				(a, b) => new Date(a.date) - new Date(b.date)
+			);
+		});
 	};
 
 	const handleUpdateExpense = (updatedExpense) => {
-		setExpenses(
-			expenses.map((exp) =>
+		console.log("Updating expense:", updatedExpense);
+		setExpenses((prevExpenses) => {
+			const newExpenses = prevExpenses.map((exp) =>
 				exp === selectedExpense ? updatedExpense : exp
-			)
-		);
+			);
+			return newExpenses.sort(
+				(a, b) => new Date(a.date) - new Date(b.date)
+			);
+		});
 	};
 
 	return (
@@ -87,7 +105,7 @@ export default function AddExpenses({ userRole }) {
 										<td className="p-4 text-left">
 											{item.title}
 										</td>
-										<td className="p-4 text-left truncate">
+										<td className="p-4 text-left truncate max-w-96 inline-block">
 											{item.description}
 										</td>
 										<td className="p-4 font-normal">
@@ -106,10 +124,12 @@ export default function AddExpenses({ userRole }) {
 												alt={`${item.billPermit} Icon`}
 												className="w-6 h-6 inline-block align-middle mr-2"
 											/>
-											<span className="align-middle">
-												{item.billPermit}
+											<span className="align-middle truncate max-w-40 inline-block">
+												{item.billFile?.name ||
+													"No file uploaded"}
 											</span>
 										</td>
+
 										<td className="p-4 text-center">
 											<button
 												className="inline-block rounded-md bg-gray-100 p-2  mr-2"

@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { format } from "date-fns";
+import { format, isValid } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import {
 	Popover,
@@ -36,7 +36,8 @@ export default function AddAndEditExpense({
 		if (mode === "edit" && expense) {
 			setTitle(expense.title);
 			setDescription(expense.description);
-			setDate(new Date(expense.date));
+			const parsedDate = new Date(expense.date);
+			setDate(isValid(parsedDate) ? parsedDate : new Date());
 			setAmount(expense.amount.toString());
 			setBillFile(expense.billFile);
 		} else {
@@ -166,8 +167,8 @@ export default function AddAndEditExpense({
 												: "")
 										}
 									>
-										{date
-											? format(date, "PPP")
+										{isValid(date)
+											? format(date, "MM/dd/yyyy")
 											: "Select Date"}
 										<CalendarDays className="ml-auto h-4 w-4 opacity-50" />
 									</Button>
@@ -179,7 +180,11 @@ export default function AddAndEditExpense({
 									<Calendar
 										mode="single"
 										selected={date}
-										onSelect={setDate}
+										onSelect={(newDate) => {
+											if (newDate && isValid(newDate)) {
+												setDate(newDate);
+											}
+										}}
 										initialFocus
 									/>
 								</PopoverContent>
