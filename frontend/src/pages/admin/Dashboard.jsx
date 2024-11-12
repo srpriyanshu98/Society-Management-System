@@ -10,7 +10,7 @@ import Layout from "@/components/Layout";
 export default function Dashboard({ userRole }) {
 	return (
 		<Layout userRole={userRole}>
-			<div className="flex flex-col h-full overflow-auto">
+			<div className="flex flex-col h-full ">
 				<BalanceCards />
 				<div className="flex gap-4 mt-6">
 					<div className="w-full">
