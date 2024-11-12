@@ -4,8 +4,12 @@ const menuItems = {
 		{ name: "Resident Management", path: "/residents", icon: "House" },
 		{
 			name: "Financial Management",
-			path: "/financial",
 			icon: "ReceiptIndianRupee",
+			subItems: [
+				{ name: "Income", path: "/financial" },
+				{ name: "Expense", path: "/add-expenses" },
+				{ name: "Note", path: "/note" },
+			],
 		},
 		{ name: "Facility Management", path: "/facilities", icon: "Building" },
 		{ name: "Complaint Tracking", path: "/complaints", icon: "📋" },

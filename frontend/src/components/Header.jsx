@@ -9,6 +9,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import breadcrumbData from "@/data/breadcrumbData";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Separator } from "./ui/separator";
 
 export default function Header() {
 	const location = useLocation();
@@ -63,7 +64,6 @@ export default function Header() {
 						>
 							<CardHeader>
 								<CardTitle className="text-xl  font-bold text-gray-800">
-
 									<div className="flex justify-between">
 										<div className="font-poppins font-semibold text-lg leading-[30px] text-left text-[#202224]">
 											Notification
@@ -79,27 +79,28 @@ export default function Header() {
 										</div>
 									</div>
 									<div className="w-[500px] h-0 gap-0 border-t border-gray-200"></div>
-
 								</CardTitle>
 							</CardHeader>
 							<CardContent>
 								<p className="text-gray-600">
-									This is the content of the card. It opens when you click the icon
-									and can be closed by clicking again.
+									This is the content of the card. It opens
+									when you click the icon and can be closed by
+									clicking again.
 								</p>
 							</CardContent>
 						</Card>
-
 					)}
 				</div>
 
-				<span className="text-gray-700">Main Roy</span>
-				<Link
-					to="/edit-profile"
-					className="text-blue-500 hover:underline"
-				>
-					Edit Profile
-				</Link>
+				<div className="flex h-5 items-center space-x-4 text-sm">
+					<Separator orientation="vertical" />
+					<Link
+						to="/edit-profile"
+						className="text-blue-500 hover:underline"
+					>
+						Edit Profile
+					</Link>
+				</div>
 			</div>
 		</header>
 	);

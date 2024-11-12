@@ -2,23 +2,34 @@ const breadcrumbData = {
 	"/": [{ label: "Home", href: "/" }],
 	"/residents": [
 		{ label: "Home", href: "/" },
-		{ label: "Residents", href: "/residents" },
+		{ label: "Resident Management", href: "/residents" },
 	],
 	"/financial": [
 		{ label: "Home", href: "/" },
-		{ label: "Financial", href: "/financial" },
+		{ label: "Financial Management", href: "/financial" },
+		{ label: "Income", href: "/financial" },
+	],
+	"/add-expenses": [
+		{ label: "Home", href: "/" },
+		{ label: "Financial Management", href: "/financial" },
+		{ label: "Expense", href: "/add-expenses" },
+	],
+	"/note": [
+		{ label: "Home", href: "/" },
+		{ label: "Financial Management", href: "/financial" },
+		{ label: "Note", href: "/financial/note" },
 	],
 	"/facilities": [
 		{ label: "Home", href: "/" },
-		{ label: "Facilities", href: "/facilities" },
+		{ label: "Facility Management", href: "/facilities" },
 	],
 	"/complaints": [
 		{ label: "Home", href: "/" },
-		{ label: "Complaints", href: "/complaints" },
+		{ label: "Complaint Tracking", href: "/complaints" },
 	],
 	"/security": [
 		{ label: "Home", href: "/" },
-		{ label: "Security", href: "/security" },
+		{ label: "Security Management", href: "/security" },
 	],
 	"/security-guard": [
 		{ label: "Home", href: "/" },
@@ -26,7 +37,7 @@ const breadcrumbData = {
 	],
 	"/announcements": [
 		{ label: "Home", href: "/" },
-		{ label: "Announcements", href: "/announcements" },
+		{ label: "Announcement", href: "/announcements" },
 	],
 	"/edit-profile": [
 		{ label: "Home", href: "/" },
@@ -34,7 +45,7 @@ const breadcrumbData = {
 	],
 	"/resident-form": [
 		{ label: "Home", href: "/" },
-		{ label: "Residents", href: "/residents" },
+		{ label: "Resident Management", href: "/residents" },
 		{ label: "Residents Form", href: "/resident-form" },
 	],
 };

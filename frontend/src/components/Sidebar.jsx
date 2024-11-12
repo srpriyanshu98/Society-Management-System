@@ -1,10 +1,17 @@
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import * as Icons from "lucide-react";
 import menuItems from "@/data/menuItems";
 import { Separator } from "./ui/separator";
 
 export default function Sidebar({ userRole = "admin" }) {
+	const [expandedMenu, setExpandedMenu] = useState(null);
 	const userMenuItems = menuItems[userRole] || [];
+	const location = useLocation();
+
+	const toggleSubMenu = (itemName) => {
+		setExpandedMenu(expandedMenu === itemName ? null : itemName);
+	};
 
 	return (
 		<div className="fixed h-screen w-64 bg-white shadow-lg">
@@ -15,47 +22,60 @@ export default function Sidebar({ userRole = "admin" }) {
 			<div className="mt-8 space-y-2">
 				{userMenuItems.map((item) => {
 					const IconComponent = Icons[item.icon] || Icons.Menu;
+					const isExpanded = expandedMenu === item.name;
+					const isActive =
+						location.pathname === item.path ||
+						item.subItems?.some(
+							(subItem) => subItem.path === location.pathname
+						);
+
 					return (
-						<>
-							<div className="flex flex-row space-x-4">
-								<div>
-									{/* //TODO: make this img active  */}
-									{({ isActive }) => (
-										<>
-											{isActive && (
-												<img
-													src="/src/assets/Active.svg"
-													alt="Active"
-													className=" mr-2"
-												/>
-											)}
-											<span>{item.name}</span>
-										</>
-									)}
-								</div>
-								<div>
+						<div key={item.name}>
+							<div className="flex items-center">
+								<NavLink
+									to={item.path || ""}
+									onClick={() =>
+										item.subItems
+											? toggleSubMenu(item.name)
+											: null
+									}
+									className={() =>
+										`flex items-center space-x-4 w-56 font-poppins p-3 text-sm rounded-lg ${
+											isActive || isExpanded
+												? "bg-gradient-to-r from-orange-600 to-orange-400 text-white shadow-md"
+												: "text-gray-700 hover:bg-gray-100"
+										}`
+									}
+								>
+									<IconComponent className="w-5 h-5" />
+									<span>{item.name}</span>
+								</NavLink>
+							</div>
+							{/* Sub-items dropdown */}
+							{isExpanded &&
+								item.subItems &&
+								item.subItems.map((subItem) => (
 									<NavLink
-										to={item.path}
+										to={subItem.path}
 										className={({ isActive }) =>
-											`flex items-center space-x-4 w-56 font-poppins p-3 text-sm rounded-lg ${
+											`ml-8 block p-2 mt-2 text-sm rounded-lg  ${
 												isActive
 													? "bg-gradient-to-r from-orange-600 to-orange-400 text-white shadow-md"
 													: "text-gray-700 hover:bg-gray-100"
 											}`
 										}
-										key={item.name}
+										key={subItem.name}
 									>
-										<IconComponent className="w-5 h-5" />
-										<span>{item.name}</span>
+										{subItem.name}
 									</NavLink>
-								</div>
-							</div>
-						</>
+								))}
+						</div>
 					);
 				})}
 			</div>
+			{/* Logout Section */}
 			<div className="inline-block mt-80 space-x-7">
-				<Separator className="mb-3  w-52 ms-5" />
+				<Separator className="mb-3 w-52 ms-5" />
 				<div>
 					<img
 						src="/src/assets/logout.svg"
@@ -64,7 +84,7 @@ export default function Sidebar({ userRole = "admin" }) {
 					/>
 					<a
 						href="/logout"
-						className="text-[#E74C3C] text-[16px] font-poppins inline-block"
+						className="text-[#E74C3C] text-sm font-poppins inline-block"
 					>
 						Logout
 					</a>

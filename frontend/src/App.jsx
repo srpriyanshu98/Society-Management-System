@@ -20,6 +20,7 @@ import Announcement from "./pages/admin/Announcement";
 import EditProfile from "./pages/EditProfile";
 import ResidentForm from "./components/residentManagement/ResidentForm";
 import AddExpenses from "./pages/admin/AddExpenses";
+import Note from "./pages/admin/Note";
 
 function App() {
 	return (
@@ -42,6 +43,7 @@ function App() {
 
 			<Route path="/resident-form" element={<ResidentForm />} />
 			<Route path="/add-expenses" element={<AddExpenses />} />
+			<Route path="/note" element={<Note />} />
 
 			{/* RESIDENTS ROUTES */}
 			{/* SECURITY ROUTES */}
