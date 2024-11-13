@@ -8,10 +8,13 @@ import {
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+
 
 export default function PasswordDialog({ isOpen, onClose, onSubmit }) {
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
+	const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
 	const handlePasswordSubmit = () => {
 		const isValidPassword = password === "123456"; // Replace with actual password check
@@ -25,6 +28,11 @@ export default function PasswordDialog({ isOpen, onClose, onSubmit }) {
 		}
 	};
 
+	// Toggle password visibility
+	const togglePasswordVisibility = () => {
+		setShowPassword((prev) => !prev);
+	};
+
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent>
@@ -33,21 +41,26 @@ export default function PasswordDialog({ isOpen, onClose, onSubmit }) {
 				</DialogHeader>
 				<div className="flex flex-col space-y-4">
 					<Label>Password</Label>
-					<input
-						type="password"
-						className="w-full p-2 border border-gray-300 rounded-lg"
-						placeholder="Password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-					/>
+					<div className="relative">
+						<input
+							type={showPassword ? "text" : "password"} // Toggle between text and password type
+							className="w-full p-2 border border-gray-300 rounded-lg"
+							placeholder="Password"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+						/>
+						<button
+							type="button"
+							onClick={togglePasswordVisibility}
+							className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+						>
+							{showPassword ? <EyeIcon /> : <EyeOffIcon />} {/* Eye icon toggle */}
+						</button>
+					</div>
 					{error && <p className="text-red-500 text-sm">{error}</p>}
 				</div>
 				<DialogFooter>
-					<Button
-						variant="secondary"
-						onClick={onClose}
-						className="w-40"
-					>
+					<Button variant="secondary" onClick={onClose} className="w-40">
 						Cancel
 					</Button>
 					<Button onClick={handlePasswordSubmit} className="w-40">

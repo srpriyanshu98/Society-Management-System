@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -9,9 +9,11 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import breadcrumbData from "@/data/breadcrumbData";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Separator } from "./ui/separator";
 
 export default function Header() {
 	const location = useLocation();
+	const cardRef = useRef(null);
 
 	const getBreadcrumbItems = () => {
 		return breadcrumbData[location.pathname] || [];
@@ -21,7 +23,22 @@ export default function Header() {
 	const handleCardToggle = () => {
 		setIsCardVisible((prev) => !prev);
 	};
+
+	const handleClickOutside = (event) => {
+		if (cardRef.current && !cardRef.current.contains(event.target)) {
+			setIsCardVisible(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, []);
+
 	const breadcrumbItems = getBreadcrumbItems();
+
 	return (
 		<header className="flex justify-between font-poppins items-center p-4 ml-64 bg-white shadow-md h-[100px]">
 			<div className="flex items-center space-x-4">
@@ -43,8 +60,8 @@ export default function Header() {
 				</Breadcrumb>
 			</div>
 			<div className="flex items-center space-x-4">
-				<div className="relative ">
-					<div className="border border-gray-300 p-1 rounded">
+				<div className="relative">
+					<div className="border border-gray-300 p-1 rounded-lg">
 						<a href="##" onClick={handleCardToggle}>
 							<img
 								src="/src/assets/icons8.gif"
@@ -57,8 +74,9 @@ export default function Header() {
 					{/* Conditionally rendered card with animation */}
 					{isCardVisible && (
 						<Card
+							ref={cardRef}
 							className="absolute top-[40px] -left-[505px] w-[540px] h-[741px] space-y-2.5 
-    rounded-tl-[15px] shadow-md bg-white z-50 animate-slide-down"
+                                      shadow-md bg-white z-50 animate-slide-down"
 						>
 							<CardHeader>
 								<CardTitle className="text-xl font-bold text-gray-800">
@@ -66,7 +84,6 @@ export default function Header() {
 										<div className="font-poppins font-semibold text-lg leading-[30px] text-left text-[#202224]">
 											Notification
 										</div>
-
 										<div className="text-right">
 											<a
 												href="##"
@@ -87,18 +104,27 @@ export default function Header() {
 							</CardContent>
 						</Card>
 					)}
-
-
-
 				</div>
-
-				<span className="text-gray-700">Main Roy</span>
-				<Link
-					to="/edit-profile"
-					className="text-blue-500 hover:underline"
-				>
-					Edit Profile
-				</Link>
+				<div className="flex h-7 items-center space-x-4 text-sm">
+					<Separator orientation="vertical" />
+					<img
+						src="/src/assets/profileimg.jpeg"
+						alt="Active"
+						className="h-9 w-9 rounded-full"
+					/>
+					<Link
+						to="/edit-profile"
+					>
+						<div className="grid grid-rows-2 mt-2">
+							<div className="font-poppins font-bold">
+								Moni Roy
+							</div>
+							<div className="text-xs text-gray-600">
+								Admin
+							</div>
+						</div>
+					</Link>
+				</div>
 			</div>
 		</header>
 	);

@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Dialog, DialogContent } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
-import { Separator } from "@radix-ui/react-dropdown-menu";
+import { Separator } from "../ui/separator";
+
 
 export default function AddResidentDialog({
 	isOpen,
@@ -52,26 +53,27 @@ export default function AddResidentDialog({
 
 	return (
 		<Dialog open={isOpen} onClose={onClose}>
-			<DialogContent className="space-y-4">
+			<DialogContent className="space-y-4 h-[250px] w-[400px]">
 				<div>
 					<label className="block text-[20px] font-semibold font-poppins leading-[30px] text-left text-gray-900 decoration-skip-ink-auto">
 						Residence Status
 					</label>
-					<div className="flex items-center space-x-4 mt-2">
-						<label className="border-[1px] p-2 rounded-lg w-36 border-[linear-gradient(90deg,_#FE512E_0%,_#F09619_100%)]">
+					<Separator className="mt-1 mb-1"/>
+					<div className="flex  items-center space-x-4 mt-2">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer">
 							<input
 								type="radio"
 								name="unitStatus"
-								className="font-semibold font-poppins"
 								value="Occupied"
 								checked={unitStatus === "Occupied"}
 								onChange={() => handleUnitStatusChange("Occupied")}
-								disabled={isEditMode}
+								className="mr-2 radio-gradient1"
 							/>
-							<span className="ml-2">Occupied</span>
+							<span className="text-gray-900">Occupied</span>
 						</label>
 
-						<label className="border w-36 p-2 rounded-lg">
+
+						<label className="flex items-center p-2 border rounded-md cursor-pointer">
 							<input
 								type="radio"
 								name="unitStatus"
@@ -81,7 +83,7 @@ export default function AddResidentDialog({
 								onChange={() => { } /* Prevent any action on change */}
 								disabled={isEditMode || unitStatus === "Occupied"} // Disable if "Occupied" is selected
 							/>
-							<span className="ml-2">Vacant</span>
+							<span className="ml-2 text-gray-500">Vacant</span>
 						</label>
 
 					</div>
@@ -114,7 +116,7 @@ export default function AddResidentDialog({
 						</p>
 					)}
 				</div>
-				<div className="space-x-28 mt-4">
+				<div className="space-x-5">
 					{/* Cancel Button */}
 					<Button
 						variant="secondary"
