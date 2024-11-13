@@ -3,15 +3,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Separator } from "../ui/separator";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { Controller } from "react-hook-form";
 
-export default function MembersCounting() {
+export default function MembersCounting({ control, errors }) {
 	const [memberCount, setMemberCount] = useState(0);
 
 	return (
 		<Card className="shadow-md rounded-xl mt-2">
 			<CardHeader>
 				<div className="flex justify-between items-center">
-					<CardTitle className="text-lg">Member Counting:</CardTitle>
+					<CardTitle className="text-[16px] font-poppins">Member Counting :<span className="text-[#A7A7A7] text-[16px] font-poppins"> (Other Members)</span></CardTitle>
 					<div>
 						<span className="me-3">Select Member</span>
 						<select
@@ -37,53 +38,110 @@ export default function MembersCounting() {
 				{Array.from({ length: memberCount }).map((_, i) => (
 					<div key={i} className="grid grid-cols-6  gap-4 mt-4">
 						<div className="mb-5">
-							<Label className="text-left">Full Name*</Label>
-							<Input
-								type="text"
-								className="border rounded-xl mt-3 p-2 w-full"
-								placeholder="Enter Full Name"
+							<Label className="text-left">Full Name<span className="text-[#E74C3C]">*</span></Label>
+							<Controller
+								name={`member[${i}].fullName`}
+								control={control}
+								rules={{ required: "Full Name is required" }}
+								render={({ field }) => (
+									<Input
+										{...field}
+										type="text"
+										className="border rounded-xl w-full"
+										placeholder="Enter Full Name"
+									/>
+								)}
 							/>
+							{errors.member?.[i]?.fullName && <span className="text-red-500 text-[12px]">{errors.member[i].fullName.message}</span>}
 						</div>
 						<div className="mb-5">
-							<Label className="text-left">Phone Number*</Label>
-							<Input
-								type="text"
-								className="border rounded-xl mt-3 p-2 w-full"
-								placeholder="Enter Phone Number"
+							<Label className="text-left">Phone Number<span className="text-[#E74C3C]">*</span></Label>
+							<Controller
+								name={`member[${i}].PhoneNumber`}
+								control={control}
+								rules={{ required: "Phone Number is required" }}
+								render={({ field }) => (
+									<Input
+										{...field}
+										type="number"
+										className="border rounded-xl w-full"
+										placeholder="Enter Your Phone Number"
+									/>
+								)}
 							/>
+							{errors.member?.[i]?.PhoneNumber && <span className="text-red-500 text-[12px]">{errors.member[i].PhoneNumber.message}</span>}
 						</div>
 						<div className="mb-5">
-							<Label className="text-left">Email Address*</Label>
-							<Input
-								type="email"
-								className="border rounded-xl mt-3 p-2 w-full"
-								placeholder="Enter Email Address"
+							<Label className="text-left">Email Address<span className="text-[#E74C3C]">*</span></Label>
+							<Controller
+								name={`member[${i}].email`}
+								control={control}
+								rules={{ required: "email is required", pattern: { value: /^\S+@\S+\.\S+$/, message: "Invalid email" } }}
+								render={({ field }) => (
+									<Input
+										{...field}
+										id="email"
+										placeholder="Enter Your email"
+										className="rounded-lg"
+									/>
+								)}
 							/>
+							{errors.member?.[i]?.email && <span className="text-red-500 text-[12px]">{errors.member[i].email.message}</span>}
 						</div>
 						<div className="mb-5">
-							<Label className="text-left">Age*</Label>
-							<Input
-								type="number"
-								className="border rounded-xl mt-3 p-2 w-full"
-								placeholder="Enter Age"
-							/>
+							<Label className="text-left">Age<span className="text-[#E74C3C]">*</span></Label>
+							<Controller
+									name={`member[${i}].age`}
+									control={control}
+									rules={{ required: "Age is required", pattern: { value: /^(1[89]|[2-9]\d)$/, message: "Invalid age" } }}
+									render={({ field }) => (
+										<Input
+											{...field}
+											id="age"
+											placeholder="Enter Age"
+											className="rounded-lg"
+										/>
+									)}
+								/>
+								{errors.member?.[i]?.age && <span className="text-red-500 text-[12px]">{errors.member[i].age.message}</span>}
 						</div>
 						<div className="mb-5">
-							<Label className="text-left">Gender*</Label>
-							<select className="border rounded-xl mt-3 p-2 w-full">
-								<option value="">Select Gender</option>
-								<option value="male">Male</option>
-								<option value="female">Female</option>
-								<option value="other">Other</option>
-							</select>
+							<Label className="text-left">Gender<span className="text-[#E74C3C]">*</span></Label>
+							<Controller
+									name={`member[${i}].gender`}
+									control={control}
+									rules={{ required: "Gender is required" }}
+									render={({ field }) => (
+										<select
+											{...field}
+											id="gender"
+											className="w-full p-2 border rounded-lg"
+										>
+											<option value="">Select Gender</option>
+											<option value="Male">Male</option>
+											<option value="Female">Female</option>
+											<option value="Other">Other</option>
+										</select>
+									)}
+								/>
+								{errors.member?.[i]?.gender && <span className="text-red-500 text-[12px]">{errors.member[i].gender.message}</span>}
 						</div>
 						<div className="mb-5">
-							<Label className="text-left">Relation*</Label>
-							<Input
-								type="text"
-								className="border rounded-xl mt-3 p-2 w-full"
-								placeholder="Enter Relation"
+							<Label className="text-left">Relation<span className="text-[#E74C3C]">*</span></Label>
+							<Controller
+								name={`member[${i}].relation`}
+								control={control}
+								rules={{ required: "relation is required" }}
+								render={({ field }) => (
+									<Input
+										{...field}
+										type="text"
+										className="border rounded-xl w-full"
+										placeholder="Enter Your relation"
+									/>
+								)}
 							/>
+							{errors.member?.[i]?.relation && <span className="text-red-500 text-[12px]">{errors.member[i].relation.message}</span>}
 						</div>
 					</div>
 				))}

@@ -28,10 +28,9 @@ export default function EditProfile({ userRole }) {
 	// Validation function
 	const validateFields = () => {
 		const newErrors = {};
-	
+
 		if (!formData.firstName.trim()) newErrors.firstName = "First Name is required";
 		if (!formData.lastName.trim()) newErrors.lastName = "Last Name is required";
-		// Update validation regex for phone number
 		if (!/^(?![ -])(?!.*[- ]$)(?!.*[- ]{2})[0-9- ]+$/.test(formData.phoneNumber)) {
 			newErrors.phoneNumber = "Enter a valid phone number";
 		}
@@ -40,10 +39,9 @@ export default function EditProfile({ userRole }) {
 		if (!formData.country.trim()) newErrors.country = "Country is required";
 		if (!formData.state.trim()) newErrors.state = "State is required";
 		if (!formData.city.trim()) newErrors.city = "City is required";
-	
+
 		return newErrors;
 	};
-	
 
 	// Handle input change
 	const handleChange = (e) => {
@@ -58,6 +56,7 @@ export default function EditProfile({ userRole }) {
 		if (Object.keys(validationErrors).length === 0) {
 			// Proceed with form submission or further processing
 			console.log("Form data:", formData);
+			setIsEditing(false); // Exit editing mode after saving
 		} else {
 			setErrors(validationErrors);
 		}
@@ -67,40 +66,36 @@ export default function EditProfile({ userRole }) {
 		<Layout userRole={userRole}>
 			<div className="relative w-full overflow-hidden">
 				{/* Overlay */}
-
 				<div className="absolute inset-0 bg-blue-200 opacity-50 z-10"></div>
 				<div className="flex items-center justify-between w-full  left-0 top-0 z-0">
-					
-					<img 
-					src="./src/assets/background-design-1.svg" 
-					alt="" 
-					className="w-1/2 h-auto" />
-					
-					<img 
-					src="./src/assets/background-design-2.svg" 
-					alt="" 
-					className="w-1/3 h-auto" />
-					
-					<img 
-					src="./src/assets/background-design-3.svg" 
-					alt="" 
-					className="w-1/3 h-auto" />
+					<img src="./src/assets/background-design-1.svg" alt="" className="w-1/2 h-auto" />
+					<img src="./src/assets/background-design-2.svg" alt="" className="w-1/3 h-auto" />
+					<img src="./src/assets/background-design-3.svg" alt="" className="w-1/3 h-auto" />
 				</div>
 			</div>
 			<div className="relative">
 				<div className="w-[991px] h-[526px] gap-0 absolute top-[-270px] left-[304px] z-20">
 					<div className="flex justify-between">
-						<div className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">Profile</div>
-						
-						<Button 
-							className="font-poppins" 
-							onClick={() => setIsEditing(!isEditing)} // Toggle editing mode
-						>
-							{isEditing ? "Save Profile" : "Edit Profile"}
-						</Button>
+						<div className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">
+							{isEditing ? "Edit Profile" : "Profile"}
+						</div>
+
+						{!isEditing && (
+							<Button
+								className="font-poppins flex items-center"
+								onClick={() => setIsEditing(true)} // Enable editing mode
+							>
+								<img
+									src="./src/assets/editwhite.svg"
+									alt=""
+									className="rounded-full w-[20px] h-[20px] mr-2"
+								/>
+								Edit Profile
+							</Button>
+						)}
 					</div>
 
-					<Card className="p-3 w-[991px] h-[526px] mt-3 transition-all duration-300 ease-in-out transform">
+					<Card className="p-3 w-[991px] h-[526px] mt-3 transition-all rounded-[20px] duration-300 ease-in-out transform">
 						<form onSubmit={handleSubmit} className="flex mt-10 ml-10">
 							<div className="w-[285px] h-[460px]">
 								<div className="relative w-[145px] h-[145px] border-t-4 border-transparent">
@@ -109,11 +104,11 @@ export default function EditProfile({ userRole }) {
 										alt=""
 										className="w-full h-full object-cover rounded-full"
 									/>
-									<Link className="absolute bottom-0 right-0 m-2">
+									<Link className="absolute bottom-0 right-0 m-2 rounded-full bg-[#F6F8FB]">
 										<img
-											src="./src/assets/frame.svg"
+											src="./src/assets/editblack.svg"
 											alt=""
-											className="rounded-full w-[25px] h-[25px] fill-[#202224]"
+											className="rounded-full m-1 w-[20px] h-[20px] fill-[#202224]"
 										/>
 									</Link>
 									<div className="text-center mt-5 font-semibold font-poppins">Arlene McCoy</div>
@@ -142,9 +137,11 @@ export default function EditProfile({ userRole }) {
 									)
 								)}
 								<div className="flex justify-end col-span-2 mt-4">
-									<Button type="submit" disabled={!isEditing}>
-										{isEditing ? "Update Profile" : "Profile is locked"}
-									</Button>
+									{isEditing && (
+										<Button type="submit">
+											Update Profile
+										</Button>
+									)}
 								</div>
 							</div>
 						</form>
