@@ -48,7 +48,7 @@ export const updateExpense = async (req, res) => {
     const updateData = { title, description, date, amount };
 
     if (req.file) {
-      updateData.bill = req.file.path; // Update bill if a new file is uploaded
+      updateData.bill = req.file.path; 
     }
 
     const expense = await Expense.findByIdAndUpdate(req.params.id, updateData, {
