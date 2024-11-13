@@ -27,6 +27,10 @@ const breadcrumbData = {
 		{ label: "Home", href: "/" },
 		{ label: "Complaint Tracking", href: "/complaints" },
 	],
+	"/request-tracking": [
+		{ label: "Home", href: "/" },
+		{ label: "Request Tracking", href: "/request-tracking" },
+	],
 	"/security": [
 		{ label: "Home", href: "/" },
 		{ label: "Security Management", href: "/security" },

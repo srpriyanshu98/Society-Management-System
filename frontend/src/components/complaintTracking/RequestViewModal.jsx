@@ -1,44 +1,42 @@
-import { getPriorityColor, getStatusColor } from "@/data/complaintsData";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { getPriorityColor, getStatusColor } from "@/data/requestData";
 
-function ComplaintViewModal({ isOpen, onClose, complaint }) {
-	if (!complaint) return null;
+export default function RequestViewModal({ isOpen, onClose, request }) {
+	if (!request) return null;
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent className="max-w-md p-6 rounded-xl">
 				<DialogHeader>
-					<DialogTitle>View Complaint</DialogTitle>
+					<DialogTitle>View Request</DialogTitle>
 				</DialogHeader>
 				<div className="flex items-center space-x-4">
 					<Avatar className="w-10 h-10">
 						<AvatarImage
 							src="https://github.com/shadcn.png"
-							alt={complaint.complainerName}
+							alt={request.RequesterName}
 						/>
 						<AvatarFallback>CN</AvatarFallback>
 					</Avatar>
 					<div>
 						<h3 className="text-lg font-semibold font-poppins">
-							{complaint.complainerName}
+							{request.RequesterName}
 						</h3>
-						<p className="text-sm text-gray-500">
-							{complaint.date}
-						</p>
+						<p className="text-sm text-gray-500">{request.date}</p>
 					</div>
 				</div>
 				<div className="mt-4">
 					<p className="text-gray-700 font-semibold font-poppins">
 						Request Name
 					</p>
-					<p className="text-gray-600">{complaint.complaintName}</p>
+					<p className="text-gray-600">{request.RequestName}</p>
 				</div>
 				<div className="mt-4">
 					<p className="text-gray-700 font-semibold font-poppins">
 						Description
 					</p>
-					<p className="text-gray-600">{complaint.description}</p>
+					<p className="text-gray-600">{request.description}</p>
 				</div>
 				<div className="mt-4 flex space-x-4">
 					<div className="flex flex-col items-center">
@@ -46,7 +44,7 @@ function ComplaintViewModal({ isOpen, onClose, complaint }) {
 							Wing
 						</p>
 						<span className="bg-blue-100 text-blue-600 ps-5 pe-5 pt-2 pb-2 rounded-full mt-2 ">
-							{complaint.wing}
+							{request.wing}
 						</span>
 					</div>
 					<div className="flex flex-col items-center">
@@ -54,7 +52,7 @@ function ComplaintViewModal({ isOpen, onClose, complaint }) {
 							Unit
 						</p>
 						<span className="ps-5 pe-5 pt-2 pb-2 mt-2 ">
-							{complaint.unit}
+							{request.unit}
 						</span>
 					</div>
 					<div className="flex flex-col items-center">
@@ -63,10 +61,10 @@ function ComplaintViewModal({ isOpen, onClose, complaint }) {
 						</p>
 						<span
 							className={`ps-5 pe-5 pt-2 pb-2 rounded-full text-white mt-2 ${getPriorityColor(
-								complaint.priority
+								request.priority
 							)}`}
 						>
-							{complaint.priority}
+							{request.priority}
 						</span>
 					</div>
 					<div className="flex flex-col items-center">
@@ -75,10 +73,10 @@ function ComplaintViewModal({ isOpen, onClose, complaint }) {
 						</p>
 						<span
 							className={`ps-5 pe-5 pt-2 pb-2 rounded-full  mt-2 ${getStatusColor(
-								complaint.status
+								request.status
 							)}`}
 						>
-							{complaint.status}
+							{request.status}
 						</span>
 					</div>
 				</div>
@@ -86,5 +84,3 @@ function ComplaintViewModal({ isOpen, onClose, complaint }) {
 		</Dialog>
 	);
 }
-
-export default ComplaintViewModal;
