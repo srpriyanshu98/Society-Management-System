@@ -6,12 +6,13 @@ import { Skeleton } from "../ui/skeleton";
 import { scuritymanagementData } from "@/data/scuritymanagementData";
 
 
+
 export default function ScurityManagementlogs() {
     const [logs, setlogs] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [filter, setFilter] = useState("All");
 
-   
+
 
     const fetchlogs = async () => {
         try {
@@ -81,9 +82,9 @@ export default function ScurityManagementlogs() {
                                             {log.date}
                                         </td>
                                         <td className="p-3 text-gray-500">
-                                            <div className="">
-                                            {log.wing}
-                                            </div>
+                                            <span className=" mr-3 bg-blue-50 p-2 rounded-full"> 
+                                                <span className="font-semibold font-poppins text-blue-500">{log.wing}</span>
+                                             </span>
                                             {log.unit}
                                         </td>
                                         <td className="p-3 text-gray-500">

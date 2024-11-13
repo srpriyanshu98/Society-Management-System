@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import ScurityManagementlogs from "@/components/securitymanagement/scuritymanagementloge";
+import SecurityProtocols from "@/components/securitymanagement/securityprotocols";
 
 
 export default function SecurityManagement({ userRole }) {
@@ -10,6 +11,9 @@ export default function SecurityManagement({ userRole }) {
 					<ScurityManagementlogs />
 				</div>
 			</div>
+				<div>
+					<SecurityProtocols />
+				</div>
 		</Layout>
 	);
 }
