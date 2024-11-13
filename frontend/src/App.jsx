@@ -21,6 +21,7 @@ import EditProfile from "./pages/EditProfile";
 import ResidentForm from "./components/residentManagement/ResidentForm";
 import AddExpenses from "./pages/admin/AddExpenses";
 import Note from "./pages/admin/Note";
+import RequestTracking from "./pages/admin/RequestTracking";
 
 function App() {
 	return (
@@ -33,17 +34,22 @@ function App() {
 
 			{/* ADMIN ROUTES*/}
 			<Route path="/" element={<Dashboard />} />
+
 			<Route path="/residents" element={<ResidentManagement />} />
+			<Route path="/resident-form" element={<ResidentForm />} />
+
 			<Route path="/financial" element={<FinancialManagement />} />
+			<Route path="/add-expenses" element={<AddExpenses />} />
+			<Route path="/note" element={<Note />} />
+
 			<Route path="/facilities" element={<FacilityManagement />} />
+
 			<Route path="/complaints" element={<ComplaintTracking />} />
+			<Route path="/request-tracking" element={<RequestTracking />} />
+
 			<Route path="/security" element={<SecurityManagement />} />
 			<Route path="/security-guard" element={<SecurityGuard />} />
 			<Route path="/announcements" element={<Announcement />} />
-
-			<Route path="/resident-form" element={<ResidentForm />} />
-			<Route path="/add-expenses" element={<AddExpenses />} />
-			<Route path="/note" element={<Note />} />
 
 			{/* RESIDENTS ROUTES */}
 			{/* SECURITY ROUTES */}

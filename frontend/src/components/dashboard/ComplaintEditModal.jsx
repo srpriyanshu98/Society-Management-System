@@ -34,12 +34,17 @@ export default function ComplaintEditModal({
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Edit Complaint</DialogTitle>
+					<DialogTitle>
+						{complaint ? "Edit Complaint" : "Add Complaint"}
+					</DialogTitle>
 				</DialogHeader>
 				<div className="space-y-4">
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
-							<div className="font-poppins">Complainer Name<span className="text-[#E74C3C]">*</span></div>
+							<div className="font-poppins">
+								Complainer Name
+								<span className="text-[#E74C3C]">*</span>
+							</div>
 							<Input
 								name="complainerName"
 								value={editedComplaint.complainerName || ""}
@@ -50,7 +55,10 @@ export default function ComplaintEditModal({
 					</div>
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
-							<div className="font-poppins">Complaint Name<span className="text-[#E74C3C]">*</span></div>
+							<div className="font-poppins">
+								Complaint Name
+								<span className="text-[#E74C3C]">*</span>
+							</div>
 							<Input
 								name="complaintName"
 								value={editedComplaint.complaintName || ""}
@@ -61,7 +69,10 @@ export default function ComplaintEditModal({
 					</div>
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
-							<div className="font-poppins">Description<span className="text-[#E74C3C]">*</span></div>
+							<div className="font-poppins">
+								Description
+								<span className="text-[#E74C3C]">*</span>
+							</div>
 							<Input
 								name="description"
 								value={editedComplaint.description || ""}
@@ -74,7 +85,9 @@ export default function ComplaintEditModal({
 				<div className="flex  space-x-4">
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
-							<div className="font-poppins">Wing<span className="text-[#E74C3C]">*</span></div>
+							<div className="font-poppins">
+								Wing<span className="text-[#E74C3C]">*</span>
+							</div>
 							<Input
 								name="wing"
 								value={editedComplaint.wing || ""}
@@ -85,9 +98,12 @@ export default function ComplaintEditModal({
 					</div>
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
-							<div className="font-poppins">Unit<span className="text-[#E74C3C]">*</span></div>
+							<div className="font-poppins">
+								Unit<span className="text-[#E74C3C]">*</span>
+							</div>
 							<Input
 								name="unit"
+								type="number"
 								value={editedComplaint.unit || ""}
 								onChange={handleChange}
 								placeholder="Unit"
@@ -105,9 +121,7 @@ export default function ComplaintEditModal({
 								type="radio"
 								name="priority"
 								value="High"
-								checked={
-									editedComplaint.priority === "High"
-								}
+								checked={editedComplaint.priority === "High"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -118,9 +132,7 @@ export default function ComplaintEditModal({
 								type="radio"
 								name="priority"
 								value="Medium"
-								checked={
-									editedComplaint.priority === "Medium"
-								}
+								checked={editedComplaint.priority === "Medium"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -160,9 +172,7 @@ export default function ComplaintEditModal({
 								type="radio"
 								name="status"
 								value="Pending"
-								checked={
-									editedComplaint.status === "Pending"
-								}
+								checked={editedComplaint.status === "Pending"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -189,6 +199,6 @@ export default function ComplaintEditModal({
 					<Button onClick={handleSave}>Save</Button>
 				</div>
 			</DialogContent>
-		</Dialog >
+		</Dialog>
 	);
 }

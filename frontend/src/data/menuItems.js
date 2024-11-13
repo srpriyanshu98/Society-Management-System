@@ -12,7 +12,14 @@ const menuItems = {
 			],
 		},
 		{ name: "Facility Management", path: "/facilities", icon: "Building" },
-		{ name: "Complaint Tracking", path: "/complaints", icon: "📋" },
+		{
+			name: "Complaint Tracking",
+			icon: "📋",
+			subItems: [
+				{ name: "Create Complaint", path: "/complaints" },
+				{ name: "Request Tracking", path: "/request-tracking" },
+			],
+		},
 		{ name: "Security Management", path: "/security", icon: "Shield" },
 		{ name: "Security Guard", path: "/security-guard", icon: "Cctv" },
 		{ name: "Announcement", path: "/announcements", icon: "📢" },
