@@ -20,7 +20,14 @@ const menuItems = {
 				{ name: "Request Tracking", path: "/request-tracking" },
 			],
 		},
-		{ name: "Security Management", path: "/security", icon: "Shield" },
+		{
+			name: "Security Management",
+			icon: "Shield",
+			subItems: [
+				{ name: "Visitor Logs", path: "/security" },
+				{ name: "Security Protocols", path: "/security-protocols" },
+			],
+		},
 		{ name: "Security Guard", path: "/security-guard", icon: "Cctv" },
 		{ name: "Announcement", path: "/announcements", icon: "📢" },
 	],

@@ -17,7 +17,7 @@ const breadcrumbData = {
 	"/note": [
 		{ label: "Home", href: "/" },
 		{ label: "Financial Management", href: "/financial" },
-		{ label: "Note", href: "/financial/note" },
+		{ label: "Note", href: "/note" },
 	],
 	"/facilities": [
 		{ label: "Home", href: "/" },
@@ -26,15 +26,24 @@ const breadcrumbData = {
 	"/complaints": [
 		{ label: "Home", href: "/" },
 		{ label: "Complaint Tracking", href: "/complaints" },
+		{ label: "Create Complaint", href: "/complaints" },
 	],
 	"/request-tracking": [
 		{ label: "Home", href: "/" },
 		{ label: "Request Tracking", href: "/request-tracking" },
+		{ label: "Create Request", href: "/request-tracking" },
 	],
 	"/security": [
 		{ label: "Home", href: "/" },
 		{ label: "Security Management", href: "/security" },
+		{ label: "Visitor Logs", href: "/security" },
 	],
+	"/security-protocols": [
+		{ label: "Home", href: "/" },
+		{ label: "Security Management", href: "/security" },
+		{ label: "Security Protocols", href: "/security-protocols" },
+	],
+
 	"/security-guard": [
 		{ label: "Home", href: "/" },
 		{ label: "Security Guard", href: "/security-guard" },

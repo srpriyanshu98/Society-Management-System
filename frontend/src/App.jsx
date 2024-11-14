@@ -22,6 +22,7 @@ import ResidentForm from "./components/residentManagement/ResidentForm";
 import AddExpenses from "./pages/admin/AddExpenses";
 import Note from "./pages/admin/Note";
 import RequestTracking from "./pages/admin/RequestTracking";
+import SecurityRuls from "./pages/admin/SecurityRuls";
 
 function App() {
 	return (
@@ -48,6 +49,8 @@ function App() {
 			<Route path="/request-tracking" element={<RequestTracking />} />
 
 			<Route path="/security" element={<SecurityManagement />} />
+			<Route path="/security-protocols" element={<SecurityRuls />} />
+
 			<Route path="/security-guard" element={<SecurityGuard />} />
 			<Route path="/announcements" element={<Announcement />} />
 
