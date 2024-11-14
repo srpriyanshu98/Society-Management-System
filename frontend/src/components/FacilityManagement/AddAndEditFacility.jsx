@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { format, isValid } from "date-fns";
+import moment from "moment"; // Import moment.js
 import { Calendar } from "@/components/ui/calendar";
 import {
 	Popover,
@@ -40,8 +40,8 @@ export default function AddAndEditFacility({
 		if (mode === "edit" && facility) {
 			setFacilityName(facility.facilityName);
 			setDescription(facility.description);
-			const parsedDate = new Date(facility.serviceDate);
-			setServiceDate(isValid(parsedDate) ? parsedDate : new Date());
+			const parsedDate = moment(facility.serviceDate, "YYYY-MM-DD").toDate();
+			setServiceDate(parsedDate);
 			setRemindBefore(facility.remindBefore);
 		} else {
 			clearForm();
@@ -63,11 +63,12 @@ export default function AddAndEditFacility({
 			return;
 		}
 
+		const formattedDate = moment(serviceDate).format("YYYY-MM-DD");
 		const newFacility = {
 			facilityName,
 			description,
-			serviceDate: format(serviceDate, "dd/MM/yyyy"),
-			remindBefore,
+			serviceDate: formattedDate, // Ensure date is in YYYY-MM-DD format
+			remindBefore, // Ensure remindBefore is a string
 		};
 
 		onSave(newFacility);
@@ -139,8 +140,8 @@ export default function AddAndEditFacility({
 											: "")
 									}
 								>
-									{isValid(serviceDate)
-										? format(serviceDate, "MM/dd/yyyy")
+									{serviceDate
+										? moment(serviceDate).format("MM/DD/YYYY")
 										: "Select Date"}
 									<CalendarDays className="ml-auto h-4 w-4 opacity-50" />
 								</Button>
@@ -153,7 +154,7 @@ export default function AddAndEditFacility({
 									mode="single"
 									selected={serviceDate}
 									onSelect={(newDate) => {
-										if (newDate && isValid(newDate)) {
+										if (newDate) {
 											setServiceDate(newDate);
 										}
 									}}
