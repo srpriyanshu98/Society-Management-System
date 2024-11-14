@@ -34,6 +34,7 @@ export default function AddExpenses({ userRole }) {
 			console.error("Error fetching expenses:", error);
 		}
 	};
+	console.log(expenses);
 
 	const handleViewExpense = (expense) => {
 		setSelectedExpense(expense);
@@ -141,9 +142,22 @@ export default function AddExpenses({ userRole }) {
 												alt={`${item.billPermit} Icon`}
 												className="w-6 h-6 inline-block align-middle mr-2"
 											/>
+											{/* <img
+												src={
+													item.bill
+														? `http://localhost:5000/${item.bill}`
+														: "no image"
+												}
+												alt="Bill"
+												className="w-10 h-10 rounded-full"
+											/> */}
 											<span className="align-middle truncate max-w-40 inline-block">
-												{item.billFile?.type ||
-													"No file uploaded"}
+												{item.bill
+													? item.bill
+															.split(".")
+															.pop()
+															.toUpperCase()
+													: "No file uploaded"}
 											</span>
 										</td>
 

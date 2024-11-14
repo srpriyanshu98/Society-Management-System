@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import { format, parse } from "date-fns";
+import { isValid } from "date-fns";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import axiosInstance from "@/test/axiosInstance";
+import moment from "moment";
 
 export default function EditAnnouncement({
 	isOpen,
@@ -10,45 +12,58 @@ export default function EditAnnouncement({
 	onSave,
 	announcement = null,
 }) {
-	const [Announcementtitle, setAnnouncementtitle] = useState("");
-	const [Announcementdescription, setAnnouncementdescription] = useState("");
-	const [Announcementdate, setAnnouncementdate] = useState("");
-	const [Announcementtime, setAnnouncementtime] = useState("");
+	const [title, setTitle] = useState("");
+	const [description, setDescription] = useState("");
+	const [date, setDate] = useState("");
+	const [time, setTime] = useState("");
 
 	useEffect(() => {
 		if (announcement) {
-			setAnnouncementtitle(announcement.Announcementtitle);
-			setAnnouncementdescription(announcement.Announcementdescription);
-			setAnnouncementdate(
-				announcement.Announcementdate
-					? format(parse(announcement.Announcementdate, "dd/MM/yyyy", new Date()), "yyyy-MM-dd")
-					: ""
-			);
-			setAnnouncementtime(announcement.Announcementtime);
+			setTitle(announcement.title);
+			setDescription(announcement.description);
+			const parsedDate = new Date(announcement.date);
+			setDate(isValid(parsedDate) ? parsedDate : new Date());
+			setTime(announcement.time);
 		} else {
 			clearForm();
 		}
 	}, [announcement]);
 
 	const clearForm = () => {
-		setAnnouncementtitle("");
-		setAnnouncementdescription("");
-		setAnnouncementdate("");
-		setAnnouncementtime("");
+		setTitle("");
+		setDescription("");
+		setDate("");
+		setTime("");
 	};
 
-	const handleSubmit = () => {
-		const newAnnouncement = {
-			id: announcement?.id || new Date().getTime(),
-			Announcementtitle,
-			Announcementdescription,
-			Announcementdate: format(parse(Announcementdate, "yyyy-MM-dd", new Date()), "dd/MM/yyyy"),
-			Announcementtime,
+	const handleSubmit = async () => {
+		const parsedDate = new Date(date);
+		if (!isValid(parsedDate)) {
+			console.error("Invalid date value");
+			return;
+		}
+
+		const updatedAnnouncement = {
+			title,
+			description,
+			date: moment(parsedDate).format("YYYY-MM-DD"),
+			time: moment(time, "HH:mm").format("hh:mm A"),
 		};
 
-		onSave(newAnnouncement);
-		clearForm();
-		onClose();
+		try {
+			const response = await axiosInstance.put(
+				`/announcements/${announcement._id}`,
+				updatedAnnouncement
+			);
+			onSave(response.data.updatedAnnouncement);
+			clearForm();
+			onClose();
+		} catch (error) {
+			console.error("Error updating announcement:", error);
+			alert(
+				"Failed to update announcement. Please check the data and try again."
+			);
+		}
 	};
 
 	return (
@@ -60,22 +75,24 @@ export default function EditAnnouncement({
 				<div className="grid grid-cols-1 gap-4">
 					<div>
 						<label className="text-sm font-medium">
-							Announcement Title<span className="text-red-500">*</span>
+							Announcement Title
+							<span className="text-red-500">*</span>
 						</label>
 						<Input
-							value={Announcementtitle}
-							onChange={(e) => setAnnouncementtitle(e.target.value)}
+							value={title}
+							onChange={(e) => setTitle(e.target.value)}
 							placeholder="Enter Announcement Title"
 							required
 						/>
 					</div>
 					<div>
 						<label className="text-sm font-medium">
-							Announcement Description<span className="text-red-500">*</span>
+							Announcement Description
+							<span className="text-red-500">*</span>
 						</label>
 						<Input
-							value={Announcementdescription}
-							onChange={(e) => setAnnouncementdescription(e.target.value)}
+							value={description}
+							onChange={(e) => setDescription(e.target.value)}
 							placeholder="Enter Announcement Description"
 							required
 						/>
@@ -83,24 +100,28 @@ export default function EditAnnouncement({
 					<div className="flex space-x-4">
 						<div>
 							<label className="text-sm font-medium">
-								Announcement Date<span className="text-red-500">*</span>
+								Announcement Date
+								<span className="text-red-500">*</span>
 							</label>
 							<Input
 								type="date"
-								value={Announcementdate}
-								onChange={(e) => setAnnouncementdate(e.target.value)}
+								value={moment(date).format("YYYY-MM-DD")} // Ensure date is in the correct format
+								onChange={(e) =>
+									setDate(new Date(e.target.value))
+								}
 								className="w-full border border-gray-300 rounded-lg"
 								placeholder="Select Date"
 							/>
 						</div>
 						<div>
 							<label className="text-sm font-medium">
-								Announcement Time<span className="text-red-500">*</span>
+								Announcement Time
+								<span className="text-red-500">*</span>
 							</label>
 							<Input
 								type="time"
-								value={Announcementtime}
-								onChange={(e) => setAnnouncementtime(e.target.value)}
+								value={time}
+								onChange={(e) => setTime(e.target.value)}
 								className="w-full border border-gray-300 rounded-lg"
 								placeholder="Select Time"
 							/>

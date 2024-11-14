@@ -13,38 +13,28 @@ export default function ViewAnnouncement({ announcement, isOpen, onClose }) {
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent className="max-w-md p-6 rounded-xl">
 				<DialogHeader>
-					<DialogTitle>View announcement Details</DialogTitle>
+					<DialogTitle>View Announcement Details</DialogTitle>
 				</DialogHeader>
 				<Separator />
 				<div className="mt-4 space-y-4 ">
 					<div>
-						<p className="text-gray-400">
-							Title
-						</p>
-						<p className="text-gray-800">{announcement.Announcementtitle}</p>
+						<p className="text-gray-400">Title</p>
+						<p className="text-gray-800">{announcement.title}</p>
 					</div>
 					<div>
-						<p className="text-gray-400">
-							Description
+						<p className="text-gray-400">Description</p>
+						<p className="text-gray-800">
+							{announcement.description}
 						</p>
-						<p className="text-gray-800">{announcement.Announcementdescription}</p>
 					</div>
 					<div className="grid grid-cols-2 gap-4">
 						<div>
-							<p className="text-gray-400">
-							 Date
-							</p>
-							<p className="text-gray-800">
-								{announcement.Announcementdate}
-							</p>
+							<p className="text-gray-400">Date</p>
+							<p className="text-gray-800">{announcement.date}</p>
 						</div>
 						<div>
-							<p className="text-gray-400">
-								Time
-							</p>
-							<p className="text-gray-800">
-								{announcement.Announcementtime}
-							</p>
+							<p className="text-gray-400">Time</p>
+							<p className="text-gray-800">{announcement.time}</p>
 						</div>
 					</div>
 				</div>
