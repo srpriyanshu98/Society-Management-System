@@ -3,36 +3,36 @@ import bcrypt from "bcryptjs";
 
 // Define the User schema
 const userSchema = new mongoose.Schema(
-  {
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    phoneNumber: { type: String, required: true },
-    country: { type: String, required: true },
-    state: { type: String, required: true },
-    city: { type: String, required: true },
-    society: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Society",
-      required: true,
-    }, // This can be an ID if you have a Society model
-    role: {
-      type: String,
-      enum: ["security", "admin", "resident"],
-      default: "security",
+    {
+        firstName: { type: String, required: true },
+        lastName: { type: String, required: true },
+        email: { type: String, required: true, unique: true },
+        phoneNumber: { type: String, required: true },
+        country: { type: String, required: true },
+        state: { type: String, required: true },
+        city: { type: String, required: true },
+        society: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Society",
+            required: true,
+        }, // This can be an ID if you have a Society model
+        role: {
+            type: String,
+            enum: ["security", "admin", "resident"],
+            default: "security",
+        },
+        password: { type: String, required: true },
+        otp: {
+            type: String,
+        },
+        otpExpiration: {
+            type: Date,
+            default: Date.now,
+            get: (otpExpiration) => otpExpiration.getTime(),
+            set: (otpExpiration) => new Date(otpExpiration),
+        },
     },
-    password: { type: String, required: true },
-    otp: {
-      type: String,
-    },
-    otpExpiration: {
-      type: Date,
-      default: Date.now,
-      get: (otpExpiration) => otpExpiration.getTime(),
-      set: (otpExpiration) => new Date(otpExpiration),
-    },
-  },
-  { timestamps: true }
+    { timestamps: true }
 );
 
 // Hash password before saving
@@ -43,8 +43,8 @@ userSchema.pre("save", async function (next) {
 });
 
 // Method to compare passwords
-userSchema.methods.comparePassword = function (password) {
-    return bcrypt.compare(password, this.password);
+userSchema.methods.comparePassword = function (enteredPassword) {
+    return bcrypt.compare(enteredPassword, this.password);
 };
 
 const User = mongoose.model("User", userSchema);
