@@ -125,41 +125,65 @@ export const resetPassword = async (req, res) => {
         const { email, otp, newPassword, confirmPassword } = req.body;
 
         if (!email || !otp || !newPassword || !confirmPassword) {
-            return res.status(400).json({ success: false, message: "All fields are required" });
+            return res
+                .status(400)
+                .json({ success: false, message: "All fields are required" });
         }
 
         // Find user by email
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(404).json({ success: false, message: "User not found" });
+            return res
+                .status(404)
+                .json({ success: false, message: "User not found" });
         }
 
         // Verify OTP and expiration
         const currentTime = new Date();
         if (user.otp !== otp || user.otpExpiration < currentTime) {
-            return res.status(400).json({ success: false, message: "Invalid or expired OTP" });
+            return res
+                .status(400)
+                .json({ success: false, message: "Invalid or expired OTP" });
         }
 
         // Check if passwords match
         if (newPassword !== confirmPassword) {
-            return res.status(400).json({ success: false, message: "Passwords do not match" });
+            return res
+                .status(400)
+                .json({ success: false, message: "Passwords do not match" });
         }
 
-        // Hash the new password
-        const salt = await bcryptjs.genSalt(10);
-        const hashedPassword = await bcryptjs.hash(newPassword, salt);
-
         // Update user's password and clear OTP fields
-        user.password = hashedPassword;
+        user.password = newPassword;
         user.otp = null; // Clear OTP after successful reset
-        user.otpExpiration = null; // Clear expiration
-        await user.save();
+        user.otpExpiration = null;
+        console.log("Password saved in DB:", user.password); // After saving in resetPassword
 
-        return res.status(200).json({ success: true, message: "Password reset successfully" });
+        await user.save();
+        console.log("Password saved in DB:"); // After saving in resetPassword
+
+        return res
+            .status(200)
+            .json({ success: true, message: "Password reset successfully" });
     } catch (error) {
         console.error("Error in reset password controller:", error.message);
-        return res.status(500).json({ success: false, message: "Internal server error" });
-    }
+        return res
+            .status(500)
+            .json({ success: false, message: "Internal server error" });
+    }
+};
+
+// Get user profile by ID
+export const getUserProfile = async (req, res) => {
+    try {
+        const userprofile = await User.findById(req.params.id);
+        if (!userprofile) {
+            return res.status(404).json({ message: "User profile not found" });
+        }
+        res.status(200).json(userprofile);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
 };
 
 // Update a user profile by ID
