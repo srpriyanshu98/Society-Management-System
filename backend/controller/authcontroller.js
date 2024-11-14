@@ -149,15 +149,14 @@ export const resetPassword = async (req, res) => {
         .json({ success: false, message: "Passwords do not match" });
     }
 
-    // Hash the new password
-    const salt = await bcryptjs.genSalt(10);
-    const hashedPassword = await bcryptjs.hash(newPassword, salt);
-
     // Update user's password and clear OTP fields
-    user.password = hashedPassword;
+    user.password = newPassword;
     user.otp = null; // Clear OTP after successful reset
-    user.otpExpiration = new Date(Date.now() + 5 * 60 * 1000);
+    user.otpExpiration = null;
+    console.log("Password saved in DB:", user.password); // After saving in resetPassword
+
     await user.save();
+    console.log("Password saved in DB:"); // After saving in resetPassword
 
     return res.status(200).json({
       success: true,
