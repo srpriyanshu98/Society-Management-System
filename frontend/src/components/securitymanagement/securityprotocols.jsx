@@ -88,9 +88,9 @@ export default function SecurityProtocols() {
 								<tr className="bg-blue-50 font-semibold font-poppins">
 									<th className="p-3">Title</th>
 									<th className="p-3">Description</th>
-									<th className="p-3">Date</th>
-									<th className="p-3">Time</th>
-									<th className="p-3">Actions</th>
+									<th className="p-3 text-center">Date</th>
+									<th className="p-3 text-center">Time</th>
+									<th className="p-3 text-center">Actions</th>
 								</tr>
 							</thead>
 							<tbody className="items-center">
@@ -103,19 +103,19 @@ export default function SecurityProtocols() {
 								) : filteredLogs.length > 0 ? (
 									filteredLogs.map((log) => (
 										<tr key={log.id} className="border-b">
-											<td className="p-3 font-semibold text-gray-700">
+											<td className="p-3 font-semibold text-gray-700 mt-3 mb-3">
 												{log.Title}
 											</td>
-											<td className="p-3 text-gray-700">
+											<td className="p-3 text-gray-700 mt-3 mb-3">
 												{log.description}
 											</td>
-											<td className="p-3 text-gray-500">
+											<td className="p-3 text-gray-500 mt-3 mb-3 text-center">
 												{log.date}
 											</td>
-											<td className="p-3 text-gray-500">
+											<td className="p-3 text-gray-500 mt-3 mb-3 text-center">
 												{log.Time}
 											</td>
-											<td className="flex justify-center space-x-4">
+											<td className="flex justify-center space-x-4 mt-3 mb-3 text-center">
 												<button
 													className="rounded-md bg-gray-100 p-2 font-semibold"
 													onClick={() =>

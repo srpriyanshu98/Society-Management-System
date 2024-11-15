@@ -75,7 +75,11 @@
     @apply bg-background text-foreground;
   }
 }
-
+@layer utilities {
+  .border-coral {
+    border-color: coral;
+  }
+}
 .radio-gradient {
   appearance: none;
   width: 20px;
