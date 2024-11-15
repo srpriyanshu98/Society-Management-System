@@ -90,7 +90,8 @@ export default function RequestAddAndEdit({
 				<div className="grid grid-cols-1 gap-4">
 					<div>
 						<label className="text-sm font-medium">
-							Requester Name<span className="text-[#E74C3C]">*</span>
+							Requester Name
+							<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							name="RequesterName"
@@ -107,7 +108,8 @@ export default function RequestAddAndEdit({
 					</div>
 					<div>
 						<label className="text-sm font-medium">
-							Request Name<span className="text-[#E74C3C]">*</span>
+							Request Name
+							<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							name="RequestName"
@@ -141,7 +143,8 @@ export default function RequestAddAndEdit({
 					</div>
 					<div>
 						<label className="text-sm font-medium">
-							Schedule Service Date<span className="text-[#E74C3C]">*</span>
+							Schedule Service Date
+							<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Popover>
 							<PopoverTrigger asChild>
@@ -216,7 +219,9 @@ export default function RequestAddAndEdit({
 
 					{/* Radio Group for Priority */}
 					<div>
-						<label className="block font-medium">Priority<span className="text-[#E74C3C]">*</span></label>
+						<label className="block font-medium">
+							Priority<span className="text-[#E74C3C]">*</span>
+						</label>
 						<div className="flex space-x-4">
 							<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
 								<input
@@ -258,7 +263,9 @@ export default function RequestAddAndEdit({
 
 					{/* Radio Group for Status */}
 					<div>
-						<label className="block font-medium">Status<span className="text-[#E74C3C]">*</span></label>
+						<label className="block font-medium">
+							Status<span className="text-[#E74C3C]">*</span>
+						</label>
 						<div className="flex space-x-4">
 							<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
 								<input
@@ -297,10 +304,16 @@ export default function RequestAddAndEdit({
 					</div>
 				</div>
 				<div className="mt-4 flex justify-between">
-					<Button variant="outline" onClick={onClose} className="w-32">
+					<Button
+						variant="outline"
+						onClick={onClose}
+						className="w-32"
+					>
 						Cancel
 					</Button>
-					<Button onClick={handleSave} className="w-32">Save</Button>
+					<Button onClick={handleSave} className="w-32">
+						Save
+					</Button>
 				</div>
 			</DialogContent>
 		</Dialog>

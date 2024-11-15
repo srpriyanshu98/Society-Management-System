@@ -47,7 +47,8 @@ export default function AddIncomeDialog({ onSave }) {
 	};
 
 	// Check if all fields are filled
-	const isSaveButtonDisabled = !title || !date || !dueDate || !description || !amount;
+	const isSaveButtonDisabled =
+		!title || !date || !dueDate || !description || !amount;
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
@@ -111,7 +112,8 @@ export default function AddIncomeDialog({ onSave }) {
 						</div>
 						<div className="w-1/2">
 							<label className="text-sm font-medium block mb-1">
-								Due Date<span className="text-[#E74C3C]">*</span>
+								Due Date
+								<span className="text-[#E74C3C]">*</span>
 							</label>
 							<Popover>
 								<PopoverTrigger asChild>

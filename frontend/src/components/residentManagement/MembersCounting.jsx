@@ -12,7 +12,13 @@ export default function MembersCounting({ control, errors }) {
 		<Card className="shadow-md rounded-xl mt-2">
 			<CardHeader>
 				<div className="flex justify-between items-center">
-					<CardTitle className="text-[16px] font-poppins">Member Counting :<span className="text-[#A7A7A7] text-[16px] font-poppins"> (Other Members)</span></CardTitle>
+					<CardTitle className="text-[16px] font-poppins">
+						Member Counting :
+						<span className="text-[#A7A7A7] text-[16px] font-poppins">
+							{" "}
+							(Other Members)
+						</span>
+					</CardTitle>
 					<div>
 						<span className="me-3">Select Member</span>
 						<select
@@ -38,7 +44,10 @@ export default function MembersCounting({ control, errors }) {
 				{Array.from({ length: memberCount }).map((_, i) => (
 					<div key={i} className="grid grid-cols-6  gap-4 mt-4">
 						<div className="mb-5">
-							<Label className="text-left">Full Name<span className="text-[#E74C3C]">*</span></Label>
+							<Label className="text-left">
+								Full Name
+								<span className="text-[#E74C3C]">*</span>
+							</Label>
 							<Controller
 								name={`member[${i}].fullName`}
 								control={control}
@@ -52,10 +61,17 @@ export default function MembersCounting({ control, errors }) {
 									/>
 								)}
 							/>
-							{errors.member?.[i]?.fullName && <span className="text-red-500 text-xs">{errors.member[i].fullName.message}</span>}
+							{errors.member?.[i]?.fullName && (
+								<span className="text-red-500 text-xs">
+									{errors.member[i].fullName.message}
+								</span>
+							)}
 						</div>
 						<div className="mb-5">
-							<Label className="text-left">Phone Number<span className="text-[#E74C3C]">*</span></Label>
+							<Label className="text-left">
+								Phone Number
+								<span className="text-[#E74C3C]">*</span>
+							</Label>
 							<Controller
 								name={`member[${i}].PhoneNumber`}
 								control={control}
@@ -69,14 +85,27 @@ export default function MembersCounting({ control, errors }) {
 									/>
 								)}
 							/>
-							{errors.member?.[i]?.PhoneNumber && <span className="text-red-500 text-xs">{errors.member[i].PhoneNumber.message}</span>}
+							{errors.member?.[i]?.PhoneNumber && (
+								<span className="text-red-500 text-xs">
+									{errors.member[i].PhoneNumber.message}
+								</span>
+							)}
 						</div>
 						<div className="mb-5">
-							<Label className="text-left">Email Address<span className="text-[#E74C3C]">*</span></Label>
+							<Label className="text-left">
+								Email Address
+								<span className="text-[#E74C3C]">*</span>
+							</Label>
 							<Controller
 								name={`member[${i}].email`}
 								control={control}
-								rules={{ required: "email is required", pattern: { value: /^\S+@\S+\.\S+$/, message: "Invalid email" } }}
+								rules={{
+									required: "email is required",
+									pattern: {
+										value: /^\S+@\S+\.\S+$/,
+										message: "Invalid email",
+									},
+								}}
 								render={({ field }) => (
 									<Input
 										{...field}
@@ -86,48 +115,73 @@ export default function MembersCounting({ control, errors }) {
 									/>
 								)}
 							/>
-							{errors.member?.[i]?.email && <span className="text-red-500 text-xs">{errors.member[i].email.message}</span>}
+							{errors.member?.[i]?.email && (
+								<span className="text-red-500 text-xs">
+									{errors.member[i].email.message}
+								</span>
+							)}
 						</div>
 						<div className="mb-5">
-							<Label className="text-left">Age<span className="text-[#E74C3C]">*</span></Label>
+							<Label className="text-left">
+								Age<span className="text-[#E74C3C]">*</span>
+							</Label>
 							<Controller
-									name={`member[${i}].age`}
-									control={control}
-									rules={{ required: "Age is required", pattern: { value: /^(1[89]|[2-9]\d)$/, message: "Invalid age" } }}
-									render={({ field }) => (
-										<Input
-											{...field}
-											id="age"
-											placeholder="Enter Age"
-											className="rounded-lg"
-										/>
-									)}
-								/>
-								{errors.member?.[i]?.age && <span className="text-red-500 text-xs">{errors.member[i].age.message}</span>}
+								name={`member[${i}].age`}
+								control={control}
+								rules={{
+									required: "Age is required",
+									pattern: {
+										value: /^(1[89]|[2-9]\d)$/,
+										message: "Invalid age",
+									},
+								}}
+								render={({ field }) => (
+									<Input
+										{...field}
+										id="age"
+										placeholder="Enter Age"
+										className="rounded-lg"
+									/>
+								)}
+							/>
+							{errors.member?.[i]?.age && (
+								<span className="text-red-500 text-xs">
+									{errors.member[i].age.message}
+								</span>
+							)}
 						</div>
 						<div className="mb-5">
-							<Label className="text-left">Gender<span className="text-[#E74C3C]">*</span></Label>
+							<Label className="text-left">
+								Gender<span className="text-[#E74C3C]">*</span>
+							</Label>
 							<Controller
-									name={`member[${i}].gender`}
-									control={control}
-									rules={{ required: "Gender is required" }}
-									render={({ field }) => (
-										<select
-											{...field}
-											id="gender"
-											className="w-full p-2 border rounded-lg"
-										>
-											<option value="">Select Gender</option>
-											<option value="Male">Male</option>
-											<option value="Female">Female</option>
-											<option value="Other">Other</option>
-										</select>
-									)}
-								/>
-								{errors.member?.[i]?.gender && <span className="text-red-500 text-xs">{errors.member[i].gender.message}</span>}
+								name={`member[${i}].gender`}
+								control={control}
+								rules={{ required: "Gender is required" }}
+								render={({ field }) => (
+									<select
+										{...field}
+										id="gender"
+										className="w-full p-2 border rounded-lg"
+									>
+										<option value="">Select Gender</option>
+										<option value="Male">Male</option>
+										<option value="Female">Female</option>
+										<option value="Other">Other</option>
+									</select>
+								)}
+							/>
+							{errors.member?.[i]?.gender && (
+								<span className="text-red-500 text-xs">
+									{errors.member[i].gender.message}
+								</span>
+							)}
 						</div>
 						<div className="mb-5">
-							<Label className="text-left">Relation<span className="text-[#E74C3C]">*</span></Label>
+							<Label className="text-left">
+								Relation
+								<span className="text-[#E74C3C]">*</span>
+							</Label>
 							<Controller
 								name={`member[${i}].relation`}
 								control={control}
@@ -141,7 +195,11 @@ export default function MembersCounting({ control, errors }) {
 									/>
 								)}
 							/>
-							{errors.member?.[i]?.relation && <span className="text-red-500 text-xs">{errors.member[i].relation.message}</span>}
+							{errors.member?.[i]?.relation && (
+								<span className="text-red-500 text-xs">
+									{errors.member[i].relation.message}
+								</span>
+							)}
 						</div>
 					</div>
 				))}

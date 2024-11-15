@@ -5,7 +5,6 @@ import { Label } from "../ui/label";
 import { Controller } from "react-hook-form";
 
 export default function ResidentDetail({ control, errors }) {
-
 	return (
 		<Card className="p-4 pt-10 rounded-xl">
 			<CardContent className="space-y-4">
@@ -26,13 +25,19 @@ export default function ResidentDetail({ control, errors }) {
 						{/* First Row */}
 						<div className="flex flex-row space-x-8">
 							<div className="flex flex-col w-[430px]">
-								<Label htmlFor="fullName" className="mb-3 font-poppins">
-									Full Name<span className="text-[#E74C3C]">*</span>
+								<Label
+									htmlFor="fullName"
+									className="mb-3 font-poppins"
+								>
+									Full Name
+									<span className="text-[#E74C3C]">*</span>
 								</Label>
 								<Controller
 									name="fullName"
 									control={control}
-									rules={{ required: "Full Name is required" }}
+									rules={{
+										required: "Full Name is required",
+									}}
 									render={({ field }) => (
 										<Input
 											{...field}
@@ -42,16 +47,26 @@ export default function ResidentDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.fullName && <span className="text-red-500 font-poppins text-xs">{errors.fullName.message}</span>}
+								{errors.fullName && (
+									<span className="text-red-500 font-poppins text-xs">
+										{errors.fullName.message}
+									</span>
+								)}
 							</div>
 							<div className="flex flex-col w-[430px]">
-								<Label htmlFor="phoneNumber" className="mb-3 font-poppins">
-									Phone Number<span className="text-[#E74C3C]">*</span>
+								<Label
+									htmlFor="phoneNumber"
+									className="mb-3 font-poppins"
+								>
+									Phone Number
+									<span className="text-[#E74C3C]">*</span>
 								</Label>
 								<Controller
 									name="phoneNumber"
 									control={control}
-									rules={{ required: "phone Number is required" }}
+									rules={{
+										required: "phone Number is required",
+									}}
 									render={({ field }) => (
 										<Input
 											{...field}
@@ -61,17 +76,30 @@ export default function ResidentDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.phoneNumber && <span className="text-red-500 font-poppins text-xs">{errors.phoneNumber.message}</span>}
-
+								{errors.phoneNumber && (
+									<span className="text-red-500 font-poppins text-xs">
+										{errors.phoneNumber.message}
+									</span>
+								)}
 							</div>
 							<div className="flex flex-col w-[430px]">
-								<Label htmlFor="email" className="mb-3 font-poppins">
-									Email Address<span className="text-[#E74C3C]">*</span>
+								<Label
+									htmlFor="email"
+									className="mb-3 font-poppins"
+								>
+									Email Address
+									<span className="text-[#E74C3C]">*</span>
 								</Label>
 								<Controller
 									name="email"
 									control={control}
-									rules={{ required: "email is required", pattern: { value: /^\S+@\S+\.\S+$/, message: "Invalid email" } }}
+									rules={{
+										required: "email is required",
+										pattern: {
+											value: /^\S+@\S+\.\S+$/,
+											message: "Invalid email",
+										},
+									}}
 									render={({ field }) => (
 										<Input
 											{...field}
@@ -81,20 +109,33 @@ export default function ResidentDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.email && <span className="text-red-500 font-poppins text-xs">{errors.email.message}</span>}
+								{errors.email && (
+									<span className="text-red-500 font-poppins text-xs">
+										{errors.email.message}
+									</span>
+								)}
 							</div>
 						</div>
 
 						{/* Second Row */}
 						<div className="flex flex-row flex-wrap space-x-5">
 							<div className="flex flex-col w-[255px]">
-								<Label htmlFor="age" className="mb-3 font-poppins">
+								<Label
+									htmlFor="age"
+									className="mb-3 font-poppins"
+								>
 									Age<span className="text-[#E74C3C]">*</span>
 								</Label>
 								<Controller
 									name="age"
 									control={control}
-									rules={{ required: "Age is required", pattern: { value: /^(1[89]|[2-9]\d)$/, message: "Invalid age" } }}
+									rules={{
+										required: "Age is required",
+										pattern: {
+											value: /^(1[89]|[2-9]\d)$/,
+											message: "Invalid age",
+										},
+									}}
 									render={({ field }) => (
 										<Input
 											{...field}
@@ -104,11 +145,19 @@ export default function ResidentDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.age && <span className="text-red-500 text-xs">{errors.age.message}</span>}
+								{errors.age && (
+									<span className="text-red-500 text-xs">
+										{errors.age.message}
+									</span>
+								)}
 							</div>
 							<div className="flex flex-col w-[255px]">
-								<Label htmlFor="gender" className="mb-3 font-poppins">
-									Gender<span className="text-[#E74C3C]">*</span>
+								<Label
+									htmlFor="gender"
+									className="mb-3 font-poppins"
+								>
+									Gender
+									<span className="text-[#E74C3C]">*</span>
 								</Label>
 								<Controller
 									name="gender"
@@ -120,18 +169,30 @@ export default function ResidentDetail({ control, errors }) {
 											id="gender"
 											className="w-full p-2 border rounded-lg text-[14px] font-poppins"
 										>
-											<option value="">Select Gender</option>
+											<option value="">
+												Select Gender
+											</option>
 											<option value="Male">Male</option>
-											<option value="Female">Female</option>
+											<option value="Female">
+												Female
+											</option>
 											<option value="Other">Other</option>
 										</select>
 									)}
 								/>
-								{errors.gender && <span className="text-red-500 text-xs">{errors.gender.message}</span>}
+								{errors.gender && (
+									<span className="text-red-500 text-xs">
+										{errors.gender.message}
+									</span>
+								)}
 							</div>
 							<div className="flex flex-col w-[255px]">
-								<Label htmlFor="wing" className="mb-3 font-poppins">
-									Wing<span className="text-[#E74C3C]">*</span>
+								<Label
+									htmlFor="wing"
+									className="mb-3 font-poppins"
+								>
+									Wing
+									<span className="text-[#E74C3C]">*</span>
 								</Label>
 								<Controller
 									name="wing"
@@ -146,11 +207,19 @@ export default function ResidentDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.wing && <span className="text-red-500 text-xs">{errors.wing.message}</span>}
+								{errors.wing && (
+									<span className="text-red-500 text-xs">
+										{errors.wing.message}
+									</span>
+								)}
 							</div>
 							<div className="flex flex-col w-[255px]">
-								<Label htmlFor="unit" className="mb-3 font-poppins">
-									Unit<span className="text-[#E74C3C]">*</span>
+								<Label
+									htmlFor="unit"
+									className="mb-3 font-poppins"
+								>
+									Unit
+									<span className="text-[#E74C3C]">*</span>
 								</Label>
 								<Controller
 									name="unit"
@@ -165,11 +234,19 @@ export default function ResidentDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.unit && <span className="text-red-500 text-xs">{errors.unit.message}</span>}
+								{errors.unit && (
+									<span className="text-red-500 text-xs">
+										{errors.unit.message}
+									</span>
+								)}
 							</div>
 							<div className="flex flex-col w-[255px]">
-								<Label htmlFor="relation" className="mb-3 font-poppins">
-									Relation<span className="text-[#E74C3C]">*</span>
+								<Label
+									htmlFor="relation"
+									className="mb-3 font-poppins"
+								>
+									Relation
+									<span className="text-[#E74C3C]">*</span>
 								</Label>
 								<Controller
 									name="relation"
@@ -184,7 +261,11 @@ export default function ResidentDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.relation && <span className="text-red-500 text-xs">{errors.relation.message}</span>}
+								{errors.relation && (
+									<span className="text-red-500 text-xs">
+										{errors.relation.message}
+									</span>
+								)}
 							</div>
 						</div>
 					</div>

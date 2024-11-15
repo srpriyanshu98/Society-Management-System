@@ -2,11 +2,11 @@
 import express from "express";
 import upload from "../middleware/upload.js";
 import {
-  addExpense,
-  getAllExpenses,
-  getExpenseById,
-  updateExpense,
-  deleteExpense,
+	addExpense,
+	getAllExpenses,
+	getExpenseById,
+	updateExpense,
+	deleteExpense,
 } from "../controller/expensecontroller.js";
 
 const router = express.Router();

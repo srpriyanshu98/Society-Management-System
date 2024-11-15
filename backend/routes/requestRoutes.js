@@ -1,10 +1,10 @@
 import express from "express";
 import {
-  createRequest,
-  getAllRequests,
-  getRequestById,
-  updateRequest,
-  deleteRequest,
+	createRequest,
+	getAllRequests,
+	getRequestById,
+	updateRequest,
+	deleteRequest,
 } from "../controller/requestcontroller.js";
 
 const router = express.Router();

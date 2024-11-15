@@ -1,10 +1,10 @@
 import express from "express";
 import {
-  createImportantNumber,
-  getImportantNumbers,
-  getImportantNumberById,
-  updateImportantNumber,
-  deleteImportantNumber,
+	createImportantNumber,
+	getImportantNumbers,
+	getImportantNumberById,
+	updateImportantNumber,
+	deleteImportantNumber,
 } from "../controller/importantNumbercontroller.js";
 
 const router = express.Router();

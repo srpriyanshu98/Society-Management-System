@@ -41,7 +41,10 @@ export default function AddAndEditFacility({
 		if (mode === "edit" && facility) {
 			setFacilityName(facility.facilityName);
 			setDescription(facility.description);
-			const parsedDate = moment(facility.serviceDate, "YYYY-MM-DD").toDate();
+			const parsedDate = moment(
+				facility.serviceDate,
+				"YYYY-MM-DD"
+			).toDate();
 			setServiceDate(parsedDate);
 			setRemindBefore(facility.remindBefore);
 		} else {
@@ -100,7 +103,8 @@ export default function AddAndEditFacility({
 				<div className="grid grid-cols-1 gap-4">
 					<div>
 						<label className="text-sm font-medium">
-							Facility Name<span className="text-[#E74C3C]">*</span>
+							Facility Name
+							<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							value={facilityName}
@@ -146,7 +150,9 @@ export default function AddAndEditFacility({
 									}
 								>
 									{serviceDate
-										? moment(serviceDate).format("MM/DD/YYYY")
+										? moment(serviceDate).format(
+												"MM/DD/YYYY"
+										  )
 										: "Select Date"}
 									<CalendarDays className="ml-auto h-4 w-4 opacity-50" />
 								</Button>

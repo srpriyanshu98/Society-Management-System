@@ -1,10 +1,10 @@
 import express from "express";
 import {
-  createVehicle,
-  getVehicles,
-  getVehicleById,
-  updateVehicle,
-  deleteVehicle,
+	createVehicle,
+	getVehicles,
+	getVehicleById,
+	updateVehicle,
+	deleteVehicle,
 } from "../controller/vehiclecontroller.js";
 
 const router = express.Router();

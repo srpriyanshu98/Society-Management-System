@@ -1,11 +1,11 @@
 // routes/otherIncomeRoutes.js
 import express from "express";
 import {
-  addOtherIncome,
-  getAllOtherIncome,
-  getOtherIncomeById,
-  updateOtherIncome,
-  deleteOtherIncome,
+	addOtherIncome,
+	getAllOtherIncome,
+	getOtherIncomeById,
+	updateOtherIncome,
+	deleteOtherIncome,
 } from "../controller/otherIncomecontroller.js";
 
 const router = express.Router();

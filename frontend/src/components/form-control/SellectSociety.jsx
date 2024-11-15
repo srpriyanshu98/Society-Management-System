@@ -24,7 +24,9 @@ export default function SelectSociety({ value, onChange }) {
 	useEffect(() => {
 		const fetchSocieties = async () => {
 			try {
-				const response = await axiosInstance.get("/societies/getSocieties");
+				const response = await axiosInstance.get(
+					"/societies/getSocieties"
+				);
 				setSocieties(response.data);
 			} catch (error) {
 				console.error("Error fetching societies:", error);

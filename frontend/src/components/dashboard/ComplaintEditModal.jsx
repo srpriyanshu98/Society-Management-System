@@ -195,10 +195,16 @@ export default function ComplaintEditModal({
 				</div>
 
 				<div className="mt-4 flex justify-between">
-					<Button variant="outline" onClick={onClose} className="w-32">
+					<Button
+						variant="outline"
+						onClick={onClose}
+						className="w-32"
+					>
 						Cancel
 					</Button>
-					<Button onClick={handleSave} className="w-32">Save</Button>
+					<Button onClick={handleSave} className="w-32">
+						Save
+					</Button>
 				</div>
 			</DialogContent>
 		</Dialog>

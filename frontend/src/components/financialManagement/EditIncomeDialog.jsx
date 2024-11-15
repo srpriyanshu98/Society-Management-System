@@ -103,7 +103,8 @@ export default function EditIncomeDialog({ incomeItem, onSave, onClose }) {
 						</div>
 						<div>
 							<label className="block text-sm font-medium text-gray-700">
-								Due Date<span className="text-[#E74C3C]">*</span>
+								Due Date
+								<span className="text-[#E74C3C]">*</span>
 							</label>
 							<Popover>
 								<PopoverTrigger asChild>

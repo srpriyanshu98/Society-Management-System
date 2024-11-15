@@ -1,10 +1,10 @@
 import express from "express";
 import {
-  createSecurityProtocol,
-  getAllSecurityProtocols,
-  getSecurityProtocolById,
-  updateSecurityProtocol,
-  deleteSecurityProtocol,
+	createSecurityProtocol,
+	getAllSecurityProtocols,
+	getSecurityProtocolById,
+	updateSecurityProtocol,
+	deleteSecurityProtocol,
 } from "../controller/securityProtocolcontroller.js";
 
 const router = express.Router();

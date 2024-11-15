@@ -12,64 +12,83 @@ export default function OwnerDetail({ control, errors }) {
 						{/* Full Name */}
 						<div className="flex flex-col">
 							<Label htmlFor="OwnerFullName" className="mb-3">
-								Owner Full Name<span className="text-[#E74C3C]">*</span>
+								Owner Full Name
+								<span className="text-[#E74C3C]">*</span>
 							</Label>
 							<Controller
-									name="OwnerFullName"
-									control={control}
-									rules={{ required: "Owner Full Name is required" }}
-									render={({ field }) => (
-										<Input
-											{...field}
-											id="OwnerFullName"
-											placeholder="Enter Owner Full Name"
-											className="rounded-lg"
-										/>
-									)}
-								/>
-								{errors.OwnerFullName && <span className="text-red-500 font-poppins text-xs">{errors.OwnerFullName.message}</span>}
+								name="OwnerFullName"
+								control={control}
+								rules={{
+									required: "Owner Full Name is required",
+								}}
+								render={({ field }) => (
+									<Input
+										{...field}
+										id="OwnerFullName"
+										placeholder="Enter Owner Full Name"
+										className="rounded-lg"
+									/>
+								)}
+							/>
+							{errors.OwnerFullName && (
+								<span className="text-red-500 font-poppins text-xs">
+									{errors.OwnerFullName.message}
+								</span>
+							)}
 						</div>
 
 						{/* Phone Number */}
 						<div className="flex flex-col">
 							<Label htmlFor="OwnerPhone" className="mb-3">
-								Owner Phone<span className="text-[#E74C3C]">*</span>
+								Owner Phone
+								<span className="text-[#E74C3C]">*</span>
 							</Label>
 							<Controller
-									name="OwnerPhone"
-									control={control}
-									rules={{ required: "Owner Phone is required" }}
-									render={({ field }) => (
-										<Input
-											{...field}
-											id="OwnerPhone"
-											placeholder="Enter Your Owner Phone"
-											className="rounded-lg"
-										/>
-									)}
-								/>
-								{errors.OwnerPhone && <span className="text-red-500 font-poppins text-xs">{errors.OwnerPhone.message}</span>}
+								name="OwnerPhone"
+								control={control}
+								rules={{ required: "Owner Phone is required" }}
+								render={({ field }) => (
+									<Input
+										{...field}
+										id="OwnerPhone"
+										placeholder="Enter Your Owner Phone"
+										className="rounded-lg"
+									/>
+								)}
+							/>
+							{errors.OwnerPhone && (
+								<span className="text-red-500 font-poppins text-xs">
+									{errors.OwnerPhone.message}
+								</span>
+							)}
 						</div>
 
 						{/* Email Address */}
 						<div className="flex flex-col">
 							<Label htmlFor="OwnerAddress" className="mb-3">
-								Owner Address<span className="text-[#E74C3C]">*</span>
+								Owner Address
+								<span className="text-[#E74C3C]">*</span>
 							</Label>
 							<Controller
-									name="OwnerAddress"
-									control={control}
-									rules={{ required: "Owner Address is required" }}
-									render={({ field }) => (
-										<Input
-											{...field}
-											id="OwnerAddress"
-											placeholder="Enter Your Owner Address"
-											className="rounded-lg"
-										/>
-									)}
-								/>
-								{errors.OwnerAddress && <span className="text-red-500 font-poppins text-xs">{errors.OwnerAddress.message}</span>}
+								name="OwnerAddress"
+								control={control}
+								rules={{
+									required: "Owner Address is required",
+								}}
+								render={({ field }) => (
+									<Input
+										{...field}
+										id="OwnerAddress"
+										placeholder="Enter Your Owner Address"
+										className="rounded-lg"
+									/>
+								)}
+							/>
+							{errors.OwnerAddress && (
+								<span className="text-red-500 font-poppins text-xs">
+									{errors.OwnerAddress.message}
+								</span>
+							)}
 						</div>
 					</div>
 				</div>

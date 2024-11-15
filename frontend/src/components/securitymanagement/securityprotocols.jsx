@@ -81,7 +81,7 @@ export default function SecurityProtocols() {
 				</Button>
 			</CardHeader>
 			<CardContent>
-			<ScrollArea className="max-h-[680px] overflow-y-auto m-4 custom-scrollbar">
+				<ScrollArea className="max-h-[680px] overflow-y-auto m-4 custom-scrollbar">
 					<div className="overflow-auto">
 						<table className="w-full text-left border-collapse">
 							<thead className="text-gray-800">
@@ -177,10 +177,10 @@ export default function SecurityProtocols() {
 
 			{isEditDialogOpen && (
 				<EditSecurityProtocols
-				isOpen={isEditDialogOpen}
-				onClose={() => setIsEditDialogOpen(false)}
-				protocol={selectedProtocol} // Pass the selected protocol data
-			/>
+					isOpen={isEditDialogOpen}
+					onClose={() => setIsEditDialogOpen(false)}
+					protocol={selectedProtocol} // Pass the selected protocol data
+				/>
 			)}
 
 			<ConfirmationDialog

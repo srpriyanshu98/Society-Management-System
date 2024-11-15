@@ -2,23 +2,23 @@ import express from "express";
 import upload from "../middleware/upload.js";
 
 import {
-  createSecurity,
-  getAllSecurityRecords,
-  getSecurityById,
-  updateSecurity,
-  deleteSecurity,
+	createSecurity,
+	getAllSecurityRecords,
+	getSecurityById,
+	updateSecurity,
+	deleteSecurity,
 } from "../controller/securitycontroller.js";
 
 const router = express.Router();
 
 // Create a new security record with file upload
 router.post(
-  "/",
-  upload.fields([
-    { name: "photo", maxCount: 1 },
-    { name: "aadharCard", maxCount: 1 },
-  ]),
-  createSecurity
+	"/",
+	upload.fields([
+		{ name: "photo", maxCount: 1 },
+		{ name: "aadharCard", maxCount: 1 },
+	]),
+	createSecurity
 );
 
 // Get all security records

@@ -12,7 +12,9 @@ export default function VehicleCounting({ control, errors }) {
 		<Card className="shadow-md rounded-xl mt-2">
 			<CardHeader>
 				<div className="flex justify-between items-center">
-					<CardTitle className="text-[16px] font-poppins">Vehicle Counting :</CardTitle>
+					<CardTitle className="text-[16px] font-poppins">
+						Vehicle Counting :
+					</CardTitle>
 					<div>
 						<span className="me-3">Select Vehicle</span>
 						<select
@@ -41,35 +43,50 @@ export default function VehicleCounting({ control, errors }) {
 						>
 							<div className="mb-5">
 								<Label className="text-left">
-									Vehicle Type<span className="text-[#E74C3C]">*</span>
+									Vehicle Type
+									<span className="text-[#E74C3C]">*</span>
 								</Label>
 								<Controller
 									name={`member[${i}].vehicle`}
 									control={control}
-									rules={{ required: "Vehicle Type is required" }}
+									rules={{
+										required: "Vehicle Type is required",
+									}}
 									render={({ field }) => (
 										<select
 											{...field}
 											id="vehicle"
 											className="w-full p-2 border rounded-lg text-[14px] font-poppins"
 										>
-											<option value="">Select Vehicle</option>
-											<option value="Two Wheelers">Two Wheelers</option>
-											<option value="Four Wheelers">Four Wheelers</option>
-
+											<option value="">
+												Select Vehicle
+											</option>
+											<option value="Two Wheelers">
+												Two Wheelers
+											</option>
+											<option value="Four Wheelers">
+												Four Wheelers
+											</option>
 										</select>
 									)}
 								/>
-								{errors.member?.[i]?.vehicle && <span className="text-red-500 text-[12px]">{errors.member[i].vehicle.message}</span>}
+								{errors.member?.[i]?.vehicle && (
+									<span className="text-red-500 text-[12px]">
+										{errors.member[i].vehicle.message}
+									</span>
+								)}
 							</div>
 							<div className="mb-5">
 								<Label className="text-left">
-									Vehicle Name<span className="text-[#E74C3C]">*</span>
+									Vehicle Name
+									<span className="text-[#E74C3C]">*</span>
 								</Label>
 								<Controller
 									name={`vehicle[${i}].vehicleName`}
 									control={control}
-									rules={{ required: "Vehicle Name is required" }}
+									rules={{
+										required: "Vehicle Name is required",
+									}}
 									render={({ field }) => (
 										<Input
 											{...field}
@@ -79,16 +96,23 @@ export default function VehicleCounting({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.vehicle?.[i]?.vehicleName && <span className="text-red-500 text-[12px]">{errors.vehicle[i].vehicleName.message}</span>}
+								{errors.vehicle?.[i]?.vehicleName && (
+									<span className="text-red-500 text-[12px]">
+										{errors.vehicle[i].vehicleName.message}
+									</span>
+								)}
 							</div>
 							<div className="mb-5">
 								<Label className="text-left">
-									Vehicle Number<span className="text-[#E74C3C]">*</span>
+									Vehicle Number
+									<span className="text-[#E74C3C]">*</span>
 								</Label>
 								<Controller
 									name={`vehicle[${i}].vehicleNumber`}
 									control={control}
-									rules={{ required: "Vehicle Number is required" }}
+									rules={{
+										required: "Vehicle Number is required",
+									}}
 									render={({ field }) => (
 										<Input
 											{...field}
@@ -98,7 +122,14 @@ export default function VehicleCounting({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.vehicle?.[i]?.vehicleNumber && <span className="text-red-500 text-[12px]">{errors.vehicle[i].vehicleNumber.message}</span>}
+								{errors.vehicle?.[i]?.vehicleNumber && (
+									<span className="text-red-500 text-[12px]">
+										{
+											errors.vehicle[i].vehicleNumber
+												.message
+										}
+									</span>
+								)}
 							</div>
 						</div>
 					))}

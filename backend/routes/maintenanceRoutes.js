@@ -1,7 +1,7 @@
 import express from "express";
 import {
-  addMaintenance,
-  getAllMaintenance,
+	addMaintenance,
+	getAllMaintenance,
 } from "../controller/maintenancecontroller.js";
 
 const router = express.Router();

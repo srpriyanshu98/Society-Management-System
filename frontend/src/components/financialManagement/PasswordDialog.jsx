@@ -11,7 +11,6 @@ import { Label } from "../ui/label";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { Separator } from "../ui/separator";
 
-
 export default function PasswordDialog({ isOpen, onClose, onSubmit }) {
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
@@ -42,7 +41,9 @@ export default function PasswordDialog({ isOpen, onClose, onSubmit }) {
 				</DialogHeader>
 				<Separator />
 				<div className="flex flex-col space-y-4">
-					<Label>Password<span className="text-[#E74C3C]">*</span></Label>
+					<Label>
+						Password<span className="text-[#E74C3C]">*</span>
+					</Label>
 					<div className="relative">
 						<input
 							type={showPassword ? "text" : "password"} // Toggle between text and password type
@@ -56,13 +57,18 @@ export default function PasswordDialog({ isOpen, onClose, onSubmit }) {
 							onClick={togglePasswordVisibility}
 							className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
 						>
-							{showPassword ? <EyeIcon /> : <EyeOffIcon />} {/* Eye icon toggle */}
+							{showPassword ? <EyeIcon /> : <EyeOffIcon />}{" "}
+							{/* Eye icon toggle */}
 						</button>
 					</div>
 					{error && <p className="text-red-500 text-sm">{error}</p>}
 				</div>
 				<DialogFooter>
-					<Button variant="secondary" onClick={onClose} className="w-40">
+					<Button
+						variant="secondary"
+						onClick={onClose}
+						className="w-40"
+					>
 						Cancel
 					</Button>
 					<Button onClick={handlePasswordSubmit} className="w-40">

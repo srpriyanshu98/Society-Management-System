@@ -23,7 +23,10 @@ export default function CreateSociety({ onCreateSociety }) {
 		};
 
 		try {
-			const response = await axiosInstance.post("/societies/createSociety", newSociety);
+			const response = await axiosInstance.post(
+				"/societies/createSociety",
+				newSociety
+			);
 			const createdSociety = response.data.society;
 			onCreateSociety(createdSociety);
 			setSocietyName("");

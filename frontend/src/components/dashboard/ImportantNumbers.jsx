@@ -250,19 +250,20 @@ export default function ImportantNumbers() {
 								/>
 							</div>
 						</div>
-						<Button variant="outline"
-						className="w-40 mr-3"
-						onClick={() => setIsDialogOpen(false)} // Close dialog on cancel
+						<Button
+							variant="outline"
+							className="w-40 mr-3"
+							onClick={() => setIsDialogOpen(false)} // Close dialog on cancel
 						>
 							Cancle
 						</Button>
-						<Button onClick={handleAdd}
-						className="w-40"
-						disabled={!newName || !newPhone || !newWork} // Disable button if any field is empty
+						<Button
+							onClick={handleAdd}
+							className="w-40"
+							disabled={!newName || !newPhone || !newWork} // Disable button if any field is empty
 						>
 							{editId ? "Add" : "Save"}
 						</Button>
-						
 					</div>
 				</DialogContent>
 			</Dialog>

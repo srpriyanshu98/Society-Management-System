@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 
-
 export default function AddAndEditNote({
 	onSave,
 	onEdit,

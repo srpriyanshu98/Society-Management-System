@@ -42,7 +42,9 @@ export default function PendingMaintenance() {
 	return (
 		<Card className="bg-white p-4 shadow-md rounded-xl max-w-md w-[450px]">
 			<div className="flex justify-between items-center mb-4">
-				<h2 className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">Pending Maintenances</h2>
+				<h2 className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">
+					Pending Maintenances
+				</h2>
 				<Link to="/view-all" className="text-blue-500 text-sm">
 					View all
 				</Link>

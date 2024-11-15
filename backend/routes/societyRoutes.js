@@ -1,10 +1,10 @@
 import express from "express";
 import {
-  createSociety,
-  getSocieties,
-  getSocietyById,
-  updateSociety,
-  deleteSociety,
+	createSociety,
+	getSocieties,
+	getSocietyById,
+	updateSociety,
+	deleteSociety,
 } from "../controller/societycontroller.js";
 
 const router = express.Router();

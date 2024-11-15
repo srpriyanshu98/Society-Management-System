@@ -408,9 +408,7 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 						>
 							Cancel
 						</Button>
-						<Button type="submit"
-						className="w-32"
-						>
+						<Button type="submit" className="w-32">
 							{editData ? "Update" : "Create"}
 						</Button>
 					</div>
