@@ -70,7 +70,7 @@ export default function SecurityProtocols() {
 	};
 
 	return (
-		<Card className="bg-white h-[780px] p-4 shadow-md rounded-xl w-full">
+		<Card className="bg-white h-[840px] shadow-md rounded-xl w-full">
 			<CardHeader className="flex flex-row justify-between items-center">
 				<CardTitle>Security Protocols</CardTitle>
 				<Button
@@ -81,7 +81,7 @@ export default function SecurityProtocols() {
 				</Button>
 			</CardHeader>
 			<CardContent>
-				<ScrollArea className="h-[680px] rounded-t-lg">
+			<ScrollArea className="max-h-[680px] overflow-y-auto m-4 custom-scrollbar">
 					<div className="overflow-auto">
 						<table className="w-full text-left border-collapse">
 							<thead className="text-gray-800">
@@ -177,10 +177,10 @@ export default function SecurityProtocols() {
 
 			{isEditDialogOpen && (
 				<EditSecurityProtocols
-					isOpen={isEditDialogOpen}
-					onClose={() => setIsEditDialogOpen(false)}
-					protocol={selectedProtocol}
-				/>
+				isOpen={isEditDialogOpen}
+				onClose={() => setIsEditDialogOpen(false)}
+				protocol={selectedProtocol} // Pass the selected protocol data
+			/>
 			)}
 
 			<ConfirmationDialog

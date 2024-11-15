@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import axiosInstance from "@/test/axiosInstance";
 import moment from "moment";
+import { Separator } from "../ui/separator";
 
 export default function AddAnnouncement({
 	isOpen,
@@ -64,6 +65,7 @@ export default function AddAnnouncement({
 				<DialogHeader>
 					<DialogTitle>Add Announcement</DialogTitle>
 				</DialogHeader>
+				<Separator />
 				<div className="grid grid-cols-1 gap-4">
 					<div>
 						<label className="text-sm font-medium">
@@ -89,7 +91,7 @@ export default function AddAnnouncement({
 							required
 						/>
 					</div>
-					<div className="flex space-x-19">
+					<div className="flex space-x-4">
 						<div className="grid grid-cols-1">
 							<label className="text-sm font-medium">
 								Announcement Date
@@ -107,7 +109,7 @@ export default function AddAnnouncement({
 								/>
 							</div>
 						</div>
-						<div className="grid grid-cols-1 pl-10">
+						<div className="grid grid-cols-1">
 							<label className="text-sm font-medium">
 								Announcement Time
 								<span className="text-red-500">*</span>

@@ -1,7 +1,7 @@
 export const SecurityprotocolsData = [
 	{
 		id: 1,
-		Title: "Evelyn Harper",
+		Title: "Evelyn Harper1234",
 		VisitorImg: "/path/to/image2.jpg",
         PhoneNumber:"6842163161541",
 		complaintName: "Unethical Behavior",

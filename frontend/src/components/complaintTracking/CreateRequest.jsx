@@ -107,7 +107,7 @@ export default function CreateRequest() {
 					className="flex items-center space-x-2"
 					onClick={() => handleEditRequest(null)}
 				>
-					<span>Request Request</span>
+					<span>Create Request</span>
 				</Button>
 			</CardHeader>
 			<CardContent className="p-0">

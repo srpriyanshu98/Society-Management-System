@@ -15,6 +15,7 @@ import {
 	PopoverContent,
 } from "@/components/ui/popover";
 import { CalendarDays } from "lucide-react";
+import { Separator } from "../ui/separator";
 
 export default function RequestAddAndEdit({
 	isOpen,
@@ -82,13 +83,14 @@ export default function RequestAddAndEdit({
 			<DialogContent className="max-w-md p-6 rounded-xl">
 				<DialogHeader>
 					<DialogTitle>
-						{request ? "Edit Request" : "Add Request"}
+						{request ? "Edit Request" : "Create Request"}
 					</DialogTitle>
 				</DialogHeader>
+				<Separator />
 				<div className="grid grid-cols-1 gap-4">
 					<div>
 						<label className="text-sm font-medium">
-							Requester Name*
+							Requester Name<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							name="RequesterName"
@@ -105,7 +107,7 @@ export default function RequestAddAndEdit({
 					</div>
 					<div>
 						<label className="text-sm font-medium">
-							Request Name*
+							Request Name<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							name="RequestName"
@@ -122,7 +124,7 @@ export default function RequestAddAndEdit({
 					</div>
 					<div>
 						<label className="text-sm font-medium">
-							Description*
+							Description<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							name="description"
@@ -139,7 +141,7 @@ export default function RequestAddAndEdit({
 					</div>
 					<div>
 						<label className="text-sm font-medium">
-							Schedule Service Date*
+							Schedule Service Date<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Popover>
 							<PopoverTrigger asChild>
@@ -214,9 +216,9 @@ export default function RequestAddAndEdit({
 
 					{/* Radio Group for Priority */}
 					<div>
-						<label className="block font-medium">Priority</label>
+						<label className="block font-medium">Priority<span className="text-[#E74C3C]">*</span></label>
 						<div className="flex space-x-4">
-							<label className="flex items-center p-2 border rounded-md cursor-pointer">
+							<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
 								<input
 									type="radio"
 									name="priority"
@@ -227,7 +229,7 @@ export default function RequestAddAndEdit({
 								/>
 								<span className="text-gray-500">High</span>
 							</label>
-							<label className="flex items-center p-2 border rounded-md cursor-pointer">
+							<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
 								<input
 									type="radio"
 									name="priority"
@@ -240,7 +242,7 @@ export default function RequestAddAndEdit({
 								/>
 								<span className="text-gray-500">Medium</span>
 							</label>
-							<label className="flex items-center p-2 border rounded-md cursor-pointer">
+							<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
 								<input
 									type="radio"
 									name="priority"
@@ -256,9 +258,9 @@ export default function RequestAddAndEdit({
 
 					{/* Radio Group for Status */}
 					<div>
-						<label className="block font-medium">Status</label>
+						<label className="block font-medium">Status<span className="text-[#E74C3C]">*</span></label>
 						<div className="flex space-x-4">
-							<label className="flex items-center p-2 border rounded-md cursor-pointer">
+							<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
 								<input
 									type="radio"
 									name="status"
@@ -269,7 +271,7 @@ export default function RequestAddAndEdit({
 								/>
 								<span className="text-gray-500">Open</span>
 							</label>
-							<label className="flex items-center p-2 border rounded-md cursor-pointer">
+							<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
 								<input
 									type="radio"
 									name="status"
@@ -280,7 +282,7 @@ export default function RequestAddAndEdit({
 								/>
 								<span className="text-gray-500">Pending</span>
 							</label>
-							<label className="flex items-center p-2 border rounded-md cursor-pointer">
+							<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
 								<input
 									type="radio"
 									name="status"
@@ -294,11 +296,11 @@ export default function RequestAddAndEdit({
 						</div>
 					</div>
 				</div>
-				<div className="mt-4 flex justify-between space-x-2">
-					<Button variant="outline" onClick={onClose}>
+				<div className="mt-4 flex justify-between">
+					<Button variant="outline" onClick={onClose} className="w-32">
 						Cancel
 					</Button>
-					<Button onClick={handleSave}>Save</Button>
+					<Button onClick={handleSave} className="w-32">Save</Button>
 				</div>
 			</DialogContent>
 		</Dialog>

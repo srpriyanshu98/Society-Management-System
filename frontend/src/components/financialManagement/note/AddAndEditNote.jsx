@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 
+
 export default function AddAndEditNote({
 	onSave,
 	onEdit,
@@ -65,6 +66,9 @@ export default function AddAndEditNote({
 		setOpen(false);
 	};
 
+	// Check if all required fields are filled
+	const isSaveButtonDisabled = !title || !date || !description;
+
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
@@ -74,7 +78,7 @@ export default function AddAndEditNote({
 					</Button>
 				) : (
 					<Button className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold">
-						Add Note
+						Create Note
 					</Button>
 				)}
 			</DialogTrigger>
@@ -85,7 +89,7 @@ export default function AddAndEditNote({
 				<div className="space-y-6">
 					<div>
 						<label className="text-sm font-medium block mb-1">
-							Title*
+							Title<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							value={title}
@@ -97,7 +101,7 @@ export default function AddAndEditNote({
 					</div>
 					<div>
 						<label className="text-sm font-medium block mb-1">
-							Date*
+							Date<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Popover>
 							<PopoverTrigger asChild>
@@ -131,7 +135,7 @@ export default function AddAndEditNote({
 					</div>
 					<div>
 						<label className="text-sm font-medium block mb-1">
-							Description*
+							Description<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							value={description}
@@ -153,6 +157,7 @@ export default function AddAndEditNote({
 					<Button
 						onClick={handleSave}
 						className="bg-blue-600 text-white px-4 py-2 rounded-lg w-full"
+						disabled={isSaveButtonDisabled} // Disable button when any field is empty
 					>
 						{noteToEdit ? "Update" : "Save"}
 					</Button>

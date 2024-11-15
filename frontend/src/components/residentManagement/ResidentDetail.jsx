@@ -42,7 +42,7 @@ export default function ResidentDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.fullName && <span className="text-red-500 font-poppins text-[12px]">{errors.fullName.message}</span>}
+								{errors.fullName && <span className="text-red-500 font-poppins text-xs">{errors.fullName.message}</span>}
 							</div>
 							<div className="flex flex-col w-[430px]">
 								<Label htmlFor="phoneNumber" className="mb-3 font-poppins">
@@ -61,7 +61,7 @@ export default function ResidentDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.phoneNumber && <span className="text-red-500 font-poppins text-[12px]">{errors.phoneNumber.message}</span>}
+								{errors.phoneNumber && <span className="text-red-500 font-poppins text-xs">{errors.phoneNumber.message}</span>}
 
 							</div>
 							<div className="flex flex-col w-[430px]">
@@ -81,7 +81,7 @@ export default function ResidentDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.email && <span className="text-red-500 font-poppins text-[12px]">{errors.email.message}</span>}
+								{errors.email && <span className="text-red-500 font-poppins text-xs">{errors.email.message}</span>}
 							</div>
 						</div>
 
@@ -104,7 +104,7 @@ export default function ResidentDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.age && <span className="text-red-500 text-[12px]">{errors.age.message}</span>}
+								{errors.age && <span className="text-red-500 text-xs">{errors.age.message}</span>}
 							</div>
 							<div className="flex flex-col w-[255px]">
 								<Label htmlFor="gender" className="mb-3 font-poppins">
@@ -127,7 +127,7 @@ export default function ResidentDetail({ control, errors }) {
 										</select>
 									)}
 								/>
-								{errors.gender && <span className="text-red-500 text-[12px]">{errors.gender.message}</span>}
+								{errors.gender && <span className="text-red-500 text-xs">{errors.gender.message}</span>}
 							</div>
 							<div className="flex flex-col w-[255px]">
 								<Label htmlFor="wing" className="mb-3 font-poppins">
@@ -146,7 +146,7 @@ export default function ResidentDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.wing && <span className="text-red-500 text-[12px]">{errors.wing.message}</span>}
+								{errors.wing && <span className="text-red-500 text-xs">{errors.wing.message}</span>}
 							</div>
 							<div className="flex flex-col w-[255px]">
 								<Label htmlFor="unit" className="mb-3 font-poppins">
@@ -155,7 +155,7 @@ export default function ResidentDetail({ control, errors }) {
 								<Controller
 									name="unit"
 									control={control}
-									rules={{ required: "unit is required" }}
+									rules={{ required: "Unit is required" }}
 									render={({ field }) => (
 										<Input
 											{...field}
@@ -165,7 +165,7 @@ export default function ResidentDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.unit && <span className="text-red-500 ">{errors.unit.message}</span>}
+								{errors.unit && <span className="text-red-500 text-xs">{errors.unit.message}</span>}
 							</div>
 							<div className="flex flex-col w-[255px]">
 								<Label htmlFor="relation" className="mb-3 font-poppins">
@@ -184,7 +184,7 @@ export default function ResidentDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.relation && <span className="text-red-500 text-[12px]">{errors.relation.message}</span>}
+								{errors.relation && <span className="text-red-500 text-xs">{errors.relation.message}</span>}
 							</div>
 						</div>
 					</div>

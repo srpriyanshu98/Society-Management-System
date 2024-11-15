@@ -27,7 +27,7 @@ export default function OwnerDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.OwnerFullName && <span className="text-red-500 font-poppins text-[12px]">{errors.OwnerFullName.message}</span>}
+								{errors.OwnerFullName && <span className="text-red-500 font-poppins text-xs">{errors.OwnerFullName.message}</span>}
 						</div>
 
 						{/* Phone Number */}
@@ -69,7 +69,7 @@ export default function OwnerDetail({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.OwnerAddress && <span className="text-red-500 font-poppins text-[12px]">{errors.OwnerAddress.message}</span>}
+								{errors.OwnerAddress && <span className="text-red-500 font-poppins text-xs">{errors.OwnerAddress.message}</span>}
 						</div>
 					</div>
 				</div>

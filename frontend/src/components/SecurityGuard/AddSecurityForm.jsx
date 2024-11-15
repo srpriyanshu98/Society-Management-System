@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { CalendarDays } from "lucide-react";
+import { Separator } from "../ui/separator";
 
 export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 	const [formData, setFormData] = useState({
@@ -149,11 +150,12 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent>
-				<h2 className="text-2xl font-bold mb-6">
+				<h2 className="text-2xl font-bold">
 					{editData ? "Edit Security" : "Add Security"}
 				</h2>
+				<Separator />
 				<form onSubmit={handleSubmit}>
-					<div className="mb-4">
+					<div className="mb-3">
 						<label className="block font-medium mb-1">
 							Full Name<span className="text-red-600">*</span>
 						</label>
@@ -170,7 +172,7 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 						)}
 					</div>
 					{/* //TODO: RESTRICT USER FROM ENTERIN MORE THE 10 DIGITS */}
-					<div className="mb-4">
+					<div className="mb-3">
 						<label className="block font-medium mb-1">
 							Phone Number
 							<span className="text-red-600">*</span>
@@ -190,7 +192,7 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 						)}
 					</div>
 
-					<div className="grid grid-cols-2 gap-4 mb-4">
+					<div className="grid grid-cols-2 gap-4 mb-3">
 						<div>
 							<label className="block font-medium mb-1">
 								Gender
@@ -402,10 +404,13 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 							type="button"
 							variant="outline"
 							onClick={onClose}
+							className="w-32"
 						>
 							Cancel
 						</Button>
-						<Button type="submit">
+						<Button type="submit"
+						className="w-32"
+						>
 							{editData ? "Update" : "Create"}
 						</Button>
 					</div>

@@ -142,7 +142,7 @@ export default function FacilityManagement({ userRole }) {
 						onClick={() => handleOpenDialog()}
 						className="bg-blue-500 text-white"
 					>
-						Add New Facility
+						Create Facility
 					</Button>
 				</CardHeader>
 				<CardContent>
@@ -152,7 +152,7 @@ export default function FacilityManagement({ userRole }) {
 								key={item._id}
 								className="border shadow-lg rounded-xl border-blue-200 pb-8"
 							>
-								<CardHeader className="relative bg-blue-500 text-white p-4 rounded-t-lg">
+								<CardHeader className="relative bg-blue-500 text-white rounded-t-lg p-4">
 									<h3 className="text-lg font-semibold">
 										{item.facilityName}
 									</h3>

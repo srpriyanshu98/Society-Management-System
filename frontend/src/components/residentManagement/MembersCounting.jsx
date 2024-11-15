@@ -52,7 +52,7 @@ export default function MembersCounting({ control, errors }) {
 									/>
 								)}
 							/>
-							{errors.member?.[i]?.fullName && <span className="text-red-500 text-[12px]">{errors.member[i].fullName.message}</span>}
+							{errors.member?.[i]?.fullName && <span className="text-red-500 text-xs">{errors.member[i].fullName.message}</span>}
 						</div>
 						<div className="mb-5">
 							<Label className="text-left">Phone Number<span className="text-[#E74C3C]">*</span></Label>
@@ -69,7 +69,7 @@ export default function MembersCounting({ control, errors }) {
 									/>
 								)}
 							/>
-							{errors.member?.[i]?.PhoneNumber && <span className="text-red-500 text-[12px]">{errors.member[i].PhoneNumber.message}</span>}
+							{errors.member?.[i]?.PhoneNumber && <span className="text-red-500 text-xs">{errors.member[i].PhoneNumber.message}</span>}
 						</div>
 						<div className="mb-5">
 							<Label className="text-left">Email Address<span className="text-[#E74C3C]">*</span></Label>
@@ -86,7 +86,7 @@ export default function MembersCounting({ control, errors }) {
 									/>
 								)}
 							/>
-							{errors.member?.[i]?.email && <span className="text-red-500 text-[12px]">{errors.member[i].email.message}</span>}
+							{errors.member?.[i]?.email && <span className="text-red-500 text-xs">{errors.member[i].email.message}</span>}
 						</div>
 						<div className="mb-5">
 							<Label className="text-left">Age<span className="text-[#E74C3C]">*</span></Label>
@@ -103,7 +103,7 @@ export default function MembersCounting({ control, errors }) {
 										/>
 									)}
 								/>
-								{errors.member?.[i]?.age && <span className="text-red-500 text-[12px]">{errors.member[i].age.message}</span>}
+								{errors.member?.[i]?.age && <span className="text-red-500 text-xs">{errors.member[i].age.message}</span>}
 						</div>
 						<div className="mb-5">
 							<Label className="text-left">Gender<span className="text-[#E74C3C]">*</span></Label>
@@ -124,7 +124,7 @@ export default function MembersCounting({ control, errors }) {
 										</select>
 									)}
 								/>
-								{errors.member?.[i]?.gender && <span className="text-red-500 text-[12px]">{errors.member[i].gender.message}</span>}
+								{errors.member?.[i]?.gender && <span className="text-red-500 text-xs">{errors.member[i].gender.message}</span>}
 						</div>
 						<div className="mb-5">
 							<Label className="text-left">Relation<span className="text-[#E74C3C]">*</span></Label>
@@ -141,7 +141,7 @@ export default function MembersCounting({ control, errors }) {
 									/>
 								)}
 							/>
-							{errors.member?.[i]?.relation && <span className="text-red-500 text-[12px]">{errors.member[i].relation.message}</span>}
+							{errors.member?.[i]?.relation && <span className="text-red-500 text-xs">{errors.member[i].relation.message}</span>}
 						</div>
 					</div>
 				))}

@@ -72,7 +72,7 @@ export default function ResidentManagement({ userRole }) {
 	return (
 		<Layout userRole={userRole}>
 			<Card className="flex-1 p-6 bg-white h-full overflow-auto rounded-2xl">
-				<CardHeader className="flex flex-row justify-between items-center p-0">
+				<CardHeader className="flex flex-row justify-between items-center p-0 font-poppins">
 					<CardTitle>Resident Tenant and Owner Details</CardTitle>
 					<Button
 						className="flex items-center space-x-2"
