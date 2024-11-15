@@ -85,7 +85,7 @@ export default function AddExpenses({ userRole }) {
 	return (
 		<Layout userRole={userRole}>
 			<Card>
-				<CardHeader className="flex flex-row justify-between items-center">
+				<CardHeader className="flex flex-row justify-between items-center font-poppins">
 					<CardTitle>Add Expenses Details</CardTitle>
 					<Button
 						className="flex items-center space-x-2"
@@ -98,7 +98,7 @@ export default function AddExpenses({ userRole }) {
 				<CardContent className="p-0">
 					<ScrollArea className="max-h-[705px] overflow-y-auto m-4 custom-scrollbar">
 						<table className="w-full border-collapse rounded-tl-3xl text-center">
-							<thead className="bg-gray-200 ">
+							<thead className="bg-gray-200">
 								<tr>
 									<th className="p-4 text-left rounded-tl-3xl">
 										Title
@@ -120,7 +120,7 @@ export default function AddExpenses({ userRole }) {
 										<td className="p-4 text-left">
 											{item.title}
 										</td>
-										<td className="p-4 text-left truncate max-w-96 inline-block">
+										<td className="p-4 text-left truncate max-w-96">
 											{item.description}
 										</td>
 										<td className="p-4 font-normal">

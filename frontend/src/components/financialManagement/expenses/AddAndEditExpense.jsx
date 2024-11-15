@@ -32,6 +32,7 @@ export default function AddAndEditExpense({
     const [billFile, setBillFile] = useState(null);
     const [fileError, setFileError] = useState("");
     const [formErrors, setFormErrors] = useState({});
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
     useEffect(() => {
         if (mode === "edit" && expense) {
@@ -45,6 +46,12 @@ export default function AddAndEditExpense({
             clearForm();
         }
     }, [mode, expense]);
+
+    useEffect(() => {
+        setIsButtonDisabled(
+            !title || !description || !amount || !billFile || !!fileError
+        );
+    }, [title, description, amount, billFile, fileError]);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -125,7 +132,7 @@ export default function AddAndEditExpense({
                 </DialogHeader>
                 <div className="grid grid-cols-1 gap-4">
                     <div>
-                        <label className="text-sm font-medium">Title*</label>
+                        <label className="text-sm font-medium">Title<span className="text-red-500">*</span></label>
                         <Input
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
@@ -140,7 +147,7 @@ export default function AddAndEditExpense({
                     </div>
                     <div>
                         <label className="text-sm font-medium">
-                            Description*
+                            Description<span className="text-red-500">*</span>
                         </label>
                         <Input
                             value={description}
@@ -156,7 +163,7 @@ export default function AddAndEditExpense({
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="text-sm font-medium">Date*</label>
+                            <label className="text-sm font-medium">Date<span className="text-red-500">*</span></label>
                             <Popover>
                                 <PopoverTrigger asChild>
                                     <Button
@@ -193,7 +200,7 @@ export default function AddAndEditExpense({
                         </div>
                         <div>
                             <label className="text-sm font-medium">
-                                Amount*
+                                Amount<span className="text-red-500">*</span>
                             </label>
                             <Input
                                 type="number"
@@ -211,7 +218,7 @@ export default function AddAndEditExpense({
                     </div>
                     <div>
                         <label className="text-sm font-medium">
-                            Upload Bill*
+                            Upload Bill<span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
                             <Input
@@ -259,7 +266,11 @@ export default function AddAndEditExpense({
                     >
                         Cancel
                     </Button>
-                    <Button onClick={handleSubmit} className="w-full">
+                    <Button
+                        onClick={handleSubmit}
+                        className="w-full"
+                        disabled={isButtonDisabled}
+                    >
                         {mode === "add" ? "Save" : "Update"}
                     </Button>
                 </div>

@@ -22,6 +22,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { Separator } from "../ui/separator";
 
 export default function AddAndEditFacility({
 	isOpen,
@@ -83,18 +84,22 @@ export default function AddAndEditFacility({
 		setFormErrors({});
 	};
 
+	// Check if all required fields are filled
+	const isSaveButtonDisabled = !facilityName || !description || !serviceDate;
+
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent className="max-w-md p-6 rounded-xl">
 				<DialogHeader>
 					<DialogTitle>
-						{mode === "add" ? "Add New Facility" : "Edit Facility"}
+						{mode === "add" ? "Create Facility" : "Edit Facility"}
 					</DialogTitle>
 				</DialogHeader>
+				<Separator />
 				<div className="grid grid-cols-1 gap-4">
 					<div>
 						<label className="text-sm font-medium">
-							Facility Name*
+							Facility Name<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							value={facilityName}
@@ -110,7 +115,7 @@ export default function AddAndEditFacility({
 					</div>
 					<div>
 						<label className="text-sm font-medium">
-							Description*
+							Description<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							value={description}
@@ -126,7 +131,7 @@ export default function AddAndEditFacility({
 					</div>
 					<div>
 						<label className="text-sm font-medium">
-							Schedule Service Date*
+							Schedule Service Date
 						</label>
 						<Popover>
 							<PopoverTrigger asChild>
@@ -196,7 +201,11 @@ export default function AddAndEditFacility({
 					>
 						Cancel
 					</Button>
-					<Button onClick={handleSubmit} className="w-full">
+					<Button
+						onClick={handleSubmit}
+						className="w-full"
+						disabled={isSaveButtonDisabled} // Disable button when any field is empty
+					>
 						{mode === "add" ? "Save" : "Update"}
 					</Button>
 				</div>

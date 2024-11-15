@@ -3,6 +3,7 @@ import { format, parse } from "date-fns";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Separator } from "../ui/separator";
 
 export default function EditAnnouncement({
 	isOpen,
@@ -57,6 +58,7 @@ export default function EditAnnouncement({
 				<DialogHeader>
 					<DialogTitle>Edit Announcement</DialogTitle>
 				</DialogHeader>
+				<Separator />
 				<div className="grid grid-cols-1 gap-4">
 					<div>
 						<label className="text-sm font-medium">

@@ -9,6 +9,7 @@ import {
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { Separator } from "../ui/separator";
 
 
 export default function PasswordDialog({ isOpen, onClose, onSubmit }) {
@@ -35,12 +36,13 @@ export default function PasswordDialog({ isOpen, onClose, onSubmit }) {
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
-			<DialogContent>
+			<DialogContent className="w-70">
 				<DialogHeader>
 					<DialogTitle>Set Maintenance</DialogTitle>
 				</DialogHeader>
+				<Separator />
 				<div className="flex flex-col space-y-4">
-					<Label>Password</Label>
+					<Label>Password<span className="text-[#E74C3C]">*</span></Label>
 					<div className="relative">
 						<input
 							type={showPassword ? "text" : "password"} // Toggle between text and password type

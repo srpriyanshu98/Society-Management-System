@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
 
 export default function ComplaintEditModal({
 	isOpen,
@@ -38,6 +39,7 @@ export default function ComplaintEditModal({
 						{complaint ? "Edit Complaint" : "Add Complaint"}
 					</DialogTitle>
 				</DialogHeader>
+				<Separator />
 				<div className="space-y-4">
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
@@ -116,7 +118,7 @@ export default function ComplaintEditModal({
 				<div>
 					<label className="block font-medium">Priority</label>
 					<div className="flex space-x-4">
-						<label className="flex items-center p-2 border rounded-md cursor-pointer">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
 							<input
 								type="radio"
 								name="priority"
@@ -127,7 +129,7 @@ export default function ComplaintEditModal({
 							/>
 							<span className="text-gray-500">High</span>
 						</label>
-						<label className="flex items-center p-2 border rounded-md cursor-pointer">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
 							<input
 								type="radio"
 								name="priority"
@@ -138,7 +140,7 @@ export default function ComplaintEditModal({
 							/>
 							<span className="text-gray-500">Medium</span>
 						</label>
-						<label className="flex items-center p-2 border rounded-md cursor-pointer">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
 							<input
 								type="radio"
 								name="priority"
@@ -156,7 +158,7 @@ export default function ComplaintEditModal({
 				<div>
 					<label className="block font-medium">Status</label>
 					<div className="flex space-x-4">
-						<label className="flex items-center p-2 border rounded-md cursor-pointer">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
 							<input
 								type="radio"
 								name="status"
@@ -167,7 +169,7 @@ export default function ComplaintEditModal({
 							/>
 							<span className="text-gray-500">Open</span>
 						</label>
-						<label className="flex items-center p-2 border rounded-md cursor-pointer">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
 							<input
 								type="radio"
 								name="status"
@@ -178,7 +180,7 @@ export default function ComplaintEditModal({
 							/>
 							<span className="text-gray-500">Pending</span>
 						</label>
-						<label className="flex items-center p-2 border rounded-md cursor-pointer">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
 							<input
 								type="radio"
 								name="status"
@@ -192,11 +194,11 @@ export default function ComplaintEditModal({
 					</div>
 				</div>
 
-				<div className="mt-4 flex justify-between space-x-2">
-					<Button variant="outline" onClick={onClose}>
+				<div className="mt-4 flex justify-between">
+					<Button variant="outline" onClick={onClose} className="w-32">
 						Cancel
 					</Button>
-					<Button onClick={handleSave}>Save</Button>
+					<Button onClick={handleSave} className="w-32">Save</Button>
 				</div>
 			</DialogContent>
 		</Dialog>

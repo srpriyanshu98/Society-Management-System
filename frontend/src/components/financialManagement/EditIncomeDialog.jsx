@@ -6,6 +6,7 @@ import { Calendar } from "../ui/calendar";
 import { Popover, PopoverTrigger, PopoverContent } from "../ui/popover";
 import { CalendarDays } from "lucide-react";
 import { format } from "date-fns";
+import { Separator } from "../ui/separator";
 
 export default function EditIncomeDialog({ incomeItem, onSave, onClose }) {
 	const [title, setTitle] = useState(incomeItem?.title || "");
@@ -48,13 +49,14 @@ export default function EditIncomeDialog({ incomeItem, onSave, onClose }) {
 	return (
 		<Dialog open={Boolean} onOpenChange={onClose}>
 			<DialogContent className="max-w-md p-6">
-				<DialogTitle className="mb-4 text-2xl font-semibold">
+				<DialogTitle className="text-2xl font-semibold">
 					Edit {incomeItem?.title}
 				</DialogTitle>
+				<Separator />
 				<div className="space-y-6">
 					<div>
 						<label className="block text-sm font-medium text-gray-700">
-							Title*
+							Title<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							value={title}
@@ -67,7 +69,7 @@ export default function EditIncomeDialog({ incomeItem, onSave, onClose }) {
 					<div className="grid grid-cols-2 gap-4">
 						<div>
 							<label className="block text-sm font-medium text-gray-700">
-								Date*
+								Date<span className="text-[#E74C3C]">*</span>
 							</label>
 							<Popover>
 								<PopoverTrigger asChild>
@@ -101,7 +103,7 @@ export default function EditIncomeDialog({ incomeItem, onSave, onClose }) {
 						</div>
 						<div>
 							<label className="block text-sm font-medium text-gray-700">
-								Due Date*
+								Due Date<span className="text-[#E74C3C]">*</span>
 							</label>
 							<Popover>
 								<PopoverTrigger asChild>
@@ -136,7 +138,7 @@ export default function EditIncomeDialog({ incomeItem, onSave, onClose }) {
 					</div>
 					<div>
 						<label className="block text-sm font-medium text-gray-700">
-							Description*
+							Description<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							value={description}
@@ -148,7 +150,7 @@ export default function EditIncomeDialog({ incomeItem, onSave, onClose }) {
 					</div>
 					<div>
 						<label className="block text-sm font-medium text-gray-700">
-							Amount*
+							Amount<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							type="number"

@@ -12,6 +12,7 @@ import { Calendar } from "../ui/calendar";
 import { Popover, PopoverTrigger, PopoverContent } from "../ui/popover";
 import { CalendarDays } from "lucide-react";
 import { format } from "date-fns";
+import { Separator } from "../ui/separator";
 
 export default function AddIncomeDialog({ onSave }) {
 	const [title, setTitle] = useState("");
@@ -45,6 +46,9 @@ export default function AddIncomeDialog({ onSave }) {
 		setOpen(false);
 	};
 
+	// Check if all fields are filled
+	const isSaveButtonDisabled = !title || !date || !dueDate || !description || !amount;
+
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
@@ -53,13 +57,14 @@ export default function AddIncomeDialog({ onSave }) {
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="max-w-md p-6 rounded-lg shadow-lg bg-white">
-				<DialogTitle className="text-xl font-semibold mb-4">
+				<DialogTitle className="text-xl font-semibold">
 					Create Other Income
 				</DialogTitle>
+				<Separator />
 				<div className="space-y-6">
 					<div>
 						<label className="text-sm font-medium block mb-1">
-							Title*
+							Title<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							value={title}
@@ -72,7 +77,7 @@ export default function AddIncomeDialog({ onSave }) {
 					<div className="flex gap-4">
 						<div className="w-1/2">
 							<label className="text-sm font-medium block mb-1">
-								Date*
+								Date<span className="text-[#E74C3C]">*</span>
 							</label>
 							<Popover>
 								<PopoverTrigger asChild>
@@ -106,7 +111,7 @@ export default function AddIncomeDialog({ onSave }) {
 						</div>
 						<div className="w-1/2">
 							<label className="text-sm font-medium block mb-1">
-								Due Date*
+								Due Date<span className="text-[#E74C3C]">*</span>
 							</label>
 							<Popover>
 								<PopoverTrigger asChild>
@@ -141,7 +146,7 @@ export default function AddIncomeDialog({ onSave }) {
 					</div>
 					<div>
 						<label className="text-sm font-medium block mb-1">
-							Description*
+							Description<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							value={description}
@@ -153,7 +158,7 @@ export default function AddIncomeDialog({ onSave }) {
 					</div>
 					<div>
 						<label className="text-sm font-medium block mb-1">
-							Amount*
+							Amount<span className="text-[#E74C3C]">*</span>
 						</label>
 						<Input
 							type="number"
@@ -176,6 +181,7 @@ export default function AddIncomeDialog({ onSave }) {
 					<Button
 						onClick={handleSave}
 						className="bg-blue-600 text-white px-4 py-2 rounded-lg w-full"
+						disabled={isSaveButtonDisabled} // Disable button when any field is empty
 					>
 						Save
 					</Button>

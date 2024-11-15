@@ -3,6 +3,7 @@ import { format, isValid } from "date-fns";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Separator } from "../ui/separator";
 
 export default function AddAnnouncement({
 	isOpen,
@@ -14,6 +15,7 @@ export default function AddAnnouncement({
 	const [Announcementdescription, setAnnouncementdescription] = useState("");
 	const [Announcementdate, setAnnouncementdate] = useState(new Date());
 	const [Announcementtime, setAnnouncementtime] = useState("");
+	const [isFormValid, setIsFormValid] = useState(false);
 
 	useEffect(() => {
 		if (announcement) {
@@ -26,6 +28,16 @@ export default function AddAnnouncement({
 			clearForm();
 		}
 	}, [announcement]);
+
+	useEffect(() => {
+		// Update form validity whenever input values change
+		const isFormValid =
+			Announcementtitle &&
+			Announcementdescription &&
+			Announcementdate &&
+			Announcementtime;
+		setIsFormValid(isFormValid);
+	}, [Announcementtitle, Announcementdescription, Announcementdate, Announcementtime]);
 
 	const clearForm = () => {
 		setAnnouncementtitle("");
@@ -53,6 +65,7 @@ export default function AddAnnouncement({
 				<DialogHeader>
 					<DialogTitle>Add Announcement</DialogTitle>
 				</DialogHeader>
+				<Separator />
 				<div className="grid grid-cols-1 gap-4">
 					<div>
 						<label className="text-sm font-medium">
@@ -72,11 +85,11 @@ export default function AddAnnouncement({
 						<Input
 							value={Announcementdescription}
 							onChange={(e) => setAnnouncementdescription(e.target.value)}
-							placeholder="Enter Announcementdescription"
+							placeholder="Enter Announcement Description"
 							required
 						/>
 					</div>
-					<div className="flex space-x-19">
+					<div className="flex space-x-4">
 						<div className="grid grid-cols-1">
 							<label className="text-sm font-medium">
 								Announcement Date<span className="text-red-500">*</span>
@@ -91,7 +104,7 @@ export default function AddAnnouncement({
 								/>
 							</div>
 						</div>
-						<div className="grid grid-cols-1 pl-10">
+						<div className="grid grid-cols-1">
 							<label className="text-sm font-medium">
 								Announcement Time<span className="text-red-500">*</span>
 							</label>
@@ -115,7 +128,7 @@ export default function AddAnnouncement({
 					>
 						Cancel
 					</Button>
-					<Button onClick={handleSubmit} className="w-full">
+					<Button onClick={handleSubmit} className="w-full" disabled={!isFormValid}>
 						Save
 					</Button>
 				</div>

@@ -105,11 +105,11 @@ export default function SecurityGuard({ userRole }) {
 						<span>Add Security</span>
 					</Button>
 				</CardHeader>
-				<CardContent className="p-4">
+				<CardContent>
 					<ScrollArea className="max-h-[715px] overflow-y-auto custom-scrollbar">
 						<div>
 							<table className="w-full text-left border-collapse">
-								<thead className="text-center text-gray-600">
+								<thead className="text-center text-gray-700">
 									<tr className="bg-blue-50 font-semibold font-poppins">
 										<th className="p-3 rounded-tl-xl text-start">
 											Security Guard Name
@@ -124,7 +124,7 @@ export default function SecurityGuard({ userRole }) {
 										</th>
 									</tr>
 								</thead>
-								<tbody className="text-center">
+								<tbody className="text-center text-gray-600 font-poppins">
 									{isLoading ? (
 										<tr>
 											<td
@@ -158,7 +158,7 @@ export default function SecurityGuard({ userRole }) {
 																</AvatarFallback>
 															</Avatar>
 															<span>
-																{guard.fullName}
+																{guard.name}
 															</span>
 														</td>
 														<td className="p-3">
@@ -169,8 +169,8 @@ export default function SecurityGuard({ userRole }) {
 																className={`inline-flex items-center py-1 px-3 rounded-full font-semibold ${
 																	guard.shift ===
 																	"Day"
-																		? "bg-yellow-100 text-yellow-600"
-																		: "bg-gray-800 text-white"
+																		? "bg-gray-200 text-orange-400"
+																		: "bg-gray-600 text-white"
 																}`}
 															>
 																<img
