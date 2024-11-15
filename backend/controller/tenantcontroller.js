@@ -75,6 +75,19 @@ export const deleteTenant = async (req, res) => {
     if (!tenant) {
       return res.status(404).json({ message: "Tenant not found" });
     }
+
+    // Delete the files associated with the record
+    const deleteFile = (filePath) => {
+      fs.unlink(filePath, (err) => {
+        if (err) console.error(`Failed to delete file: ${filePath}`, err);
+      });
+    };
+
+    deleteFile(tenant.aadharCardFront);
+    deleteFile(tenant.aadharCardBack);
+    deleteFile(tenant.addressProof);
+    deleteFile(tenant.rentAgreement);
+
     res.status(200).json({ message: "Tenant deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });

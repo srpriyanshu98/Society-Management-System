@@ -76,6 +76,18 @@ export const deleteOwner = async (req, res) => {
     if (!owner) {
       return res.status(404).json({ message: "Owner not found" });
     }
+
+    // Delete the files associated with the record
+    const deleteFile = (filePath) => {
+      fs.unlink(filePath, (err) => {
+        if (err) console.error(`Failed to delete file: ${filePath}`, err);
+      });
+    };
+
+    deleteFile(owner.aadharCardFront);
+    deleteFile(owner.aadharCardBack);
+    deleteFile(owner.addressProof);
+    deleteFile(owner.rentAgreement);
     res.status(200).json({ message: "Owner deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
