@@ -10,7 +10,11 @@ export default function ComplaintEditModal({
 	complaint,
 	onSave,
 }) {
-	const [editedComplaint, setEditedComplaint] = useState({ ...complaint });
+	const [editedComplaint, setEditedComplaint] = useState({
+		...complaint,
+		priority: "High",
+		prioritys: "Open",
+	});
 
 	useEffect(() => {
 		setEditedComplaint({ ...complaint });
@@ -38,6 +42,12 @@ export default function ComplaintEditModal({
 	const handleRadioChange = (e) => {
 		const { name, value } = e.target;
 		setEditedComplaint({ ...editedComplaint, [name]: value });
+		setEditedComplaint({
+			...editedComplaint,
+			priority: event.target.value,
+			prioritys: event.targets.value,
+		});
+		setSelectedLabel(event.target.value, event.targets.value); // Update selected label on change
 	};
 
 	const handleSave = () => {
@@ -57,6 +67,9 @@ export default function ComplaintEditModal({
 			status: "Open",
 		});
 	};
+
+	const [selectedLabel, setSelectedLabel] = useState("High"); // Track selected label
+	const [selectedLabels, setSelectedLabels] = useState("Open"); // Track selected label
 
 	return (
 		<Dialog
@@ -151,7 +164,14 @@ export default function ComplaintEditModal({
 				<div>
 					<label className="block font-medium">Priority</label>
 					<div className="flex space-x-4">
-						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+						<label
+							className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${
+								selectedLabel === "High"
+									? "border-solid border-coral"
+									: ""
+							}`}
+							onClick={() => setSelectedLabel("High")} // Handle label click to set selection
+						>
 							<input
 								type="radio"
 								name="priority"
@@ -162,7 +182,14 @@ export default function ComplaintEditModal({
 							/>
 							<span className="text-gray-500">High</span>
 						</label>
-						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+						<label
+							className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${
+								selectedLabel === "Medium"
+									? "border-solid border-coral"
+									: ""
+							}`}
+							onClick={() => setSelectedLabel("Medium")} // Handle label click to set selection
+						>
 							<input
 								type="radio"
 								name="priority"
@@ -173,7 +200,14 @@ export default function ComplaintEditModal({
 							/>
 							<span className="text-gray-500">Medium</span>
 						</label>
-						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+						<label
+							className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${
+								selectedLabel === "Low"
+									? "border-solid border-coral"
+									: ""
+							}`}
+							onClick={() => setSelectedLabel("Low")} // Handle label click to set selection
+						>
 							<input
 								type="radio"
 								name="priority"
@@ -191,7 +225,14 @@ export default function ComplaintEditModal({
 				<div>
 					<label className="block font-medium">Status</label>
 					<div className="flex space-x-4">
-						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+						<label
+							className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${
+								selectedLabels === "Open"
+									? "border-solid border-coral"
+									: ""
+							}`}
+							onClick={() => setSelectedLabels("Open")} // Handle label click to set selection
+						>
 							<input
 								type="radio"
 								name="status"
@@ -202,7 +243,14 @@ export default function ComplaintEditModal({
 							/>
 							<span className="text-gray-500">Open</span>
 						</label>
-						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+						<label
+							className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${
+								selectedLabels === "Pending"
+									? "border-solid border-coral"
+									: ""
+							}`}
+							onClick={() => setSelectedLabels("Pending")} // Handle label click to set selection
+						>
 							<input
 								type="radio"
 								name="status"
@@ -213,7 +261,14 @@ export default function ComplaintEditModal({
 							/>
 							<span className="text-gray-500">Pending</span>
 						</label>
-						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+						<label
+							className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${
+								selectedLabels === "Solve"
+									? "border-solid border-coral"
+									: ""
+							}`}
+							onClick={() => setSelectedLabels("Solve")} // Handle label click to set selection
+						>
 							<input
 								type="radio"
 								name="status"

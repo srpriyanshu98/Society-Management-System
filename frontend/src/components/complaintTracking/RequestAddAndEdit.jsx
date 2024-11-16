@@ -23,7 +23,7 @@ export default function RequestAddAndEdit({
 	request,
 	onSave,
 }) {
-	const [editedRequest, setEditedRequest] = useState({ ...request });
+	const [editedRequest, setEditedRequest] = useState({ ...request, priority: 'High',prioritys: 'Open'  });
 	const [serviceDate, setServiceDate] = useState(new Date());
 	const [formErrors, setFormErrors] = useState({});
 
@@ -41,7 +41,12 @@ export default function RequestAddAndEdit({
 	const handleRadioChange = (e) => {
 		const { name, value } = e.target;
 		setEditedRequest({ ...editedRequest, [name]: value });
+		setEditedComplaint({ ...editedComplaint, priority: event.target.value ,prioritys:event.targets.value });
+		setSelectedLabel(event.target.value,event.targets.value); // Update selected label on change
 	};
+
+	const [selectedLabel, setSelectedLabel] = useState('High'); // Track selected label
+	const [selectedLabels, setSelectedLabels] = useState('Open'); // Track selected label
 
 	const validateForm = () => {
 		const errors = {};
@@ -57,6 +62,7 @@ export default function RequestAddAndEdit({
 
 	const handleSave = () => {
 		const errors = validateForm();
+		onSave(editedComplaint);
 		if (Object.keys(errors).length > 0) {
 			setFormErrors(errors);
 			return;
@@ -223,7 +229,9 @@ export default function RequestAddAndEdit({
 							Priority<span className="text-[#E74C3C]">*</span>
 						</label>
 						<div className="flex space-x-4">
-							<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+							<label className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${selectedLabel === 'High' ? 'border-solid border-coral' : ''}`}
+							onClick={() => setSelectedLabel('High')} // Handle label click to set selection
+							>
 								<input
 									type="radio"
 									name="priority"
@@ -234,7 +242,9 @@ export default function RequestAddAndEdit({
 								/>
 								<span className="text-gray-500">High</span>
 							</label>
-							<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+							<label className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${selectedLabel === 'Medium' ? 'border-solid border-coral' : ''}`}
+							onClick={() => setSelectedLabel('Medium')} // Handle label click to set selection
+							>
 								<input
 									type="radio"
 									name="priority"
@@ -247,7 +257,9 @@ export default function RequestAddAndEdit({
 								/>
 								<span className="text-gray-500">Medium</span>
 							</label>
-							<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+							<label className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${selectedLabel === 'Low' ? 'border-solid border-coral' : ''}`}
+							onClick={() => setSelectedLabel('Low')} // Handle label click to set selection
+							>
 								<input
 									type="radio"
 									name="priority"
@@ -267,7 +279,9 @@ export default function RequestAddAndEdit({
 							Status<span className="text-[#E74C3C]">*</span>
 						</label>
 						<div className="flex space-x-4">
-							<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+							<label className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${selectedLabels === 'Open' ? 'border-solid border-coral' : ''}`}
+							onClick={() => setSelectedLabels('Open')} // Handle label click to set selection
+							>
 								<input
 									type="radio"
 									name="status"
@@ -278,7 +292,9 @@ export default function RequestAddAndEdit({
 								/>
 								<span className="text-gray-500">Open</span>
 							</label>
-							<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+							<label className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${selectedLabels === 'Pending' ? 'border-solid border-coral' : ''}`}
+							onClick={() => setSelectedLabels('Pending')} // Handle label click to set selection
+							>
 								<input
 									type="radio"
 									name="status"
@@ -289,7 +305,9 @@ export default function RequestAddAndEdit({
 								/>
 								<span className="text-gray-500">Pending</span>
 							</label>
-							<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+							<label className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${selectedLabels === 'Solve' ? 'border-solid border-coral' : ''}`}
+							onClick={() => setSelectedLabels('Solve')} // Handle label click to set selection
+							>
 								<input
 									type="radio"
 									name="status"
