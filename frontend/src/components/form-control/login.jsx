@@ -5,9 +5,8 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import axiosInstance from "../../test/axiosInstance"; // Adjust the import path as necessary
+import axiosInstance from "../../test/axiosInstance";
 
-// Custom PasswordInput component
 function PasswordInput({ placeholder, value, onChange }) {
 	const [showPassword, setShowPassword] = useState(false);
 
@@ -44,7 +43,7 @@ export default function LoginForm() {
 	const [errors, setErrors] = useState({ email: "", password: "" });
 	const [isChecked, setIsChecked] = useState(false);
 	const [loginError, setLoginError] = useState("");
-	const navigate = useNavigate(); // Initialize useHistory hook
+	const navigate = useNavigate();
 
 	const validateForm = () => {
 		let valid = true;
@@ -72,7 +71,7 @@ export default function LoginForm() {
 					password,
 				});
 				console.log("Login successful", response.data);
-				// Redirect to dashboard after successful login
+				localStorage.setItem("token", response.data.token);
 				navigate("/");
 			} catch (error) {
 				console.error("Login failed", error);

@@ -1,17 +1,13 @@
-import {
-	complaintsData,
-	getPriorityColor,
-	getStatusColor,
-} from "@/data/complaintsData";
-import ConfirmationDialog from "../ConfirmationDialog ";
-import ComplaintEditModal from "../dashboard/ComplaintEditModal";
-import ComplaintViewModal from "../dashboard/ComplaintViewModal ";
+import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { ScrollArea } from "../ui/scroll-area";
 import { Skeleton } from "../ui/skeleton";
-import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import axiosInstance from "@/test/axiosInstance";
+import ComplaintViewModal from "../dashboard/ComplaintViewModal ";
+import ConfirmationDialog from "../ConfirmationDialog ";
+import ComplaintEditModal from "../dashboard/ComplaintEditModal";
 
 export default function CreateComplaint() {
 	const [complaints, setComplaints] = useState([]);
@@ -23,17 +19,13 @@ export default function CreateComplaint() {
 	const [complaintToDelete, setComplaintToDelete] = useState(null);
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [complaintToEdit, setComplaintToEdit] = useState(null);
+	const [refreshFlag, setRefreshFlag] = useState(false);
 
 	const fetchComplaints = async () => {
 		try {
 			setIsLoading(true);
-			// Simulating an API call with a delay
-			const response = await new Promise((resolve) => {
-				setTimeout(() => {
-					resolve(complaintsData);
-				});
-			});
-			setComplaints(response);
+			const response = await axiosInstance.get("/complaints");
+			setComplaints(response.data);
 		} catch (error) {
 			console.error("Error fetching complaints:", error);
 		} finally {
@@ -43,7 +35,7 @@ export default function CreateComplaint() {
 
 	useEffect(() => {
 		fetchComplaints();
-	}, []);
+	}, [refreshFlag]);
 
 	const handleViewComplaint = (complaint) => {
 		setSelectedComplaint(complaint);
@@ -55,10 +47,37 @@ export default function CreateComplaint() {
 		setIsConfirmationDialogOpen(true);
 	};
 
-	const confirmDeleteComplaint = () => {
-		setComplaints(complaints.filter((c) => c.id !== complaintToDelete.id));
-		setIsConfirmationDialogOpen(false);
-		setComplaintToDelete(null);
+	const confirmDeleteComplaint = async () => {
+		if (!complaintToDelete || !complaintToDelete._id) {
+			console.error(
+				"Invalid complaintToDelete object:",
+				complaintToDelete
+			);
+			return;
+		}
+
+		try {
+			const response = await axiosInstance.delete(
+				`/complaints/${complaintToDelete._id}`
+			);
+			console.log("Delete Response:", response);
+			setComplaints(
+				complaints.filter((c) => c._id !== complaintToDelete._id)
+			);
+			setIsConfirmationDialogOpen(false);
+			setComplaintToDelete(null);
+			setRefreshFlag(!refreshFlag);
+		} catch (error) {
+			console.error("Error deleting complaint:", error);
+			if (error.response) {
+				console.error("Server responded with:", error.response.status);
+				console.error("Response data:", error.response.data);
+			} else if (error.request) {
+				console.error("No response received:", error.request);
+			} else {
+				console.error("Error setting up the request:", error.message);
+			}
+		}
 	};
 
 	const cancelDeleteComplaint = () => {
@@ -75,20 +94,66 @@ export default function CreateComplaint() {
 		setIsEditDialogOpen(true);
 	};
 
-	const saveEditedComplaint = (editedComplaint) => {
-		if (editedComplaint.id) {
+	const saveEditedComplaint = async (editedComplaint) => {
+		try {
+			let response;
+			if (editedComplaint._id) {
+				response = await axiosInstance.put(
+					`/complaints/${editedComplaint._id}`,
+					editedComplaint
+				);
+			} else {
+				response = await axiosInstance.post(
+					"/complaints",
+					editedComplaint
+				);
+			}
+			console.log("Save Response:", response);
 			setComplaints(
 				complaints.map((c) =>
-					c.id === editedComplaint.id ? editedComplaint : c
+					c._id === editedComplaint._id ? response.data : c
 				)
 			);
-		} else {
-			// Generate a new ID for the new complaint
-			const newComplaint = { ...editedComplaint, id: Date.now() };
-			setComplaints([...complaints, newComplaint]);
+			setIsEditDialogOpen(false);
+			setComplaintToEdit(null);
+			setRefreshFlag(!refreshFlag);
+		} catch (error) {
+			console.error("Error saving complaint:", error);
+			if (error.response) {
+				console.error("Server responded with:", error.response.status);
+				console.error("Response data:", error.response.data);
+			} else if (error.request) {
+				console.error("No response received:", error.request);
+			} else {
+				console.error("Error setting up the request:", error.message);
+			}
 		}
-		setIsEditDialogOpen(false);
-		setComplaintToEdit(null);
+	};
+
+	const getPriorityColor = (priority) => {
+		switch (priority) {
+			case "High":
+				return "bg-red-700";
+			case "Medium":
+				return "bg-blue-700";
+			case "Low":
+				return "bg-green-700";
+			default:
+				return "bg-gray-700";
+		}
+	};
+
+	const getStatusColor = (status) => {
+		switch (status) {
+			case "Open":
+				return "bg-blue-100 text-blue-600";
+			case "Pending":
+				return "bg-yellow-100 text-yellow-600";
+			case "Solve":
+				return "bg-green-100 text-green-600";
+			default:
+				return "bg-gray-100";
+		}
 	};
 
 	return (
@@ -129,7 +194,7 @@ export default function CreateComplaint() {
 								) : complaints.length > 0 ? (
 									complaints.map((complaint) => (
 										<tr
-											key={complaint.id}
+											key={complaint._id}
 											className="border-b text-slate-600 font-medium font-poppins"
 										>
 											<td className="p-3 flex items-center space-x-3">

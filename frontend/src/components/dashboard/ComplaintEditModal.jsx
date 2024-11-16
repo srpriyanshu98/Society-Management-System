@@ -18,7 +18,21 @@ export default function ComplaintEditModal({
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-		setEditedComplaint({ ...editedComplaint, [name]: value });
+
+		if (name === "wing") {
+			if (/^[a-zA-Z]$/.test(value) || value === "") {
+				setEditedComplaint({
+					...editedComplaint,
+					[name]: value.toUpperCase(),
+				});
+			}
+		} else if (name === "unit") {
+			if (/^\d{0,4}$/.test(value)) {
+				setEditedComplaint({ ...editedComplaint, [name]: value });
+			}
+		} else {
+			setEditedComplaint({ ...editedComplaint, [name]: value });
+		}
 	};
 
 	const handleRadioChange = (e) => {
@@ -28,11 +42,30 @@ export default function ComplaintEditModal({
 
 	const handleSave = () => {
 		onSave(editedComplaint);
+		resetForm();
 		onClose();
 	};
 
+	const resetForm = () => {
+		setEditedComplaint({
+			complainerName: "",
+			complaintName: "",
+			description: "",
+			wing: "",
+			unit: "",
+			priority: "Low",
+			status: "Open",
+		});
+	};
+
 	return (
-		<Dialog open={isOpen} onOpenChange={onClose}>
+		<Dialog
+			open={isOpen}
+			onOpenChange={() => {
+				onClose();
+				resetForm();
+			}}
+		>
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>
@@ -197,7 +230,10 @@ export default function ComplaintEditModal({
 				<div className="mt-4 flex justify-between">
 					<Button
 						variant="outline"
-						onClick={onClose}
+						onClick={() => {
+							onClose();
+							resetForm();
+						}}
 						className="w-32"
 					>
 						Cancel

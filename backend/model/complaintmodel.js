@@ -9,13 +9,13 @@ const complaintSchema = new mongoose.Schema(
 		unit: { type: String, required: true },
 		priority: {
 			type: String,
-			enum: ["high", "medium", "low"],
-			default: "medium",
+			enum: ["High", "Medium", "Low"],
+			default: "Medium",
 		},
 		status: {
 			type: String,
-			enum: ["open", "pending", "solved"],
-			default: "open",
+			enum: ["Open", "Pending", "Solve"],
+			default: "Open",
 		},
 	},
 	{ timestamps: true }

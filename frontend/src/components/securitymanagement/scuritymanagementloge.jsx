@@ -40,12 +40,12 @@ export default function ScurityManagementlogs() {
 				<CardTitle>Visitor Logs</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<ScrollArea className="h-[730px] rounded-t-lg">
+				<ScrollArea className="max-h-[715px] rounded-t-xl overflow-y-auto custom-scrollbar">
 					<div className="">
-						<table className="w-full text-left ">
+						<table className="w-full text-left">
 							<thead className="text-center text-gray-600">
 								<tr className="bg-blue-50">
-									<th className="p-3 ">Visitor Name</th>
+									<th className="p-3">Visitor Name</th>
 									<th className="p-3">Phone Number</th>
 									<th className="p-3">Date</th>
 									<th className="p-3">Unit Number</th>
