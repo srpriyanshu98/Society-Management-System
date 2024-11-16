@@ -81,3 +81,22 @@ export const updateFacility = async (req, res) => {
 		});
 	}
 };
+
+// Delete a facility by ID
+export const deleteFacility = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedFacility = await Facility.findByIdAndDelete(id);
+    if (!deletedFacility) {
+      return res.status(404).json({ message: "Facility not found" });
+    }
+    res
+      .status(200)
+      .json({ message: "Facility deleted successfully", deletedFacility });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Error deleting facility", error: error.message });
+  }
+};
