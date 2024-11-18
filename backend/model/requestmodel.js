@@ -10,6 +10,10 @@ const requestSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		requestDescp: {
+			type: String,
+			required: true,
+		},
 		requestDate: {
 			type: Date,
 			default: Date.now,
