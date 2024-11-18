@@ -16,9 +16,9 @@ app.use(cookieParser());
 app.use("/uploads", express.static("uploads"));
 
 app.use(
-	cors({
-		origin: "http://localhost:3000",
-	})
+  cors({
+    origin: "http://localhost:3000",
+  })
 );
 
 import authRoutes from "./routes/authroutes.js";
@@ -37,6 +37,9 @@ import requestRoutes from "./routes/requestRoutes.js";
 import securityProtocolRoutes from "./routes/securityProtocolRoutes.js";
 import announcementRoutes from "./routes/announcementRoutes.js";
 import securityRoutes from "./routes/securityRoutes.js";
+import pollRoutes from "./routes/pollRoutes.js";
+import visitorRoutes from "./routes/visitorRoutes.js";
+import alertRoutes from "./routes/alertRoutes.js";
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -55,8 +58,11 @@ app.use("/api/requests", requestRoutes);
 app.use("/api/security-protocols", securityProtocolRoutes);
 app.use("/api/announcements", announcementRoutes);
 app.use("/api/security", securityRoutes);
+app.use("/api/polls", pollRoutes);
+app.use("/api/visitors", visitorRoutes);
+app.use("/api/alerts", alertRoutes);
 
 app.listen(PORT, () => {
-	console.log("server is running on port http://localhost:" + PORT);
-	connectDB();
+  console.log("server is running on port http://localhost:" + PORT);
+  connectDB();
 });
