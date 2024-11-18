@@ -21,22 +21,24 @@ export default function RequestViewModal({ isOpen, onClose, request }) {
 					</Avatar>
 					<div>
 						<h3 className="text-lg font-semibold font-poppins">
-							{request.RequesterName}
+							{request.requesterName}
 						</h3>
-						<p className="text-sm text-gray-500">{request.date}</p>
+						<p className="text-sm text-gray-500">
+							{request.requestDate}
+						</p>
 					</div>
 				</div>
 				<div className="mt-4">
 					<p className="text-gray-700 font-semibold font-poppins">
 						Request Name
 					</p>
-					<p className="text-gray-600">{request.RequestName}</p>
+					<p className="text-gray-600">{request.requestName}</p>
 				</div>
 				<div className="mt-4">
 					<p className="text-gray-700 font-semibold font-poppins">
 						Description
 					</p>
-					<p className="text-gray-600">{request.description}</p>
+					<p className="text-gray-600">{request.requestDescp}</p>
 				</div>
 				<div className="mt-4 flex space-x-4">
 					<div className="flex flex-col items-center">

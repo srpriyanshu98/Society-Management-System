@@ -1,21 +1,11 @@
 import { useState, useEffect } from "react";
-import {
-	Dialog,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { format, isValid } from "date-fns";
-import { Calendar } from "@/components/ui/calendar";
-import {
-	Popover,
-	PopoverTrigger,
-	PopoverContent,
-} from "@/components/ui/popover";
-import { CalendarDays } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Calendar } from "../ui/calendar";
+import { format } from "date-fns";
 
 export default function RequestAddAndEdit({
 	isOpen,
@@ -23,304 +13,251 @@ export default function RequestAddAndEdit({
 	request,
 	onSave,
 }) {
-	const [editedRequest, setEditedRequest] = useState({ ...request, priority: 'High',prioritys: 'Open'  });
-	const [serviceDate, setServiceDate] = useState(new Date());
-	const [formErrors, setFormErrors] = useState({});
+	const [editedRequest, setEditedRequest] = useState({ ...request });
 
 	useEffect(() => {
 		setEditedRequest({ ...request });
-		const parsedDate = new Date(request?.date || new Date());
-		setServiceDate(isValid(parsedDate) ? parsedDate : new Date());
 	}, [request]);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-		setEditedRequest({ ...editedRequest, [name]: value });
+
+		if (name === "wing") {
+			if (/^[a-zA-Z]$/.test(value) || value === "") {
+				setEditedRequest({
+					...editedRequest,
+					[name]: value.toUpperCase(),
+				});
+			}
+		} else if (name === "unit") {
+			if (/^\d{0,4}$/.test(value)) {
+				setEditedRequest({ ...editedRequest, [name]: value });
+			}
+		} else {
+			setEditedRequest({ ...editedRequest, [name]: value });
+		}
 	};
 
 	const handleRadioChange = (e) => {
 		const { name, value } = e.target;
 		setEditedRequest({ ...editedRequest, [name]: value });
-		setEditedComplaint({ ...editedComplaint, priority: event.target.value ,prioritys:event.targets.value });
-		setSelectedLabel(event.target.value,event.targets.value); // Update selected label on change
 	};
 
-	const [selectedLabel, setSelectedLabel] = useState('High'); // Track selected label
-	const [selectedLabels, setSelectedLabels] = useState('Open'); // Track selected label
-
-	const validateForm = () => {
-		const errors = {};
-		if (!editedRequest.RequesterName)
-			errors.RequesterName = "Requester Name is required";
-		if (!editedRequest.RequestName)
-			errors.RequestName = "Request Name is required";
-		if (!editedRequest.description)
-			errors.description = "Description is required";
-		if (!serviceDate) errors.serviceDate = "Service Date is required";
-		return errors;
+	const handleDateChange = (date) => {
+		setEditedRequest({ ...editedRequest, requestDate: date });
 	};
 
 	const handleSave = () => {
-		const errors = validateForm();
-		onSave(editedComplaint);
-		if (Object.keys(errors).length > 0) {
-			setFormErrors(errors);
-			return;
-		}
-
-		const newRequest = {
-			...editedRequest,
-			date: format(serviceDate, "dd/MM/yyyy"),
-		};
-
-		onSave(newRequest);
+		onSave(editedRequest);
 		clearForm();
 		onClose();
 	};
 
 	const clearForm = () => {
-		setEditedRequest({});
-		setServiceDate(new Date());
-		setFormErrors({});
+		setEditedRequest({
+			requesterName: "",
+			requestName: "",
+			requestDescp: "",
+			requestDate: new Date(),
+			wing: "",
+			unit: "",
+			priority: "medium",
+			status: "open",
+		});
 	};
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
-			<DialogContent className="max-w-md p-6 rounded-xl">
+			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>
-						{request ? "Edit Request" : "Create Request"}
+						{request ? "Edit Request" : "Add Request"}
 					</DialogTitle>
 				</DialogHeader>
 				<Separator />
-				<div className="grid grid-cols-1 gap-4">
-					<div>
-						<label className="text-sm font-medium">
-							Requester Name
-							<span className="text-[#E74C3C]">*</span>
-						</label>
-						<Input
-							name="RequesterName"
-							value={editedRequest.RequesterName || ""}
-							onChange={handleChange}
-							placeholder="Requester Name"
-							required
-						/>
-						{formErrors.RequesterName && (
-							<p className="text-red-500 text-sm mt-1">
-								{formErrors.RequesterName}
-							</p>
-						)}
+				<div className="space-y-4">
+					<div className="grid grid-cols-1 gap-2">
+						<div className="text-left">
+							<div className="font-poppins">
+								Requester Name
+								<span className="text-[#E74C3C]">*</span>
+							</div>
+							<Input
+								name="requesterName"
+								value={editedRequest.requesterName || ""}
+								onChange={handleChange}
+								placeholder="Requester Name"
+							/>
+						</div>
 					</div>
-					<div>
-						<label className="text-sm font-medium">
-							Request Name
-							<span className="text-[#E74C3C]">*</span>
-						</label>
-						<Input
-							name="RequestName"
-							value={editedRequest.RequestName || ""}
-							onChange={handleChange}
-							placeholder="Request Name"
-							required
-						/>
-						{formErrors.RequestName && (
-							<p className="text-red-500 text-sm mt-1">
-								{formErrors.RequestName}
-							</p>
-						)}
+					<div className="grid grid-cols-1 gap-2">
+						<div className="text-left">
+							<div className="font-poppins">
+								Request Name
+								<span className="text-[#E74C3C]">*</span>
+							</div>
+							<Input
+								name="requestName"
+								value={editedRequest.requestName || ""}
+								onChange={handleChange}
+								placeholder="Request Name"
+							/>
+						</div>
 					</div>
-					<div>
-						<label className="text-sm font-medium">
-							Description<span className="text-[#E74C3C]">*</span>
-						</label>
-						<Input
-							name="description"
-							value={editedRequest.description || ""}
-							onChange={handleChange}
-							placeholder="Description"
-							required
-						/>
-						{formErrors.description && (
-							<p className="text-red-500 text-sm mt-1">
-								{formErrors.description}
-							</p>
-						)}
+					<div className="grid grid-cols-1 gap-2">
+						<div className="text-left">
+							<div className="font-poppins">
+								Description
+								<span className="text-[#E74C3C]">*</span>
+							</div>
+							<Input
+								name="requestDescp"
+								value={editedRequest.requestDescp || ""}
+								onChange={handleChange}
+								placeholder="Description"
+							/>
+						</div>
 					</div>
-					<div>
-						<label className="text-sm font-medium">
-							Schedule Service Date
+				</div>
+				<div className="flex  space-x-4">
+					<div className="grid grid-cols-1 gap-2">
+						<div className="text-left">
+							<div className="font-poppins">
+								Wing<span className="text-[#E74C3C]">*</span>
+							</div>
+							<Input
+								name="wing"
+								value={editedRequest.wing || ""}
+								onChange={handleChange}
+								placeholder="Wing"
+							/>
+						</div>
+					</div>
+					<div className="grid grid-cols-1 gap-2">
+						<div className="text-left">
+							<div className="font-poppins">
+								Unit<span className="text-[#E74C3C]">*</span>
+							</div>
+							<Input
+								name="unit"
+								type="number"
+								value={editedRequest.unit || ""}
+								onChange={handleChange}
+								placeholder="Unit"
+							/>
+						</div>
+					</div>
+				</div>
+
+				{/* Date Picker for Request Date */}
+				<div className="grid grid-cols-1 gap-2 mt-4">
+					<div className="text-left">
+						<div className="font-poppins">
+							Request Date
 							<span className="text-[#E74C3C]">*</span>
-						</label>
+						</div>
 						<Popover>
 							<PopoverTrigger asChild>
-								<Button
-									variant="outline"
-									className={
-										"w-full pl-3 text-left font-normal" +
-										(!serviceDate
-											? " text-muted-foreground"
-											: "")
-									}
-								>
-									{isValid(serviceDate)
-										? format(serviceDate, "MM/dd/yyyy")
-										: "Select Date"}
-									<CalendarDays className="ml-auto h-4 w-4 opacity-50" />
+								<Button variant={"outline"} className="w-full">
+									{editedRequest.requestDate ? (
+										format(editedRequest.requestDate, "PPP")
+									) : (
+										<span>Pick a date</span>
+									)}
 								</Button>
 							</PopoverTrigger>
-							<PopoverContent
-								className="w-auto p-0"
-								align="start"
-							>
+							<PopoverContent className="w-auto p-0">
 								<Calendar
 									mode="single"
-									selected={serviceDate}
-									onSelect={(newDate) => {
-										if (newDate && isValid(newDate)) {
-											setServiceDate(newDate);
-										}
-									}}
+									selected={editedRequest.requestDate}
+									onSelect={handleDateChange}
 									initialFocus
 								/>
 							</PopoverContent>
 						</Popover>
-						{formErrors.serviceDate && (
-							<p className="text-red-500 text-sm mt-1">
-								{formErrors.serviceDate}
-							</p>
-						)}
-					</div>
-					<div className="flex space-x-4">
-						<div className="grid grid-cols-1 gap-2">
-							<div className="text-left">
-								<div className="font-poppins">
-									Wing
-									<span className="text-[#E74C3C]">*</span>
-								</div>
-								<Input
-									name="wing"
-									value={editedRequest.wing || ""}
-									onChange={handleChange}
-									placeholder="Wing"
-								/>
-							</div>
-						</div>
-						<div className="grid grid-cols-1 gap-2">
-							<div className="text-left">
-								<div className="font-poppins">
-									Unit
-									<span className="text-[#E74C3C]">*</span>
-								</div>
-								<Input
-									name="unit"
-									type="number"
-									value={editedRequest.unit || ""}
-									onChange={handleChange}
-									placeholder="Unit"
-								/>
-							</div>
-						</div>
-					</div>
-
-					{/* Radio Group for Priority */}
-					<div>
-						<label className="block font-medium">
-							Priority<span className="text-[#E74C3C]">*</span>
-						</label>
-						<div className="flex space-x-4">
-							<label className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${selectedLabel === 'High' ? 'border-solid border-coral' : ''}`}
-							onClick={() => setSelectedLabel('High')} // Handle label click to set selection
-							>
-								<input
-									type="radio"
-									name="priority"
-									value="High"
-									checked={editedRequest.priority === "High"}
-									onChange={handleRadioChange}
-									className="mr-2 radio-gradient"
-								/>
-								<span className="text-gray-500">High</span>
-							</label>
-							<label className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${selectedLabel === 'Medium' ? 'border-solid border-coral' : ''}`}
-							onClick={() => setSelectedLabel('Medium')} // Handle label click to set selection
-							>
-								<input
-									type="radio"
-									name="priority"
-									value="Medium"
-									checked={
-										editedRequest.priority === "Medium"
-									}
-									onChange={handleRadioChange}
-									className="mr-2 radio-gradient"
-								/>
-								<span className="text-gray-500">Medium</span>
-							</label>
-							<label className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${selectedLabel === 'Low' ? 'border-solid border-coral' : ''}`}
-							onClick={() => setSelectedLabel('Low')} // Handle label click to set selection
-							>
-								<input
-									type="radio"
-									name="priority"
-									value="Low"
-									checked={editedRequest.priority === "Low"}
-									onChange={handleRadioChange}
-									className="mr-2 radio-gradient"
-								/>
-								<span className="text-gray-500">Low</span>
-							</label>
-						</div>
-					</div>
-
-					{/* Radio Group for Status */}
-					<div>
-						<label className="block font-medium">
-							Status<span className="text-[#E74C3C]">*</span>
-						</label>
-						<div className="flex space-x-4">
-							<label className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${selectedLabels === 'Open' ? 'border-solid border-coral' : ''}`}
-							onClick={() => setSelectedLabels('Open')} // Handle label click to set selection
-							>
-								<input
-									type="radio"
-									name="status"
-									value="Open"
-									checked={editedRequest.status === "Open"}
-									onChange={handleRadioChange}
-									className="mr-2 radio-gradient"
-								/>
-								<span className="text-gray-500">Open</span>
-							</label>
-							<label className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${selectedLabels === 'Pending' ? 'border-solid border-coral' : ''}`}
-							onClick={() => setSelectedLabels('Pending')} // Handle label click to set selection
-							>
-								<input
-									type="radio"
-									name="status"
-									value="Pending"
-									checked={editedRequest.status === "Pending"}
-									onChange={handleRadioChange}
-									className="mr-2 radio-gradient"
-								/>
-								<span className="text-gray-500">Pending</span>
-							</label>
-							<label className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${selectedLabels === 'Solve' ? 'border-solid border-coral' : ''}`}
-							onClick={() => setSelectedLabels('Solve')} // Handle label click to set selection
-							>
-								<input
-									type="radio"
-									name="status"
-									value="Solve"
-									checked={editedRequest.status === "Solve"}
-									onChange={handleRadioChange}
-									className="mr-2 radio-gradient"
-								/>
-								<span className="text-gray-500">Solve</span>
-							</label>
-						</div>
 					</div>
 				</div>
+
+				{/* Radio Group for Priority */}
+				<div>
+					<label className="block font-medium">Priority</label>
+					<div className="flex space-x-4">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+							<input
+								type="radio"
+								name="priority"
+								value="high"
+								checked={editedRequest.priority === "high"}
+								onChange={handleRadioChange}
+								className="mr-2 radio-gradient"
+							/>
+							<span className="text-gray-500">High</span>
+						</label>
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+							<input
+								type="radio"
+								name="priority"
+								value="medium"
+								checked={editedRequest.priority === "medium"}
+								onChange={handleRadioChange}
+								className="mr-2 radio-gradient"
+							/>
+							<span className="text-gray-500">Medium</span>
+						</label>
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+							<input
+								type="radio"
+								name="priority"
+								value="low"
+								checked={editedRequest.priority === "low"}
+								onChange={handleRadioChange}
+								className="mr-2 radio-gradient"
+							/>
+							<span className="text-gray-500">Low</span>
+						</label>
+					</div>
+				</div>
+
+				{/* Radio Group for Status */}
+				<div>
+					<label className="block font-medium">Status</label>
+					<div className="flex space-x-4">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+							<input
+								type="radio"
+								name="status"
+								value="open"
+								checked={editedRequest.status === "open"}
+								onChange={handleRadioChange}
+								className="mr-2 radio-gradient"
+							/>
+							<span className="text-gray-500">Open</span>
+						</label>
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+							<input
+								type="radio"
+								name="status"
+								value="pending"
+								checked={editedRequest.status === "pending"}
+								onChange={handleRadioChange}
+								className="mr-2 radio-gradient"
+							/>
+							<span className="text-gray-500">Pending</span>
+						</label>
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+							<input
+								type="radio"
+								name="status"
+								value="solve"
+								checked={editedRequest.status === "solve"}
+								onChange={handleRadioChange}
+								className="mr-2 radio-gradient"
+							/>
+							<span className="text-gray-500">Solve</span>
+						</label>
+					</div>
+				</div>
+
 				<div className="mt-4 flex justify-between">
 					<Button
 						variant="outline"

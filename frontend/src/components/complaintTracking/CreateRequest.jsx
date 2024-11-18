@@ -1,13 +1,12 @@
-import { getPriorityColor, getStatusColor } from "@/data/complaintsData";
-import ConfirmationDialog from "../ConfirmationDialog ";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { ScrollArea } from "../ui/scroll-area";
 import { Skeleton } from "../ui/skeleton";
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { requestData } from "@/data/requestData";
+import axiosInstance from "@/test/axiosInstance";
 import RequestViewModal from "./RequestViewModal";
+import ConfirmationDialog from "../ConfirmationDialog ";
 import RequestAddAndEdit from "./RequestAddAndEdit";
 
 export default function CreateRequest() {
@@ -20,18 +19,14 @@ export default function CreateRequest() {
 	const [requestToDelete, setRequestToDelete] = useState(null);
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [requestToEdit, setRequestToEdit] = useState(null);
+	const [refreshFlag, setRefreshFlag] = useState(false);
 
 	const fetchRequests = async () => {
 		try {
 			setIsLoading(true);
-			// Simulating an API call with a delay
-			const response = await new Promise((resolve) => {
-				setTimeout(() => {
-					resolve(requestData);
-				});
-			});
-			const sortedRequests = response.sort(
-				(a, b) => new Date(b.date) - new Date(a.date)
+			const response = await axiosInstance.get("/requests");
+			const sortedRequests = response.data.sort(
+				(a, b) => new Date(b.requestDate) - new Date(a.requestDate)
 			);
 			setRequests(sortedRequests);
 		} catch (error) {
@@ -43,7 +38,7 @@ export default function CreateRequest() {
 
 	useEffect(() => {
 		fetchRequests();
-	}, []);
+	}, [refreshFlag]);
 
 	const handleViewRequest = (request) => {
 		setSelectedRequest(request);
@@ -55,16 +50,19 @@ export default function CreateRequest() {
 		setIsConfirmationDialogOpen(true);
 	};
 
-	const confirmDeleteRequest = () => {
-		const updatedRequests = requests.filter(
-			(r) => r.id !== requestToDelete.id
-		);
-		const sortedRequests = updatedRequests.sort(
-			(a, b) => new Date(b.date) - new Date(a.date)
-		);
-		setRequests(sortedRequests);
-		setIsConfirmationDialogOpen(false);
-		setRequestToDelete(null);
+	const confirmDeleteRequest = async () => {
+		try {
+			await axiosInstance.delete(`/requests/${requestToDelete._id}`);
+			const updatedRequests = requests.filter(
+				(r) => r._id !== requestToDelete._id
+			);
+			setRequests(updatedRequests);
+			setIsConfirmationDialogOpen(false);
+			setRequestToDelete(null);
+			// setRefreshFlag(!refreshFlag);
+		} catch (error) {
+			console.error("Error deleting request:", error);
+		}
 	};
 
 	const cancelDeleteRequest = () => {
@@ -81,22 +79,65 @@ export default function CreateRequest() {
 		setIsEditDialogOpen(true);
 	};
 
-	const saveEditedRequest = (editedRequest) => {
-		let updatedRequests;
-		if (editedRequest.id) {
-			updatedRequests = requests.map((r) =>
-				r.id === editedRequest.id ? editedRequest : r
-			);
-		} else {
-			const newRequest = { ...editedRequest, id: Date.now() };
-			updatedRequests = [...requests, newRequest];
+	const saveEditedRequest = async (editedRequest) => {
+		try {
+			let response;
+			if (editedRequest._id) {
+				response = await axiosInstance.put(
+					`/requests/${editedRequest._id}`,
+					editedRequest
+				);
+				const updatedRequests = requests.map((r) =>
+					r._id === response.data._id ? response.data : r
+				);
+				setRequests(updatedRequests);
+			} else {
+				response = await axiosInstance.post("/requests", editedRequest);
+				const updatedRequests = [...requests, response.data].sort(
+					(a, b) => new Date(b.requestDate) - new Date(a.requestDate)
+				);
+				setRequests(updatedRequests);
+			}
+			setIsEditDialogOpen(false);
+			setRequestToEdit(null);
+			setRefreshFlag(!refreshFlag);
+		} catch (error) {
+			console.error("Error saving request:", error);
+			if (error.response) {
+				console.error("Server responded with:", error.response.status);
+				console.error("Response data:", error.response.data);
+			} else if (error.request) {
+				console.error("No response received:", error.request);
+			} else {
+				console.error("Error setting up the request:", error.message);
+			}
 		}
-		const sortedRequests = updatedRequests.sort(
-			(a, b) => new Date(b.date) - new Date(a.date)
-		);
-		setRequests(sortedRequests);
-		setIsEditDialogOpen(false);
-		setRequestToEdit(null);
+	};
+
+	const getPriorityColor = (priority) => {
+		switch (priority) {
+			case "high":
+				return "bg-red-700";
+			case "medium":
+				return "bg-blue-700";
+			case "low":
+				return "bg-green-700";
+			default:
+				return "bg-gray-700";
+		}
+	};
+
+	const getStatusColor = (status) => {
+		switch (status) {
+			case "open":
+				return "bg-blue-100 text-blue-600";
+			case "pending":
+				return "bg-yellow-100 text-yellow-600";
+			case "solve":
+				return "bg-green-100 text-green-600";
+			default:
+				return "bg-gray-100";
+		}
 	};
 
 	return (
@@ -138,7 +179,7 @@ export default function CreateRequest() {
 								) : requests.length > 0 ? (
 									requests.map((request) => (
 										<tr
-											key={request.id}
+											key={request._id}
 											className="border-b text-slate-600 font-medium font-poppins"
 										>
 											<td className="p-3 flex items-center space-x-3">
@@ -146,7 +187,7 @@ export default function CreateRequest() {
 													<AvatarImage
 														src="https://github.com/shadcn.png"
 														alt={
-															request.RequesterName
+															request.requesterName
 														}
 													/>
 													<AvatarFallback>
@@ -154,16 +195,16 @@ export default function CreateRequest() {
 													</AvatarFallback>
 												</Avatar>
 												<span className="font-poppins">
-													{request.RequesterName}
+													{request.requesterName}
 												</span>
 											</td>
-											<td className="p-3 ">
-												{request.RequestName}
+											<td className="p-3 text-start">
+												{request.requestName}
 											</td>
 											<td className="text-start w-96">
-												{request.description}
+												{request.requestDescp}
 											</td>
-											<td>{request.date}</td>
+											<td>{request.requestDate}</td>
 											<td className="p-3">
 												<span className="p-2 text-center bg-blue-200 rounded-full me-2">
 													{request.wing}
@@ -246,6 +287,7 @@ export default function CreateRequest() {
 					</div>
 				</ScrollArea>
 			</CardContent>
+
 			{/* View Request Modal */}
 			<RequestViewModal
 				isOpen={isViewModalOpen}

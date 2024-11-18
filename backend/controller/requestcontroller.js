@@ -5,6 +5,7 @@ export const createRequest = async (req, res) => {
 	const {
 		requesterName,
 		requestName,
+		requestDescp,
 		requestDate,
 		wing,
 		unit,
@@ -16,6 +17,7 @@ export const createRequest = async (req, res) => {
 		const newRequest = new Request({
 			requesterName,
 			requestName,
+			requestDescp,
 			requestDate,
 			wing,
 			unit,
@@ -71,6 +73,7 @@ export const updateRequest = async (req, res) => {
 	const {
 		requesterName,
 		requestName,
+		requestDescp,
 		requestDate,
 		wing,
 		unit,
@@ -84,6 +87,7 @@ export const updateRequest = async (req, res) => {
 			{
 				requesterName,
 				requestName,
+				requestDescp,
 				requestDate,
 				wing,
 				unit,
