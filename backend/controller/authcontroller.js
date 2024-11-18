@@ -89,7 +89,6 @@ export const forgotPassword = async (req, res) => {
 
         let user;
         if (email.includes("@")) {
-            // Find user by Email_Address instead of Email
             user = await User.findOne({ email });
             if (!user) {
                 return res.status(404).json({
@@ -113,11 +112,9 @@ export const forgotPassword = async (req, res) => {
             return res.status(200).json({
                 success: true,
                 message: "OTP sent successfully to email",
-                // only for not using otp in tha return function i can not get otp verification
                 otp,
             });
         } else {
-            // For phone number handling (to be added later)
         }
     } catch (error) {
         console.log(error);
