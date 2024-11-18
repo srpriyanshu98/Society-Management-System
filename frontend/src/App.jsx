@@ -23,6 +23,8 @@ import AddExpenses from "./pages/admin/AddExpenses";
 import Note from "./pages/admin/Note";
 import RequestTracking from "./pages/admin/RequestTracking";
 import SecurityRuls from "./pages/admin/SecurityRuls";
+import VisitortrackingScreen from "./pages/security/visitortrackingscreen";
+import EmergencyManagement from "./pages/security/emergencymanagement";
 
 function App() {
 	return (
@@ -55,7 +57,10 @@ function App() {
 			<Route path="/announcements" element={<Announcement />} />
 
 			{/* RESIDENTS ROUTES */}
+
 			{/* SECURITY ROUTES */}
+			<Route path="/visitortracking-screen" element={<VisitortrackingScreen />} />
+			<Route path="/emergencymanagement" element={<EmergencyManagement/>} />
 
 			{/* TEST ROUTES*/}
 			<Route path="/slider" element={<Slider />} />
