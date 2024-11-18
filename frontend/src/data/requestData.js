@@ -140,11 +140,11 @@ export const requestData = [
 
 export const getPriorityColor = (priority) => {
 	switch (priority) {
-		case "High":
+		case "high":
 			return "bg-red-700";
-		case "Medium":
+		case "medium":
 			return "bg-blue-700";
-		case "Low":
+		case "low":
 			return "bg-green-700";
 		default:
 			return "bg-gray-700";
@@ -153,11 +153,11 @@ export const getPriorityColor = (priority) => {
 
 export const getStatusColor = (status) => {
 	switch (status) {
-		case "Open":
+		case "open":
 			return "bg-blue-100 text-blue-600";
-		case "Pending":
+		case "pending":
 			return "bg-yellow-100 text-yellow-600";
-		case "Solve":
+		case "solve":
 			return "bg-green-100 text-green-600";
 		default:
 			return "bg-gray-100";
