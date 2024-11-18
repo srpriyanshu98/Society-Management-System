@@ -13,7 +13,7 @@ export default function ResidentForm({ userRole }) {
 		control,
 		formState: { errors, isValid },
 	} = useForm({
-		mode: "onChange", // Ensures form validity is updated on each input change
+		mode: "onChange",
 	});
 
 	const onSubmit = (data) => {
@@ -36,24 +36,19 @@ export default function ResidentForm({ userRole }) {
 						</TabsTrigger>
 					</TabsList>
 
-					{/* Owner Form */}
 					<TabsContent value="owner">
 						<ResidentDetail control={control} errors={errors} />
 
-						{/* Members Counting */}
 						<MembersCounting control={control} errors={errors} />
 
-						{/* Vehicle Counting */}
 						<VehicleCounting control={control} errors={errors} />
 					</TabsContent>
 
 					<TabsContent value="tenant">
 						<OwnerDetail control={control} errors={errors} />
 						<ResidentDetail control={control} errors={errors} />
-						{/* Members Counting */}
 						<MembersCounting control={control} errors={errors} />
 
-						{/* Vehicle Counting */}
 						<VehicleCounting control={control} errors={errors} />
 					</TabsContent>
 				</Tabs>

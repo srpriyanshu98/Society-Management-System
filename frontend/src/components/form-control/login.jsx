@@ -93,7 +93,7 @@ export default function LoginForm() {
 			</CardHeader>
 			<CardContent>
 				<form onSubmit={handleSubmit} className="space-y-4">
-					{/* Email & Phone number */}
+					
 					<div>
 						<Label htmlFor="email">
 							Email or Phone{" "}
@@ -113,7 +113,6 @@ export default function LoginForm() {
 						)}
 					</div>
 
-					{/* Password */}
 					<div>
 						<Label htmlFor="password">
 							Password <span className="text-red-500">*</span>
@@ -130,9 +129,8 @@ export default function LoginForm() {
 						)}
 					</div>
 
-					{/* Remember me and Forgot Password */}
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-						{/* Remember me */}
+				
 						<div className="flex items-center">
 							<input
 								type="checkbox"
@@ -145,7 +143,7 @@ export default function LoginForm() {
 								Remember me
 							</Label>
 						</div>
-						{/* Forgot Password */}
+					
 						<div className="text-right md:text-right">
 							<Link to="/forgot-pass" className="text-orange-500">
 								Forgot Password?
@@ -153,22 +151,19 @@ export default function LoginForm() {
 						</div>
 					</div>
 
-					{/* Submit Button */}
 					<Button
 						type="submit"
 						className="w-full h-12 md:h-[51px] mt-2 bg-gradient-to-r from-orange-600 to-orange-400 hover:from-orange-500 hover:to-orange-300"
-						disabled={!isChecked} // Disable button when checkbox is not checked
+						disabled={!isChecked} 
 					>
 						Sign In
 					</Button>
 
-					{/* Display login error */}
 					{loginError && (
 						<p className="text-red-500 text-sm">{loginError}</p>
 					)}
 				</form>
 
-				{/* Sign Up Link */}
 				<div className="text-center mt-4">
 					<p className="text-sm md:text-base">
 						Don’t have an account?{" "}

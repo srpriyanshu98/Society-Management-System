@@ -8,9 +8,7 @@ export default function ResidentDetail({ control, errors }) {
 	return (
 		<Card className="p-4 pt-10 rounded-xl">
 			<CardContent className="space-y-4">
-				{/* Personal Information */}
 				<div className="flex flex-row gap-4 mb-8">
-					{/* Profile Photo */}
 					<div className="flex-col items-center">
 						<div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center">
 							<span className="text-gray-500">
@@ -22,7 +20,6 @@ export default function ResidentDetail({ control, errors }) {
 						</Button>
 					</div>
 					<div className="space-y-6 ms-5">
-						{/* First Row */}
 						<div className="flex flex-row space-x-8">
 							<div className="flex flex-col w-[430px]">
 								<Label
@@ -117,7 +114,6 @@ export default function ResidentDetail({ control, errors }) {
 							</div>
 						</div>
 
-						{/* Second Row */}
 						<div className="flex flex-row flex-wrap space-x-5">
 							<div className="flex flex-col w-[255px]">
 								<Label
@@ -271,7 +267,6 @@ export default function ResidentDetail({ control, errors }) {
 					</div>
 				</div>
 
-				{/* Document Uploads */}
 				<div className="grid grid-cols-4 gap-4">
 					<div>
 						<span className="text-left text-md font-thin">

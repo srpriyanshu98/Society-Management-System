@@ -1,4 +1,3 @@
-// src/components/form-control/signup.jsx
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
@@ -9,7 +8,6 @@ import SelectSociety from "./SellectSociety";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import axiosInstance from "../../test/axiosInstance";
 
-// Custom PasswordInput component
 function PasswordInput({ name, placeholder, value, onChange, error }) {
 	const [showPassword, setShowPassword] = useState(false);
 
@@ -114,16 +112,16 @@ export default function SignUpForm() {
 					country: formData.country,
 					state: formData.state,
 					city: formData.city,
-					societyId: selectedSociety, // Assuming society is the ID
+					societyname: selectedSociety, 
 					password: formData.password,
 					confirmPassword: formData.confirmPassword,
 				});
 				console.log("Form submitted successfully", response.data);
-				// Redirect to the login page after successful registration
+				
 				navigate("/login");
 			} catch (error) {
 				console.error("Error submitting form", error);
-				// Handle error, show error message to the user
+		
 			}
 		} else {
 			console.log("Form data is invalid, not submitting.");
@@ -139,7 +137,7 @@ export default function SignUpForm() {
 			</CardHeader>
 			<CardContent>
 				<form onSubmit={handleSubmit} className="space-y-4">
-					{/* First Name & Last Name */}
+		
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
 							<Label htmlFor="firstName" className="text-sm">
@@ -181,7 +179,7 @@ export default function SignUpForm() {
 						</div>
 					</div>
 
-					{/* Email & Phone Number */}
+			
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
 							<Label htmlFor="email" className="text-sm">
@@ -223,7 +221,7 @@ export default function SignUpForm() {
 						</div>
 					</div>
 
-					{/* Country, State, and City */}
+		
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 						<div>
 							<Label htmlFor="country" className="text-sm">
@@ -280,8 +278,7 @@ export default function SignUpForm() {
 							)}
 						</div>
 					</div>
-
-					{/* Select Society */}
+				
 					<div>
 						<Label htmlFor="society" className="text-sm">
 							Select Society{" "}
@@ -297,8 +294,6 @@ export default function SignUpForm() {
 							</p>
 						)}
 					</div>
-
-					{/* Password & Confirm Password */}
 
 					<div>
 						<Label htmlFor="password" className="text-sm">
@@ -318,7 +313,6 @@ export default function SignUpForm() {
 						)}
 					</div>
 
-					{/* Confirm Password Field */}
 					<div>
 						<Label htmlFor="confirmPassword" className="text-sm">
 							Confirm Password{" "}
@@ -337,8 +331,7 @@ export default function SignUpForm() {
 							</p>
 						)}
 					</div>
-
-					{/* Terms & Conditions */}
+				
 					<div className="flex items-center">
 						<input
 							type="checkbox"
@@ -354,18 +347,16 @@ export default function SignUpForm() {
 							</span>
 						</Label>
 					</div>
-
-					{/* Submit Button */}
+		
 					<Button
 						type="submit"
 						className="w-full  h-[51px] rounded-xl text-white"
-						disabled={!isChecked} // Disable button when checkbox is not checked
+						disabled={!isChecked} 
 					>
 						Register
 					</Button>
 				</form>
 
-				{/* Already have an account */}
 				<div className="text-center mt-4 text-sm">
 					<p>
 						Already have an account?{" "}

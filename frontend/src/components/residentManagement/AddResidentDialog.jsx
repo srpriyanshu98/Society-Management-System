@@ -81,16 +81,16 @@ export default function AddResidentDialog({
 								value="Vacant"
 								checked={unitStatus === "Vacant"}
 								onChange={
-									() => {} /* Prevent any action on change */
+									() => {} 
 								}
 								disabled={
 									isEditMode || unitStatus === "Occupied"
-								} // Disable if "Occupied" is selected
+								} 
 							/>
 							<span className="ml-2 text-gray-500">Vacant</span>
 						</label>
 					</div>
-					{/* Show error message if unit status is not selected */}
+					
 					{unitStatusError && (
 						<p className="text-red-500 text-sm mt-1">
 							{unitStatusError}
@@ -111,7 +111,7 @@ export default function AddResidentDialog({
 							By submitting, you agree to select Occupied
 						</label>
 					</div>
-					{/* Show error message if confirm is not checked */}
+					
 					{confirmError && (
 						<p className="text-red-500 text-sm mt-1">
 							{confirmError}
@@ -119,7 +119,7 @@ export default function AddResidentDialog({
 					)}
 				</div>
 				<div className="space-x-5">
-					{/* Cancel Button */}
+					
 					<Button
 						variant="secondary"
 						onClick={onClose}
@@ -127,7 +127,7 @@ export default function AddResidentDialog({
 					>
 						Cancel
 					</Button>
-					{/* Save Button */}
+					
 					<Button
 						to="/resident"
 						onClick={handleSave}

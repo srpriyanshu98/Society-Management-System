@@ -34,7 +34,6 @@ export default function VehicleCounting({ control, errors }) {
 			<Separator />
 
 			<CardContent>
-				{/* Dynamically render vehicle input fields based on selected count */}
 				<div className="grid grid-cols-2 gap-4 mt-4">
 					{Array.from({ length: vehicleCount }).map((_, i) => (
 						<div

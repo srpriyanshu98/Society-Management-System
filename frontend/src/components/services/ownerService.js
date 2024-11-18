@@ -1,4 +1,3 @@
-// src/services/ownerService.js
 import axiosInstance from "../../test/axiosInstance";
 
 export const createOwner = async (ownerData) => {

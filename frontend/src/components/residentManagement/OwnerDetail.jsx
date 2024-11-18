@@ -9,7 +9,6 @@ export default function OwnerDetail({ control, errors }) {
 			<CardContent className="space-y-4">
 				<div className="space-y-6">
 					<div className="grid grid-cols-3 gap-8">
-						{/* Full Name */}
 						<div className="flex flex-col">
 							<Label htmlFor="OwnerFullName" className="mb-3">
 								Owner Full Name
@@ -37,7 +36,6 @@ export default function OwnerDetail({ control, errors }) {
 							)}
 						</div>
 
-						{/* Phone Number */}
 						<div className="flex flex-col">
 							<Label htmlFor="OwnerPhone" className="mb-3">
 								Owner Phone
@@ -63,7 +61,6 @@ export default function OwnerDetail({ control, errors }) {
 							)}
 						</div>
 
-						{/* Email Address */}
 						<div className="flex flex-col">
 							<Label htmlFor="OwnerAddress" className="mb-3">
 								Owner Address

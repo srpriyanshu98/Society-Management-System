@@ -1,4 +1,3 @@
-// src/services/tenantService.js
 import axiosInstance from "../../test/axiosInstance";
 
 export const createTenant = async (tenantData) => {

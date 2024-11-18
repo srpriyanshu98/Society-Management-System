@@ -3,11 +3,10 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { InputOTP, InputOTPSlot } from "../ui/input-otp";
-import { EyeIcon, EyeOffIcon } from "lucide-react"; // Assume lucide-react icons are used
+import { EyeIcon, EyeOffIcon } from "lucide-react"; 
 import { Link, useNavigate } from "react-router-dom";
-import axiosInstance from "../../test/axiosInstance"; // Adjust the path accordingly
+import axiosInstance from "../../test/axiosInstance"; 
 
-// Custom Password Input Component
 function PasswordInput({ label, value, onChange, placeholder }) {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -49,7 +48,7 @@ export default function ResetPassword() {
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    const navigate = useNavigate(); // Get the navigate function
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         let timer;
@@ -74,8 +73,8 @@ export default function ResetPassword() {
                 setCountdown(60);
                 setEnteredOtp("");
                 const receivedOtp = response.data.otp;
-                console.log(response.data); // Get OTP from response
-                localStorage.setItem("otp", receivedOtp); // Store OTP in localStorage
+                console.log(response.data); 
+                localStorage.setItem("otp", receivedOtp); 
                 console.log("OTP sent successfully:", receivedOtp);
             }
         } catch (error) {
@@ -86,12 +85,11 @@ export default function ResetPassword() {
 
     const handleOtpSubmit = (e) => {
         e.preventDefault();
-        const storedOtp = localStorage.getItem("otp"); // Retrieve OTP from localStorage
 
         if (enteredOtp === storedOtp) {
             setOtpVerified(true);
             setErrorMessage("");
-            localStorage.removeItem("otp"); // Clear OTP after successful verification
+            localStorage.removeItem("otp"); 
             console.log("OTP verified successfully");
         } else {
             setErrorMessage("Incorrect OTP. Please try again.");
@@ -120,7 +118,7 @@ export default function ResetPassword() {
             if (response.status === 200) {
                 setErrorMessage("");
                 console.log("Password reset successful:", newPassword);
-                navigate("/login"); // Redirect to login page after successful password reset
+                navigate("/login");
             }
         } catch (error) {
             console.error("Error in handlePasswordResetSubmit:", error);

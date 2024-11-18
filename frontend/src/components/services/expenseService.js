@@ -5,7 +5,7 @@ export const addExpense = async (expenseData) => {
         const formData = new FormData();
         formData.append("title", expenseData.title);
         formData.append("description", expenseData.description);
-        formData.append("date", expenseData.date); // Date is already formatted as "YYYY-MM-DD"
+        formData.append("date", expenseData.date);
         formData.append("amount", expenseData.amount);
         formData.append("bill", expenseData.billFile);
 

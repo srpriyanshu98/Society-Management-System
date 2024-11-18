@@ -9,7 +9,6 @@ export default function SecurityProtocolDialog({ isOpen, onClose }) {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 
-	// Check if both title and description have values
 	const isSaveEnabled = title.trim() !== "" && description.trim() !== "";
 
 	return (
@@ -46,7 +45,6 @@ export default function SecurityProtocolDialog({ isOpen, onClose }) {
 					</div>
 				</div>
 				<div className="space-x-5 mt-4">
-					{/* Cancel Button */}
 					<Button
 						variant="secondary"
 						onClick={onClose}
@@ -54,10 +52,9 @@ export default function SecurityProtocolDialog({ isOpen, onClose }) {
 					>
 						Cancel
 					</Button>
-					{/* Save Button */}
 					<Button
 						className="w-40"
-						disabled={!isSaveEnabled} // Disable if inputs are empty
+						disabled={!isSaveEnabled}
 					>
 						Save
 					</Button>

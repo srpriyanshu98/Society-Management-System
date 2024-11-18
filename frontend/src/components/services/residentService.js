@@ -1,4 +1,3 @@
-// src/services/residentService.js
 import axiosInstance from "../../test/axiosInstance";
 
 export const getResidents = async () => {

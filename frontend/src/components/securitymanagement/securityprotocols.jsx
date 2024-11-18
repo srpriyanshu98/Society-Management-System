@@ -6,8 +6,8 @@ import { SecurityprotocolsData } from "@/data/securityprotocolsData";
 import { Button } from "../ui/button";
 import SecurityProtocolDialog from "./securityProtocolDialog";
 import EditSecurityProtocols from "./editSecurityProtocols";
-import ConfirmationDialog from "../ConfirmationDialog "; // Import the confirmation dialog Delete
-import ViewSecurityProtocol from "./viewSecurityProtocol"; // Import ViewSecurityProtocol dialog
+import ConfirmationDialog from "../ConfirmationDialog "; 
+import ViewSecurityProtocol from "./viewSecurityProtocol"; 
 
 export default function SecurityProtocols() {
 	const [logs, setLogs] = useState([]);
@@ -17,8 +17,8 @@ export default function SecurityProtocols() {
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [selectedProtocol, setSelectedProtocol] = useState(null);
 	const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
-	const [protocolToDelete, setProtocolToDelete] = useState(null); // To store the protocol to be deleted
-	const [isViewDialogOpen, setIsViewDialogOpen] = useState(false); // State for View Protocol dialog
+	const [protocolToDelete, setProtocolToDelete] = useState(null);
+	const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
 
 	const fetchLogs = async () => {
 		try {
@@ -51,22 +51,21 @@ export default function SecurityProtocols() {
 
 	const handleDeleteProtocol = (protocol) => {
 		setProtocolToDelete(protocol);
-		setIsConfirmDialogOpen(true); // Open the confirmation dialog
+		setIsConfirmDialogOpen(true); 
 	};
 
 	const handleViewProtocol = (protocol) => {
 		setSelectedProtocol(protocol);
-		setIsViewDialogOpen(true); // Open the view dialog
+		setIsViewDialogOpen(true); 
 	};
 
 	const confirmDelete = () => {
-		// Logic to delete the protocol
-		setLogs(logs.filter((log) => log.id !== protocolToDelete.id)); // Filter out the deleted protocol
-		setIsConfirmDialogOpen(false); // Close the confirmation dialog
+		setLogs(logs.filter((log) => log.id !== protocolToDelete.id)); 
+		setIsConfirmDialogOpen(false); 
 	};
 
 	const cancelDelete = () => {
-		setIsConfirmDialogOpen(false); // Close the confirmation dialog
+		setIsConfirmDialogOpen(false);
 	};
 
 	return (
@@ -131,7 +130,7 @@ export default function SecurityProtocols() {
 													className="rounded-md bg-gray-100 p-2 font-semibold"
 													onClick={() =>
 														handleViewProtocol(log)
-													} // Open View dialog
+													} 
 												>
 													<img
 														src="./src/assets/view.svg"
@@ -179,7 +178,7 @@ export default function SecurityProtocols() {
 				<EditSecurityProtocols
 					isOpen={isEditDialogOpen}
 					onClose={() => setIsEditDialogOpen(false)}
-					protocol={selectedProtocol} // Pass the selected protocol data
+					protocol={selectedProtocol} 
 				/>
 			)}
 
@@ -190,12 +189,10 @@ export default function SecurityProtocols() {
 				onConfirm={confirmDelete}
 				onCancel={cancelDelete}
 			/>
-
-			{/* View Dialog for displaying protocol details */}
 			<ViewSecurityProtocol
 				isOpen={isViewDialogOpen}
 				onClose={() => setIsViewDialogOpen(false)}
-				log={selectedProtocol} // Pass the selected protocol data
+				log={selectedProtocol}
 			/>
 		</Card>
 	);

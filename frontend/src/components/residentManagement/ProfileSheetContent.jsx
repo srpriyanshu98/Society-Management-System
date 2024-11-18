@@ -25,7 +25,6 @@ export default function ProfileSheetContent() {
 						View Owner Details
 					</SheetTitle>
 				</SheetHeader>
-				{/* Profile Image and Basic Details */}
 				<div className="text-center mt-4 flex justify-center items-center">
 					<div className="flex items-center flex-col mt-5">
 						<Avatar className="w-24 h-24">
@@ -41,7 +40,6 @@ export default function ProfileSheetContent() {
 						<p className="text-gray-500">RogerLubin@gmail.com</p>
 					</div>
 				</div>
-				{/* Basic Information */}
 				<div className="bg-gray-100 rounded-lg p-4 mt-4 space-y-2">
 					<div className="flex justify-between">
 						<span className="text-gray-600">Wing</span>
@@ -61,7 +59,6 @@ export default function ProfileSheetContent() {
 					</div>
 				</div>
 
-				{/* Document Section */}
 				<div className="bg-gray-100 rounded-lg p-4 mt-4">
 					<h3 className="font-semibold text-gray-700">Document</h3>
 					<div className="flex items-center justify-between mt-2 p-2 bg-white rounded-lg shadow-sm">
@@ -102,7 +99,6 @@ export default function ProfileSheetContent() {
 					</div>
 				</div>
 
-				{/* Member Counting Section */}
 				<div className="bg-white rounded-lg mt-4">
 					<div className="bg-blue-500 text-white p-2 rounded-t-lg flex justify-between items-center">
 						<h3 className="font-semibold">Member Counting</h3>

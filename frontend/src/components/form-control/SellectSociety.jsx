@@ -1,4 +1,3 @@
-// src/components/form-control/SelectSociety.jsx
 import { useState, useEffect } from "react";
 import {
 	Dialog,
@@ -38,7 +37,7 @@ export default function SelectSociety({ value, onChange }) {
 
 	const handleCreateSociety = (newSociety) => {
 		setSocieties([...societies, newSociety]);
-		onChange(newSociety._id); // Set the newly created society as the selected value
+		onChange(newSociety._id); 
 	};
 
 	return (

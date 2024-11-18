@@ -44,8 +44,8 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 				shift: editData.shift,
 				shiftDate: new Date(editData.shiftDate),
 				shiftTime: editData.shiftTime,
-				aadharFile: null, // You might need to handle file data differently
-				guardPhoto: null, // You might need to handle file data differently
+				aadharFile: null, 
+				guardPhoto: null, 
 			});
 		} else {
 			setFormData({
@@ -75,7 +75,7 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 			"image/gif",
 			"application/pdf",
 		];
-		const maxSize = 10 * 1024 * 1024; // 10 MB
+		const maxSize = 10 * 1024 * 1024; 
 
 		if (file && validTypes.includes(file.type) && file.size <= maxSize) {
 			setFormData((prevData) => ({ ...prevData, [field]: file }));
@@ -171,7 +171,6 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 							</p>
 						)}
 					</div>
-					{/* //TODO: RESTRICT USER FROM ENTERIN MORE THE 10 DIGITS */}
 					<div className="mb-3">
 						<label className="block font-medium mb-1">
 							Phone Number
@@ -324,7 +323,6 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 							)}
 						</div>
 					</div>
-					{/* //TODO: UPDATE TH UI OF ADHAR UPLODE */}
 					<div className="mb-4">
 						<label className="block font-medium mb-1">
 							Upload Aadhar Card

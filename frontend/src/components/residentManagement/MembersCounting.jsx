@@ -40,7 +40,6 @@ export default function MembersCounting({ control, errors }) {
 			<Separator />
 
 			<CardContent>
-				{/* Dynamically render member input fields based on selected count */}
 				{Array.from({ length: memberCount }).map((_, i) => (
 					<div key={i} className="grid grid-cols-6  gap-4 mt-4">
 						<div className="mb-5">

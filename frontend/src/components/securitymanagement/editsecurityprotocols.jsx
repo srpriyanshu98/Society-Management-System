@@ -8,10 +8,9 @@ import { useState } from "react";
 export default function EditSecurityProtocols({ isOpen, onClose }) {
 	const [date, setDate] = useState("");
 	const [time, setTime] = useState("");
-	const [title, setTitle] = useState(""); // State for Title input
-	const [description, setDescription] = useState(""); // State for Description input
+	const [title, setTitle] = useState(""); 
+	const [description, setDescription] = useState(""); 
 
-	// Check if all required fields are filled
 	const isFormValid = title && description && date && time;
 
 	return (
@@ -28,8 +27,8 @@ export default function EditSecurityProtocols({ isOpen, onClose }) {
 					<div className="relative">
 						<Input
 							type="text"
-							value={title} // Bind value to state
-							onChange={(e) => setTitle(e.target.value)} // Update state on change
+							value={title}
+							onChange={(e) => setTitle(e.target.value)}
 							className="w-full p-2 border rounded-lg"
 							placeholder="Enter Title"
 						/>
@@ -39,8 +38,8 @@ export default function EditSecurityProtocols({ isOpen, onClose }) {
 					</Label>
 					<div className="relative">
 						<textarea
-							value={description} // Bind value to state
-							onChange={(e) => setDescription(e.target.value)} // Update state on change
+							value={description} 
+							onChange={(e) => setDescription(e.target.value)}
 							className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent text-gray-700 placeholder-gray-400 text-sm"
 							rows="3"
 							placeholder="Enter description"
@@ -78,7 +77,6 @@ export default function EditSecurityProtocols({ isOpen, onClose }) {
 					</div>
 				</div>
 				<div className="space-x-5 mt-4">
-					{/* Cancel Button */}
 					<Button
 						variant="secondary"
 						onClick={onClose}
@@ -86,10 +84,9 @@ export default function EditSecurityProtocols({ isOpen, onClose }) {
 					>
 						Cancel
 					</Button>
-					{/* Save Button */}
 					<Button
 						className="w-40"
-						disabled={!isFormValid} // Disable if form is not valid
+						disabled={!isFormValid}
 					>
 						Save
 					</Button>

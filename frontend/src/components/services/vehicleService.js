@@ -1,4 +1,3 @@
-// src/services/vehicleService.js
 import axiosInstance from "../../test/axiosInstance";
 
 export const createVehicle = async (vehicleData) => {
