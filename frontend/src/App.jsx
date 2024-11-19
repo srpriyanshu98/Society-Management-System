@@ -25,6 +25,12 @@ import RequestTracking from "./pages/admin/RequestTracking";
 import SecurityRuls from "./pages/admin/SecurityRuls";
 import VisitortrackingScreen from "./pages/security/visitortrackingscreen";
 import EmergencyManagement from "./pages/security/emergencymanagement";
+import Community from "./pages/resident/Community";
+import EventsParticipation from "./pages/resident/EventsParticipation";
+import PersonalDetail from "./pages/resident/PersonalDetail";
+import ServiceAndComplaint from "./pages/resident/ServiceAndComplaint";
+import PaymentPortal from "./pages/resident/PaymentPortal";
+import SecurityProtocols from "./pages/resident/SecurityProtocols";
 
 function App() {
 	return (
@@ -57,10 +63,28 @@ function App() {
 			<Route path="/announcements" element={<Announcement />} />
 
 			{/* RESIDENTS ROUTES */}
+			<Route path="/personal-detail" element={<PersonalDetail />} />
+			<Route
+				path="/service-complaint"
+				element={<ServiceAndComplaint />}
+			/>
+			<Route
+				path="/events-participation"
+				element={<EventsParticipation />}
+			/>
+			<Route path="/community" element={<Community />} />
+			<Route path="/payment-portal" element={<PaymentPortal />} />
+			<Route path="/security-protocals" element={<SecurityProtocols />} />
 
 			{/* SECURITY ROUTES */}
-			<Route path="/visitortracking-screen" element={<VisitortrackingScreen />} />
-			<Route path="/emergencymanagement" element={<EmergencyManagement/>} />
+			<Route
+				path="/visitortracking-screen"
+				element={<VisitortrackingScreen />}
+			/>
+			<Route
+				path="/emergencymanagement"
+				element={<EmergencyManagement />}
+			/>
 
 			{/* TEST ROUTES*/}
 			<Route path="/slider" element={<Slider />} />

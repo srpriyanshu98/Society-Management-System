@@ -1,5 +1,7 @@
 const breadcrumbData = {
 	"/": [{ label: "Home", href: "/" }],
+
+	// ADMIN BREADCRUM
 	"/residents": [
 		{ label: "Home", href: "/" },
 		{ label: "Resident Management", href: "/residents" },
@@ -60,6 +62,42 @@ const breadcrumbData = {
 		{ label: "Home", href: "/" },
 		{ label: "Resident Management", href: "/residents" },
 		{ label: "Residents Form", href: "/resident-form" },
+	],
+
+	// RESIDENT BREADCRUM
+	"/personal-detail": [
+		{ label: "Home", href: "/" },
+		{ label: "Personal Detail", href: "/personal-detail" },
+	],
+	"/service-complaint": [
+		{ label: "Home", href: "/" },
+		{ label: "Service Complaint", href: "/service-complaint" },
+	],
+	"/events-participation": [
+		{ label: "Home", href: "/" },
+		{ label: "Events Participation", href: "/events-participation" },
+	],
+	"/community": [
+		{ label: "Home", href: "/" },
+		{ label: "Community", href: "/community" },
+	],
+	"/payment-portal": [
+		{ label: "Home", href: "/" },
+		{ label: "Payment Portal", href: "/payment-portal" },
+	],
+	"/security-protocals": [
+		{ label: "Home", href: "/" },
+		{ label: "Security Protocals", href: "/security-protocals" },
+	],
+
+	// SECURITY  BREADCRUM
+	"/visitortracking-screen": [
+		{ label: "Home", href: "/" },
+		{ label: "Visitortracking Screen", href: "/visitortracking-screen" },
+	],
+	"/emergencymanagement": [
+		{ label: "Home", href: "/" },
+		{ label: "Emergencymanagement", href: "/emergencymanagement" },
 	],
 };
 

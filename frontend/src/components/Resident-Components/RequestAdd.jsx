@@ -1,60 +1,60 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Calendar } from "../ui/calendar";
-import moment from "moment"; // Import Moment.js
+import moment from "moment";
 
-export default function RequestAddAndEdit({
-	isOpen,
-	onClose,
-	request,
-	onSave,
-}) {
-	const [editedRequest, setEditedRequest] = useState({ ...request });
-
-	useEffect(() => {
-		setEditedRequest({ ...request });
-	}, [request]);
+export default function RequestAdd({ isOpen, onClose, onSave }) {
+	const [newRequest, setNewRequest] = useState({
+		requesterName: "",
+		requestName: "",
+		requestDescp: "",
+		requestDate: new Date(),
+		wing: "",
+		unit: "",
+		priority: "medium",
+		status: "open",
+	});
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 
 		if (name === "wing") {
 			if (/^[a-zA-Z]$/.test(value) || value === "") {
-				setEditedRequest({
-					...editedRequest,
+				setNewRequest({
+					...newRequest,
 					[name]: value.toUpperCase(),
 				});
 			}
 		} else if (name === "unit") {
 			if (/^\d{0,4}$/.test(value)) {
-				setEditedRequest({ ...editedRequest, [name]: value });
+				setNewRequest({ ...newRequest, [name]: value });
 			}
 		} else {
-			setEditedRequest({ ...editedRequest, [name]: value });
+			setNewRequest({ ...newRequest, [name]: value });
 		}
 	};
 
 	const handleRadioChange = (e) => {
 		const { name, value } = e.target;
-		setEditedRequest({ ...editedRequest, [name]: value });
+		setNewRequest({ ...newRequest, [name]: value });
 	};
 
 	const handleDateChange = (date) => {
-		setEditedRequest({ ...editedRequest, requestDate: date });
+		setNewRequest({ ...newRequest, requestDate: date });
 	};
 
 	const handleSave = () => {
-		onSave(editedRequest);
+		onSave(newRequest);
 		clearForm();
 		onClose();
 	};
 
 	const clearForm = () => {
-		setEditedRequest({
+		setNewRequest({
 			requesterName: "",
 			requestName: "",
 			requestDescp: "",
@@ -70,9 +70,7 @@ export default function RequestAddAndEdit({
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>
-						{request ? "Edit Request" : "Add Request"}
-					</DialogTitle>
+					<DialogTitle>Add Request</DialogTitle>
 				</DialogHeader>
 				<Separator />
 				<div className="space-y-4">
@@ -84,7 +82,7 @@ export default function RequestAddAndEdit({
 							</div>
 							<Input
 								name="requesterName"
-								value={editedRequest.requesterName || ""}
+								value={newRequest.requesterName || ""}
 								onChange={handleChange}
 								placeholder="Requester Name"
 							/>
@@ -98,7 +96,7 @@ export default function RequestAddAndEdit({
 							</div>
 							<Input
 								name="requestName"
-								value={editedRequest.requestName || ""}
+								value={newRequest.requestName || ""}
 								onChange={handleChange}
 								placeholder="Request Name"
 							/>
@@ -112,7 +110,7 @@ export default function RequestAddAndEdit({
 							</div>
 							<Input
 								name="requestDescp"
-								value={editedRequest.requestDescp || ""}
+								value={newRequest.requestDescp || ""}
 								onChange={handleChange}
 								placeholder="Description"
 							/>
@@ -127,7 +125,7 @@ export default function RequestAddAndEdit({
 							</div>
 							<Input
 								name="wing"
-								value={editedRequest.wing || ""}
+								value={newRequest.wing || ""}
 								onChange={handleChange}
 								placeholder="Wing"
 							/>
@@ -141,7 +139,7 @@ export default function RequestAddAndEdit({
 							<Input
 								name="unit"
 								type="number"
-								value={editedRequest.unit || ""}
+								value={newRequest.unit || ""}
 								onChange={handleChange}
 								placeholder="Unit"
 							/>
@@ -159,10 +157,10 @@ export default function RequestAddAndEdit({
 						<Popover>
 							<PopoverTrigger asChild>
 								<Button variant={"outline"} className="w-full">
-									{editedRequest.requestDate ? (
-										moment(
-											editedRequest.requestDate
-										).format("MMM DD, YYYY")
+									{newRequest.requestDate ? (
+										moment(newRequest.requestDate).format(
+											"MMM DD, YYYY"
+										)
 									) : (
 										<span>Pick a date</span>
 									)}
@@ -171,7 +169,7 @@ export default function RequestAddAndEdit({
 							<PopoverContent className="w-auto p-0">
 								<Calendar
 									mode="single"
-									selected={editedRequest.requestDate}
+									selected={newRequest.requestDate}
 									onSelect={handleDateChange}
 									initialFocus
 								/>
@@ -189,7 +187,7 @@ export default function RequestAddAndEdit({
 								type="radio"
 								name="priority"
 								value="high"
-								checked={editedRequest.priority === "high"}
+								checked={newRequest.priority === "high"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -200,7 +198,7 @@ export default function RequestAddAndEdit({
 								type="radio"
 								name="priority"
 								value="medium"
-								checked={editedRequest.priority === "medium"}
+								checked={newRequest.priority === "medium"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -211,7 +209,7 @@ export default function RequestAddAndEdit({
 								type="radio"
 								name="priority"
 								value="low"
-								checked={editedRequest.priority === "low"}
+								checked={newRequest.priority === "low"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -229,7 +227,7 @@ export default function RequestAddAndEdit({
 								type="radio"
 								name="status"
 								value="open"
-								checked={editedRequest.status === "open"}
+								checked={newRequest.status === "open"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -240,7 +238,7 @@ export default function RequestAddAndEdit({
 								type="radio"
 								name="status"
 								value="pending"
-								checked={editedRequest.status === "pending"}
+								checked={newRequest.status === "pending"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -251,7 +249,7 @@ export default function RequestAddAndEdit({
 								type="radio"
 								name="status"
 								value="solve"
-								checked={editedRequest.status === "solve"}
+								checked={newRequest.status === "solve"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>

@@ -32,21 +32,29 @@ const menuItems = {
 		{ name: "Announcement", path: "/announcements", icon: "📢" },
 	],
 	resident: [
-		{ name: "Dashboard", path: "/dashboard", icon: "📊" },
-		{ name: "Personal Detail", path: "/personal-detail", icon: "📋" },
+		{ name: "Dashboard", path: "/", icon: "LayoutDashboard" },
+		{
+			name: "Personal Detail",
+			path: "/personal-detail",
+			icon: "SquareUserRound",
+		},
 		{
 			name: "Service And Complaint",
 			path: "/service-complaint",
-			icon: "📢",
+			icon: "ServerCrash",
 		},
 		{
 			name: "Events Participation",
 			path: "/events-participation",
-			icon: "📢",
+			icon: "CalendarFold",
 		},
-		{ name: "Community", path: "/community", icon: "📢" },
-		{ name: "Payment Portal", path: "/payment-portal", icon: "📢" },
-		{ name: "Security Protocols", path: "/security-protocals", icon: "📢" },
+		{ name: "Community", path: "/community", icon: "Component" },
+		{ name: "Payment Portal", path: "/payment-portal", icon: "HandCoins" },
+		{
+			name: "Security Protocols",
+			path: "/security-protocals",
+			icon: "ShieldCheck",
+		},
 	],
 	security: [
 		{
