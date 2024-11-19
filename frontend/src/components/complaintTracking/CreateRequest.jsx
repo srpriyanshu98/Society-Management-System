@@ -8,6 +8,7 @@ import axiosInstance from "@/test/axiosInstance";
 import RequestViewModal from "./RequestViewModal";
 import ConfirmationDialog from "../ConfirmationDialog ";
 import RequestAddAndEdit from "./RequestAddAndEdit";
+import { getPriorityColor, getStatusColor } from "@/data/requestData";
 
 export default function CreateRequest() {
 	const [requests, setRequests] = useState([]);
@@ -111,32 +112,6 @@ export default function CreateRequest() {
 			} else {
 				console.error("Error setting up the request:", error.message);
 			}
-		}
-	};
-
-	const getPriorityColor = (priority) => {
-		switch (priority) {
-			case "high":
-				return "bg-red-700";
-			case "medium":
-				return "bg-blue-700";
-			case "low":
-				return "bg-green-700";
-			default:
-				return "bg-gray-700";
-		}
-	};
-
-	const getStatusColor = (status) => {
-		switch (status) {
-			case "open":
-				return "bg-blue-100 text-blue-600";
-			case "pending":
-				return "bg-yellow-100 text-yellow-600";
-			case "solve":
-				return "bg-green-100 text-green-600";
-			default:
-				return "bg-gray-100";
 		}
 	};
 

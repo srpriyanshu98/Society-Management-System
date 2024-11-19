@@ -4,12 +4,16 @@ import { Separator } from "../ui/separator";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { useState } from "react";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { CalendarDays } from "lucide-react";
+import { Calendar } from "../ui/calendar";
+import { isValid, format } from "date-fns"; // Import isValid and format
 
 export default function EditSecurityProtocols({ isOpen, onClose }) {
 	const [date, setDate] = useState("");
 	const [time, setTime] = useState("");
-	const [title, setTitle] = useState(""); 
-	const [description, setDescription] = useState(""); 
+	const [title, setTitle] = useState("");
+	const [description, setDescription] = useState("");
 
 	const isFormValid = title && description && date && time;
 
@@ -38,7 +42,7 @@ export default function EditSecurityProtocols({ isOpen, onClose }) {
 					</Label>
 					<div className="relative">
 						<textarea
-							value={description} 
+							value={description}
 							onChange={(e) => setDescription(e.target.value)}
 							className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent text-gray-700 placeholder-gray-400 text-sm"
 							rows="3"
@@ -51,15 +55,36 @@ export default function EditSecurityProtocols({ isOpen, onClose }) {
 						<label className="block text-gray-700 font-medium">
 							Date <span className="text-red-500">*</span>
 						</label>
-						<div className="relative">
-							<Input
-								type="date"
-								value={date}
-								onChange={(e) => setDate(e.target.value)}
-								className="w-full border border-gray-300 rounded-lg"
-								placeholder="Select Date"
-							/>
-						</div>
+						<Popover>
+							<PopoverTrigger asChild>
+								<Button
+									variant="outline"
+									className={`w-full pl-3 text-left font-normal ${
+										!date ? "text-muted-foreground" : ""
+									}`}
+								>
+									{isValid(date)
+										? format(date, "MM/dd/yyyy")
+										: "Select Date"}
+									<CalendarDays className="ml-auto h-4 w-4 opacity-50" />
+								</Button>
+							</PopoverTrigger>
+							<PopoverContent
+								className="w-auto p-0"
+								align="start"
+							>
+								<Calendar
+									mode="single"
+									selected={date}
+									onSelect={(newDate) => {
+										if (newDate && isValid(newDate)) {
+											setDate(newDate);
+										}
+									}}
+									initialFocus
+								/>
+							</PopoverContent>
+						</Popover>
 					</div>
 					<div className="grid grid-cols-1 gap-2">
 						<label className="block text-gray-700 font-medium">
@@ -77,6 +102,7 @@ export default function EditSecurityProtocols({ isOpen, onClose }) {
 					</div>
 				</div>
 				<div className="space-x-5 mt-4">
+					{/* Cancel Button */}
 					<Button
 						variant="secondary"
 						onClick={onClose}
@@ -84,10 +110,8 @@ export default function EditSecurityProtocols({ isOpen, onClose }) {
 					>
 						Cancel
 					</Button>
-					<Button
-						className="w-40"
-						disabled={!isFormValid}
-					>
+					{/* Save Button */}
+					<Button className="w-40" disabled={!isFormValid}>
 						Save
 					</Button>
 				</div>

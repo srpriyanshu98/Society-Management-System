@@ -8,6 +8,7 @@ import axiosInstance from "@/test/axiosInstance";
 import ComplaintViewModal from "../dashboard/ComplaintViewModal ";
 import ConfirmationDialog from "../ConfirmationDialog ";
 import ComplaintEditModal from "../dashboard/ComplaintEditModal";
+import { getPriorityColor, getStatusColor } from "@/data/complaintsData";
 
 export default function CreateComplaint() {
 	const [complaints, setComplaints] = useState([]);
@@ -127,32 +128,6 @@ export default function CreateComplaint() {
 			} else {
 				console.error("Error setting up the request:", error.message);
 			}
-		}
-	};
-
-	const getPriorityColor = (priority) => {
-		switch (priority) {
-			case "High":
-				return "bg-red-700";
-			case "Medium":
-				return "bg-blue-700";
-			case "Low":
-				return "bg-green-700";
-			default:
-				return "bg-gray-700";
-		}
-	};
-
-	const getStatusColor = (status) => {
-		switch (status) {
-			case "Open":
-				return "bg-blue-100 text-blue-600";
-			case "Pending":
-				return "bg-yellow-100 text-yellow-600";
-			case "Solve":
-				return "bg-green-100 text-green-600";
-			default:
-				return "bg-gray-100";
 		}
 	};
 

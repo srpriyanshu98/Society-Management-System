@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const securitySchema = new mongoose.Schema(
 	{
-		photo: {
+		guardPhoto: {
 			type: String,
 		},
 		fullName: {
@@ -20,7 +20,7 @@ const securitySchema = new mongoose.Schema(
 		},
 		shift: {
 			type: String,
-			enum: ["day", "night"],
+			enum: ["Day", "Night"],
 			required: true,
 		},
 		shiftDate: {

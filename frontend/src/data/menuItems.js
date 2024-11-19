@@ -48,7 +48,17 @@ const menuItems = {
 		{ name: "Payment Portal", path: "/payment-portal", icon: "📢" },
 		{ name: "Security Protocols", path: "/security-protocals", icon: "📢" },
 	],
-	security: [{ name: "Security", path: "/security", icon: "Cctv" }],
+	security: [
+		{
+			name: "Security",
+			path: "/visitortracking-screen",
+			icon: "Cctv",
+			subItems: [
+				{ name: "Visitor Tracking", path: "/visitortracking-screen" },
+				{ name: "Emergency Management", path: "/emergencymanagement" },
+			],
+		},
+	],
 };
 
 export default menuItems;
