@@ -208,9 +208,9 @@ export default function Header() {
       <div className="flex items-center space-x-4">
         <div className="relative">
           <div className="border border-gray-300 p-1 rounded-lg">
-            <a href="##" onClick={handleCardToggle}>
+            <Link onClick={handleCardToggle}>
               <img src="/src/assets/icons8.gif" alt="Active" className="h-6 w-6" />
-            </a>
+            </Link>
           </div>
 
           {/* Conditionally rendered card with Notification content */}
