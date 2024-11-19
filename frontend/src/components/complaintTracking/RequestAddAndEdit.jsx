@@ -6,6 +6,7 @@ import { Separator } from "../ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Calendar } from "../ui/calendar";
 import { format } from "date-fns";
+import moment from "moment"; // Import Moment.js
 
 export default function RequestAddAndEdit({
 	isOpen,
@@ -160,7 +161,7 @@ export default function RequestAddAndEdit({
 							<PopoverTrigger asChild>
 								<Button variant={"outline"} className="w-full">
 									{editedRequest.requestDate ? (
-										format(editedRequest.requestDate, "PPP")
+										moment(editedRequest.requestDate).format('MMM DD, YYYY')
 									) : (
 										<span>Pick a date</span>
 									)}
