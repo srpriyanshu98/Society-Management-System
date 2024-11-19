@@ -32,7 +32,7 @@ const menuItems = {
 		{ name: "Announcement", path: "/announcements", icon: "📢" },
 	],
 	resident: [
-		{ name: "Dashboard", path: "/dashboard", icon: "📊" },
+		{ name: "Dashboard", path: "/", icon: "LayoutDashboard" },
 		{ name: "Personal Detail", path: "/personal-detail", icon: "📋" },
 		{
 			name: "Service And Complaint",
