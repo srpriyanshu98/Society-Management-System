@@ -10,7 +10,7 @@ import {
 import { MoreVertical } from "lucide-react";
 import axiosInstance from "@/test/axiosInstance";
 import ConfirmationDialog from "@/components/ConfirmationDialog ";
-import ComplaintAdd from "../complaintAdd";
+import ComplaintAdd from "./ComplaintAdd";
 
 export default function Complaint() {
 	const [complaints, setComplaints] = useState([]);

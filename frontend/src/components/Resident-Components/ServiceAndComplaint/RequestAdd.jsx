@@ -1,14 +1,27 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
+import moment from "moment";
+import {
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
+import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 
-export default function ComplaintAdd({ isOpen, onClose, onSave }) {
-	const [newComplaint, setNewComplaint] = useState({
-		complainerName: "",
-		complaintName: "",
-		description: "",
+export default function RequestAdd({ isOpen, onClose, onSave }) {
+	const [newRequest, setNewRequest] = useState({
+		requesterName: "",
+		requestName: "",
+		requestDescp: "",
+		requestDate: new Date(),
 		wing: "",
 		unit: "",
 		priority: "medium",
@@ -20,40 +33,45 @@ export default function ComplaintAdd({ isOpen, onClose, onSave }) {
 
 		if (name === "wing") {
 			if (/^[a-zA-Z]$/.test(value) || value === "") {
-				setNewComplaint({
-					...newComplaint,
+				setNewRequest({
+					...newRequest,
 					[name]: value.toUpperCase(),
 				});
 			}
 		} else if (name === "unit") {
 			if (/^\d{0,4}$/.test(value)) {
-				setNewComplaint({ ...newComplaint, [name]: value });
+				setNewRequest({ ...newRequest, [name]: value });
 			}
 		} else {
-			setNewComplaint({ ...newComplaint, [name]: value });
+			setNewRequest({ ...newRequest, [name]: value });
 		}
 	};
 
 	const handleRadioChange = (e) => {
 		const { name, value } = e.target;
-		setNewComplaint({ ...newComplaint, [name]: value });
+		setNewRequest({ ...newRequest, [name]: value });
+	};
+
+	const handleDateChange = (date) => {
+		setNewRequest({ ...newRequest, requestDate: date });
 	};
 
 	const handleSave = () => {
-		onSave(newComplaint);
+		onSave(newRequest);
 		clearForm();
 		onClose();
 	};
 
 	const clearForm = () => {
-		setNewComplaint({
-			complainerName: "",
-			complaintName: "",
-			description: "",
+		setNewRequest({
+			requesterName: "",
+			requestName: "",
+			requestDescp: "",
+			requestDate: new Date(),
 			wing: "",
 			unit: "",
-			priority: "Medium",
-			status: "Open",
+			priority: "medium",
+			status: "open",
 		});
 	};
 
@@ -61,35 +79,35 @@ export default function ComplaintAdd({ isOpen, onClose, onSave }) {
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Add Complaint</DialogTitle>
+					<DialogTitle>Add Request</DialogTitle>
 				</DialogHeader>
 				<Separator />
 				<div className="space-y-4">
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
 							<div className="font-poppins">
-								Complainer Name
+								Requester Name
 								<span className="text-[#E74C3C]">*</span>
 							</div>
 							<Input
-								name="complainerName"
-								value={newComplaint.complainerName || ""}
+								name="requesterName"
+								value={newRequest.requesterName || ""}
 								onChange={handleChange}
-								placeholder="Complainer Name"
+								placeholder="Requester Name"
 							/>
 						</div>
 					</div>
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
 							<div className="font-poppins">
-								Complaint Name
+								Request Name
 								<span className="text-[#E74C3C]">*</span>
 							</div>
 							<Input
-								name="complaintName"
-								value={newComplaint.complaintName || ""}
+								name="requestName"
+								value={newRequest.requestName || ""}
 								onChange={handleChange}
-								placeholder="Complaint Name"
+								placeholder="Request Name"
 							/>
 						</div>
 					</div>
@@ -100,8 +118,8 @@ export default function ComplaintAdd({ isOpen, onClose, onSave }) {
 								<span className="text-[#E74C3C]">*</span>
 							</div>
 							<Input
-								name="description"
-								value={newComplaint.description || ""}
+								name="requestDescp"
+								value={newRequest.requestDescp || ""}
 								onChange={handleChange}
 								placeholder="Description"
 							/>
@@ -116,7 +134,7 @@ export default function ComplaintAdd({ isOpen, onClose, onSave }) {
 							</div>
 							<Input
 								name="wing"
-								value={newComplaint.wing || ""}
+								value={newRequest.wing || ""}
 								onChange={handleChange}
 								placeholder="Wing"
 							/>
@@ -130,11 +148,42 @@ export default function ComplaintAdd({ isOpen, onClose, onSave }) {
 							<Input
 								name="unit"
 								type="number"
-								value={newComplaint.unit || ""}
+								value={newRequest.unit || ""}
 								onChange={handleChange}
 								placeholder="Unit"
 							/>
 						</div>
+					</div>
+				</div>
+
+				{/* Date Picker for Request Date */}
+				<div className="grid grid-cols-1 gap-2 mt-4">
+					<div className="text-left">
+						<div className="font-poppins">
+							Request Date
+							<span className="text-[#E74C3C]">*</span>
+						</div>
+						<Popover>
+							<PopoverTrigger asChild>
+								<Button variant={"outline"} className="w-full">
+									{newRequest.requestDate ? (
+										moment(newRequest.requestDate).format(
+											"MMM DD, YYYY"
+										)
+									) : (
+										<span>Pick a date</span>
+									)}
+								</Button>
+							</PopoverTrigger>
+							<PopoverContent className="w-auto p-0">
+								<Calendar
+									mode="single"
+									selected={newRequest.requestDate}
+									onSelect={handleDateChange}
+									initialFocus
+								/>
+							</PopoverContent>
+						</Popover>
 					</div>
 				</div>
 
@@ -146,8 +195,8 @@ export default function ComplaintAdd({ isOpen, onClose, onSave }) {
 							<input
 								type="radio"
 								name="priority"
-								value="High"
-								checked={newComplaint.priority === "High"}
+								value="high"
+								checked={newRequest.priority === "high"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -157,8 +206,8 @@ export default function ComplaintAdd({ isOpen, onClose, onSave }) {
 							<input
 								type="radio"
 								name="priority"
-								value="Medium"
-								checked={newComplaint.priority === "Medium"}
+								value="medium"
+								checked={newRequest.priority === "medium"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -168,8 +217,8 @@ export default function ComplaintAdd({ isOpen, onClose, onSave }) {
 							<input
 								type="radio"
 								name="priority"
-								value="Low"
-								checked={newComplaint.priority === "Low"}
+								value="low"
+								checked={newRequest.priority === "low"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -186,8 +235,8 @@ export default function ComplaintAdd({ isOpen, onClose, onSave }) {
 							<input
 								type="radio"
 								name="status"
-								value="Open"
-								checked={newComplaint.status === "Open"}
+								value="open"
+								checked={newRequest.status === "open"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -197,8 +246,8 @@ export default function ComplaintAdd({ isOpen, onClose, onSave }) {
 							<input
 								type="radio"
 								name="status"
-								value="Pending"
-								checked={newComplaint.status === "Pending"}
+								value="pending"
+								checked={newRequest.status === "pending"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -208,8 +257,8 @@ export default function ComplaintAdd({ isOpen, onClose, onSave }) {
 							<input
 								type="radio"
 								name="status"
-								value="Solve"
-								checked={newComplaint.status === "Solve"}
+								value="solve"
+								checked={newRequest.status === "solve"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>

@@ -11,7 +11,7 @@ import { MoreVertical } from "lucide-react";
 import axiosInstance from "@/test/axiosInstance";
 import moment from "moment";
 import ConfirmationDialog from "@/components/ConfirmationDialog ";
-import RequestAdd from "../RequestAdd";
+import RequestAdd from "./RequestAdd";
 
 export default function Request() {
 	const [requests, setRequests] = useState([]);

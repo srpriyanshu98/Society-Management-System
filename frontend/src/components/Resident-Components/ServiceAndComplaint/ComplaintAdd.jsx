@@ -1,18 +1,19 @@
+import { Button } from "@/components/ui/button";
+import {
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Calendar } from "../ui/calendar";
-import moment from "moment";
 
-export default function RequestAdd({ isOpen, onClose, onSave }) {
-	const [newRequest, setNewRequest] = useState({
-		requesterName: "",
-		requestName: "",
-		requestDescp: "",
-		requestDate: new Date(),
+export default function ComplaintAdd({ isOpen, onClose, onSave }) {
+	const [newComplaint, setNewComplaint] = useState({
+		complainerName: "",
+		complaintName: "",
+		description: "",
 		wing: "",
 		unit: "",
 		priority: "medium",
@@ -24,45 +25,40 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 
 		if (name === "wing") {
 			if (/^[a-zA-Z]$/.test(value) || value === "") {
-				setNewRequest({
-					...newRequest,
+				setNewComplaint({
+					...newComplaint,
 					[name]: value.toUpperCase(),
 				});
 			}
 		} else if (name === "unit") {
 			if (/^\d{0,4}$/.test(value)) {
-				setNewRequest({ ...newRequest, [name]: value });
+				setNewComplaint({ ...newComplaint, [name]: value });
 			}
 		} else {
-			setNewRequest({ ...newRequest, [name]: value });
+			setNewComplaint({ ...newComplaint, [name]: value });
 		}
 	};
 
 	const handleRadioChange = (e) => {
 		const { name, value } = e.target;
-		setNewRequest({ ...newRequest, [name]: value });
-	};
-
-	const handleDateChange = (date) => {
-		setNewRequest({ ...newRequest, requestDate: date });
+		setNewComplaint({ ...newComplaint, [name]: value });
 	};
 
 	const handleSave = () => {
-		onSave(newRequest);
+		onSave(newComplaint);
 		clearForm();
 		onClose();
 	};
 
 	const clearForm = () => {
-		setNewRequest({
-			requesterName: "",
-			requestName: "",
-			requestDescp: "",
-			requestDate: new Date(),
+		setNewComplaint({
+			complainerName: "",
+			complaintName: "",
+			description: "",
 			wing: "",
 			unit: "",
-			priority: "medium",
-			status: "open",
+			priority: "Medium",
+			status: "Open",
 		});
 	};
 
@@ -70,35 +66,35 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Add Request</DialogTitle>
+					<DialogTitle>Add Complaint</DialogTitle>
 				</DialogHeader>
 				<Separator />
 				<div className="space-y-4">
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
 							<div className="font-poppins">
-								Requester Name
+								Complainer Name
 								<span className="text-[#E74C3C]">*</span>
 							</div>
 							<Input
-								name="requesterName"
-								value={newRequest.requesterName || ""}
+								name="complainerName"
+								value={newComplaint.complainerName || ""}
 								onChange={handleChange}
-								placeholder="Requester Name"
+								placeholder="Complainer Name"
 							/>
 						</div>
 					</div>
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
 							<div className="font-poppins">
-								Request Name
+								Complaint Name
 								<span className="text-[#E74C3C]">*</span>
 							</div>
 							<Input
-								name="requestName"
-								value={newRequest.requestName || ""}
+								name="complaintName"
+								value={newComplaint.complaintName || ""}
 								onChange={handleChange}
-								placeholder="Request Name"
+								placeholder="Complaint Name"
 							/>
 						</div>
 					</div>
@@ -109,8 +105,8 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 								<span className="text-[#E74C3C]">*</span>
 							</div>
 							<Input
-								name="requestDescp"
-								value={newRequest.requestDescp || ""}
+								name="description"
+								value={newComplaint.description || ""}
 								onChange={handleChange}
 								placeholder="Description"
 							/>
@@ -125,7 +121,7 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 							</div>
 							<Input
 								name="wing"
-								value={newRequest.wing || ""}
+								value={newComplaint.wing || ""}
 								onChange={handleChange}
 								placeholder="Wing"
 							/>
@@ -139,42 +135,11 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 							<Input
 								name="unit"
 								type="number"
-								value={newRequest.unit || ""}
+								value={newComplaint.unit || ""}
 								onChange={handleChange}
 								placeholder="Unit"
 							/>
 						</div>
-					</div>
-				</div>
-
-				{/* Date Picker for Request Date */}
-				<div className="grid grid-cols-1 gap-2 mt-4">
-					<div className="text-left">
-						<div className="font-poppins">
-							Request Date
-							<span className="text-[#E74C3C]">*</span>
-						</div>
-						<Popover>
-							<PopoverTrigger asChild>
-								<Button variant={"outline"} className="w-full">
-									{newRequest.requestDate ? (
-										moment(newRequest.requestDate).format(
-											"MMM DD, YYYY"
-										)
-									) : (
-										<span>Pick a date</span>
-									)}
-								</Button>
-							</PopoverTrigger>
-							<PopoverContent className="w-auto p-0">
-								<Calendar
-									mode="single"
-									selected={newRequest.requestDate}
-									onSelect={handleDateChange}
-									initialFocus
-								/>
-							</PopoverContent>
-						</Popover>
 					</div>
 				</div>
 
@@ -186,8 +151,8 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 							<input
 								type="radio"
 								name="priority"
-								value="high"
-								checked={newRequest.priority === "high"}
+								value="High"
+								checked={newComplaint.priority === "High"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -197,8 +162,8 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 							<input
 								type="radio"
 								name="priority"
-								value="medium"
-								checked={newRequest.priority === "medium"}
+								value="Medium"
+								checked={newComplaint.priority === "Medium"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -208,8 +173,8 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 							<input
 								type="radio"
 								name="priority"
-								value="low"
-								checked={newRequest.priority === "low"}
+								value="Low"
+								checked={newComplaint.priority === "Low"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -226,8 +191,8 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 							<input
 								type="radio"
 								name="status"
-								value="open"
-								checked={newRequest.status === "open"}
+								value="Open"
+								checked={newComplaint.status === "Open"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -237,8 +202,8 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 							<input
 								type="radio"
 								name="status"
-								value="pending"
-								checked={newRequest.status === "pending"}
+								value="Pending"
+								checked={newComplaint.status === "Pending"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
@@ -248,8 +213,8 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 							<input
 								type="radio"
 								name="status"
-								value="solve"
-								checked={newRequest.status === "solve"}
+								value="Solve"
+								checked={newComplaint.status === "Solve"}
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
