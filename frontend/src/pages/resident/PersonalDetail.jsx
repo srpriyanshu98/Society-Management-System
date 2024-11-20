@@ -1,18 +1,27 @@
 import Layout from "@/components/Layout";
+import Owner from "@/components/Resident-Components/PersonalDetail/Owner";
+import Tenant from "@/components/Resident-Components/PersonalDetail/Tenant";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function PersonalDetail({ userRole }) {
 	return (
 		<Layout userRole={userRole}>
-			<div className="flex flex-col p-6  bg-gray-50 ">
-				<h1 className="text-2xl font-bold">
-					Welcome to the Personal Detail
-				</h1>
-				<p>This is the main workspace area.</p>
-				{/* Other components or routes can be rendered here */}
-				<div>
-					<img src="./src/assets/1.png" alt="" />
-				</div>
-			</div>
+			<Tabs defaultValue="owner">
+				<TabsList className="grid grid-cols-2 w-[400px]">
+					<TabsTrigger value="owner" className="p-5 rounded-t-xl">
+						Owner
+					</TabsTrigger>
+					<TabsTrigger value="tenant" className="p-5 rounded-t-xl">
+						Tenant
+					</TabsTrigger>
+				</TabsList>
+				<TabsContent value="owner">
+					<Owner />
+				</TabsContent>
+				<TabsContent value="tenant">
+					<Tenant />
+				</TabsContent>
+			</Tabs>
 		</Layout>
 	);
 }
