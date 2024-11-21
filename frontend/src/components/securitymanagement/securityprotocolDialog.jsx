@@ -1,15 +1,35 @@
 import { useState } from "react";
-import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
+import { Label } from "../ui/label";
 import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import moment from "moment";
 
-export default function SecurityProtocolDialog({ isOpen, onClose }) {
+export default function SecurityProtocolDialog({ isOpen, onClose, onSave }) {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
+	const [date, setDate] = useState(moment().format("MM/DD/YYYY"));
+	const [time, setTime] = useState(moment().format("hh:mm A"));
 
-	const isSaveEnabled = title.trim() !== "" && description.trim() !== "";
+	const isSaveEnabled =
+		title.trim() !== "" && description.trim() !== "" && date && time;
+
+	const handleSave = () => {
+		if (isSaveEnabled) {
+			onSave({
+				Title: title,
+				description,
+				date,
+				Time: time,
+			});
+
+			setTitle("");
+			setDescription("");
+			setDate(moment().format("MM/DD/YYYY"));
+			setTime(moment().format("hh:mm A"));
+		}
+	};
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
@@ -46,7 +66,7 @@ export default function SecurityProtocolDialog({ isOpen, onClose }) {
 				</div>
 				<div className="space-x-5 mt-4">
 					<Button
-						variant="secondary"
+						variant="outline"
 						onClick={onClose}
 						className="w-40"
 					>
@@ -55,6 +75,7 @@ export default function SecurityProtocolDialog({ isOpen, onClose }) {
 					<Button
 						className="w-40"
 						disabled={!isSaveEnabled}
+						onClick={handleSave}
 					>
 						Save
 					</Button>

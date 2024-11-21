@@ -1,19 +1,47 @@
+import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Button } from "../ui/button";
 import { CalendarDays } from "lucide-react";
 import { Calendar } from "../ui/calendar";
-import { isValid, format } from "date-fns"; // Import isValid and format
+import moment from "moment"; // Import moment
 
-export default function EditSecurityProtocols({ isOpen, onClose }) {
-	const [date, setDate] = useState("");
-	const [time, setTime] = useState("");
-	const [title, setTitle] = useState("");
-	const [description, setDescription] = useState("");
+export default function EditSecurityProtocols({
+	isOpen,
+	onClose,
+	protocol,
+	onSave,
+}) {
+	const [date, setDate] = useState(protocol?.date || "");
+	const [time, setTime] = useState(protocol?.time || "");
+	const [title, setTitle] = useState(protocol?.Title || "");
+	const [description, setDescription] = useState(protocol?.description || "");
+
+	useEffect(() => {
+		if (protocol) {
+			setTitle(protocol.Title);
+			setDescription(protocol.description);
+			setDate(protocol.date);
+			setTime(protocol.time);
+		}
+	}, [protocol]);
+
+	const handleSave = () => {
+		if (onSave) {
+			const updatedProtocol = {
+				...protocol,
+				Title: title,
+				description,
+				date,
+				time,
+			};
+			onSave(updatedProtocol);
+			onClose();
+		}
+	};
 
 	const isFormValid = title && description && date && time;
 
@@ -63,9 +91,7 @@ export default function EditSecurityProtocols({ isOpen, onClose }) {
 										!date ? "text-muted-foreground" : ""
 									}`}
 								>
-									{isValid(date)
-										? format(date, "MM/dd/yyyy")
-										: "Select Date"}
+									{moment(date).format("MM/DD/YYYY")}
 									<CalendarDays className="ml-auto h-4 w-4 opacity-50" />
 								</Button>
 							</PopoverTrigger>
@@ -75,10 +101,14 @@ export default function EditSecurityProtocols({ isOpen, onClose }) {
 							>
 								<Calendar
 									mode="single"
-									selected={date}
+									selected={new Date(date)}
 									onSelect={(newDate) => {
-										if (newDate && isValid(newDate)) {
-											setDate(newDate);
+										if (newDate) {
+											setDate(
+												moment(newDate).format(
+													"MM/DD/YYYY"
+												)
+											);
 										}
 									}}
 									initialFocus
@@ -93,8 +123,14 @@ export default function EditSecurityProtocols({ isOpen, onClose }) {
 						<div className="relative w-full max-w-xs">
 							<Input
 								type="time"
-								value={time}
-								onChange={(e) => setTime(e.target.value)}
+								value={moment(time, "hh:mm A").format("HH:mm")}
+								onChange={(e) =>
+									setTime(
+										moment(e.target.value, "HH:mm").format(
+											"hh:mm A"
+										)
+									)
+								}
 								className="w-full p-2 pl-5 pr-5 border border-gray-300 rounded-lg"
 								placeholder="Select Time"
 							/>
@@ -102,16 +138,18 @@ export default function EditSecurityProtocols({ isOpen, onClose }) {
 					</div>
 				</div>
 				<div className="space-x-5 mt-4">
-					{/* Cancel Button */}
 					<Button
-						variant="secondary"
+						variant="outline"
 						onClick={onClose}
 						className="w-40"
 					>
 						Cancel
 					</Button>
-					{/* Save Button */}
-					<Button className="w-40" disabled={!isFormValid}>
+					<Button
+						className="w-40"
+						disabled={!isFormValid}
+						onClick={handleSave}
+					>
 						Save
 					</Button>
 				</div>

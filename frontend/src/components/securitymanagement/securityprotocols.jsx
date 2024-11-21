@@ -4,10 +4,11 @@ import { ScrollArea } from "../ui/scroll-area";
 import { Skeleton } from "../ui/skeleton";
 import { SecurityprotocolsData } from "@/data/securityprotocolsData";
 import { Button } from "../ui/button";
-import SecurityProtocolDialog from "./securityProtocolDialog";
-import EditSecurityProtocols from "./editSecurityProtocols";
-import ConfirmationDialog from "../ConfirmationDialog "; 
-import ViewSecurityProtocol from "./viewSecurityProtocol"; 
+import SecurityProtocolDialog from "./SecurityProtocolDialog";
+import EditSecurityProtocols from "./EditSecurityProtocols";
+import ViewSecurityProtocol from "./ViewSecurityProtocol";
+import ConfirmationDialog from "../ConfirmationDialog ";
+import moment from "moment";
 
 export default function SecurityProtocols() {
 	const [logs, setLogs] = useState([]);
@@ -23,10 +24,11 @@ export default function SecurityProtocols() {
 	const fetchLogs = async () => {
 		try {
 			setIsLoading(true);
+
 			const response = await new Promise((resolve) => {
 				setTimeout(() => {
 					resolve(SecurityprotocolsData);
-				});
+				}, 1000);
 			});
 			setLogs(response);
 		} catch (error) {
@@ -44,24 +46,38 @@ export default function SecurityProtocols() {
 		filter === "All" ? true : log.status === filter
 	);
 
-	const handleEditSecurity = (protocol) => {
-		setSelectedProtocol(protocol);
-		setIsEditDialogOpen(true);
+	const handleSaveProtocol = (newProtocol) => {
+		if (newProtocol.id) {
+			// Edit existing protocol
+			setLogs((prevLogs) =>
+				prevLogs.map((log) =>
+					log.id === newProtocol.id ? { ...log, ...newProtocol } : log
+				)
+			);
+		} else {
+			// Add new protocol
+			setLogs((prevLogs) => [
+				...prevLogs,
+				{ id: Date.now(), ...newProtocol },
+			]);
+		}
+		setIsDialogOpen(false);
+		setIsEditDialogOpen(false);
 	};
 
 	const handleDeleteProtocol = (protocol) => {
 		setProtocolToDelete(protocol);
-		setIsConfirmDialogOpen(true); 
+		setIsConfirmDialogOpen(true);
 	};
 
 	const handleViewProtocol = (protocol) => {
 		setSelectedProtocol(protocol);
-		setIsViewDialogOpen(true); 
+		setIsViewDialogOpen(true);
 	};
 
 	const confirmDelete = () => {
-		setLogs(logs.filter((log) => log.id !== protocolToDelete.id)); 
-		setIsConfirmDialogOpen(false); 
+		setLogs(logs.filter((log) => log.id !== protocolToDelete.id));
+		setIsConfirmDialogOpen(false);
 	};
 
 	const cancelDelete = () => {
@@ -69,7 +85,7 @@ export default function SecurityProtocols() {
 	};
 
 	return (
-		<Card className="rounded-xl ">
+		<Card className="rounded-xl">
 			<CardHeader className="flex flex-row justify-between items-center">
 				<CardTitle>Security Protocols</CardTitle>
 				<Button
@@ -95,7 +111,7 @@ export default function SecurityProtocols() {
 							<tbody className="items-center">
 								{isLoading ? (
 									<tr>
-										<td colSpan="6" className="p-4">
+										<td colSpan="5" className="p-4">
 											<Skeleton />
 										</td>
 									</tr>
@@ -112,14 +128,24 @@ export default function SecurityProtocols() {
 												{log.date}
 											</td>
 											<td className="p-3 text-gray-500 mt-3 mb-3 text-center">
-												{log.Time}
+												<span className="float-right">
+													{moment(
+														log.Time,
+														"HH:mm"
+													).format("h:mm A")}
+												</span>
 											</td>
 											<td className="flex justify-center space-x-4 mt-3 mb-3 text-center">
 												<button
 													className="rounded-md bg-gray-100 p-2 font-semibold"
-													onClick={() =>
-														handleEditSecurity(log)
-													}
+													onClick={() => {
+														setSelectedProtocol(
+															log
+														);
+														setIsEditDialogOpen(
+															true
+														);
+													}}
 												>
 													<img
 														src="./src/assets/edit.svg"
@@ -130,7 +156,7 @@ export default function SecurityProtocols() {
 													className="rounded-md bg-gray-100 p-2 font-semibold"
 													onClick={() =>
 														handleViewProtocol(log)
-													} 
+													}
 												>
 													<img
 														src="./src/assets/view.svg"
@@ -156,10 +182,10 @@ export default function SecurityProtocols() {
 								) : (
 									<tr>
 										<td
-											colSpan="6"
+											colSpan="5"
 											className="p-4 text-gray-500 text-center font-semibold"
 										>
-											No Security Management found.
+											No Security Protocols found.
 										</td>
 									</tr>
 								)}
@@ -169,19 +195,18 @@ export default function SecurityProtocols() {
 				</ScrollArea>
 			</CardContent>
 
+			{/* Dialog components */}
 			<SecurityProtocolDialog
 				isOpen={isDialogOpen}
 				onClose={() => setIsDialogOpen(false)}
+				onSave={handleSaveProtocol}
 			/>
-
-			{isEditDialogOpen && (
-				<EditSecurityProtocols
-					isOpen={isEditDialogOpen}
-					onClose={() => setIsEditDialogOpen(false)}
-					protocol={selectedProtocol} 
-				/>
-			)}
-
+			<EditSecurityProtocols
+				isOpen={isEditDialogOpen}
+				onClose={() => setIsEditDialogOpen(false)}
+				protocol={selectedProtocol}
+				onSave={handleSaveProtocol}
+			/>
 			<ConfirmationDialog
 				isOpen={isConfirmDialogOpen}
 				title="Delete Protocol?"
