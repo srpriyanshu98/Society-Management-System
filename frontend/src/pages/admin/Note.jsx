@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MoreVertical } from "lucide-react";
-import { noteData } from "@/data/noteData";
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,144 +9,200 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import axiosInstance from "@/test/axiosInstance";
+import { Skeleton } from "@/components/ui/skeleton";
 import AddAndEditNote from "@/components/financialManagement/note/AddAndEditNote";
 import NoteViewDialog from "@/components/financialManagement/note/NoteViewDialog";
 import ConfirmationDialog from "@/components/ConfirmationDialog ";
 
 export default function Note({ userRole }) {
-	const [dropdownOpenId, setDropdownOpenId] = useState(null);
-	const [editingNote, setEditingNote] = useState(null);
-	const [notes, setNotes] = useState(noteData);
+	const [notes, setNotes] = useState([]);
+	const [loading, setLoading] = useState(false);
 	const [dialogOpen, setDialogOpen] = useState(false);
 	const [viewDialogOpen, setViewDialogOpen] = useState(false);
-	const [viewingNote, setViewingNote] = useState(null);
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+	const [editingNote, setEditingNote] = useState(null);
+	const [viewingNote, setViewingNote] = useState(null);
 	const [noteToDelete, setNoteToDelete] = useState(null);
+	const [dropdownStates, setDropdownStates] = useState({});
 
-	const toggleDropdown = (id) => {
-		setDropdownOpenId(dropdownOpenId === id ? null : id);
+	// Fetch notes from the API
+	const fetchNotes = async () => {
+		setLoading(true);
+		try {
+			const { data } = await axiosInstance.get("/notes");
+			setNotes(data);
+		} catch (error) {
+			console.error("Error fetching notes:", error);
+		} finally {
+			setLoading(false);
+		}
 	};
 
-	const handleSaveNote = (newNote) => {
-		setNotes([...notes, newNote]);
-		setDialogOpen(false);
+	useEffect(() => {
+		fetchNotes();
+	}, []);
+
+	// Handle adding or editing a note
+	const handleSaveNote = async (noteData) => {
+		try {
+			let response;
+			if (noteData._id) {
+				// Edit existing note
+				response = await axiosInstance.put(
+					`/notes/${noteData._id}`,
+					noteData
+				);
+				setNotes((prevNotes) =>
+					prevNotes.map((note) =>
+						note._id === noteData._id
+							? response.data.updatedNote
+							: note
+					)
+				);
+			} else {
+				// Create new note
+				const { ...newNoteData } = noteData; // Remove _id from the payload
+				response = await axiosInstance.post("/notes", newNoteData);
+				setNotes((prevNotes) => [...prevNotes, response.data.newNote]);
+			}
+			setDialogOpen(false); // Close the dialog after saving
+			setEditingNote(null); // Reset editing note
+		} catch (error) {
+			console.error("Error saving note:", error);
+		}
 	};
 
-	const handleEditNote = (editedNote) => {
-		const updatedNotes = notes.map((note) =>
-			note.id === editedNote.id ? editedNote : note
-		);
-		setNotes(updatedNotes);
-		setEditingNote(null);
-		setDialogOpen(false);
+	// Handle deleting a note
+	const confirmDeleteNote = async () => {
+		if (noteToDelete) {
+			try {
+				await axiosInstance.delete(`/notes/${noteToDelete._id}`);
+				setNotes(notes.filter((note) => note._id !== noteToDelete._id));
+				setDeleteDialogOpen(false);
+				setNoteToDelete(null);
+			} catch (error) {
+				console.error("Error deleting note:", error);
+			}
+		}
 	};
 
+	// Handle viewing a note
 	const handleViewNote = (note) => {
 		setViewingNote(note);
 		setViewDialogOpen(true);
 	};
 
-	const handleDeleteNote = (note) => {
-		setNoteToDelete(note);
-		setDeleteDialogOpen(true);
-	};
-
-	const confirmDeleteNote = () => {
-		if (noteToDelete) {
-			setNotes(notes.filter((note) => note.id !== noteToDelete.id));
-			setDeleteDialogOpen(false);
-			setNoteToDelete(null);
-		}
-	};
-
-	const cancelDeleteNote = () => {
-		setDeleteDialogOpen(false);
-		setNoteToDelete(null);
+	// Toggle dropdown state for a specific note
+	const toggleDropdown = (noteId) => {
+		setDropdownStates((prevState) => ({
+			...prevState,
+			[noteId]: !prevState[noteId],
+		}));
 	};
 
 	return (
 		<Layout userRole={userRole}>
 			<Card>
 				<CardHeader className="flex flex-row justify-between items-center">
-					<CardTitle className="text-lg font-semibold">
-						Note
-					</CardTitle>
-					<AddAndEditNote
-						onSave={handleSaveNote}
-						onEdit={handleEditNote}
-						noteToEdit={editingNote}
-						open={dialogOpen}
-						setOpen={setDialogOpen}
-					/>
+					<CardTitle>Notes</CardTitle>
+					<Button onClick={() => setDialogOpen(true)}>
+						Create Note
+					</Button>
 				</CardHeader>
 				<CardContent>
-					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-						{notes.map((item) => (
-							<Card
-								key={item.id}
-								className="border shadow-lg rounded-xl border-blue-200 pb-8"
-							>
-								<CardHeader className="relative bg-blue-500 text-white p-4 rounded-t-lg">
-									<h3 className="text-lg font-semibold">
-										{item.title}
-									</h3>
-									<div className="absolute top-3 right-3">
-										<DropdownMenu
-											open={dropdownOpenId === item.id}
-											onOpenChange={() =>
-												toggleDropdown(item.id)
-											}
-										>
-											<DropdownMenuTrigger asChild>
-												<Button
-													variant="ghost"
-													size="sm"
-													className="text-white"
-												>
-													<MoreVertical />
-												</Button>
-											</DropdownMenuTrigger>
-											<DropdownMenuContent className="bg-white border rounded shadow-md">
-												<DropdownMenuItem
-													onClick={() => {
-														setEditingNote(item);
-														setDialogOpen(true);
-													}}
-												>
-													Edit
-												</DropdownMenuItem>
-												<DropdownMenuItem
-													onClick={() =>
-														handleViewNote(item)
-													}
-												>
-													View
-												</DropdownMenuItem>
-												<DropdownMenuItem
-													onClick={() =>
-														handleDeleteNote(item)
-													}
-												>
-													Delete
-												</DropdownMenuItem>
-											</DropdownMenuContent>
-										</DropdownMenu>
-									</div>
-								</CardHeader>
-								<CardContent className="p-4 space-y-3 h-20">
-									<span className="text-slate-500">
-										Description
-									</span>
-									<p className="truncate">
-										{item.description}
-									</p>
-								</CardContent>
-							</Card>
-						))}
-					</div>
+					{loading ? (
+						<Skeleton />
+					) : (
+						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+							{notes.map((item) => (
+								<Card
+									key={item._id}
+									className="border shadow-lg rounded-xl pb-8"
+								>
+									<CardHeader className="relative bg-blue-500 text-white p-4 rounded-t-lg">
+										<h3 className="text-lg font-semibold">
+											{item.title}
+										</h3>
+										<div className="absolute top-3 right-3">
+											<DropdownMenu
+												open={
+													dropdownStates[item._id] ||
+													false
+												}
+												onOpenChange={() =>
+													toggleDropdown(item._id)
+												}
+											>
+												<DropdownMenuTrigger asChild>
+													<Button
+														variant="ghost"
+														size="sm"
+														className="text-white"
+													>
+														<MoreVertical />
+													</Button>
+												</DropdownMenuTrigger>
+												<DropdownMenuContent className="bg-white border rounded shadow-md">
+													<DropdownMenuItem
+														onClick={() => {
+															setEditingNote(
+																item
+															);
+															setDialogOpen(true);
+														}}
+													>
+														Edit
+													</DropdownMenuItem>
+													<DropdownMenuItem
+														onClick={() => {
+															handleViewNote(
+																item
+															);
+															toggleDropdown(
+																item._id
+															);
+														}}
+													>
+														View
+													</DropdownMenuItem>
+													<DropdownMenuItem
+														onClick={() => {
+															setNoteToDelete(
+																item
+															);
+															setDeleteDialogOpen(
+																true
+															);
+															toggleDropdown(
+																item._id
+															);
+														}}
+													>
+														Delete
+													</DropdownMenuItem>
+												</DropdownMenuContent>
+											</DropdownMenu>
+										</div>
+									</CardHeader>
+									<CardContent className="p-4 space-y-3 h-20">
+										<p className="text-slate-600">
+											Description
+										</p>
+										<p>{item.description}</p>
+									</CardContent>
+								</Card>
+							))}
+						</div>
+					)}
 				</CardContent>
 			</Card>
-
+			<AddAndEditNote
+				onSave={handleSaveNote}
+				noteToEdit={editingNote}
+				open={dialogOpen}
+				setOpen={setDialogOpen}
+			/>
 			<NoteViewDialog
 				isOpen={viewDialogOpen}
 				onClose={() => setViewDialogOpen(false)}
@@ -158,7 +213,7 @@ export default function Note({ userRole }) {
 				title="Delete Note"
 				description="Are you sure you want to delete this note?"
 				onConfirm={confirmDeleteNote}
-				onCancel={cancelDeleteNote}
+				onCancel={() => setDeleteDialogOpen(false)}
 			/>
 		</Layout>
 	);

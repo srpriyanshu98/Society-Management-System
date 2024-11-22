@@ -7,7 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { CalendarDays } from "lucide-react";
 import { Calendar } from "../ui/calendar";
-import moment from "moment"; // Import moment
+import moment from "moment";
 
 export default function EditSecurityProtocols({
 	isOpen,
@@ -30,17 +30,8 @@ export default function EditSecurityProtocols({
 	}, [protocol]);
 
 	const handleSave = () => {
-		if (onSave) {
-			const updatedProtocol = {
-				...protocol,
-				Title: title,
-				description,
-				date,
-				time,
-			};
-			onSave(updatedProtocol);
-			onClose();
-		}
+		onSave({ ...protocol, Title: title, description, date, time });
+		onClose();
 	};
 
 	const isFormValid = title && description && date && time;
@@ -56,38 +47,34 @@ export default function EditSecurityProtocols({
 					<Label>
 						Title<span className="text-red-500">*</span>
 					</Label>
-					<div className="relative">
-						<Input
-							type="text"
-							value={title}
-							onChange={(e) => setTitle(e.target.value)}
-							className="w-full p-2 border rounded-lg"
-							placeholder="Enter Title"
-						/>
-					</div>
+					<Input
+						type="text"
+						value={title}
+						onChange={(e) => setTitle(e.target.value)}
+						className="w-full p-2 border rounded-lg"
+						placeholder="Enter Title"
+					/>
 					<Label>
 						Description<span className="text-red-500">*</span>
 					</Label>
-					<div className="relative">
-						<textarea
-							value={description}
-							onChange={(e) => setDescription(e.target.value)}
-							className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent text-gray-700 placeholder-gray-400 text-sm"
-							rows="3"
-							placeholder="Enter description"
-						/>
-					</div>
+					<textarea
+						value={description}
+						onChange={(e) => setDescription(e.target.value)}
+						className="w-full p-3 border rounded-lg resize-none"
+						rows="3"
+						placeholder="Enter description"
+					/>
 				</div>
 				<div className="flex space-x-20">
 					<div className="grid grid-cols-1 gap-2">
 						<label className="block text-gray-700 font-medium">
-							Date <span className="text-red-500">*</span>
+							Date<span className="text-red-500">*</span>
 						</label>
 						<Popover>
 							<PopoverTrigger asChild>
 								<Button
 									variant="outline"
-									className={`w-full pl-3 text-left font-normal ${
+									className={`w-full pl-3 text-left ${
 										!date ? "text-muted-foreground" : ""
 									}`}
 								>
@@ -102,15 +89,12 @@ export default function EditSecurityProtocols({
 								<Calendar
 									mode="single"
 									selected={new Date(date)}
-									onSelect={(newDate) => {
-										if (newDate) {
-											setDate(
-												moment(newDate).format(
-													"MM/DD/YYYY"
-												)
-											);
-										}
-									}}
+									onSelect={(newDate) =>
+										newDate &&
+										setDate(
+											moment(newDate).format("MM/DD/YYYY")
+										)
+									}
 									initialFocus
 								/>
 							</PopoverContent>
@@ -118,23 +102,20 @@ export default function EditSecurityProtocols({
 					</div>
 					<div className="grid grid-cols-1 gap-2">
 						<label className="block text-gray-700 font-medium">
-							Time <span className="text-red-500">*</span>
+							Time<span className="text-red-500">*</span>
 						</label>
-						<div className="relative w-full max-w-xs">
-							<Input
-								type="time"
-								value={moment(time, "hh:mm A").format("HH:mm")}
-								onChange={(e) =>
-									setTime(
-										moment(e.target.value, "HH:mm").format(
-											"hh:mm A"
-										)
+						<Input
+							type="time"
+							value={moment(time, "hh:mm A").format("HH:mm")}
+							onChange={(e) =>
+								setTime(
+									moment(e.target.value, "HH:mm").format(
+										"hh:mm A"
 									)
-								}
-								className="w-full p-2 pl-5 pr-5 border border-gray-300 rounded-lg"
-								placeholder="Select Time"
-							/>
-						</div>
+								)
+							}
+							className="w-full p-2 border rounded-lg"
+						/>
 					</div>
 				</div>
 				<div className="space-x-5 mt-4">

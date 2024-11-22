@@ -5,9 +5,9 @@ import menuItems from "@/data/menuItems";
 import { Separator } from "./ui/separator";
 
 export default function Sidebar({ userRole = "admin" }) {
-    const [expandedMenu, setExpandedMenu] = useState(null);
-    const userMenuItems = menuItems[userRole] || [];
-    const location = useLocation();
+	const [expandedMenu, setExpandedMenu] = useState(null);
+	const userMenuItems = menuItems[userRole] || [];
+	const location = useLocation();
 
     const toggleSubMenu = (itemName) => {
         setExpandedMenu(expandedMenu === itemName ? null : itemName);

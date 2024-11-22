@@ -12,23 +12,14 @@ export default function SecurityProtocolDialog({ isOpen, onClose, onSave }) {
 	const [date, setDate] = useState(moment().format("MM/DD/YYYY"));
 	const [time, setTime] = useState(moment().format("hh:mm A"));
 
-	const isSaveEnabled =
-		title.trim() !== "" && description.trim() !== "" && date && time;
+	const isSaveEnabled = title.trim() && description.trim() && date && time;
 
 	const handleSave = () => {
-		if (isSaveEnabled) {
-			onSave({
-				Title: title,
-				description,
-				date,
-				Time: time,
-			});
-
-			setTitle("");
-			setDescription("");
-			setDate(moment().format("MM/DD/YYYY"));
-			setTime(moment().format("hh:mm A"));
-		}
+		onSave({ Title: title, description, date, Time: time });
+		setTitle("");
+		setDescription("");
+		setDate(moment().format("MM/DD/YYYY"));
+		setTime(moment().format("hh:mm A"));
 	};
 
 	return (
@@ -42,27 +33,23 @@ export default function SecurityProtocolDialog({ isOpen, onClose, onSave }) {
 					<Label>
 						Title<span className="text-red-500">*</span>
 					</Label>
-					<div className="relative">
-						<Input
-							type="text"
-							value={title}
-							onChange={(e) => setTitle(e.target.value)}
-							className="w-full p-2 border rounded-lg"
-							placeholder="Enter Title"
-						/>
-					</div>
+					<Input
+						type="text"
+						value={title}
+						onChange={(e) => setTitle(e.target.value)}
+						className="w-full p-2 border rounded-lg"
+						placeholder="Enter Title"
+					/>
 					<Label>
 						Description<span className="text-red-500">*</span>
 					</Label>
-					<div className="relative">
-						<textarea
-							value={description}
-							onChange={(e) => setDescription(e.target.value)}
-							className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent text-gray-700 placeholder-gray-400 text-sm"
-							rows="3"
-							placeholder="Enter description"
-						/>
-					</div>
+					<textarea
+						value={description}
+						onChange={(e) => setDescription(e.target.value)}
+						className="w-full p-3 border rounded-lg resize-none"
+						rows="3"
+						placeholder="Enter description"
+					/>
 				</div>
 				<div className="space-x-5 mt-4">
 					<Button
