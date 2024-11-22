@@ -109,13 +109,13 @@ export default function GuardViewModal({ isOpen, onClose, guard }) {
 					<p className="text-gray-700 font-semibold font-poppins">
 						Aadhar File
 					</p>
-					<p className="text-gray-600">{guard.aadharFile.name}</p>
+					<p className="text-gray-600">{guard.aadharCard}</p>
 				</div>
 				<div className="mt-4">
 					<p className="text-gray-700 font-semibold font-poppins">
-						Guard Photo
+						Guard guardPhoto
 					</p>
-					<p className="text-gray-600">{guard.guardPhoto.name}</p>
+					<p className="text-gray-600">{guard.guardPhoto}</p>
 				</div>
 			</DialogContent>
 		</Dialog>
