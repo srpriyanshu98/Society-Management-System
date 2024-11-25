@@ -1,16 +1,31 @@
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import * as Icons from "lucide-react";
 import menuItems from "@/data/menuItems";
 import { Separator } from "./ui/separator";
+import axiosInstance from "@/test/axiosInstance"; 
+import { useAuth } from "@/hooks/useAuth.jsx"; 
 
 export default function Sidebar({ userRole = "admin" }) {
-	const [expandedMenu, setExpandedMenu] = useState(null);
-	const userMenuItems = menuItems[userRole] || [];
-	const location = useLocation();
+    const [expandedMenu, setExpandedMenu] = useState(null);
+    const userMenuItems = menuItems[userRole] || [];
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { logout } = useAuth(); 
 
     const toggleSubMenu = (itemName) => {
         setExpandedMenu(expandedMenu === itemName ? null : itemName);
+    };
+
+    const handleLogout = async () => {
+        try {
+            await axiosInstance.post("/auth/logout");
+            localStorage.removeItem("token"); 
+            logout(); 
+            navigate("/login", { replace: true }); 
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
     };
 
     return (
@@ -82,12 +97,12 @@ export default function Sidebar({ userRole = "admin" }) {
                         alt="Logout"
                         className="inline-block"
                     />
-                    <a
-                        href="/logout"
+                    <button
+                        onClick={handleLogout}
                         className="text-[#E74C3C] text-sm font-poppins inline-block"
                     >
                         Logout
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
