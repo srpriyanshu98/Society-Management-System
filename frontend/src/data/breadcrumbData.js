@@ -81,6 +81,16 @@ const breadcrumbData = {
 		{ label: "Home", href: "/" },
 		{ label: "Community", href: "/community" },
 	],
+	"/polls": [
+		{ label: "Home", href: "/" },
+		{ label: "Community", href: "/community" },
+		{ label: "Expense", href: "/polls" },
+	],
+	"/communities-discussion": [
+		{ label: "Home", href: "/" },
+		{ label: "Communities Discussion", href: "/community" },
+		{ label: "Communities Discussion", href: "/communities-discussion" },
+	],
 	"/payment-portal": [
 		{ label: "Home", href: "/" },
 		{ label: "Payment Portal", href: "/payment-portal" },
