@@ -13,9 +13,9 @@ export default function Sidebar({ userRole = "admin" }) {
     const navigate = useNavigate();
     const { logout } = useAuth(); 
 
-    const toggleSubMenu = (itemName) => {
-        setExpandedMenu(expandedMenu === itemName ? null : itemName);
-    };
+	const toggleSubMenu = (itemName) => {
+		setExpandedMenu(expandedMenu === itemName ? null : itemName);
+	};
 
     const handleLogout = async () => {
         try {
