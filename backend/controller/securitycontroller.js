@@ -7,7 +7,9 @@ export const createSecurity = async (req, res) => {
   const { fullName, phoneNumber, gender, shift, shiftDate, shiftTime } =
     req.body;
   // Access the files
-  const photo = req.files?.photo ? req.files.photo[0].path : null;
+  const guardPhoto = req.files?.guardPhoto
+    ? req.files.guardPhoto[0].path
+    : null;
   const aadharCard = req.files?.aadharCard
     ? req.files.aadharCard[0].path
     : null;
@@ -24,7 +26,7 @@ export const createSecurity = async (req, res) => {
       shift,
       shiftDate,
       shiftTime,
-      photo,
+      guardPhoto,
       aadharCard,
     });
     await newSecurity.save();
@@ -76,15 +78,52 @@ export const updateSecurity = async (req, res) => {
   const { fullName, phoneNumber, gender, shift, shiftDate, shiftTime } =
     req.body;
 
+  // Access the uploaded files
+  const guardPhoto = req.files?.guardPhoto
+    ? req.files.guardPhoto[0].path
+    : null;
+  const aadharCard = req.files?.aadharCard
+    ? req.files.aadharCard[0].path
+    : null;
+
+  console.log("Received update request for guard ID:", id);
+  console.log("Received data:", {
+    fullName,
+    phoneNumber,
+    gender,
+    shift,
+    shiftDate,
+    shiftTime,
+    guardPhoto,
+    aadharCard,
+  });
+
   try {
-    const updatedSecurity = await Security.findByIdAndUpdate(
-      id,
-      { fullName, phoneNumber, gender, shift, shiftDate, shiftTime },
-      { new: true, runValidators: true }
-    );
-    if (!updatedSecurity) {
+    // Find the existing security record
+    const existingSecurity = await Security.findById(id);
+    if (!existingSecurity) {
       return res.status(404).json({ message: "Security record not found" });
     }
+
+    // Update the fields conditionally
+    existingSecurity.fullName = fullName || existingSecurity.fullName;
+    existingSecurity.phoneNumber = phoneNumber || existingSecurity.phoneNumber;
+    existingSecurity.gender = gender || existingSecurity.gender;
+    existingSecurity.shift = shift || existingSecurity.shift;
+    existingSecurity.shiftDate = shiftDate || existingSecurity.shiftDate;
+    existingSecurity.shiftTime = shiftTime || existingSecurity.shiftTime;
+
+    // Update files only if new ones are uploaded
+    if (guardPhoto) {
+      existingSecurity.guardPhoto = guardPhoto;
+    }
+    if (aadharCard) {
+      existingSecurity.aadharCard = aadharCard;
+    }
+
+    // Save the updated record
+    const updatedSecurity = await existingSecurity.save();
+
     res.status(200).json({
       message: "Security record updated successfully",
       updatedSecurity,
@@ -116,7 +155,7 @@ export const deleteSecurity = async (req, res) => {
       });
     };
 
-    deleteFile(securityRecord.photo);
+    deleteFile(securityRecord.guardPhoto);
     deleteFile(securityRecord.aadharCard);
 
     res.status(200).json({

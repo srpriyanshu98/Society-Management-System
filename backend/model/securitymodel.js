@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const securitySchema = new mongoose.Schema(
   {
-    photo: {
+    guardPhoto: {
       type: String,
       required: true,
     },
@@ -33,7 +33,7 @@ const securitySchema = new mongoose.Schema(
       required: true,
     },
     aadharCard: {
-      type: String, // URL or file path for the Aadhar card image
+      type: String,
       required: true,
     },
   },

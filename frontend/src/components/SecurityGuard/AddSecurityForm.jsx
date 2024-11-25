@@ -28,7 +28,7 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 		shift: "",
 		shiftDate: new Date(),
 		shiftTime: "",
-		aadharFile: null,
+		aadharCard: null,
 		guardPhoto: null,
 	});
 	const [fileError, setFileError] = useState("");
@@ -44,8 +44,8 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 				shift: editData.shift,
 				shiftDate: new Date(editData.shiftDate),
 				shiftTime: editData.shiftTime,
-				aadharFile: null, 
-				guardPhoto: null, 
+				aadharCard: null,
+				guardPhoto: null,
 			});
 		} else {
 			setFormData({
@@ -55,7 +55,7 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 				shift: "",
 				shiftDate: new Date(),
 				shiftTime: "",
-				aadharFile: null,
+				aadharCard: null,
 				guardPhoto: null,
 			});
 		}
@@ -75,14 +75,14 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 			"image/gif",
 			"application/pdf",
 		];
-		const maxSize = 10 * 1024 * 1024; 
+		const maxSize = 10 * 1024 * 1024;
 
 		if (file && validTypes.includes(file.type) && file.size <= maxSize) {
 			setFormData((prevData) => ({ ...prevData, [field]: file }));
-			if (field === "aadharFile") setFileError("");
+			if (field === "aadharCard") setFileError("");
 			if (field === "guardPhoto") setPhotoError("");
 		} else {
-			if (field === "aadharFile") {
+			if (field === "aadharCard") {
 				setFileError(
 					"Only JPEG, JPG, PNG, GIF, and PDF files under 10MB are allowed."
 				);
@@ -115,8 +115,8 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 		if (!formData.shiftTime) {
 			errors.shiftTime = "Shift Time is required.";
 		}
-		if (!formData.aadharFile) {
-			errors.aadharFile = "Aadhar File is required.";
+		if (!formData.aadharCard) {
+			errors.aadharCard = "Aadhar File is required.";
 		}
 		if (!formData.guardPhoto) {
 			errors.guardPhoto = "Guard Photo is required.";
@@ -141,7 +141,7 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 			shift: "",
 			shiftDate: new Date(),
 			shiftTime: "",
-			aadharFile: null,
+			aadharCard: null,
 			guardPhoto: null,
 		});
 		onClose();
@@ -329,9 +329,9 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 							<span className="text-red-600">*</span>
 						</label>
 						<div className="border-dashed border-2 border-gray-300 p-4 rounded-lg">
-							{formData.aadharFile ? (
+							{formData.aadharCard ? (
 								<p className="text-center">
-									{formData.aadharFile.name}
+									{formData.aadharCard.name}
 								</p>
 							) : (
 								<label className="cursor-pointer text-blue-600 flex flex-col items-center">
@@ -341,7 +341,7 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 										type="file"
 										accept=".jpeg, .jpg, .png, .gif, .pdf"
 										onChange={(e) =>
-											handleFileUpload(e, "aadharFile")
+											handleFileUpload(e, "aadharCard")
 										}
 										className="hidden"
 									/>
@@ -353,9 +353,9 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 								{fileError}
 							</p>
 						)}
-						{formErrors.aadharFile && (
+						{formErrors.aadharCard && (
 							<p className="text-red-500 text-sm mt-1">
-								{formErrors.aadharFile}
+								{formErrors.aadharCard}
 							</p>
 						)}
 					</div>
