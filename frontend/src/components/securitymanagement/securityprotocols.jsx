@@ -66,7 +66,7 @@ export default function SecurityProtocols() {
 
 	return (
 		<Card className="rounded-xl">
-			<CardHeader className="flex justify-between items-center">
+			<CardHeader className="flex flex-row justify-between items-center">
 				<CardTitle>Security Protocols</CardTitle>
 				<Button onClick={() => setIsDialogOpen(true)}>
 					Create Protocol
