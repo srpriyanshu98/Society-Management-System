@@ -31,6 +31,8 @@ import PersonalDetail from "./pages/resident/PersonalDetail";
 import ServiceAndComplaint from "./pages/resident/ServiceAndComplaint";
 import PaymentPortal from "./pages/resident/PaymentPortal";
 import SecurityProtocols from "./pages/resident/SecurityProtocols";
+import Polls from "./pages/resident/Polls";
+import { CommunitiesDiscussion } from "./pages/resident/CommunitiesDiscussion";
 
 function App() {
 	return (
@@ -73,6 +75,12 @@ function App() {
 				element={<EventsParticipation />}
 			/>
 			<Route path="/community" element={<Community />} />
+			<Route path="/polls" element={<Polls />} />
+			<Route
+				path="/communities-discussion"
+				element={<CommunitiesDiscussion />}
+			/>
+
 			<Route path="/payment-portal" element={<PaymentPortal />} />
 			<Route path="/security-protocals" element={<SecurityProtocols />} />
 
