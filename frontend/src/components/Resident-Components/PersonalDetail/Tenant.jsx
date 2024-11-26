@@ -14,7 +14,7 @@ export default function Tenant() {
 		<>
 			{/* Owner Details */}
 			<Card>
-				<CardContent className="grid grid-cols-3 p-5">
+				<CardContent className="grid grid-cols-3 p-5 font-medium">
 					<div>
 						<p>Full Name</p>
 						<span className="text-slate-600">
@@ -48,7 +48,7 @@ export default function Tenant() {
 				</Avatar>
 
 				{/* Profile Information */}
-				<div className="grid grid-cols-4 gap-x-5 gap-y-6">
+				<div className="grid grid-cols-4 gap-x-5 gap-y-6 font-medium">
 					<div>
 						<p>Full Name</p>
 						<span className="text-slate-600">
@@ -116,7 +116,7 @@ export default function Tenant() {
 			{/* Members Section */}
 			<Card className="mt-8">
 				<CardHeader>
-					<CardTitle className="text-lg font-bold mb-4">
+					<CardTitle className="text-lg font-semibold mb-4">
 						Members ({members.length}):
 					</CardTitle>
 				</CardHeader>
@@ -178,7 +178,7 @@ export default function Tenant() {
 			{/* Vehicles Section */}
 			<Card className="mt-8">
 				<CardHeader>
-					<CardTitle className="text-lg font-bold mb-4">
+					<CardTitle className="text-lg font-semibold mb-4">
 						Vehicles ({vehicles.length}):
 					</CardTitle>
 				</CardHeader>
@@ -216,7 +216,7 @@ export default function Tenant() {
 			{/* Maintenance Section */}
 			<Card className="mt-8 flex justify-between items-center">
 				<CardHeader>
-					<CardTitle className="text-lg font-bold">
+					<CardTitle className="text-lg font-semibold">
 						Show Maintenance Details:
 					</CardTitle>
 				</CardHeader>
@@ -225,7 +225,7 @@ export default function Tenant() {
 						{ShowMaintenanceDetails.map((item, index) => (
 							<Card
 								key={index}
-								className="p-4 space-x-4 rounded-lg shadow-lg relative w-60"
+								className="p-4 space-x-4 rounded-lg shadow-lg relative w-60 mt-5"
 							>
 								{/* Left Accent Bar */}
 								<div
@@ -236,7 +236,7 @@ export default function Tenant() {
 									<p className="text-sm font-semibold">
 										{item.label}
 									</p>
-									<h2 className="text-2xl">{item.value}</h2>
+									<h2 className={`text-2xl font-semibold ${item.color}`}>{item.value}</h2>
 								</div>
 							</Card>
 						))}
@@ -247,7 +247,7 @@ export default function Tenant() {
 			{/* Pending Section */}
 			<Card className="mt-8">
 				<CardHeader>
-					<CardTitle className="text-lg font-bold">
+					<CardTitle className="text-lg font-semibold">
 						Pending Maintanance
 					</CardTitle>
 				</CardHeader>
@@ -282,7 +282,7 @@ export default function Tenant() {
 									<span className="inline-block text-slate-600">
 										Maintanance Amount
 									</span>
-									<span className="float-right">
+									<span className="float-right text-red-500">
 										{items.maintenanceAmount}
 									</span>
 								</p>
@@ -290,7 +290,7 @@ export default function Tenant() {
 									<span className="inline-block text-slate-600">
 										Maintenance Penalty Amount
 									</span>
-									<span className="float-right">
+									<span className="float-right text-red-500">
 										{items.maintenancePenaltyAmount}
 									</span>
 								</p>
@@ -299,7 +299,7 @@ export default function Tenant() {
 									<span className="inline-block text-slate-600">
 										Grand Total
 									</span>
-									<span className="float-right">
+									<span className="float-right text-green-500">
 										{items.grandTotal}
 									</span>
 								</p>
@@ -313,7 +313,7 @@ export default function Tenant() {
 			{/* Due Section */}
 			<Card className="mt-8">
 				<CardHeader>
-					<CardTitle className="text-lg font-bold">
+					<CardTitle className="text-lg font-semibold">
 						Due Maintanance
 					</CardTitle>
 				</CardHeader>
@@ -340,7 +340,7 @@ export default function Tenant() {
 									<span className="inline-block text-slate-600">
 										Amount
 									</span>
-									<span className="float-right">
+									<span className="float-right text-red-500">
 										{items.maintenanceAmount}
 									</span>
 								</p>
@@ -348,19 +348,11 @@ export default function Tenant() {
 									<span className="inline-block text-slate-600">
 										Due Maintanance Amount
 									</span>
-									<span className="float-right">
+									<span className="float-right text-red-500">
 										{items.maintenancePenaltyAmount}
 									</span>
 								</p>
 								<Separator />
-								<p>
-									<span className="inline-block text-slate-600">
-										Grand Total
-									</span>
-									<span className="float-right">
-										{items.grandTotal}
-									</span>
-								</p>
 								<Button className="w-full">Pay Now</Button>
 							</CardContent>
 						</Card>

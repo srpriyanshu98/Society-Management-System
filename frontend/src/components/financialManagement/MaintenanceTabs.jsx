@@ -13,10 +13,10 @@ export default function MaintenanceTabs() {
 	return (
 		<Tabs defaultValue="maintenance">
 			<TabsList className="grid grid-cols-2 w-[400px]">
-				<TabsTrigger value="maintenance" className="p-5 rounded-t-xl">
+				<TabsTrigger value="maintenance" className="p-5 rounded-t-xl border-b-orange-500 text-black">
 					Maintenance
 				</TabsTrigger>
-				<TabsTrigger value="otherincome" className="p-5 rounded-t-xl">
+				<TabsTrigger value="otherincome" className="p-5 rounded-t-xl border-b-orange-500 text-black">
 					Other Income
 				</TabsTrigger>
 			</TabsList>

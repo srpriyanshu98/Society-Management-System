@@ -1,10 +1,15 @@
 import Layout from "@/components/Layout";
-import Polls from "./Polls";
+import ChatCard from "@/components/Resident-Components/AccessForums/ChatCard";
+
 
 export default function Community({ userRole }) {
 	return (
 		<Layout userRole={userRole}>
-			<Polls />
+			<div className="flex flex-col">
+				<div>
+					<ChatCard />
+				</div>
+			</div>
 		</Layout>
 	);
 }

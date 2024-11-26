@@ -31,67 +31,115 @@ import PersonalDetail from "./pages/resident/PersonalDetail";
 import ServiceAndComplaint from "./pages/resident/ServiceAndComplaint";
 import PaymentPortal from "./pages/resident/PaymentPortal";
 import SecurityProtocols from "./pages/resident/SecurityProtocols";
+import Polls from "./pages/resident/Polls";
+import { CommunitiesDiscussion } from "./pages/resident/CommunitiesDiscussion";
 import ProtectedRoute from "./middlewares/ProtectedRoute";
+import ChatCard from "./components/Resident-Components/AccessForums/ChatCard";
+import ChatHeader from "./components/Resident-Components/AccessForums/ChatHeader";
 
 function App() {
-    return (
-        <Routes>
-            {/* AUTH ROUTES */}
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgot-pass" element={<ForgotPassPage />} />
-            <Route path="/edit-profile" element={<EditProfile />} />
+	return (
+		<Routes>
+			{/* AUTH ROUTES */}
+			<Route path="/signup" element={<Signup />} />
+			<Route path="/login" element={<Login />} />
+			<Route path="/forgot-pass" element={<ForgotPassPage />} />
+			<Route path="/edit-profile" element={<EditProfile />} />
 
-            {/* PROTECTED ROUTES */}
-            <Route element={<ProtectedRoute />}>
-                {/* ADMIN ROUTES */}
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/residents" element={<ResidentManagement />} />
-                <Route path="/resident-form" element={<ResidentForm />} />
-                <Route path="/financial" element={<FinancialManagement />} />
-                <Route path="/add-expenses" element={<AddExpenses />} />
-                <Route path="/note" element={<Note />} />
-                <Route path="/facilities" element={<FacilityManagement />} />
-                <Route path="/complaints" element={<ComplaintTracking />} />
-                <Route path="/request-tracking" element={<RequestTracking />} />
-                <Route path="/security" element={<SecurityManagement />} />
-                <Route path="/security-protocols" element={<SecurityRuls />} />
-                <Route path="/security-guard" element={<SecurityGuard />} />
-                <Route path="/announcements" element={<Announcement />} />
+			{/* PROTECTED ROUTES */}
+			<Route element={<ProtectedRoute />}>
+				{/* ADMIN ROUTES */}
+				<Route path="/" element={<Dashboard />} />
+				<Route path="/residents" element={<ResidentManagement />} />
+				<Route path="/resident-form" element={<ResidentForm />} />
+				<Route path="/financial" element={<FinancialManagement />} />
+				<Route path="/add-expenses" element={<AddExpenses />} />
+				<Route path="/note" element={<Note />} />
+				<Route path="/facilities" element={<FacilityManagement />} />
+				<Route path="/complaints" element={<ComplaintTracking />} />
+				<Route path="/request-tracking" element={<RequestTracking />} />
+				<Route path="/security" element={<SecurityManagement />} />
+				<Route path="/security-protocols" element={<SecurityRuls />} />
+				<Route path="/security-guard" element={<SecurityGuard />} />
+				<Route path="/announcements" element={<Announcement />} />
 
-                {/* RESIDENTS ROUTES */}
-                <Route path="/personal-detail" element={<PersonalDetail />} />
-                <Route
-                    path="/service-complaint"
-                    element={<ServiceAndComplaint />}
-                />
-                <Route
-                    path="/events-participation"
-                    element={<EventsParticipation />}
-                />
-                <Route path="/community" element={<Community />} />
-                <Route path="/payment-portal" element={<PaymentPortal />} />
-                <Route
-                    path="/security-protocals"
-                    element={<SecurityProtocols />}
-                />
+				{/* RESIDENTS ROUTES */}
+				<Route path="/personal-detail" element={<PersonalDetail />} />
+				<Route
+					path="/service-complaint"
+					element={<ServiceAndComplaint />}
+				/>
+				<Route
+					path="/events-participation"
+					element={<EventsParticipation />}
+				/>
+				<Route path="/community" element={<Community />} />
+				<Route path="/payment-portal" element={<PaymentPortal />} />
+				<Route
+					path="/security-protocals"
+					element={<SecurityProtocols />}
+				/>
 
-                {/* SECURITY ROUTES */}
-                <Route
-                    path="/visitortracking-screen"
-                    element={<VisitortrackingScreen />}
-                />
-                <Route
-                    path="/emergencymanagement"
-                    element={<EmergencyManagement />}
-                />
-            </Route>
-        
-            {/* TEST ROUTES */}
-            <Route path="/slider" element={<Slider />} />
-            <Route path="/select" element={<Sellect />} />
-        </Routes>
-    );
+				{/* SECURITY ROUTES */}
+				<Route
+					path="/visitortracking-screen"
+					element={<VisitortrackingScreen />}
+				/>
+				<Route
+					path="/emergencymanagement"
+					element={<EmergencyManagement />}
+				/>
+			</Route>
+
+			<Route path="/facilities" element={<FacilityManagement />} />
+
+			<Route path="/complaints" element={<ComplaintTracking />} />
+			<Route path="/request-tracking" element={<RequestTracking />} />
+
+			<Route path="/security" element={<SecurityManagement />} />
+			<Route path="/security-protocols" element={<SecurityRuls />} />
+
+			<Route path="/security-guard" element={<SecurityGuard />} />
+			<Route path="/announcements" element={<Announcement />} />
+
+			{/* RESIDENTS ROUTES */}
+			<Route path="/personal-detail" element={<PersonalDetail />} />
+			<Route
+				path="/service-complaint"
+				element={<ServiceAndComplaint />}
+			/>
+			<Route
+				path="/events-participation"
+				element={<EventsParticipation />}
+			/>
+			<Route path="/community" element={<Community />} />
+			<Route path="/polls" element={<Polls />} />
+			<Route
+				path="/communities-discussion"
+				element={<CommunitiesDiscussion />}
+			/>
+
+			<Route path="/payment-portal" element={<PaymentPortal />} />
+			<Route path="/security-protocals" element={<SecurityProtocols />} />
+
+			<Route path="/ChatCard" element={<ChatCard />} />
+			<Route path="/ChatHeader" element={<ChatHeader />} />
+
+			{/* SECURITY ROUTES */}
+			<Route
+				path="/visitortracking-screen"
+				element={<VisitortrackingScreen />}
+			/>
+			<Route
+				path="/emergencymanagement"
+				element={<EmergencyManagement />}
+			/>
+
+			{/* TEST ROUTES*/}
+			<Route path="/slider" element={<Slider />} />
+			<Route path="/select" element={<Sellect />} />
+		</Routes>
+	);
 }
 
 export default App;

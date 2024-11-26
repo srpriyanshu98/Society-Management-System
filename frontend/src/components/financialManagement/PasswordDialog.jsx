@@ -65,7 +65,7 @@ export default function PasswordDialog({ isOpen, onClose, onSubmit }) {
 				</div>
 				<DialogFooter>
 					<Button
-						variant="secondary"
+						variant="outline"
 						onClick={onClose}
 						className="w-40"
 					>
