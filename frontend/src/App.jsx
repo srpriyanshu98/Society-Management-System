@@ -1,14 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 
-//AUTH IMPORTS
+// AUTH IMPORTS
 import Signup from "./pages/auth/SignUpPage";
 import Login from "./pages/auth/LoginPage";
 import ForgotPassPage from "./pages/auth/ForgotPassPage";
-//TEST IMPORTS
+// TEST IMPORTS
 import Slider from "./test/Slider";
 import Sellect from "./test/Sellect";
 
-//ADMIN IMPORTS
+// ADMIN IMPORTS
 import Dashboard from "./pages/admin/Dashboard";
 import ResidentManagement from "./pages/admin/ResidentManagement";
 import FinancialManagement from "./pages/admin/FinancialManagement";
@@ -33,6 +33,7 @@ import PaymentPortal from "./pages/resident/PaymentPortal";
 import SecurityProtocols from "./pages/resident/SecurityProtocols";
 import Polls from "./pages/resident/Polls";
 import { CommunitiesDiscussion } from "./pages/resident/CommunitiesDiscussion";
+import ProtectedRoute from "./middlewares/ProtectedRoute";
 
 function App() {
 	return (
@@ -43,15 +44,50 @@ function App() {
 			<Route path="/forgot-pass" element={<ForgotPassPage />} />
 			<Route path="/edit-profile" element={<EditProfile />} />
 
-			{/* ADMIN ROUTES*/}
-			<Route path="/" element={<Dashboard />} />
+			{/* PROTECTED ROUTES */}
+			<Route element={<ProtectedRoute />}>
+				{/* ADMIN ROUTES */}
+				<Route path="/" element={<Dashboard />} />
+				<Route path="/residents" element={<ResidentManagement />} />
+				<Route path="/resident-form" element={<ResidentForm />} />
+				<Route path="/financial" element={<FinancialManagement />} />
+				<Route path="/add-expenses" element={<AddExpenses />} />
+				<Route path="/note" element={<Note />} />
+				<Route path="/facilities" element={<FacilityManagement />} />
+				<Route path="/complaints" element={<ComplaintTracking />} />
+				<Route path="/request-tracking" element={<RequestTracking />} />
+				<Route path="/security" element={<SecurityManagement />} />
+				<Route path="/security-protocols" element={<SecurityRuls />} />
+				<Route path="/security-guard" element={<SecurityGuard />} />
+				<Route path="/announcements" element={<Announcement />} />
 
-			<Route path="/residents" element={<ResidentManagement />} />
-			<Route path="/resident-form" element={<ResidentForm />} />
+				{/* RESIDENTS ROUTES */}
+				<Route path="/personal-detail" element={<PersonalDetail />} />
+				<Route
+					path="/service-complaint"
+					element={<ServiceAndComplaint />}
+				/>
+				<Route
+					path="/events-participation"
+					element={<EventsParticipation />}
+				/>
+				<Route path="/community" element={<Community />} />
+				<Route path="/payment-portal" element={<PaymentPortal />} />
+				<Route
+					path="/security-protocals"
+					element={<SecurityProtocols />}
+				/>
 
-			<Route path="/financial" element={<FinancialManagement />} />
-			<Route path="/add-expenses" element={<AddExpenses />} />
-			<Route path="/note" element={<Note />} />
+				{/* SECURITY ROUTES */}
+				<Route
+					path="/visitortracking-screen"
+					element={<VisitortrackingScreen />}
+				/>
+				<Route
+					path="/emergencymanagement"
+					element={<EmergencyManagement />}
+				/>
+			</Route>
 
 			<Route path="/facilities" element={<FacilityManagement />} />
 
