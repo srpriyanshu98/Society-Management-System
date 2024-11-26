@@ -9,7 +9,26 @@ export const AuthProvider = ({ children }) => {
         const token = localStorage.getItem("token");
         if (token) {
             setIsAuthenticated(true);
+        } else {
+            setIsAuthenticated(false);
         }
+    }, []);
+
+    useEffect(() => {
+        const handleStorageChange = () => {
+            const token = localStorage.getItem("token");
+            if (token) {
+                setIsAuthenticated(true);
+            } else {
+                setIsAuthenticated(false);
+            }
+        };
+
+        window.addEventListener("storage", handleStorageChange);
+
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+        };
     }, []);
 
     const login = () => setIsAuthenticated(true);

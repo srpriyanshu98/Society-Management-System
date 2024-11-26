@@ -86,7 +86,7 @@ function App() {
                     element={<EmergencyManagement />}
                 />
             </Route>
-
+        
             {/* TEST ROUTES */}
             <Route path="/slider" element={<Slider />} />
             <Route path="/select" element={<Sellect />} />
