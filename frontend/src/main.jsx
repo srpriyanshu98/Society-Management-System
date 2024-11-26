@@ -6,11 +6,11 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 
 createRoot(document.getElementById("root")).render(
-    <StrictMode>
-        <BrowserRouter>
-            <AuthProvider>
-                <App />
-            </AuthProvider>
-        </BrowserRouter>
-    </StrictMode>
+	<StrictMode>
+		<BrowserRouter>
+			<AuthProvider>
+				<App className="root-font" />
+			</AuthProvider>
+		</BrowserRouter>
+	</StrictMode>
 );

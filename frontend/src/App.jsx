@@ -34,6 +34,8 @@ import SecurityProtocols from "./pages/resident/SecurityProtocols";
 import Polls from "./pages/resident/Polls";
 import { CommunitiesDiscussion } from "./pages/resident/CommunitiesDiscussion";
 import ProtectedRoute from "./middlewares/ProtectedRoute";
+import ChatCard from "./components/Resident-Components/AccessForums/ChatCard";
+import ChatHeader from "./components/Resident-Components/AccessForums/ChatHeader";
 
 function App() {
 	return (
@@ -119,6 +121,9 @@ function App() {
 
 			<Route path="/payment-portal" element={<PaymentPortal />} />
 			<Route path="/security-protocals" element={<SecurityProtocols />} />
+
+			<Route path="/ChatCard" element={<ChatCard />} />
+			<Route path="/ChatHeader" element={<ChatHeader />} />
 
 			{/* SECURITY ROUTES */}
 			<Route

@@ -1,14 +1,13 @@
 import Layout from "@/components/Layout";
+import ChatCard from "@/components/Resident-Components/AccessForums/ChatCard";
+
 
 export default function Community({ userRole }) {
 	return (
 		<Layout userRole={userRole}>
-			<div className="flex flex-col p-6  bg-gray-50 ">
-				<h1 className="text-2xl font-bold">Welcome to the Community</h1>
-				<p>This is the main workspace area.</p>
-				{/* Other components or routes can be rendered here */}
+			<div className="flex flex-col">
 				<div>
-					<img src="./src/assets/1.png" alt="" />
+					<ChatCard />
 				</div>
 			</div>
 		</Layout>

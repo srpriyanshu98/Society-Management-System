@@ -24,45 +24,45 @@ export default function Owner() {
 				</Avatar>
 
 				{/* Profile Information */}
-				<div className="grid grid-cols-4 gap-x-5 gap-y-6">
+				<div className="grid grid-cols-4 gap-x-5 gap-y-6 font-medium font-poppins">
 					<div>
 						<p>Full Name</p>
-						<span className="text-slate-600">
+						<span className="text-slate-600 font-poppins">
 							{profile.fullName}
 						</span>
 					</div>
 					<div>
 						<p>Phone Number</p>
-						<span className="text-slate-600">
+						<span className="text-slate-600 font-poppins">
 							{profile.phoneNumber}
 						</span>
 					</div>
 					<div>
 						<p>Email Address</p>
-						<span className="text-slate-600">
+						<span className="text-slate-600 font-poppins">
 							{profile.emailAddress}
 						</span>
 					</div>
 					<div>
 						<p>Gender</p>
-						<span className="text-slate-600">{profile.gender}</span>
+						<span className="text-slate-600 font-poppins">{profile.gender}</span>
 					</div>
 
 					<div>
 						<p>Wing</p>
-						<span className="text-slate-600">{profile.wing}</span>
+						<span className="text-slate-600 font-poppins">{profile.wing}</span>
 					</div>
 					<div>
 						<p>Unit</p>
-						<span className="text-slate-600">{profile.unit}</span>
+						<span className="text-slate-600 font-poppins">{profile.unit}</span>
 					</div>
 					<div>
 						<p>Age</p>
-						<span className="text-slate-600">{profile.age}</span>
+						<span className="text-slate-600 font-poppins">{profile.age}</span>
 					</div>
 					<div>
 						<p>Relation</p>
-						<span className="text-slate-600">
+						<span className="text-slate-600 font-poppins">
 							{profile.relation}
 						</span>
 					</div>
@@ -92,21 +92,21 @@ export default function Owner() {
 			{/* Members Section */}
 			<Card className="mt-8">
 				<CardHeader>
-					<CardTitle className="text-lg font-bold mb-4">
+					<CardTitle className="text-lg mb-4 font-semibold font-poppins">
 						Members ({members.length}):
 					</CardTitle>
 				</CardHeader>
 				<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 					{members.map((items, index) => (
 						<Card key={index} className="">
-							<CardHeader className="bg-blue-500 rounded-t-lg text-white">
+							<CardHeader className="bg-blue-500 rounded-t-lg text-white font-poppins">
 								<CardTitle className="text-base">
 									{items.name}
 								</CardTitle>
 							</CardHeader>
-							<CardContent className="space-y-2 mt-3">
+							<CardContent className="space-y-2 mt-3 font-poppins">
 								<p>
-									<span className="inline-block text-slate-600">
+									<span className="inline-block text-slate-600 ">
 										Email:
 									</span>
 									<span className="float-right">
@@ -154,7 +154,7 @@ export default function Owner() {
 			{/* Vehicles Section */}
 			<Card className="mt-8">
 				<CardHeader>
-					<CardTitle className="text-lg font-bold mb-4">
+					<CardTitle className="text-lg mb-4 font-semibold font-poppins">
 						Vehicles ({vehicles.length}):
 					</CardTitle>
 				</CardHeader>
@@ -162,11 +162,11 @@ export default function Owner() {
 					{vehicles.map((items, index) => (
 						<Card key={index} className="">
 							<CardHeader className="bg-blue-500 rounded-t-lg text-white">
-								<CardTitle className="text-base">
+								<CardTitle className="text-base font-poppins">
 									{items.type}
 								</CardTitle>
 							</CardHeader>
-							<CardContent className="space-y-2 mt-3">
+							<CardContent className="space-y-2 mt-3 font-poppins">
 								<p>
 									<span className="inline-block text-slate-600">
 										Vehicle Name:
@@ -192,16 +192,16 @@ export default function Owner() {
 			{/* Maintenance Section */}
 			<Card className="mt-8 flex justify-between items-center">
 				<CardHeader>
-					<CardTitle className="text-lg font-bold">
+					<CardTitle className="text-lg font-semibold font-poppins">
 						Show Maintenance Details:
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<div className="inline-flex gap-4 overflow-x-auto">
+					<div className="inline-flex gap-4 overflow-x-auto font-poppins">
 						{ShowMaintenanceDetails.map((item, index) => (
 							<Card
 								key={index}
-								className="p-4 space-x-4 rounded-lg shadow-lg relative w-60"
+								className="p-4 space-x-4 rounded-lg shadow-lg relative w-60 mt-5"
 							>
 								{/* Left Accent Bar */}
 								<div
@@ -212,18 +212,19 @@ export default function Owner() {
 									<p className="text-sm font-semibold">
 										{item.label}
 									</p>
-									<h2 className="text-2xl">{item.value}</h2>
+									<h2 className={`text-2xl font-semibold ${item.color}`}>{item.value}</h2>
 								</div>
 							</Card>
 						))}
 					</div>
 				</CardContent>
+
 			</Card>
 
 			{/* Pending Section */}
 			<Card className="mt-8">
 				<CardHeader>
-					<CardTitle className="text-lg font-bold">
+					<CardTitle className="text-lg font-semibold font-poppins">
 						Pending Maintanance
 					</CardTitle>
 				</CardHeader>
@@ -231,12 +232,12 @@ export default function Owner() {
 					{PendingMaintenance.map((items, index) => (
 						<Card key={index} className="">
 							<CardHeader className="bg-blue-500 rounded-t-lg text-white">
-								<CardTitle className="text-base">
+								<CardTitle className="text-base font-poppins">
 									Maintenance
-									<span className="float-end">Pending</span>
+									<span className="float-end font-poppins">Pending</span>
 								</CardTitle>
 							</CardHeader>
-							<CardContent className="space-y-2 mt-3">
+							<CardContent className="space-y-2 mt-3 font-poppins">
 								<p>
 									<span className="inline-block text-slate-600">
 										Bill Date
@@ -258,7 +259,7 @@ export default function Owner() {
 									<span className="inline-block text-slate-600">
 										Maintanance Amount
 									</span>
-									<span className="float-right">
+									<span className="float-right text-red-500">
 										{items.maintenanceAmount}
 									</span>
 								</p>
@@ -266,16 +267,16 @@ export default function Owner() {
 									<span className="inline-block text-slate-600">
 										Maintenance Penalty Amount
 									</span>
-									<span className="float-right">
+									<span className="float-right text-red-500">
 										{items.maintenancePenaltyAmount}
 									</span>
 								</p>
 								<Separator />
 								<p>
-									<span className="inline-block text-slate-600">
+									<span className="inline-block text-slate-600 font-semibold font-poppins">
 										Grand Total
 									</span>
-									<span className="float-right">
+									<span className="float-right text-green-500">
 										{items.grandTotal}
 									</span>
 								</p>
@@ -289,7 +290,7 @@ export default function Owner() {
 			{/* Due Section */}
 			<Card className="mt-8">
 				<CardHeader>
-					<CardTitle className="text-lg font-bold">
+					<CardTitle className="text-lg font-semibold font-poppins">
 						Due Maintanance
 					</CardTitle>
 				</CardHeader>
@@ -316,7 +317,7 @@ export default function Owner() {
 									<span className="inline-block text-slate-600">
 										Amount
 									</span>
-									<span className="float-right">
+									<span className="float-right text-red-500">
 										{items.maintenanceAmount}
 									</span>
 								</p>
@@ -324,19 +325,11 @@ export default function Owner() {
 									<span className="inline-block text-slate-600">
 										Due Maintanance Amount
 									</span>
-									<span className="float-right">
+									<span className="float-right text-red-500">
 										{items.maintenancePenaltyAmount}
 									</span>
 								</p>
 								<Separator />
-								<p>
-									<span className="inline-block text-slate-600">
-										Grand Total
-									</span>
-									<span className="float-right">
-										{items.grandTotal}
-									</span>
-								</p>
 								<Button className="w-full">Pay Now</Button>
 							</CardContent>
 						</Card>
@@ -347,7 +340,7 @@ export default function Owner() {
 			{/* Announcement Section */}
 			<Card className="mt-8">
 				<CardHeader>
-					<CardTitle className="text-lg font-bold">
+					<CardTitle className="text-lg font-semibold font-poppins">
 						Announcement Details
 					</CardTitle>
 				</CardHeader>
