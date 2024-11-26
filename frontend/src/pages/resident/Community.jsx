@@ -1,6 +1,5 @@
 import Layout from "@/components/Layout";
-import ChatCard from "@/components/Resident-Components/AccessForums/ChatCard";
-
+import ChatCard from "@/components/Resident-Components/Community/AccessForums/ChatCard";
 
 export default function Community({ userRole }) {
 	return (

@@ -34,8 +34,8 @@ import SecurityProtocols from "./pages/resident/SecurityProtocols";
 import Polls from "./pages/resident/Polls";
 import { CommunitiesDiscussion } from "./pages/resident/CommunitiesDiscussion";
 import ProtectedRoute from "./middlewares/ProtectedRoute";
-import ChatCard from "./components/Resident-Components/AccessForums/ChatCard";
-import ChatHeader from "./components/Resident-Components/AccessForums/ChatHeader";
+import ChatCard from "./components/Resident-Components/Community/AccessForums/ChatCard";
+import ChatHeader from "./components/Resident-Components/Community/AccessForums/ChatHeader";
 
 function App() {
 	return (

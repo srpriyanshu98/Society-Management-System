@@ -1,7 +1,8 @@
 import Layout from "@/components/Layout";
-import NewPoll from "@/components/Resident-Components/Community/NewPoll";
-import OwnPoll from "@/components/Resident-Components/Community/OwnPoll";
-import PreviousPoll from "@/components/Resident-Components/Community/PreviousPoll";
+import NewPoll from "@/components/Resident-Components/Community/poll/NewPoll";
+import OwnPoll from "@/components/Resident-Components/Community/poll/OwnPoll";
+import PreviousPoll from "@/components/Resident-Components/Community/poll/PreviousPoll";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Polls({ userRole }) {
