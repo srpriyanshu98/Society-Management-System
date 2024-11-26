@@ -8,10 +8,10 @@ export default function PersonalDetail({ userRole }) {
 		<Layout userRole={userRole}>
 			<Tabs defaultValue="owner">
 				<TabsList className="grid grid-cols-2 w-[400px]">
-					<TabsTrigger value="owner" className="p-5 rounded-t-xl">
+					<TabsTrigger value="owner" className="p-5 rounded-t-xl border-b-orange-500 text-black">
 						Owner
 					</TabsTrigger>
-					<TabsTrigger value="tenant" className="p-5 rounded-t-xl">
+					<TabsTrigger value="tenant" className="p-5 rounded-t-xl border-b-orange-500 text-black">
 						Tenant
 					</TabsTrigger>
 				</TabsList>

@@ -31,6 +31,8 @@ import PersonalDetail from "./pages/resident/PersonalDetail";
 import ServiceAndComplaint from "./pages/resident/ServiceAndComplaint";
 import PaymentPortal from "./pages/resident/PaymentPortal";
 import SecurityProtocols from "./pages/resident/SecurityProtocols";
+import ChatCard from "./components/Resident-Components/AccessForums/ChatCard";
+import ChatHeader from "./components/Resident-Components/AccessForums/ChatHeader";
 
 function App() {
 	return (
@@ -75,6 +77,9 @@ function App() {
 			<Route path="/community" element={<Community />} />
 			<Route path="/payment-portal" element={<PaymentPortal />} />
 			<Route path="/security-protocals" element={<SecurityProtocols />} />
+
+			<Route path="/ChatCard" element={<ChatCard />} />
+			<Route path="/ChatHeader" element={<ChatHeader />} />
 
 			{/* SECURITY ROUTES */}
 			<Route

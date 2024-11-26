@@ -97,7 +97,7 @@ export default function MaintenanceDetailDialog({ isOpen, onClose }) {
 				</div>
 				<div className="flex justify-between">
 					<Button
-						variant="secondary"
+						variant="outline"
 						onClick={onClose}
 						className="w-40"
 					>

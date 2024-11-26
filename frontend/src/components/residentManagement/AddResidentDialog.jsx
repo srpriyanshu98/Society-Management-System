@@ -121,7 +121,7 @@ export default function AddResidentDialog({
 				<div className="space-x-5">
 					
 					<Button
-						variant="secondary"
+						variant="outline"
 						onClick={onClose}
 						className="w-40"
 					>

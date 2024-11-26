@@ -8,10 +8,10 @@ export default function ServiceAndComplaint({ userRole }) {
 		<Layout userRole={userRole}>
 			<Tabs defaultValue="complaint">
 				<TabsList className="grid grid-cols-2 w-[400px]">
-					<TabsTrigger value="complaint" className="p-5 rounded-t-xl">
+					<TabsTrigger value="complaint" className="p-5 rounded-t-xl border-b-orange-500 text-black">
 						Complaint Submission
 					</TabsTrigger>
-					<TabsTrigger value="request" className="p-5 rounded-t-xl">
+					<TabsTrigger value="request" className="p-5 rounded-t-xl border-b-orange-500 text-black">
 						Request Submission
 					</TabsTrigger>
 				</TabsList>

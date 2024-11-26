@@ -4,7 +4,7 @@ import * as Icons from "lucide-react";
 import menuItems from "@/data/menuItems";
 import { Separator } from "./ui/separator";
 
-export default function Sidebar({ userRole = "admin" }) {
+export default function Sidebar({ userRole = "resident" }) {
 	const [expandedMenu, setExpandedMenu] = useState(null);
 	const userMenuItems = menuItems[userRole] || [];
 	const location = useLocation();
@@ -73,8 +73,8 @@ export default function Sidebar({ userRole = "admin" }) {
                     );
                 })}
             </div>
-            {/* Logout Section */}
-            <div className="inline-block mt-80 space-x-7">
+             {/* Logout Section */}
+         <div className="inline-block space-x-7 absolute top-[870px]">
                 <Separator className="mb-3 w-52 ms-5" />
                 <div>
                     <img

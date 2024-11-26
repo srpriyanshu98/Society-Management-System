@@ -48,7 +48,13 @@ const menuItems = {
 			path: "/events-participation",
 			icon: "CalendarFold",
 		},
-		{ name: "Community", path: "/community", icon: "Component" },
+		{ name: "Community", path: "/community", icon: "Component", 
+			subItems: [
+				{ name: "Access Forums", path: "/community" },
+				{ name: "Expense", path: "/add-expenses" },
+				{ name: "Note", path: "/note" },
+			]
+		},
 		{ name: "Payment Portal", path: "/payment-portal", icon: "HandCoins" },
 		{
 			name: "Security Protocols",
