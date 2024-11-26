@@ -10,131 +10,140 @@ import { Calendar } from "../ui/calendar";
 import moment from "moment";
 
 export default function EditSecurityProtocols({
-	isOpen,
-	onClose,
-	protocol,
-	onSave,
+    isOpen,
+    onClose,
+    protocol = {},
+    onSave,
 }) {
-	const [date, setDate] = useState(protocol?.date || "");
-	const [time, setTime] = useState(protocol?.time || "");
-	const [title, setTitle] = useState(protocol?.Title || "");
-	const [description, setDescription] = useState(protocol?.description || "");
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [date, setDate] = useState("");
+    const [time, setTime] = useState("");
 
-	useEffect(() => {
-		if (protocol) {
-			setTitle(protocol.Title);
-			setDescription(protocol.description);
-			setDate(protocol.date);
-			setTime(protocol.time);
-		}
-	}, [protocol]);
+    // Update state when `protocol` changes
+    useEffect(() => {
+        if (protocol) {
+            setTitle(protocol.title || "");
+            setDescription(protocol.description || "");
+            setDate(
+                protocol.date ? moment(protocol.date).format("YYYY-MM-DD") : ""
+            );
+            setTime(
+                protocol.time
+                    ? moment(protocol.time, "HH:mm").format("HH:mm")
+                    : ""
+            );
+        }
+    }, [protocol]);
 
-	const handleSave = () => {
-		onSave({ ...protocol, Title: title, description, date, time });
-		onClose();
-	};
+    const handleSave = () => {
+        const updatedProtocol = {
+            id: protocol._id,
+            title: title.trim(),
+            description: description.trim(),
+            date,
+            time,
+        };
 
-	const isFormValid = title && description && date && time;
+        onSave(updatedProtocol);
+        onClose();
+    };
 
-	return (
-		<Dialog open={isOpen} onOpenChange={onClose}>
-			<DialogContent className="w-57">
-				<DialogHeader>
-					<DialogTitle>Edit Security Protocol</DialogTitle>
-				</DialogHeader>
-				<Separator className="w-45" />
-				<div className="flex flex-col space-y-4">
-					<Label>
-						Title<span className="text-red-500">*</span>
-					</Label>
-					<Input
-						type="text"
-						value={title}
-						onChange={(e) => setTitle(e.target.value)}
-						className="w-full p-2 border rounded-lg"
-						placeholder="Enter Title"
-					/>
-					<Label>
-						Description<span className="text-red-500">*</span>
-					</Label>
-					<textarea
-						value={description}
-						onChange={(e) => setDescription(e.target.value)}
-						className="w-full p-3 border rounded-lg resize-none"
-						rows="3"
-						placeholder="Enter description"
-					/>
-				</div>
-				<div className="flex space-x-20">
-					<div className="grid grid-cols-1 gap-2">
-						<label className="block text-gray-700 font-medium">
-							Date<span className="text-red-500">*</span>
-						</label>
-						<Popover>
-							<PopoverTrigger asChild>
-								<Button
-									variant="outline"
-									className={`w-full pl-3 text-left ${
-										!date ? "text-muted-foreground" : ""
-									}`}
-								>
-									{moment(date).format("MM/DD/YYYY")}
-									<CalendarDays className="ml-auto h-4 w-4 opacity-50" />
-								</Button>
-							</PopoverTrigger>
-							<PopoverContent
-								className="w-auto p-0"
-								align="start"
-							>
-								<Calendar
-									mode="single"
-									selected={new Date(date)}
-									onSelect={(newDate) =>
-										newDate &&
-										setDate(
-											moment(newDate).format("MM/DD/YYYY")
-										)
-									}
-									initialFocus
-								/>
-							</PopoverContent>
-						</Popover>
-					</div>
-					<div className="grid grid-cols-1 gap-2">
-						<label className="block text-gray-700 font-medium">
-							Time<span className="text-red-500">*</span>
-						</label>
-						<Input
-							type="time"
-							value={moment(time, "hh:mm A").format("HH:mm")}
-							onChange={(e) =>
-								setTime(
-									moment(e.target.value, "HH:mm").format(
-										"hh:mm A"
-									)
-								)
-							}
-							className="w-full p-2 border rounded-lg"
-						/>
-					</div>
-				</div>
-				<div className="space-x-5 mt-4">
-					<Button
-						variant="outline"
-						onClick={onClose}
-						className="w-40"
-					>
-						Cancel
-					</Button>
-					<Button
-						className="w-40"
-						disabled={!isFormValid}
-						onClick={handleSave}
-					>
-						Save
-					</Button>
-				</div>
-			</DialogContent>
-		</Dialog>
-	);
+    const isFormValid = title.trim() && description.trim() && date && time;
+
+    return (
+        <Dialog open={isOpen} onOpenChange={onClose}>
+            <DialogContent className="w-57">
+                <DialogHeader>
+                    <DialogTitle>Edit Security Protocol</DialogTitle>
+                </DialogHeader>
+                <Separator className="w-45" />
+                <div className="flex flex-col space-y-4">
+                    <Label>
+                        Title<span className="text-red-500">*</span>
+                    </Label>
+                    <Input
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        className="w-full p-2 border rounded-lg"
+                        placeholder="Enter Title"
+                    />
+                    <Label>
+                        Description<span className="text-red-500">*</span>
+                    </Label>
+                    <textarea
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        className="w-full p-3 border rounded-lg resize-none"
+                        rows="3"
+                        placeholder="Enter description"
+                    />
+                </div>
+                <div className="flex space-x-4 mt-4">
+                    <div className="grid grid-cols-1 gap-2">
+                        <label className="block text-gray-700 font-medium">
+                            Date<span className="text-red-500">*</span>
+                        </label>
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className={`w-full pl-3 text-left ${
+                                        !date ? "text-muted-foreground" : ""
+                                    }`}
+                                >
+                                    {date || "Select a date"}
+                                    <CalendarDays className="ml-auto h-4 w-4 opacity-50" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent
+                                className="w-auto p-0"
+                                align="start"
+                            >
+                                <Calendar
+                                    mode="single"
+                                    selected={date ? new Date(date) : null}
+                                    onSelect={(newDate) =>
+                                        newDate &&
+                                        setDate(
+                                            moment(newDate).format("YYYY-MM-DD")
+                                        )
+                                    }
+                                    initialFocus
+                                />
+                            </PopoverContent>
+                        </Popover>
+                    </div>
+                    <div className="grid grid-cols-1 gap-2">
+                        <label className="block text-gray-700 font-medium">
+                            Time<span className="text-red-500">*</span>
+                        </label>
+                        <Input
+                            type="time"
+                            value={time}
+                            onChange={(e) => setTime(e.target.value)}
+                            className="w-full p-2 border rounded-lg"
+                        />
+                    </div>
+                </div>
+                <div className="space-x-5 mt-6">
+                    <Button
+                        variant="outline"
+                        onClick={onClose}
+                        className="w-40"
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        className="w-40"
+                        disabled={!isFormValid}
+                        onClick={handleSave}
+                    >
+                        Save
+                    </Button>
+                </div>
+            </DialogContent>
+        </Dialog>
+    );
 }
