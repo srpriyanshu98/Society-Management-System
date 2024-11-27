@@ -26,7 +26,6 @@ export default function CommunitiesDiscussion({ userRole }) {
 	const [questions, setQuestions] = useState([]);
 
 	useEffect(() => {
-		// Simulate loading delay
 		const timer = setTimeout(() => {
 			setFilteredChatData(chatData);
 			setLoading(false);
@@ -56,9 +55,9 @@ export default function CommunitiesDiscussion({ userRole }) {
 		const newQuestion = {
 			id: questions.length + 1,
 			title: question,
-			description: [], // Initialize description as an empty array
+			description: [],
 			votes: 0,
-			answers: [], // Initialize answers as an empty array
+			answers: [],
 			views: 0,
 		};
 		setQuestions([...questions, newQuestion]);
@@ -69,18 +68,18 @@ export default function CommunitiesDiscussion({ userRole }) {
 		setAskQuestionMode(false);
 	};
 
-	const handleAddAnswer = (questionId, answer) => {
-		const updatedQuestions = questions.map((question) => {
-			if (question.id === questionId) {
-				return {
-					...question,
-					answers: [...question.answers, answer],
-				};
-			}
-			return question;
-		});
-		setQuestions(updatedQuestions);
-	};
+	// const handleAddAnswer = (questionId, answer) => {
+	// 	const updatedQuestions = questions.map((question) => {
+	// 		if (question.id === questionId) {
+	// 			return {
+	// 				...question,
+	// 				answers: [...question.answers, answer],
+	// 			};
+	// 		}
+	// 		return question;
+	// 	});
+	// 	setQuestions(updatedQuestions);
+	// };
 
 	return (
 		<Layout userRole={userRole}>
@@ -102,7 +101,7 @@ export default function CommunitiesDiscussion({ userRole }) {
 						</CardDescription>
 					</CardHeader>
 					<CardContent>
-						<ScrollArea className="max-h-[650px] overflow-y-auto custom-scrollbar">
+						<ScrollArea className="max-h-[700px] overflow-y-auto custom-scrollbar">
 							{loading ? (
 								<div>
 									<Skeleton />

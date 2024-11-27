@@ -1,5 +1,3 @@
-// src/components/Resident-Components/Community/communitiesDiscussion/AskQuestionForm.js
-
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -21,7 +19,7 @@ const AskQuestionForm = ({ onSubmit, onCancel }) => {
 	};
 
 	return (
-		<div className="space-y-5">
+		<div className="space-y-5  w-[68rem]">
 			<Card className="border-blue-500 bg-blue-50">
 				<CardHeader>
 					<CardTitle>Writing a good question</CardTitle>

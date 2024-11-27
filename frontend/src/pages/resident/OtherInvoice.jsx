@@ -1,11 +1,11 @@
 import Layout from "@/components/Layout";
 
-export default function PaymentPortal({ userRole }) {
+export default function OtherInvoice({ userRole }) {
 	return (
 		<Layout userRole={userRole}>
 			<div className="flex flex-col p-6  bg-gray-50 ">
 				<h1 className="text-2xl font-bold">
-					Welcome to the Payment Portal
+					Welcome to the other-invoice
 				</h1>
 				<p>This is the main workspace area.</p>
 				{/* Other components or routes can be rendered here */}

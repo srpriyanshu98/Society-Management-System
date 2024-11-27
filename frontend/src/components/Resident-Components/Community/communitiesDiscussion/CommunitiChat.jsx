@@ -9,9 +9,7 @@ export default function CommunityChat({ newQuestions }) {
 	const [isQuestions, setQuestions] = useState([]);
 
 	useEffect(() => {
-		// Combine static questions with new questions
 		const combinedQuestions = [...staticQuestions, ...newQuestions];
-		// Ensure answers and description are always arrays
 		const questionsWithAnswersAndDescriptionAsArray = combinedQuestions.map(
 			(question) => ({
 				...question,
@@ -23,7 +21,6 @@ export default function CommunityChat({ newQuestions }) {
 					: [question.description].filter(Boolean),
 			})
 		);
-		// Simulate loading delay
 		const timer = setTimeout(() => {
 			setQuestions(questionsWithAnswersAndDescriptionAsArray);
 			setLoading(false);
@@ -33,8 +30,8 @@ export default function CommunityChat({ newQuestions }) {
 	}, [newQuestions]);
 
 	return (
-		<CardContent>
-			<ScrollArea className="max-h-[650px] overflow-y-auto custom-scrollbar p-4">
+		<CardContent className="p-0">
+			<ScrollArea className="max-h-[725px] overflow-y-auto custom-scrollbar p-4">
 				{loading ? (
 					<div className="text-center py-6 text-gray-500">
 						Loading...
@@ -42,7 +39,6 @@ export default function CommunityChat({ newQuestions }) {
 				) : (
 					<div className="space-y-4 w-[68rem]">
 						{isQuestions.map((question) => {
-							// Filter out non-string descriptions
 							const validDescriptions =
 								question.description.filter(
 									(desc) => typeof desc === "string"
@@ -52,9 +48,9 @@ export default function CommunityChat({ newQuestions }) {
 							return (
 								<div
 									key={question.id}
-									className="grid grid-cols-[auto_1fr_auto] gap-4 p-4 border border-gray-200 rounded-xl shadow-md  bg-slate-200"
+									className="grid grid-cols-[auto_1fr_auto] gap-4 p-4 rounded-xl shadow-md  bg-slate-200"
 								>
-									<div className="text-sm ">
+									<div className="text-sm">
 										<div
 											className={`font-medium ${
 												question.votes > 0
@@ -77,7 +73,6 @@ export default function CommunityChat({ newQuestions }) {
 											Answers
 										</div>
 									</div>
-
 									<div>
 										<h2 className="text-base font-semibold text-gray-800">
 											{question.title}
@@ -121,10 +116,9 @@ export default function CommunityChat({ newQuestions }) {
 											</div>
 										)}
 									</div>
-
-									<span className="text-sm  bg-white grid grid-flow-col rounded-full items-center gap-2">
+									<span className="text-sm grid grid-flow-col rounded-full items-center bg-white h-10 p-2 gap-1">
 										<Eye />
-										<span>{question.views}</span>
+										{question.views}
 									</span>
 								</div>
 							);

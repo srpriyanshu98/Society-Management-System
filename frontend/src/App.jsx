@@ -29,7 +29,6 @@ import Community from "./pages/resident/Community";
 import EventsParticipation from "./pages/resident/EventsParticipation";
 import PersonalDetail from "./pages/resident/PersonalDetail";
 import ServiceAndComplaint from "./pages/resident/ServiceAndComplaint";
-import PaymentPortal from "./pages/resident/PaymentPortal";
 import SecurityProtocols from "./pages/resident/SecurityProtocols";
 import Polls from "./pages/resident/Polls";
 import CommunitiesDiscussion from "./pages/resident/CommunitiesDiscussion";
@@ -38,6 +37,8 @@ import ChatCard from "./components/Resident-Components/Community/AccessForums/Ch
 import ChatHeader from "./components/Resident-Components/Community/AccessForums/ChatHeader";
 import ChatTextArray from "./components/Resident-Components/Community/AccessForums/ChatTextArray";
 import ChatFooter from "./components/Resident-Components/Community/AccessForums/ChatFooter";
+import MaintenanceInvoices from "./pages/resident/MaintenanceInvoices";
+import OtherInvoice from "./pages/resident/OtherInvoice";
 
 function App() {
 	return (
@@ -88,7 +89,11 @@ function App() {
 				element={<CommunitiesDiscussion />}
 			/>
 
-			<Route path="/payment-portal" element={<PaymentPortal />} />
+			<Route
+				path="/maintenance-invoices"
+				element={<MaintenanceInvoices />}
+			/>
+			<Route path="/other-invoice" element={<OtherInvoice />} />
 			<Route path="/security-protocals" element={<SecurityProtocols />} />
 
 			{/* SECURITY ROUTES */}
