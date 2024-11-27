@@ -219,51 +219,26 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-export const refreshToken = async (req, res) => {
-  const { refreshToken } = req.body;
-
-  if (!refreshToken) {
-    return res.status(403).json({ message: "Refresh token is required" });
-  }
-
+export const validatePassword = async (req, res) => {
   try {
-    const decoded = jwt.verify(refreshToken, ENV_VARS.REFRESH_TOKEN_SECRET);
-    const user = await User.findById(decoded.id);
+    const { password } = req.body;
+    const userId = req.userId; // Use req.userId set by verifyToken middleware
 
-    if (!user || user.refreshToken !== refreshToken) {
-      return res.status(401).json({ message: "Invalid refresh token" });
+    // Find user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    const accessToken = jwt.sign({ id: user._id }, ENV_VARS.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    // Compare the provided password with the hashed password in the database
+    const isPasswordValid = await user.comparePassword(password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
 
-    res.status(200).json({ accessToken });
+    res.status(200).json({ message: "Password validated successfully" });
   } catch (error) {
-    res.status(401).json({ message: "Invalid refresh token" });
+    console.error("Error in validate password controller:", error.message);
+    res.status(500).json({ message: "Internal server error" });
   }
-};
-
-export const validatePassword = async (req, res) => {
-	try {
-		const { password } = req.body;
-		const userId = req.userId; // Use req.userId set by verifyToken middleware
-
-		// Find user by ID
-		const user = await User.findById(userId);
-		if (!user) {
-			return res.status(404).json({ message: "User not found" });
-		}
-
-		// Compare the provided password with the hashed password in the database
-		const isPasswordValid = await user.comparePassword(password);
-		if (!isPasswordValid) {
-			return res.status(401).json({ message: "Invalid password" });
-		}
-
-		res.status(200).json({ message: "Password validated successfully" });
-	} catch (error) {
-		console.error("Error in validate password controller:", error.message);
-		res.status(500).json({ message: "Internal server error" });
-	}
 };
