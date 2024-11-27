@@ -73,7 +73,7 @@ export default function LoginForm() {
                     password,
                 });
                 console.log("Login successful", response.data);
-                localStorage.setItem("token", response.data.token);
+                localStorage.setItem("token", response.data.accessToken);
                 login();
                 navigate("/", { replace: true });
             } catch (error) {
