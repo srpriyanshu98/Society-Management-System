@@ -2,38 +2,21 @@ import { useState, useEffect } from "react";
 import { Card } from "../ui/card";
 import { ScrollArea } from "../ui/scroll-area";
 import { Select, SelectTrigger, SelectContent, SelectItem } from "../ui/select";
-// import axios from "axios";
-import dayjs from "dayjs";
-import { upcomingActivities } from "@/data/dummyDataUpcomingActivity";
+import moment from "moment";
+import axiosInstance from "@/test/axiosInstance"; // Adjust the path accordingly
 import { Skeleton } from "../ui/skeleton";
 
 export default function UpcomingActivity() {
-	const [activities, setActivities] = useState(upcomingActivities); // Use dummy data as initial state
-	const [filteredActivities, setFilteredActivities] =
-		useState(upcomingActivities);
+	const [activities, setActivities] = useState([]);
+	const [filteredActivities, setFilteredActivities] = useState([]);
 	const [filter, setFilter] = useState("All");
-	const [isLoading, setIsLoading] = useState(false); // Set to false since we're using dummy data initially
+	const [isLoading, setIsLoading] = useState(false);
 
 	const fetchActivities = async () => {
 		try {
 			setIsLoading(true);
-			// TODO: Uncomment and replace this with your actual API call
-			// const response = await axios.get("/api/upcoming-activities");
-			// const data = Array.isArray(response.data) ? response.data : [];
-			// setActivities(data);
-			// setFilteredActivities(data);
-
-			// For now, use dummy data
-			// setActivities(upcomingActivities);
-			// setFilteredActivities(upcomingActivities);
-
-			// Simulating an API call with a delay
-			const response = await new Promise((resolve) => {
-				setTimeout(() => {
-					resolve(upcomingActivities); // Resolve with dummy data
-				});
-			});
-			setActivities(response);
+			const response = await axiosInstance.get("/announcements"); // Adjust the endpoint accordingly
+			setActivities(response.data);
 		} catch (error) {
 			console.error("Error fetching activities:", error);
 		} finally {
@@ -42,21 +25,21 @@ export default function UpcomingActivity() {
 	};
 
 	const filterActivities = () => {
-		const now = dayjs();
+		const now = moment();
 		let filtered;
 		if (filter === "All") {
 			filtered = activities;
 		} else if (filter === "Month") {
 			filtered = activities.filter((activity) =>
-				dayjs(activity.date).isSame(now, "month")
+				moment(activity.date).isSame(now, "month")
 			);
 		} else if (filter === "Week") {
 			filtered = activities.filter((activity) =>
-				dayjs(activity.date).isSame(now, "week")
+				moment(activity.date).isSame(now, "week")
 			);
 		} else if (filter === "Current Year") {
 			filtered = activities.filter((activity) =>
-				dayjs(activity.date).isSame(now, "year")
+				moment(activity.date).isSame(now, "year")
 			);
 		}
 		setFilteredActivities(filtered);
@@ -112,7 +95,7 @@ export default function UpcomingActivity() {
 							const color = getRandomColor();
 							return (
 								<div
-									key={activity.id}
+									key={activity._id}
 									className="flex justify-between items-center p-2 border-b"
 								>
 									<div className="flex items-center space-x-4">
@@ -123,22 +106,21 @@ export default function UpcomingActivity() {
 												color: color,
 											}}
 										>
-											{activity.name
+											{activity.title
 												.charAt(0)
 												.toUpperCase()}
 										</div>
 										<div>
 											<div className="font-semibold font-poppins">
-												{activity.name}
+												{activity.title}
 											</div>
 											<div className="text-gray-500 text-sm">
-												{activity.startTime} To{" "}
-												{activity.endTime}
+												{activity.time}
 											</div>
 										</div>
 									</div>
 									<div className="text-gray-400 text-sm">
-										{dayjs(activity.date).format(
+										{moment(activity.date).format(
 											"DD-MM-YYYY"
 										)}
 									</div>
