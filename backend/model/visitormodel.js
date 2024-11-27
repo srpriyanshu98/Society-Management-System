@@ -7,6 +7,7 @@ const visitorSchema = new mongoose.Schema(
     wing: { type: String, required: true },
     date: { type: Date, required: true },
     time: { type: String, required: true },
+    Number: { type: String, required: true },
   },
   { timestamps: true }
 );

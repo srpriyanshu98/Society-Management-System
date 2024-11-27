@@ -2,9 +2,9 @@ import Visitor from "../model/visitormodel.js";
 
 // Create a new visitor entry
 export const createVisitor = async (req, res) => {
-  const { visitorName, unit, wing, date, time } = req.body;
+  const { visitorName, unit, wing, date, time,Number } = req.body;
 
-  if (!visitorName || !unit || !wing || !date || !time) {
+  if (!visitorName || !unit || !wing || !date || !time || !Number) {
     return res.status(400).json({
       message: "All fields (visitorName, unit, wing, date, time) are required.",
     });
@@ -17,6 +17,7 @@ export const createVisitor = async (req, res) => {
       wing,
       date,
       time,
+      Number,
     });
 
     await visitor.save();
