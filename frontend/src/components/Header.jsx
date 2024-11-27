@@ -44,7 +44,7 @@ export default function Header() {
 	useEffect(() => {
 		const fetchUserProfile = async () => {
 			try {
-				const token = localStorage.getItem("token");
+				const token = localStorage.getItem("accessToken");
 				if (!token) throw new Error("No token found in local storage");
 
 				const decodedToken = jwtDecode(token);
