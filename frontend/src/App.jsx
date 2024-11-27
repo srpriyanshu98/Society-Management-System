@@ -36,6 +36,8 @@ import CommunitiesDiscussion from "./pages/resident/CommunitiesDiscussion";
 // import ProtectedRoute from "./middlewares/ProtectedRoute";
 import ChatCard from "./components/Resident-Components/Community/AccessForums/ChatCard";
 import ChatHeader from "./components/Resident-Components/Community/AccessForums/ChatHeader";
+import ChatTextArray from "./components/Resident-Components/Community/AccessForums/ChatTextArray";
+import ChatFooter from "./components/Resident-Components/Community/AccessForums/ChatFooter";
 
 function App() {
 	return (
@@ -75,8 +77,11 @@ function App() {
 				element={<EventsParticipation />}
 			/>
 			<Route path="/community" element={<Community />} />
-			<Route path="/ChatCard" element={<ChatCard />} />
-			<Route path="/ChatHeader" element={<ChatHeader />} />
+			<Route path="/chatcard" element={<ChatCard />} />
+			<Route path="/chatheader" element={<ChatHeader />} />
+			<Route path="/chattextarray" element={<ChatTextArray />} />
+			<Route path="/chatfooter" element={<ChatFooter />} />
+
 			<Route path="/polls" element={<Polls />} />
 			<Route
 				path="/communities-discussion"
