@@ -5,8 +5,9 @@ import cors from "cors";
 // importing environmet variables
 import { ENV_VARS } from "./config/envVars.js";
 import { connectDB } from "./config/db.js";
+import { app, server } from "./config/socket.js";
 
-const app = express();
+// const app = express();
 const PORT = ENV_VARS.PORT;
 
 app.use(express.json());
@@ -40,6 +41,7 @@ import securityRoutes from "./routes/securityRoutes.js";
 import pollRoutes from "./routes/pollRoutes.js";
 import visitorRoutes from "./routes/visitorRoutes.js";
 import alertRoutes from "./routes/alertRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -61,6 +63,7 @@ app.use("/api/security", securityRoutes);
 app.use("/api/polls", pollRoutes);
 app.use("/api/visitors", visitorRoutes);
 app.use("/api/alerts", alertRoutes);
+app.use("/api/messages", messageRoutes);
 
 app.listen(PORT, () => {
   console.log("server is running on port http://localhost:" + PORT);
