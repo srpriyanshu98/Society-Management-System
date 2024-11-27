@@ -32,7 +32,7 @@ import ServiceAndComplaint from "./pages/resident/ServiceAndComplaint";
 import PaymentPortal from "./pages/resident/PaymentPortal";
 import SecurityProtocols from "./pages/resident/SecurityProtocols";
 import Polls from "./pages/resident/Polls";
-import { CommunitiesDiscussion } from "./pages/resident/CommunitiesDiscussion";
+import CommunitiesDiscussion from "./pages/resident/CommunitiesDiscussion";
 // import ProtectedRoute from "./middlewares/ProtectedRoute";
 import ChatCard from "./components/Resident-Components/Community/AccessForums/ChatCard";
 import ChatHeader from "./components/Resident-Components/Community/AccessForums/ChatHeader";
