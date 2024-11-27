@@ -60,7 +60,14 @@ const menuItems = {
 				},
 			],
 		},
-		{ name: "Payment Portal", path: "/payment-portal", icon: "HandCoins" },
+		{
+			name: "Payment Portal",
+			icon: "HandCoins",
+			subItems: [
+				{ name: "Maintenance Invoices", path: "/maintenance-invoices" },
+				{ name: "Other Income Invoice", path: "/other-invoice" },
+			],
+		},
 		{
 			name: "Security Protocols",
 			path: "/security-protocals",

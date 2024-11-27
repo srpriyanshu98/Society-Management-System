@@ -88,12 +88,16 @@ const breadcrumbData = {
 	],
 	"/communities-discussion": [
 		{ label: "Home", href: "/" },
-		{ label: "Communities Discussion", href: "/community" },
+		{ label: "Communities", href: "/community" },
 		{ label: "Communities Discussion", href: "/communities-discussion" },
 	],
-	"/payment-portal": [
+	"/maintenance-invoices": [
 		{ label: "Home", href: "/" },
-		{ label: "Payment Portal", href: "/payment-portal" },
+		{ name: "Maintenance Invoices", path: "/maintenance-invoices" },
+	],
+	"/other-invoice": [
+		{ label: "Home", href: "/" },
+		{ name: "Other Income Invoice", path: "/other-invoice" },
 	],
 	"/security-protocals": [
 		{ label: "Home", href: "/" },

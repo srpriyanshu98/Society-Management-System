@@ -45,20 +45,28 @@ export default function Owner() {
 					</div>
 					<div>
 						<p>Gender</p>
-						<span className="text-slate-600 font-poppins">{profile.gender}</span>
+						<span className="text-slate-600 font-poppins">
+							{profile.gender}
+						</span>
 					</div>
 
 					<div>
 						<p>Wing</p>
-						<span className="text-slate-600 font-poppins">{profile.wing}</span>
+						<span className="text-slate-600 font-poppins">
+							{profile.wing}
+						</span>
 					</div>
 					<div>
 						<p>Unit</p>
-						<span className="text-slate-600 font-poppins">{profile.unit}</span>
+						<span className="text-slate-600 font-poppins">
+							{profile.unit}
+						</span>
 					</div>
 					<div>
 						<p>Age</p>
-						<span className="text-slate-600 font-poppins">{profile.age}</span>
+						<span className="text-slate-600 font-poppins">
+							{profile.age}
+						</span>
 					</div>
 					<div>
 						<p>Relation</p>
@@ -212,13 +220,16 @@ export default function Owner() {
 									<p className="text-sm font-semibold">
 										{item.label}
 									</p>
-									<h2 className={`text-2xl font-semibold ${item.color}`}>{item.value}</h2>
+									<h2
+										className={`text-2xl font-semibold ${item.color}`}
+									>
+										{item.value}
+									</h2>
 								</div>
 							</Card>
 						))}
 					</div>
 				</CardContent>
-
 			</Card>
 
 			{/* Pending Section */}
@@ -234,7 +245,9 @@ export default function Owner() {
 							<CardHeader className="bg-blue-500 rounded-t-lg text-white">
 								<CardTitle className="text-base font-poppins">
 									Maintenance
-									<span className="float-end font-poppins">Pending</span>
+									<span className="float-end font-poppins">
+										Pending
+									</span>
 								</CardTitle>
 							</CardHeader>
 							<CardContent className="space-y-2 mt-3 font-poppins">
