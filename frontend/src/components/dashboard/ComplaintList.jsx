@@ -9,6 +9,7 @@ import ComplaintViewModal from "./ComplaintViewModal ";
 import ComplaintEditModal from "./ComplaintEditModal";
 import axiosInstance from "@/test/axiosInstance";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import moment from "moment";
 
 export default function ComplaintList() {
 	const [complaints, setComplaints] = useState([]);
@@ -157,7 +158,9 @@ export default function ComplaintList() {
 											{complaint.complaintName}
 										</td>
 										<td className="p-3 text-gray-500">
-											{complaint.date}
+											{moment(complaint.date).format(
+												"DD/MM/YYYY"
+											)}
 										</td>
 										<td className="p-3">
 											<span
