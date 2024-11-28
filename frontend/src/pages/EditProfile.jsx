@@ -4,7 +4,6 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import axiosInstance from "@/test/axiosInstance";
 import { jwtDecode } from "jwt-decode";
 
@@ -45,7 +44,7 @@ export default function EditProfile({ userRole }) {
 	useEffect(() => {
 		const fetchUserProfile = async () => {
 			try {
-				const token = localStorage.getItem("token");
+				const token = localStorage.getItem("accessToken");
 				if (!token) {
 					throw new Error("No token found in local storage");
 				}
