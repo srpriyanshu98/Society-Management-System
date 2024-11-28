@@ -1,40 +1,38 @@
 import { Input } from "@/components/ui/input";
 import { SendHorizontal } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 const emojis = ["😊", "😂", "😍", "🥺", "😎", "😢"];
 
-export default function ChatFooter({ onSendMessage, onSendFile }) {
+export default function ChatFooter({ onSendMessage, onSendFile, onSendAudio }) {
   const [message, setMessage] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-
   const [typing, setTyping] = useState(false);
 
-  // Handle text input change
   const handleInputChange = (event) => {
-    setMessage(event.target.value);
+    const input = event.target.value;
+    setMessage(input);
+    setTyping(input.trim() !== "");
   };
 
-  // Toggle emoji picker visibility
   const toggleEmojiPicker = () => {
     setShowEmojiPicker((prevState) => !prevState);
   };
 
-  // Add selected emoji to message input
   const addEmoji = (emoji) => {
     setMessage((prevMessage) => prevMessage + emoji);
+    setTyping(true);
     setShowEmojiPicker(false);
   };
 
-  // Handle form submission to send text message
   const handleSubmit = (event) => {
     event.preventDefault();
     if (message.trim()) {
       onSendMessage(message);
       setMessage("");
+      setTyping(false);
     }
   };
 
-  // Handle file upload
   const handleFileUpload = (event) => {
     const files = event.target.files;
     if (files.length > 0) {
@@ -43,6 +41,48 @@ export default function ChatFooter({ onSendMessage, onSendFile }) {
       });
     }
     event.target.value = "";
+  };
+
+  // Audio Recording
+  const audioChunk = useRef([]);
+  const [recording, setRecording] = useState(false);
+  const mediaRecorderRef = useRef(null);
+
+  const startRec = async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const mediaRecorder = new MediaRecorder(stream);
+
+    mediaRecorder.ondataavailable = (e) => {
+      if (e.data.size > 0) {
+        audioChunk.current.push(e.data);
+      }
+    };
+
+    mediaRecorder.onstop = () => {
+      const audioBlob = new Blob(audioChunk.current, { type: "audio/wav" });
+      const audioUrl = URL.createObjectURL(audioBlob);
+      onSendAudio(audioBlob); // Send audio blob to parent component
+      audioChunk.current = [];
+    };
+
+    mediaRecorderRef.current = mediaRecorder;
+    mediaRecorder.start();
+    setRecording(true);
+  };
+
+  const stopRec = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+    }
+    setRecording(false);
+  };
+
+  const handleClick = () => {
+    if (recording) {
+      stopRec();
+    } else {
+      startRec();
+    }
   };
 
   return (
@@ -86,8 +126,16 @@ export default function ChatFooter({ onSendMessage, onSendFile }) {
               <SendHorizontal className="w-6 h-6" />
             </button>
           ) : (
-            <button type="button" className="bg-blue-500 text-white rounded-full p-3 ml-3">
-              <img src="./src/assets/microphone.svg" alt="Microphone" className="w-6 h-6" />
+            <button
+              type="button"
+              className="bg-blue-500 text-white rounded-full p-3 ml-3"
+              onClick={handleClick}
+            >
+              <img
+                src="./src/assets/microphone.svg"
+                alt="Microphone"
+                className="w-6 h-6"
+              />
             </button>
           )}
         </span>

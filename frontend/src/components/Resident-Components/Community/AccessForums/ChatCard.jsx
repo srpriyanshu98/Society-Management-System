@@ -33,13 +33,13 @@ export default function ChatCard() {
 		setMessages((prevMessages) => [...prevMessages, { type: fileType, content: fileUrl, name: file.name }]);
 	  };
 
-	  const handleNewAudio = (audioBlob) => {
-		const audioUrl = URL.createObjectURL(audioBlob);
-		setMessages((prevMessages) => [
-		  ...prevMessages,
-		  { type: "audio", content: audioUrl, name: "Audio Message" }
-		]);
-	  };
+    const handleNewAudio = (audioBlob) => {
+      const audioUrl = URL.createObjectURL(audioBlob);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { type: "audio", content: audioUrl, name: "Audio Message" }
+      ]);
+    };
   return (
     <Card className="h-[748px] w-full flex">
       
