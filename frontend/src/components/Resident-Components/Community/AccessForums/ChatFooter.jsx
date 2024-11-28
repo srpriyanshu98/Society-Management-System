@@ -1,14 +1,13 @@
 import { Input } from "@/components/ui/input";
-import { useState, useRef } from "react";
+import { SendHorizontal } from "lucide-react";
+import { useState } from "react";
 const emojis = ["😊", "😂", "😍", "🥺", "😎", "😢"];
 
-export default function ChatFooter({ onSendMessage, onSendFile, onSendAudio }) {
+export default function ChatFooter({ onSendMessage, onSendFile }) {
   const [message, setMessage] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [isRecording, setIsRecording] = useState(false);
-  const [audioBlob, setAudioBlob] = useState(null);
-  const mediaRecorderRef = useRef(null);
-  const audioChunks = useRef([]);
+
+  const [typing, setTyping] = useState(false);
 
   // Handle text input change
   const handleInputChange = (event) => {
@@ -46,46 +45,6 @@ export default function ChatFooter({ onSendMessage, onSendFile, onSendAudio }) {
     event.target.value = "";
   };
 
-  // Start the audio recording
-  const startRecording = () => {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ audio: true })
-        .then((stream) => {
-          mediaRecorderRef.current = new MediaRecorder(stream);
-          mediaRecorderRef.current.ondataavailable = (event) => {
-            audioChunks.current.push(event.data);
-          };
-          mediaRecorderRef.current.onstop = () => {
-            const audioBlobData = new Blob(audioChunks.current, { type: 'audio/wav' });
-            setAudioBlob(audioBlobData);
-            onSendAudio(audioBlobData); // Send audio blob as message
-          };
-          mediaRecorderRef.current.start();
-          setIsRecording(true);
-        })
-        .catch((err) => {
-          console.error("Error accessing microphone: ", err);
-        });
-    } else {
-      alert("Audio recording is not supported in this browser.");
-    }
-  };
-
-  // Stop the audio recording
-  const stopRecording = () => {
-    mediaRecorderRef.current.stop();
-    setIsRecording(false);
-  };
-
-  // Toggle recording state
-  const handleMicClick = () => {
-    if (isRecording) {
-      stopRecording();
-    } else {
-      startRecording();
-    }
-  };
-
   return (
     <div className="border-t border-gray-200 p-4">
       <form onSubmit={handleSubmit} className="flex items-center">
@@ -121,21 +80,26 @@ export default function ChatFooter({ onSendMessage, onSendFile, onSendAudio }) {
             </button>
           </div>
         </div>
-
-        <button type="button" className="bg-blue-500 text-white rounded-full p-3 ml-3" onClick={handleMicClick}>
-          <img src="./src/assets/microphone.svg" alt="Microphone" className="w-6 h-6" />
-        </button>
+        <span>
+          {typing ? (
+            <button type="submit" className="bg-blue-500 text-white rounded-full p-3 ml-3">
+              <SendHorizontal className="w-6 h-6" />
+            </button>
+          ) : (
+            <button type="button" className="bg-blue-500 text-white rounded-full p-3 ml-3">
+              <img src="./src/assets/microphone.svg" alt="Microphone" className="w-6 h-6" />
+            </button>
+          )}
+        </span>
       </form>
 
       {showEmojiPicker && (
-        <div className="absolute w-40 bg-white border rounded-lg shadow-lg p-4 max-h-40 overflow-y-auto">
-          <div className="grid grid-cols-6 gap-2">
-            {emojis.map((emoji, index) => (
-              <button key={index} type="button" onClick={() => addEmoji(emoji)} className="text-xl">
-                {emoji}
-              </button>
-            ))}
-          </div>
+        <div className="absolute bottom-36 bg-white shadow-lg rounded-lg p-2 grid grid-cols-3 gap-2">
+          {emojis.map((emoji) => (
+            <button key={emoji} type="button" onClick={() => addEmoji(emoji)} className="text-xl">
+              {emoji}
+            </button>
+          ))}
         </div>
       )}
     </div>
