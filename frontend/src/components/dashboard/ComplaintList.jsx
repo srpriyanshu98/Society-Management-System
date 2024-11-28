@@ -86,7 +86,7 @@ export default function ComplaintList() {
 			);
 			setComplaints(
 				complaints.map((c) =>
-					c.id === editedComplaint.id ? response.data : c
+					c._id === editedComplaint._id ? response.data : c
 				)
 			);
 		} catch (error) {
