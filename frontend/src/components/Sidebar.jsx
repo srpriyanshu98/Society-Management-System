@@ -6,7 +6,7 @@ import { Separator } from "./ui/separator";
 import axiosInstance from "@/test/axiosInstance";
 import { useAuth } from "@/hooks/useAuth.jsx";
 
-export default function Sidebar({ userRole = "resident" }) {
+export default function Sidebar({ userRole = "admin" }) {
 	const [expandedMenu, setExpandedMenu] = useState(null);
 	const userMenuItems = menuItems[userRole] || [];
 	const location = useLocation();
