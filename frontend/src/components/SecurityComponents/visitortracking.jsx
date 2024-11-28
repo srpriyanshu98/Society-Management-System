@@ -1,26 +1,24 @@
-import { visitorTrackingData } from "@/data/VisitorTrackingData";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { ScrollArea } from "../ui/scroll-area";
 import { Skeleton } from "../ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
-import AddVisitorDetails from "./AddVisitorDetails"; // Corrected typo in import
+import AddVisitorDetails from "./AddVisitorDetails";
+import axiosInstance from "@/test/axiosInstance";
+import moment from "moment";
 
 export default function VisitorTracking() {
 	const [Visitors, setVisitors] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [filter] = useState("All");
+	const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 	const fetchVisitors = async () => {
 		try {
 			setIsLoading(true);
-			const response = await new Promise((resolve) => {
-				setTimeout(() => {
-					resolve(visitorTrackingData);
-				});
-			});
-			setVisitors(response);
+			const response = await axiosInstance.get("/visitors");
+			setVisitors(response.data);
 		} catch (error) {
 			console.error("Error fetching Visitors:", error);
 		} finally {
@@ -37,19 +35,26 @@ export default function VisitorTracking() {
 		return Visitor.status === filter;
 	});
 
-	const [isDialogOpen, setIsDialogOpen] = useState(false);
-
 	const handleAddVisitors = () => {
-		setIsDialogOpen(true); // Open the dialog
+		setIsDialogOpen(true);
 	};
 
 	const handleCloseDialog = () => {
-		setIsDialogOpen(false); // Close the dialog
+		setIsDialogOpen(false);
 	};
 
-	// Callback to add a visitor
-	const handleAddVisitor = (visitor) => {
-		setVisitors((prevVisitors) => [...prevVisitors, visitor]);
+	const handleAddVisitor = async (visitor) => {
+		try {
+			console.log("Sending request payload:", visitor);
+			const response = await axiosInstance.post("/visitors", visitor);
+			setVisitors((prevVisitors) => [
+				...prevVisitors,
+				response.data.visitor,
+			]);
+			handleCloseDialog();
+		} catch (error) {
+			console.error("Error creating visitor entry:", error);
+		}
 	};
 
 	return (
@@ -90,7 +95,7 @@ export default function VisitorTracking() {
 								) : filteredVisitors.length > 0 ? (
 									filteredVisitors.map((Visitor) => (
 										<tr
-											key={Visitor.id}
+											key={Visitor._id}
 											className="border-b"
 										>
 											<td className="p-3 flex items-center space-x-3">
@@ -98,7 +103,7 @@ export default function VisitorTracking() {
 													<AvatarImage
 														src="https://github.com/shadcn.png"
 														alt={
-															Visitor.VisitorName
+															Visitor.visitorName
 														}
 													/>
 													<AvatarFallback>
@@ -106,11 +111,11 @@ export default function VisitorTracking() {
 													</AvatarFallback>
 												</Avatar>
 												<span className="font-semibold font-poppins">
-													{Visitor.VisitorName}
+													{Visitor.visitorName}
 												</span>
 											</td>
 											<td className="p-3 text-gray-700 font-semibold font-poppins">
-												{Visitor.PhoneNumber}
+												{Visitor.Number}
 											</td>
 											<td className="p-3 text-gray-500">
 												{Visitor.date}
@@ -124,7 +129,10 @@ export default function VisitorTracking() {
 												{Visitor.unit}
 											</td>
 											<td className="p-3 text-gray-500">
-												{Visitor.Time}
+												{moment(
+													Visitor.time,
+													"HH:mm"
+												).format("hh:mm A")}
 											</td>
 										</tr>
 									))

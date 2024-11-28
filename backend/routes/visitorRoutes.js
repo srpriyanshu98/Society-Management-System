@@ -1,10 +1,10 @@
 import express from "express";
 import {
-  createVisitor,
-  getAllVisitors,
-  getVisitorById,
-  updateVisitor,
-  deleteVisitor,
+	createVisitor,
+	getAllVisitors,
+	getVisitorById,
+	updateVisitor,
+	deleteVisitor,
 } from "../controller/visitorcontroller.js";
 
 const router = express.Router();
