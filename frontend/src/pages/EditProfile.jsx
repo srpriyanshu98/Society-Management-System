@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import axiosInstance from "@/test/axiosInstance";
 import { jwtDecode } from "jwt-decode";
@@ -23,6 +23,24 @@ export default function EditProfile({ userRole }) {
 	const [errors, setErrors] = useState({});
 
 	const [isEditing, setIsEditing] = useState(false);
+
+	const [profileImage, setProfileImage] = useState("./src/assets/img1.png"); 
+	const fileInputRef = useRef(null); 
+
+	const handleImageChange = (e) => {
+		const file = e.target.files[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onload = () => {
+				setProfileImage(reader.result);
+			};
+			reader.readAsDataURL(file);
+		}
+	};
+
+	const openFileSelector = () => {
+		fileInputRef.current.click(); 
+	};
 
 	useEffect(() => {
 		const fetchUserProfile = async () => {
@@ -146,7 +164,7 @@ export default function EditProfile({ userRole }) {
 						{!isEditing && (
 							<Button
 								className="font-poppins flex items-center"
-								onClick={() => setIsEditing(true)} // Enable editing mode
+								onClick={() => setIsEditing(true)} 
 							>
 								<img
 									src="./src/assets/editwhite.svg"
@@ -165,18 +183,32 @@ export default function EditProfile({ userRole }) {
 						>
 							<div className="w-[285px] h-[460px]">
 								<div className="relative w-[145px] h-[145px] border-t-4 border-transparent">
+									
 									<img
-										src="./src/assets/img1.png"
-										alt=""
+										src={profileImage}
+										alt="Profile"
 										className="w-full h-full object-cover rounded-full"
 									/>
-									<Link className="absolute bottom-0 right-0 m-2 rounded-full bg-[#F6F8FB]">
+									
+									<button
+										type="button"
+										className="absolute bottom-0 right-0 m-2 rounded-full bg-[#F6F8FB]"
+										onClick={openFileSelector}
+									>
 										<img
 											src="./src/assets/editblack.svg"
-											alt=""
+											alt="Edit"
 											className="rounded-full m-1 w-[20px] h-[20px] fill-[#202224]"
 										/>
-									</Link>
+									</button>
+									
+									<input
+										type="file"
+										accept="image/*"
+										ref={fileInputRef}
+										style={{ display: "none" }}
+										onChange={handleImageChange}
+									/>
 									<div className="text-center mt-5 font-semibold font-poppins">
 										Arlene McCoy
 									</div>
