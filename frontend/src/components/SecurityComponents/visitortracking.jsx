@@ -7,11 +7,17 @@ import { Button } from "../ui/button";
 import AddVisitorDetails from "./AddVisitorDetails";
 import axiosInstance from "@/test/axiosInstance";
 import moment from "moment";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 export default function VisitorTracking() {
 	const [Visitors, setVisitors] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
-	const [filter] = useState("All");
+	const [filter, setFilter] = useState("All");
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 	const fetchVisitors = async () => {
@@ -31,8 +37,16 @@ export default function VisitorTracking() {
 	}, []);
 
 	const filteredVisitors = Visitors.filter((Visitor) => {
-		if (filter === "All") return true;
-		return Visitor.status === filter;
+		switch (filter) {
+			case "Week":
+				return moment(Visitor.date).isSame(moment(), "week");
+			case "Month":
+				return moment(Visitor.date).isSame(moment(), "month");
+			case "Year":
+				return moment(Visitor.date).isSame(moment(), "year");
+			default:
+				return true;
+		}
 	});
 
 	const handleAddVisitors = () => {
@@ -61,6 +75,25 @@ export default function VisitorTracking() {
 		<Card className="flex-1 p-6 bg-white h-full overflow-auto rounded-2xl">
 			<CardHeader className="flex flex-row justify-between items-center p-0 font-poppins mb-3">
 				<CardTitle>Visitor Tracking</CardTitle>
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<Button variant="outline">Filter</Button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent>
+						<DropdownMenuItem onClick={() => setFilter("All")}>
+							All
+						</DropdownMenuItem>
+						<DropdownMenuItem onClick={() => setFilter("Week")}>
+							Week
+						</DropdownMenuItem>
+						<DropdownMenuItem onClick={() => setFilter("Month")}>
+							Month
+						</DropdownMenuItem>
+						<DropdownMenuItem onClick={() => setFilter("Year")}>
+							Year
+						</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
 				<Button
 					className="flex items-center space-x-2"
 					onClick={handleAddVisitors}
