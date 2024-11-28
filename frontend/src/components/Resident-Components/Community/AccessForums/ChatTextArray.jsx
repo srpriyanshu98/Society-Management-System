@@ -3,8 +3,12 @@ import { useState, useRef, useEffect } from "react";
 
 export default function ChatTextArray({ messages }) {
   const [isCardOpen, setIsCardOpen] = useState(false);
-  const [selectedMessage, setSelectedMessage] = useState(null); 
-  const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 }); 
+  const [selectedMessage, setSelectedMessage] = useState(null);
+  const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
+  const [recordings, setRecordings] = useState([]);
+  const [isRecording, setIsRecording] = useState(false);
+  const audioChunks = useRef([]);
+  const mediaRecorderRef = useRef(null);
   const cardRef = useRef(null);
 
   const handleIconClick = (event, message) => {
@@ -16,7 +20,7 @@ export default function ChatTextArray({ messages }) {
 
   const handleCopy = () => {
     if (!selectedMessage) return;
-  
+
     if (selectedMessage.type === "text") {
       navigator.clipboard.writeText(selectedMessage.content).then(() => {
         setIsCardOpen(false); // Close menu after copying
@@ -49,8 +53,6 @@ export default function ChatTextArray({ messages }) {
 
   const handleForward = () => {
     if (!selectedMessage) return;
-
-    // Add forwarding logic here (e.g., send to another user or channel)
     setIsCardOpen(false); // Close menu after forwarding
   };
 
@@ -67,43 +69,82 @@ export default function ChatTextArray({ messages }) {
     };
   }, []);
 
+  const startRecording = async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const mediaRecorder = new MediaRecorder(stream);
+
+    mediaRecorder.ondataavailable = (e) => {
+      if (e.data.size > 0) {
+        audioChunks.current.push(e.data);
+      }
+    };
+
+    mediaRecorder.onstop = () => {
+      const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
+      const audioUrl = URL.createObjectURL(audioBlob);
+      setRecordings((prevRecordings) => [...prevRecordings, audioUrl]);
+      audioChunks.current = [];
+    };
+
+    mediaRecorderRef.current = mediaRecorder;
+    mediaRecorder.start();
+    setIsRecording(true);
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+    }
+    setIsRecording(false);
+  };
+
+  const handleCombinedClick = () => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  };
+
   return (
     <div className="bg-gray-100 h-[585px] p-4 overflow-y-auto">
+      {/* Messages */}
       {messages.length > 0 ? (
         messages.map((message, index) => (
-          <div
-            key={index}
-            className="mb-4 flex flex-col items-start cursor-pointer"
-          >
+          <div key={index} className="mb-4 flex flex-col items-start cursor-pointer">
             {message.type === "text" && (
+              <div className="flex">
+
               <div className="p-3 bg-white w-auto max-w-[500px] rounded-lg shadow-md relative">
                 <p className="text-sm">{message.content}</p>
-                {/* Icon to open copy and forward options */}
+              </div>
                 <button
                   onClick={(e) => handleIconClick(e, message)}
-                  className="absolute w-auto right-6 mt-1 p-1 text-gray-600"
-                >
+                  className=" w-auto mt-1 p-1 text-gray-600"
+                  >
                   <ChevronDown />
                 </button>
-              </div>
+                  </div>
             )}
             {message.type === "image" && (
+               <div className="flex">
               <div className="relative">
                 <img
                   src={message.content}
                   alt="Uploaded"
                   className="w-auto max-w-[400px] rounded-lg shadow-md"
                 />
-                {/* Icon to open copy and forward options */}
+              </div>
                 <button
                   onClick={(e) => handleIconClick(e, message)}
-                  className="absolute w-auto right-6 p-1 text-gray-600"
+                  className="w-auto p-1 text-gray-600"
                 >
                   <ChevronDown />
                 </button>
               </div>
             )}
             {message.type === "pdf" && (
+               <div className="flex">
               <a
                 href={message.content}
                 target="_blank"
@@ -111,27 +152,28 @@ export default function ChatTextArray({ messages }) {
                 className="p-3 bg-white w-auto max-w-[500px] rounded-lg shadow-md block text-center text-blue-600 relative"
               >
                 {message.name} (PDF)
-                {/* Icon to open copy and forward options */}
+              </a>
                 <button
                   onClick={(e) => handleIconClick(e, message)}
-                  className="absolute w-auto right-6 p-1 text-gray-600"
+                  className="w-auto p-1 text-gray-600"
                 >
                   <ChevronDown />
                 </button>
-              </a>
+              </div>
             )}
             {message.type === "audio" && (
+               <div className="flex">
               <div className="w-auto max-w-[500px] p-3 bg-white rounded-lg shadow-md relative">
                 <audio controls>
                   <source src={message.content} type="audio/wav" />
                   Your browser does not support the audio element.
                 </audio>
-                {/* Icon to open copy and forward options */}
+              </div>
                 <button
                   onClick={(e) => handleIconClick(e, message)}
-                  className="absolute top-2 right-2 p-1 text-gray-600"
+                  className="p-1 text-gray-600"
                 >
-                  <img src="./src/assets/options.svg" alt="Options" className="w-5 h-5" />
+                  <ChevronDown />
                 </button>
               </div>
             )}
@@ -143,7 +185,7 @@ export default function ChatTextArray({ messages }) {
       ) : (
         <p className="text-gray-500 text-center">No messages</p>
       )}
-
+      
       {/* Context Menu */}
       {isCardOpen && (
         <div
