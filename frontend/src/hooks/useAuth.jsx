@@ -6,7 +6,7 @@ export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("accessToken");
         if (token) {
             setIsAuthenticated(true);
         } else {
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const handleStorageChange = () => {
-            const token = localStorage.getItem("token");
+            const token = localStorage.getItem("accessToken");
             if (token) {
                 setIsAuthenticated(true);
             } else {
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = () => setIsAuthenticated(true);
     const logout = () => {
-        localStorage.removeItem("token");
+        localStorage.removeItem("accessToken");
         setIsAuthenticated(false);
     };
 

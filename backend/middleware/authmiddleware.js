@@ -3,7 +3,7 @@ import User from "../model/usermodel.js";
 import { ENV_VARS } from "../config/envVars.js";
 
 export const verifyToken = (req, res, next) => {
-    const token = req.cookies.token;
+    const token = req.cookies.token || req.headers.authorization?.split(" ")[1]; 
     if (!token) return res.status(403).json({ message: "No token provided" });
 
     jwt.verify(token, ENV_VARS.JWT_SECRET, (err, decoded) => {
@@ -16,8 +16,6 @@ export const verifyToken = (req, res, next) => {
 export const admin = async (req, res, next) => {
     try {
         // Check for token in headers
-        const token =
-            req.cookies.token || req.headers.authorization?.split(" ")[1];
         if (!token) {
             return res
                 .status(401)

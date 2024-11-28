@@ -10,10 +10,11 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "../ui/select";
-import { format } from "date-fns";
+import moment from "moment";
 import { Calendar } from "../ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Separator } from "../ui/separator";
+import axiosInstance from "@/test/axiosInstance"; 
 
 export default function MaintenanceDetailDialog({ isOpen, onClose }) {
 	const [maintenanceAmount, setMaintenanceAmount] = useState("");
@@ -23,6 +24,23 @@ export default function MaintenanceDetailDialog({ isOpen, onClose }) {
 
 	const isApplyButtonDisabled =
 		!maintenanceAmount || !penaltyAmount || !dueDate || !penaltyAfterDays;
+
+	const handleApply = async () => {
+		try {
+			const payload = {
+				maintenanceAmount: parseFloat(maintenanceAmount),
+				penaltyAmount: parseFloat(penaltyAmount),
+				maintenanceDueDate: dueDate,
+				penaltyAfterDays: parseInt(penaltyAfterDays),
+			};
+
+			const response = await axiosInstance.post("/maintenance", payload);
+			console.log("Maintenance added successfully:", response.data);
+			onClose(); 
+		} catch (error) {
+			console.error("Error adding maintenance:", error);
+		}
+	};
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
@@ -63,7 +81,7 @@ export default function MaintenanceDetailDialog({ isOpen, onClose }) {
 									className="w-full justify-start text-left"
 								>
 									{dueDate
-										? format(dueDate, "MM/dd/yyyy")
+										? moment(dueDate).format("MM/DD/YYYY") 
 										: "Select Due Date"}
 								</Button>
 							</PopoverTrigger>
@@ -72,7 +90,7 @@ export default function MaintenanceDetailDialog({ isOpen, onClose }) {
 									mode="single"
 									selected={dueDate}
 									onSelect={setDueDate}
-									disabled={(date) => date < new Date()} // Disables past dates
+									disabled={(date) => date < new Date()} 
 								/>
 							</PopoverContent>
 						</Popover>
@@ -105,10 +123,8 @@ export default function MaintenanceDetailDialog({ isOpen, onClose }) {
 					</Button>
 					<Button
 						className="w-40"
-						onClick={() => {
-							// Handle apply action here
-						}}
-						disabled={isApplyButtonDisabled} // Disable if any required field is empty
+						onClick={handleApply}
+						disabled={isApplyButtonDisabled} 
 					>
 						Apply
 					</Button>
