@@ -10,14 +10,14 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { Separator } from "@/components/ui/separator";
 
-export function InvoiceModal({ open, onClose, invoice }) {
+export default function IncomeInvoicesModel({ open, onClose, income }) {
 	const handleDownload = () => {
 		const doc = new jsPDF();
 
 		doc.setFont("helvetica", "bold");
 		doc.setFontSize(22);
 		doc.setTextColor(40);
-		doc.text("Maintenance Invoice", 105, 20, { align: "center" });
+		doc.text("Event Invoice", 105, 20, { align: "center" });
 
 		doc.setFont("helvetica", "normal");
 		doc.setFontSize(12);
@@ -31,26 +31,26 @@ export function InvoiceModal({ open, onClose, invoice }) {
 
 		const columns = ["Field", "Value"];
 		const rows = [
-			["Invoice ID", invoice.invoiceId],
-			["Owner Name", invoice.ownerName],
-			["Bill Date", invoice.billDate],
-			["Payment Date", invoice.paymentDate],
-			["Phone Number", invoice.phoneNumber],
-			["Email", invoice.email],
-			["Address", invoice.address],
-			["Maintenance Amount", `$${invoice.maintenanceAmount}`],
-			["Pending Amount", `$${invoice.pendingAmount}`],
+			["Invoice ID", income.invoiceId],
+			["Owner Name", income.ownerName],
+			["Bill Date", income.billDate],
+			["Payment Date", income.paymentDate],
+			["Next Event Date", income.nextEventDate],
+			["Phone Number", income.phoneNumber],
+			["Email", income.email],
+			["Event Name", income.eventName],
+			["Description", income.description],
+			["Event Amount", `₹${income.eventAmount}`],
+			["Members", income.members],
 			[
 				"Grand Total",
-				`$${(
-					parseFloat(invoice.maintenanceAmount) +
-					parseFloat(invoice.pendingAmount)
-				).toFixed(2)}`,
+				`₹${(income.members * parseFloat(income.eventAmount)).toFixed(
+					2
+				)}`,
 			],
-			["Note", invoice.note || "No additional notes provided"],
+			["Note", income.note || "No additional notes provided"],
 		];
 
-		// Generate Table
 		doc.autoTable({
 			head: [columns],
 			body: rows,
@@ -82,7 +82,7 @@ export function InvoiceModal({ open, onClose, invoice }) {
 		doc.setTextColor(120);
 		doc.text(
 			`Generated on: ${new Date().toLocaleDateString()} | Invoice ID: ${
-				invoice.invoiceId
+				income.invoiceId
 			}`,
 			10,
 			pageHeight - 10
@@ -91,7 +91,7 @@ export function InvoiceModal({ open, onClose, invoice }) {
 			align: "right",
 		});
 
-		doc.save(`Maintenance_Invoice_${invoice.invoiceId}.pdf`);
+		doc.save(`Event_Invoice_${income.invoiceId}.pdf`);
 	};
 
 	return (
@@ -99,7 +99,7 @@ export function InvoiceModal({ open, onClose, invoice }) {
 			<DialogContent className="max-w-md bg-white rounded-lg shadow-lg">
 				<DialogHeader>
 					<DialogTitle className="text-xl font-bold text-center text-gray-800 mb-3">
-						Maintenance Invoice
+						Event Invoice
 					</DialogTitle>
 					<Separator />
 					<DialogDescription className="space-y-10">
@@ -109,7 +109,7 @@ export function InvoiceModal({ open, onClose, invoice }) {
 									Invoice ID
 								</p>
 								<p className="text-base font-medium text-gray-800">
-									{invoice.invoiceId}
+									{income.invoiceId}
 								</p>
 							</div>
 							<div>
@@ -117,7 +117,7 @@ export function InvoiceModal({ open, onClose, invoice }) {
 									Owner Name
 								</p>
 								<p className="text-base font-medium text-gray-800">
-									{invoice.ownerName}
+									{income.ownerName}
 								</p>
 							</div>
 							<div>
@@ -125,7 +125,7 @@ export function InvoiceModal({ open, onClose, invoice }) {
 									Bill Date
 								</p>
 								<p className="text-base font-medium text-gray-800">
-									{invoice.billDate}
+									{income.billDate}
 								</p>
 							</div>
 							<div>
@@ -133,7 +133,15 @@ export function InvoiceModal({ open, onClose, invoice }) {
 									Payment Date
 								</p>
 								<p className="text-base font-medium text-gray-800">
-									{invoice.paymentDate}
+									{income.paymentDate}
+								</p>
+							</div>
+							<div>
+								<p className="text-sm text-gray-500">
+									Next Event Date
+								</p>
+								<p className="text-base font-medium text-gray-800">
+									{income.nextEventDate}
 								</p>
 							</div>
 							<div>
@@ -141,61 +149,64 @@ export function InvoiceModal({ open, onClose, invoice }) {
 									Phone Number
 								</p>
 								<p className="text-base font-medium text-gray-800">
-									{invoice.phoneNumber}
+									{income.phoneNumber}
 								</p>
 							</div>
 							<div>
 								<p className="text-sm text-gray-500">Email</p>
 								<p className="text-base font-medium text-gray-800">
-									{invoice.email}
+									{income.email}
 								</p>
 							</div>
 							<div className="col-span-2">
-								<p className="text-sm text-gray-500">Address</p>
+								<p className="text-sm text-gray-500">
+									Event Name
+								</p>
 								<p className="text-base font-medium text-gray-800">
-									{invoice.address}
+									{income.eventName}
 								</p>
 							</div>
-						</div>
-
-						<div className="bg-gray-50 p-4 rounded-lg shadow-sm space-y-2">
-							<div className="grid grid-cols-2">
-								<p className="text-sm font-medium text-gray-700">
-									Maintenance Amount
+							<div className="col-span-2">
+								<p className="text-sm text-gray-500">
+									Description
 								</p>
-								<p className="text-sm font-medium text-green-600 text-right">
-									₹ {invoice.maintenanceAmount}
+								<p className="text-base font-medium text-gray-800">
+									{income.description}
 								</p>
 							</div>
-							<div className="grid grid-cols-2">
-								<p className="text-sm font-medium text-gray-700">
-									Penalty
+							<div className="col-span-2">
+								<p className="text-sm text-gray-500">
+									Event Amount
 								</p>
-								<p className="text-sm font-medium text-red-500 text-right">
-									₹ {invoice.pendingAmount}
+								<p className="text-base font-medium text-gray-800">
+									₹{income.eventAmount}
 								</p>
 							</div>
-							<Separator />
-							<div className="grid grid-cols-2 pt-2 mt-2">
-								<p className="text-sm font-semibold text-gray-900">
+							<div className="col-span-2">
+								<p className="text-sm text-gray-500">Members</p>
+								<p className="text-base font-medium text-gray-800">
+									{income.members}
+								</p>
+							</div>
+							<div className="col-span-2">
+								<p className="text-sm text-gray-500">
 									Grand Total
 								</p>
-								<p className="text-sm font-semibold text-gray-900 text-right">
+								<p className="text-base font-medium text-gray-800">
 									₹{" "}
 									{(
-										parseFloat(invoice.maintenanceAmount) +
-										parseFloat(invoice.pendingAmount)
+										income.members *
+										parseFloat(income.eventAmount)
 									).toFixed(2)}
 								</p>
 							</div>
-						</div>
-
-						<div>
-							<p className="text-sm text-gray-500">Note</p>
-							<p className="text-base font-medium text-gray-800">
-								{invoice.note ||
-									"No additional notes provided."}
-							</p>
+							<div className="col-span-2">
+								<p className="text-sm text-gray-500">Note</p>
+								<p className="text-base font-medium text-gray-800">
+									{income.note ||
+										"No additional notes provided."}
+								</p>
+							</div>
 						</div>
 
 						<div>
