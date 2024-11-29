@@ -7,7 +7,8 @@ export default function ChatFooter({ onSendMessage, onSendFile, onSendAudio }) {
   const [message, setMessage] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [typing, setTyping] = useState(false);
-
+  const [isRed, setIsRed] = useState(false);
+  
   const handleInputChange = (event) => {
     const input = event.target.value;
     setMessage(input);
@@ -76,13 +77,13 @@ export default function ChatFooter({ onSendMessage, onSendFile, onSendAudio }) {
     }
     setRecording(false);
   };
-
   const handleClick = () => {
     if (recording) {
       stopRec();
     } else {
       startRec();
     }
+    setIsRed((prev) => !prev);
   };
 
   return (
@@ -127,9 +128,11 @@ export default function ChatFooter({ onSendMessage, onSendFile, onSendAudio }) {
             </button>
           ) : (
             <button
-              type="button"
-              className="bg-blue-500 text-white rounded-full p-3 ml-3"
-              onClick={handleClick}
+            type="button"
+            className={`${
+              isRed ? "bg-red-500" : "bg-blue-500"
+            } text-white rounded-full p-3 ml-3`} 
+            onClick={handleClick}
             >
               <img
                 src="./src/assets/microphone.svg"
