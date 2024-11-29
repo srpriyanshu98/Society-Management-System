@@ -10,15 +10,15 @@ export default function Polls({ userRole }) {
 		<Layout userRole={userRole}>
 			<Tabs defaultValue="OwnPoll">
 				<TabsList className="grid grid-cols-3 w-[600px]">
-					<TabsTrigger value="OwnPoll" className="p-5 rounded-t-xl">
+					<TabsTrigger value="OwnPoll" className="p-5 rounded-t-xl border-b-orange-500 text-black">
 						Own Poll
 					</TabsTrigger>
-					<TabsTrigger value="NewPoll" className="p-5 rounded-t-xl">
+					<TabsTrigger value="NewPoll" className="p-5 rounded-t-xl border-b-orange-500 text-black">
 						New Poll
 					</TabsTrigger>
 					<TabsTrigger
 						value="PreviousPoll"
-						className="p-5 rounded-t-xl"
+						className="p-5 rounded-t-xl border-b-orange-500 text-black"
 					>
 						Previous Poll
 					</TabsTrigger>

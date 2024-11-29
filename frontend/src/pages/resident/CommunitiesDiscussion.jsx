@@ -101,7 +101,7 @@ export default function CommunitiesDiscussion({ userRole }) {
 						</CardDescription>
 					</CardHeader>
 					<CardContent>
-						<ScrollArea className="max-h-[700px] overflow-y-auto custom-scrollbar">
+						<ScrollArea className="max-h-[651px] overflow-y-auto custom-scrollbar">
 							{loading ? (
 								<div>
 									<Skeleton />
