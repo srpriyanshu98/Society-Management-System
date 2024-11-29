@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { sendMail } from "../config/mailer.js";
 import otpGenerator from "otp-generator";
 import bcryptjs from "bcryptjs";
+import fs from "fs";
 
 export const register = async (req, res) => {
     const {
@@ -20,6 +21,8 @@ export const register = async (req, res) => {
         role,
     } = req.body;
 
+    const photo = req.files?.photo ? req.files.photo[0].path : null;
+
     // Check if password and confirmPassword match
     if (password !== confirmPassword) {
         return res.status(400).json({ message: "Passwords do not match" });
@@ -27,6 +30,7 @@ export const register = async (req, res) => {
 
     try {
         const newUser = new User({
+            photo,
             firstName,
             lastName,
             email,
@@ -58,36 +62,19 @@ export const login = async (req, res) => {
         return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    const accessToken = jwt.sign({ id: user._id }, ENV_VARS.JWT_SECRET, {
-        expiresIn: "1h",
+    const token = jwt.sign({ id: user._id }, ENV_VARS.JWT_SECRET, {
+        expiresIn: "7d",
     });
-
-    const refreshToken = jwt.sign(
-        { id: user._id },
-        ENV_VARS.REFRESH_TOKEN_SECRET,
-        {
-            expiresIn: "7d",
-        }
-    );
-
-    // Store the refresh token in the user document (or a secure storage)
-    user.refreshToken = refreshToken;
-    await user.save();
-
-    res.cookie("token", accessToken, {
+    res.cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         maxAge: 60 * 60 * 1000,
     });
-    res.status(200).json({
-        message: "Login successful",
-        accessToken,
-        refreshToken,
-    });
+    res.status(200).json({ message: "Login successful", token });
 };
 
 export const logout = (req, res) => {
-    res.clearCookie("accessToken");
+    res.clearCookie("token");
     res.status(200).json({ message: "Logged out successfully" });
 };
 
@@ -215,9 +202,16 @@ export const updateProfile = async (req, res) => {
                 runValidators: true,
             }
         );
+        const photo = req.files?.photo ? req.files.photo[0].path : null;
+
+        if (photo) {
+            userprofile.photo = photo;
+        }
+
         if (!userprofile) {
             return res.status(404).json({ message: "userprofile not found" });
         }
+
         res.status(200).json(userprofile);
     } catch (error) {
         res.status(400).json({ message: error.message });
