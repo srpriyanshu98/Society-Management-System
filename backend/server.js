@@ -17,9 +17,9 @@ app.use(cookieParser());
 app.use("/uploads", express.static("uploads"));
 
 app.use(
-  cors({
-    origin: "http://localhost:3000",
-  })
+	cors({
+		origin: "http://localhost:3000",
+	})
 );
 
 import authRoutes from "./routes/authroutes.js";
@@ -66,6 +66,6 @@ app.use("/api/alerts", alertRoutes);
 app.use("/api/messages", messageRoutes);
 
 app.listen(PORT, () => {
-  console.log("server is running on port http://localhost:" + PORT);
-  connectDB();
+	console.log("server is running on port http://localhost:" + PORT);
+	connectDB();
 });
