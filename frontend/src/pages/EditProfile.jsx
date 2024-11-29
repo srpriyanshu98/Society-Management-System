@@ -181,36 +181,52 @@ export default function EditProfile({ userRole }) {
                             className="flex mt-10 ml-10"
                         >
                             <div className="w-[285px] h-[460px]">
-                                <div className="relative w-[145px] h-[145px] border-t-4 border-transparent">
-                                    <img
-                                        src={profileImage}
-                                        alt="Profile"
-                                        className="w-full h-full object-cover rounded-full"
-                                    />
-
-                                    <button
-                                        type="button"
-                                        className="absolute bottom-0 right-0 m-2 rounded-full bg-[#F6F8FB]"
-                                        onClick={openFileSelector}
-                                    >
+                                <div className="w-[285px] h-[460px]">
+                                    <div className="relative w-[145px] h-[145px] border-t-4 border-transparent">
                                         <img
-                                            src="./src/assets/editblack.svg"
-                                            alt="Edit"
-                                            className="rounded-full m-1 w-[20px] h-[20px] fill-[#202224]"
+                                            src={profileImage}
+                                            alt="Profile"
+                                            className="w-full h-full object-cover rounded-full"
                                         />
-                                    </button>
 
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        ref={fileInputRef}
-                                        style={{ display: "none" }}
-                                        onChange={handleImageChange}
-                                    />
-                                    <div className="text-center mt-5 font-semibold font-poppins">
-                                        Arlene McCoy
+                                        {isEditing && (
+                                            <button
+                                                type="button"
+                                                className="absolute bottom-0 right-0 m-2 rounded-full bg-[#F6F8FB]"
+                                                onClick={openFileSelector}
+                                            >
+                                                <img
+                                                    src="./src/assets/editblack.svg"
+                                                    alt="Edit"
+                                                    className="rounded-full m-1 w-[20px] h-[20px] fill-[#202224]"
+                                                />
+                                            </button>
+                                        )}
+
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            ref={fileInputRef}
+                                            style={{ display: "none" }}
+                                            onChange={handleImageChange}
+                                        />
+
+                                        <div className="text-center mt-5 font-poppins">
+                                            {isEditing ? (
+                                                <>
+                                                    <span className="font-medium font-poppins">{formData.firstName || "First Name"}</span>{" "}
+                                                    <span className="font-medium font-poppins">{formData.lastName || "Last Name"}</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <span className="font-medium text-xl font-poppins">{formData.firstName}</span>{" "}
+                                                    <span className="font-medium text-xl font-poppins">{formData.lastName}</span>
+                                                </>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
 
                             <div className="grid grid-cols-2">
