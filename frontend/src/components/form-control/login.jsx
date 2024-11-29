@@ -73,11 +73,10 @@ export default function LoginForm() {
                     password,
                 });
                 console.log("Login successful", response.data);
-                
+
                 // Store both accessToken and refreshToken in local storage
-                localStorage.setItem("accessToken", response.data.accessToken);
-                localStorage.setItem("refreshToken", response.data.refreshToken);
-                
+                localStorage.setItem("token", response.data.token);
+
                 login();
                 navigate("/", { replace: true });
             } catch (error) {
