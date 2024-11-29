@@ -1,21 +1,21 @@
 import express from "express";
 import upload from "../middleware/upload.js";
 import {
-	createOwner,
-	getOwners,
-	getOwnerById,
-	updateOwner,
-	deleteOwner,
-} from "../controller/ownercontroller.js";
+  createOwner,
+  getOwners,
+  getOwnerById,
+  updateOwner,
+  deleteOwner,
+} from "../controller/residentcontroller.js";
 
 const router = express.Router();
 
 // Fields for file upload
 const uploadFields = [
-	{ name: "aadharCardFront", maxCount: 1 },
-	{ name: "aadharCardBack", maxCount: 1 },
-	{ name: "addressProof", maxCount: 1 },
-	{ name: "rentAgreement", maxCount: 1 },
+  { name: "aadharCardFront", maxCount: 1 },
+  { name: "aadharCardBack", maxCount: 1 },
+  { name: "addressProof", maxCount: 1 },
+  { name: "rentAgreement", maxCount: 1 },
 ];
 
 router.post("/", upload.fields(uploadFields), createOwner); // Create a new owner

@@ -181,7 +181,10 @@ export const resetPassword = async (req, res) => {
 // Get user profile by ID
 export const getUserProfile = async (req, res) => {
   try {
-    const userprofile = await User.findById(req.params.id);
+    const userprofile = await User.findById(req.params.id).populate({
+      path: "societyname",
+      select: "societyname",
+    });
     if (!userprofile) {
       return res.status(404).json({ message: "User profile not found" });
     }

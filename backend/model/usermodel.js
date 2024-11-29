@@ -11,12 +11,12 @@ const userSchema = new mongoose.Schema(
     country: { type: String, required: true },
     state: { type: String, required: true },
     city: { type: String, required: true },
-    societyname: { type: String, required: true },
-    // society: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Society",
-    //   required: true,
-    // },
+    // societyname: { type: String, required: true },
+    societyname: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Society",
+      required: true,
+    },
     role: {
       type: String,
       enum: ["security", "admin", "resident"],
