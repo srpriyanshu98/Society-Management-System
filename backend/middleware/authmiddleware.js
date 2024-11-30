@@ -68,6 +68,8 @@ export const verifyToken = async (req, res, next) => {
             id: user._id,
             role: user.role, // Role: "admin", "resident", "security", etc.
         };
+        // Set req.userId for backward compatibility
+        req.userId = user._id;
 
         next();
     } catch (err) {
