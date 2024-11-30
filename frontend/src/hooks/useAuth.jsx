@@ -1,47 +1,29 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
-const AuthContext = createContext();
+export const useAuthCheck = () => {
+	const navigate = useNavigate();
 
-export const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-    useEffect(() => {
-        const token = localStorage.getItem("Token");
-        if (token) {
-            setIsAuthenticated(true);
-        } else {
-            setIsAuthenticated(false);
-        }
-    }, []);
-
-    useEffect(() => {
-        const handleStorageChange = () => {
-            const token = localStorage.getItem("Token");
-            if (token) {
-                setIsAuthenticated(true);
-            } else {
-                setIsAuthenticated(false);
-            }
-        };
-
-        window.addEventListener("storage", handleStorageChange);
-
-        return () => {
-            window.removeEventListener("storage", handleStorageChange);
-        };
-    }, []);
-
-    const login = () => setIsAuthenticated(true);
-    const logout = () => {
-        localStorage.removeItem("Token");
-        setIsAuthenticated(false);
-    };
-
-    return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
+	useEffect(() => {
+		const token = localStorage.getItem("token");
+		if (!token) {
+			navigate("/login", { replace: true });
+		} else {
+			const userRole = extractUserRoleFromToken(token);
+			if (!userRole) {
+				navigate("/login", { replace: true });
+			}
+		}
+	}, [navigate]);
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const extractUserRoleFromToken = (token) => {
+	try {
+		const decodedToken = jwtDecode(token);
+		return decodedToken.role;
+	} catch (error) {
+		console.error("Error decoding token:", error);
+		return null;
+	}
+};

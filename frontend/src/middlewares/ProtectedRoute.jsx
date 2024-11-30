@@ -1,23 +1,15 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth.jsx";
-import { useEffect } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuthCheck } from "@/hooks/useAuth.jsx";
 
 const ProtectedRoute = () => {
-    const { isAuthenticated, login } = useAuth();
-    const location = useLocation();
+	useAuthCheck();
 
-    useEffect(() => {
-        const token = localStorage.getItem("Token");
-        if (token && !isAuthenticated) {
-            login();
-        }
-    }, [isAuthenticated, login]);
+	const token = localStorage.getItem("token");
+	if (!token) {
+		return <Navigate to="/login" replace />;
+	}
 
-    if (!isAuthenticated) {
-        return <Navigate to={"/login"} replace state={{ from: location }} />;
-    }
-
-    return <Outlet />;
+	return <Outlet />;
 };
 
 export default ProtectedRoute;

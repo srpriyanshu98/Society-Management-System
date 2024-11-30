@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import * as Icons from "lucide-react";
 import menuItems from "@/data/menuItems";
 import { Separator } from "./ui/separator";
 import axiosInstance from "@/test/axiosInstance";
-import { useAuth } from "@/hooks/useAuth.jsx";
+import { useAuthCheck, extractUserRoleFromToken } from "@/hooks/useAuth.jsx";
 
-export default function Sidebar({ userRole = "resident" }) {
+export default function Sidebar() {
 	const [expandedMenu, setExpandedMenu] = useState(null);
-	const userMenuItems = menuItems[userRole] || [];
 	const location = useLocation();
 	const navigate = useNavigate();
-	const { logout } = useAuth();
+
+	useAuthCheck();
+
+	const token = localStorage.getItem("token");
+	const userRole = token ? extractUserRoleFromToken(token) : null;
+	const userMenuItems = menuItems[userRole] || [];
 
 	const toggleSubMenu = (itemName) => {
 		setExpandedMenu(expandedMenu === itemName ? null : itemName);
@@ -21,12 +25,18 @@ export default function Sidebar({ userRole = "resident" }) {
 		try {
 			await axiosInstance.post("/auth/logout");
 			localStorage.removeItem("token");
-			logout();
 			navigate("/login", { replace: true });
 		} catch (error) {
 			console.error("Logout failed:", error);
 		}
 	};
+
+	// Redirect to dashboard on root path
+	useEffect(() => {
+		if (location.pathname === "/") {
+			navigate("/", { replace: true });
+		}
+	}, [location.pathname, navigate]);
 
 	return (
 		<div className="fixed h-screen w-64 bg-white shadow-lg">
