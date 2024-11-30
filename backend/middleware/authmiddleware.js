@@ -59,11 +59,13 @@ export const verifyToken = async (req, res, next) => {
 		// Verify and decode the token
 		const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-		// Find user by ID
-		const user = await User.findById(decoded.id);
-		if (!user) {
-			return res.status(404).json({ message: "User not found" });
-		}
+		// Attach user details to `req.user`
+		req.user = {
+			id: user._id,
+			role: user.role, // Role: "admin", "resident", "security", etc.
+		};
+		// Set req.userId for backward compatibility
+		req.userId = user._id;
 
 		// Attach user details to `req.user`
 		req.user = {
