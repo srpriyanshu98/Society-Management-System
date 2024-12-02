@@ -253,14 +253,14 @@ export default function Owner() {
                         <Card className="p-4 space-x-4 rounded-lg shadow-lg relative w-60 mt-5">
                             {/* Left Accent Bar */}
                             <div
-                                className={`absolute left-0 top-0 bottom-0 w-2 h-14 rounded-e-lg m-auto bg-gradient-to-b from-blue-500 to-blue-700 opacity-40`}
+                                className={`absolute left-0 top-0 bottom-0 w-2 h-14 rounded-e-lg m-auto bg-gradient-to-b from-green-400 to-green-600 opacity-40`}
                             />
                             {/* Content */}
                             <div>
                                 <p className="text-sm font-semibold">
                                     Maintenance Amount
                                 </p>
-                                <h2 className="text-2xl font-semibold text-blue-600">
+                                <h2 className="text-2xl font-semibold text-green-600">
                                     {totalMaintenanceAmount}
                                 </h2>
                             </div>
@@ -268,7 +268,7 @@ export default function Owner() {
                         <Card className="p-4 space-x-4 rounded-lg shadow-lg relative w-60 mt-5">
                             {/* Left Accent Bar */}
                             <div
-                                className={`absolute left-0 top-0 bottom-0 w-2 h-14 rounded-e-lg m-auto bg-gradient-to-b from-red-500 to-red-700 opacity-40`}
+                                className={`absolute left-0 top-0 bottom-0 w-2 h-14 rounded-e-lg m-auto bg-gradient-to-b from-red-400 to-red-600 opacity-40`}
                             />
                             {/* Content */}
                             <div>
