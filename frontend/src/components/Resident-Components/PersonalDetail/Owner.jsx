@@ -3,10 +3,21 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { AnnouncementData } from "@/data/announcementData";
 import { PendingMaintenance } from "@/data/PersonalDetail/pendingMaintenance";
 import { residentDataFront } from "@/data/PersonalDetail/residentDataFront";
 import { ShowMaintenanceDetails } from "@/data/PersonalDetail/ShowMaintenanceDetails";
 import axiosInstance from "@/test/axiosInstance";
+
+const fetchMaintenanceRecords = async () => {
+    try {
+        const response = await axiosInstance.get("/maintenance");
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching maintenance records:", error);
+        return [];
+    }
+};
 
 const fetchAnnouncements = async () => {
     try {
@@ -20,9 +31,11 @@ const fetchAnnouncements = async () => {
 
 export default function Owner() {
     const { profile, members, vehicles } = residentDataFront;
+    const [maintenanceRecords, setMaintenanceRecords] = useState([]);
     const [announcements, setAnnouncements] = useState([]);
 
     useEffect(() => {
+        fetchMaintenanceRecords().then((data) => setMaintenanceRecords(data));
         fetchAnnouncements().then((data) => setAnnouncements(data));
     }, []);
 
@@ -256,7 +269,7 @@ export default function Owner() {
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {PendingMaintenance.map((items, index) => (
+                    {maintenanceRecords.map((items, index) => (
                         <Card key={index} className="">
                             <CardHeader className="bg-blue-500 rounded-t-lg text-white">
                                 <CardTitle className="text-base font-poppins">
@@ -272,7 +285,9 @@ export default function Owner() {
                                         Bill Date
                                     </span>
                                     <span className="float-right">
-                                        {items.billDate}
+                                        {new Date(
+                                            items.maintenanceDueDate
+                                        ).toLocaleDateString()}
                                     </span>
                                 </p>
                                 <p>
@@ -280,7 +295,9 @@ export default function Owner() {
                                         Pending Date
                                     </span>
                                     <span className="float-right">
-                                        {items.pendingDate}
+                                        {new Date(
+                                            items.maintenanceDueDate
+                                        ).toLocaleDateString()}
                                     </span>
                                 </p>
                                 <Separator />
@@ -297,7 +314,7 @@ export default function Owner() {
                                         Maintenance Penalty Amount
                                     </span>
                                     <span className="float-right text-red-500">
-                                        {items.maintenancePenaltyAmount}
+                                        {items.penaltyAmount}
                                     </span>
                                 </p>
                                 <Separator />
@@ -306,7 +323,8 @@ export default function Owner() {
                                         Grand Total
                                     </span>
                                     <span className="float-right text-green-500">
-                                        {items.grandTotal}
+                                        {items.maintenanceAmount +
+                                            items.penaltyAmount}
                                     </span>
                                 </p>
                                 <Button className="w-full">Pay Now</Button>
@@ -324,7 +342,7 @@ export default function Owner() {
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {PendingMaintenance.map((items, index) => (
+                    {maintenanceRecords.map((items, index) => (
                         <Card key={index} className="">
                             <CardHeader className="bg-blue-500 rounded-t-lg text-white">
                                 <CardTitle className="text-base">
@@ -338,7 +356,9 @@ export default function Owner() {
                                         Date
                                     </span>
                                     <span className="float-right">
-                                        {items.billDate}
+                                        {new Date(
+                                            items.maintenanceDueDate
+                                        ).toLocaleDateString()}
                                     </span>
                                 </p>
                                 <Separator />
@@ -355,7 +375,7 @@ export default function Owner() {
                                         Due Maintanance Amount
                                     </span>
                                     <span className="float-right text-red-500">
-                                        {items.maintenancePenaltyAmount}
+                                        {items.penaltyAmount}
                                     </span>
                                 </p>
                                 <Separator />
