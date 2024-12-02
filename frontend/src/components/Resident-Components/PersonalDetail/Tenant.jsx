@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { residentDataFront } from "@/data/PersonalDetail/residentDataFront";
-import { ShowMaintenanceDetails } from "@/data/PersonalDetail/ShowMaintenanceDetails";
 import axiosInstance from "@/test/axiosInstance";
 
 const fetchMaintenanceRecords = async () => {
@@ -27,13 +26,31 @@ const fetchAnnouncements = async () => {
     }
 };
 
+const calculateTotalMaintenanceAmount = (maintenanceRecords) => {
+    return maintenanceRecords.reduce((total, record) => {
+        return total + record.maintenanceAmount;
+    }, 0);
+};
+
+const calculateTotalPenaltyAmount = (maintenanceRecords) => {
+    return maintenanceRecords.reduce((total, record) => {
+        return total + record.penaltyAmount;
+    }, 0);
+};
+
 export default function Tenant() {
     const { profile, members, vehicles } = residentDataFront;
     const [maintenanceRecords, setMaintenanceRecords] = useState([]);
     const [announcements, setAnnouncements] = useState([]);
+    const [totalMaintenanceAmount, setTotalMaintenanceAmount] = useState(0);
+    const [totalPenaltyAmount, setTotalPenaltyAmount] = useState(0);
 
     useEffect(() => {
-        fetchMaintenanceRecords().then((data) => setMaintenanceRecords(data));
+        fetchMaintenanceRecords().then((data) => {
+            setMaintenanceRecords(data);
+            setTotalMaintenanceAmount(calculateTotalMaintenanceAmount(data));
+            setTotalPenaltyAmount(calculateTotalPenaltyAmount(data));
+        });
         fetchAnnouncements().then((data) => setAnnouncements(data));
     }, []);
 
@@ -243,34 +260,42 @@ export default function Tenant() {
             {/* Maintenance Section */}
             <Card className="mt-8 flex justify-between items-center">
                 <CardHeader>
-                    <CardTitle className="text-lg font-semibold">
+                    <CardTitle className="text-lg font-semibold font-poppins">
                         Show Maintenance Details:
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <div className="inline-flex gap-4 overflow-x-auto">
-                        {ShowMaintenanceDetails.map((item, index) => (
-                            <Card
-                                key={index}
-                                className="p-4 space-x-4 rounded-lg shadow-lg relative w-60 mt-5"
-                            >
-                                {/* Left Accent Bar */}
-                                <div
-                                    className={`absolute left-0 top-0 bottom-0 w-2 h-14 rounded-e-lg m-auto bg-gradient-to-b ${item.colors.accent} opacity-40`}
-                                />
-                                {/* Content */}
-                                <div>
-                                    <p className="text-sm font-semibold">
-                                        {item.label}
-                                    </p>
-                                    <h2
-                                        className={`text-2xl font-semibold ${item.color}`}
-                                    >
-                                        {item.value}
-                                    </h2>
-                                </div>
-                            </Card>
-                        ))}
+                    <div className="inline-flex gap-4 overflow-x-auto font-poppins">
+                        <Card className="p-4 space-x-4 rounded-lg shadow-lg relative w-60 mt-5">
+                            {/* Left Accent Bar */}
+                            <div
+                                className={`absolute left-0 top-0 bottom-0 w-2 h-14 rounded-e-lg m-auto bg-gradient-to-b from-blue-500 to-blue-700 opacity-40`}
+                            />
+                            {/* Content */}
+                            <div>
+                                <p className="text-sm font-semibold">
+                                    Maintenance Amount
+                                </p>
+                                <h2 className="text-2xl font-semibold text-blue-600">
+                                    {totalMaintenanceAmount}
+                                </h2>
+                            </div>
+                        </Card>
+                        <Card className="p-4 space-x-4 rounded-lg shadow-lg relative w-60 mt-5">
+                            {/* Left Accent Bar */}
+                            <div
+                                className={`absolute left-0 top-0 bottom-0 w-2 h-14 rounded-e-lg m-auto bg-gradient-to-b from-red-500 to-red-700 opacity-40`}
+                            />
+                            {/* Content */}
+                            <div>
+                                <p className="text-sm font-semibold">
+                                    Penalty Amount
+                                </p>
+                                <h2 className="text-2xl font-semibold text-red-600">
+                                    {totalPenaltyAmount}
+                                </h2>
+                            </div>
+                        </Card>
                     </div>
                 </CardContent>
             </Card>
