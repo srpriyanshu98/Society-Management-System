@@ -1,9 +1,9 @@
-import Owner from "../model/residentmodel.js";
 import { sendMail } from "../config/mailer.js";
 import crypto from "crypto";
+import Resident from "../model/residentmodel.js";
 
-// Create a new owner
-export const createOwner = async (req, res) => {
+// Create a new Resident
+export const createResident = async (req, res) => {
   try {
     const generateRandomPassword = (length = 10) => {
       return crypto.randomBytes(length).toString("hex").slice(0, length);
@@ -12,7 +12,7 @@ export const createOwner = async (req, res) => {
     const { emailAddress } = req.body;
 
     const password = generateRandomPassword();
-    const ownerData = {
+    const residentData = {
       ...req.body,
       password,
       // aadharCardFront: req.files.aadharCardFront[0].path,
@@ -20,8 +20,6 @@ export const createOwner = async (req, res) => {
       // addressProof: req.files.addressProof[0].path,
       // rentAgreement: req.files.rentAgreement[0].path,
     };
-    const owner = new Owner(ownerData);
-    await owner.save();
 
     await sendMail(
       emailAddress,
@@ -30,36 +28,39 @@ export const createOwner = async (req, res) => {
     );
 
     res.status(201).json(owner);
+    const resident = new Resident(residentData);
+    await resident.save();
+    res.status(201).json(resident);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
 
-// Get all owners
-export const getOwners = async (req, res) => {
+// Get all Resident
+export const getResident = async (req, res) => {
   try {
-    const owners = await Owner.find();
-    res.status(200).json(owners);
+    const residents = await Resident.find();
+    res.status(200).json(residents);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// Get an owner by ID
-export const getOwnerById = async (req, res) => {
+// Get an Resident by ID
+export const getResidentById = async (req, res) => {
   try {
-    const owner = await Owner.findById(req.params.id);
-    if (!owner) {
-      return res.status(404).json({ message: "Owner not found" });
+    const resident = await Resident.findById(req.params.id);
+    if (!resident) {
+      return res.status(404).json({ message: "resident not found" });
     }
-    res.status(200).json(owner);
+    res.status(200).json(resident);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// Update an owner by ID
-export const updateOwner = async (req, res) => {
+// Update an Resident by ID
+export const updateResident = async (req, res) => {
   try {
     const updateData = { ...req.body };
 
@@ -73,25 +74,29 @@ export const updateOwner = async (req, res) => {
     if (req.files.rentAgreement)
       updateData.rentAgreement = req.files.rentAgreement[0].path;
 
-    const owner = await Owner.findByIdAndUpdate(req.params.id, updateData, {
-      new: true,
-      runValidators: true,
-    });
-    if (!owner) {
-      return res.status(404).json({ message: "Owner not found" });
+    const resident = await Resident.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    if (!resident) {
+      return res.status(404).json({ message: "Resident not found" });
     }
-    res.status(200).json(owner);
+    res.status(200).json(resident);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
 
-// Delete an owner by ID
-export const deleteOwner = async (req, res) => {
+// Delete an Resident by ID
+export const deleteResident = async (req, res) => {
   try {
-    const owner = await Owner.findByIdAndDelete(req.params.id);
-    if (!owner) {
-      return res.status(404).json({ message: "Owner not found" });
+    const resident = await Resident.findByIdAndDelete(req.params.id);
+    if (!resident) {
+      return res.status(404).json({ message: "resident not found" });
     }
 
     // Delete the files associated with the record
@@ -101,11 +106,11 @@ export const deleteOwner = async (req, res) => {
       });
     };
 
-    deleteFile(owner.aadharCardFront);
-    deleteFile(owner.aadharCardBack);
-    deleteFile(owner.addressProof);
-    deleteFile(owner.rentAgreement);
-    res.status(200).json({ message: "Owner deleted successfully" });
+    deleteFile(resident.aadharCardFront);
+    deleteFile(resident.aadharCardBack);
+    deleteFile(resident.addressProof);
+    deleteFile(resident.rentAgreement);
+    res.status(200).json({ message: "resident deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

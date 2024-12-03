@@ -200,3 +200,13 @@
 .animate-slide-down {
 	animation: slideDown 0.5s ease-out;
 }
+
+
+
+@media (min-width: 1024px) {
+	/* Ensure the menu stays inline in large viewports */
+	.breadcrumb-list {
+	  display: flex;
+	  align-items: center;
+	}
+  }

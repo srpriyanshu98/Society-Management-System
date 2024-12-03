@@ -1,11 +1,11 @@
 import express from "express";
 import upload from "../middleware/upload.js";
 import {
-  createOwner,
-  getOwners,
-  getOwnerById,
-  updateOwner,
-  deleteOwner,
+  createResident,
+  getResident,
+  getResidentById,
+  updateResident,
+  deleteResident,
 } from "../controller/residentcontroller.js";
 
 const router = express.Router();
@@ -18,10 +18,10 @@ const uploadFields = [
   { name: "rentAgreement", maxCount: 1 },
 ];
 
-router.post("/", upload.fields(uploadFields), createOwner); // Create a new owner
-router.get("/", getOwners); // Get all owners
-router.get("/:id", getOwnerById); // Get an owner by ID
-router.put("/:id", upload.fields(uploadFields), updateOwner); // Update an owner by ID
-router.delete("/:id", deleteOwner); // Delete an owner by ID
+router.post("/", upload.fields(uploadFields), createResident); // Create a new owner
+router.get("/", getResident); // Get all owners
+router.get("/:id", getResidentById); // Get an owner by ID
+router.put("/:id", upload.fields(uploadFields), updateResident); // Update an owner by ID
+router.delete("/:id", deleteResident); // Delete an owner by ID
 
 export default router;

@@ -8,7 +8,7 @@ export default function Layout({ userRole, children }) {
 				<Sidebar userRole={userRole} />
 				<Header />
 			</div>
-			<div className="flex-1 p-6 ml-64 bg-blue-50 overflow-auto">
+			<div className="flex-1 p-6 md:ml-64 bg-blue-50 overflow-auto">
 				{children}
 			</div>
 		</div>

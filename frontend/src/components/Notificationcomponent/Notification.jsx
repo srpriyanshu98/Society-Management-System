@@ -302,7 +302,7 @@ export default function Notification({ isCardVisible, onClose, cardRef }) {
     return (
         <Card
             ref={cardRef}
-            className="absolute top-[40px] -left-[505px] w-[540px] h-auto space-y-2.5 shadow-md bg-white z-50 animate-slide-down"
+            className="absolute top-[40px] -left-[505px] w-[540px] md:-left-[495px] sm:-left-[495px] h-auto space-y-2.5 shadow-md bg-white z-50 animate-slide-down"
         >
             <CardHeader>
                 <CardTitle className="text-xl font-bold text-gray-800">
