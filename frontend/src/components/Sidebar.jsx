@@ -6,7 +6,7 @@ import { Separator } from "./ui/separator";
 import axiosInstance from "@/test/axiosInstance";
 import { useAuthCheck, extractUserRoleFromToken } from "@/hooks/useAuth.jsx";
 
-export default function Sidebar() {
+export default function Sidebar({ isVisible, onClose }) {
 	const [expandedMenu, setExpandedMenu] = useState(null);
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -39,12 +39,21 @@ export default function Sidebar() {
 	}, [location.pathname, navigate]);
 
 	return (
-		<div className="fixed h-screen w-64 bg-white shadow-lg">
-			<div className="p-4 font-bold text-xl">
+		<div
+			className={`fixed top-0 left-0 z-40 h-screen w-64 bg-white shadow-lg transform transition-transform ${isVisible ? "translate-x-0" : "-translate-x-full"
+				} md:translate-x-0 md:block`}
+		>
+			<button
+				onClick={onClose}
+				className="md:hidden cursor-pointer ml-52 mt-3 p-1 rounded-full hover:bg-gray-200"
+			>
+				<Icons.X className="h-5 w-5 text-gray-500" />
+			</button>
+			<div className="p-4 lg:mt-4 lg:ml-7 ml-9 font-bold text-xl">
 				<img src="./src/assets/Logo.png" alt="Logo" />
 			</div>
-			<Separator className="my-6 w-52 mx-auto" />
-			<div className="mt-8 space-y-2">
+			<Separator className="my-2 w-52 mx-auto mb-7" />
+			<div className="space-y-2">
 				{userMenuItems.map((item) => {
 					const IconComponent = Icons[item.icon] || Icons.Menu;
 					const isExpanded = expandedMenu === item.name;
@@ -65,10 +74,9 @@ export default function Sidebar() {
 											: null
 									}
 									className={() =>
-										`flex items-center space-x-4 w-56 font-poppins p-3 text-sm rounded-lg ${
-											isActive || isExpanded
-												? "bg-gradient-to-r from-orange-600 to-orange-400 text-white shadow-md"
-												: "text-gray-700 hover:bg-gray-100"
+										`flex items-center space-x-4 w-56 font-poppins p-3 text-sm rounded-lg ${isActive || isExpanded
+											? "bg-gradient-to-r from-orange-600 to-orange-400 text-white shadow-md"
+											: "text-gray-700 hover:bg-gray-100"
 										}`
 									}
 								>
@@ -83,10 +91,9 @@ export default function Sidebar() {
 									<NavLink
 										to={subItem.path}
 										className={({ isActive }) =>
-											`ml-8 block p-2 mt-2 text-sm rounded-lg  ${
-												isActive
-													? "bg-gradient-to-r from-orange-600 to-orange-400 text-white shadow-md"
-													: "text-gray-700 hover:bg-gray-100"
+											`ml-8 block p-2 mt-2 text-sm rounded-lg ${isActive
+												? "bg-gradient-to-r from-orange-600 to-orange-400 text-white shadow-md"
+												: "text-gray-700 hover:bg-gray-100"
 											}`
 										}
 										key={subItem.name}
@@ -99,7 +106,7 @@ export default function Sidebar() {
 				})}
 			</div>
 			{/* Logout Section */}
-			<div className="inline-block space-x-7 absolute top-[870px]">
+			<div className="inline-block space-x-7 absolute bottom-10">
 				<Separator className="mb-3 w-52 ms-5" />
 				<div>
 					<img

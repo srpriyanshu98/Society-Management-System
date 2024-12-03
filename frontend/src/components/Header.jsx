@@ -12,6 +12,7 @@ import { Separator } from "./ui/separator";
 import axiosInstance from "@/test/axiosInstance";
 import Notification from "./Notificationcomponent/Notification";
 import { jwtDecode } from "jwt-decode";
+import Sidebar from "./Sidebar";
 
 export default function Header() {
     const location = useLocation();
@@ -62,25 +63,43 @@ export default function Header() {
 
     const breadcrumbItems = breadcrumbData[location.pathname] || [];
 
+    const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
+	const toggleSidebar = () => {
+		setIsSidebarVisible((prev) => !prev);
+	};
+
     return (
-        <header className="flex justify-between font-poppins items-center p-4 ml-64 bg-white shadow-md h-[100px]">
+        <header className="flex justify-between font-poppins items-center md:ml-64 p-4 bg-white shadow-md h-[100px]">
             <div className="flex items-center space-x-4">
-                <Breadcrumb>
-                    <BreadcrumbList>
-                        {breadcrumbItems.map((item, index) => (
-                            <React.Fragment key={item.href}>
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href={item.href}>
-                                        {item.label}
-                                    </BreadcrumbLink>
-                                </BreadcrumbItem>
-                                {index < breadcrumbItems.length - 1 && (
-                                    <BreadcrumbSeparator />
-                                )}
-                            </React.Fragment>
-                        ))}
-                    </BreadcrumbList>
-                </Breadcrumb>
+                <div className="hidden md:block">
+                    <Breadcrumb>
+                        <BreadcrumbList>
+                            {breadcrumbItems.map((item, index) => (
+                                <React.Fragment key={item.href}>
+                                    <BreadcrumbItem>
+                                        <BreadcrumbLink href={item.href}>
+                                            {item.label}
+                                        </BreadcrumbLink>
+                                    </BreadcrumbItem>
+                                    {index < breadcrumbItems.length - 1 && (
+                                        <BreadcrumbSeparator />
+                                    )}
+                                </React.Fragment>
+                            ))}
+                        </BreadcrumbList>
+                    </Breadcrumb>
+                </div>
+                {/* Button only visible on medium screens and larger */}
+                <button className="bg-gray-100 h-10 w-10 md:hidden block rounded-full">
+                    <img
+                        src="/src/assets/toggle.svg"
+                        alt="Active"
+                        className="ml-3"
+                        onClick={toggleSidebar}
+                    />
+                </button>
+
             </div>
             <div className="flex items-center space-x-4">
                 <div className="relative">
@@ -102,13 +121,18 @@ export default function Header() {
                 </div>
                 <div className="flex h-7 items-center space-x-4 text-sm">
                     <Separator orientation="vertical" />
-                    <img
-                        src="/src/assets/profileimg.jpeg"
-                        alt="Active"
-                        className="h-9 w-9 rounded-full"
-                    />
-                    <Link to="/edit-profile">
-                        <div className="grid grid-rows-2 mt-2">
+                    
+
+                    <Link
+                        to="/edit-profile"
+                        className="grid grid-cols-[auto_1fr] items-center gap-4"
+                    >
+                        <img
+                            src="/src/assets/profileimg.jpeg"
+                            alt="Active"
+                            className="h-9 w-9 rounded-full"
+                        />
+                        <div className="hidden md:block  gap-1">
                             <div className="font-poppins font-bold">{`${userProfile.firstName} ${userProfile.lastName}`}</div>
                             <div className="text-xs text-gray-600">
                                 {userProfile.role}
@@ -117,6 +141,7 @@ export default function Header() {
                     </Link>
                 </div>
             </div>
+            <Sidebar isVisible={isSidebarVisible} onClose={toggleSidebar} />
         </header>
     );
 }
