@@ -106,7 +106,10 @@ function App() {
 				/>
 
 				{/* SECURITY ROUTES */}
-				<Route path="/" element={<VisitortrackingScreen />} />
+				<Route
+					path="/visitortracking-screen"
+					element={<VisitortrackingScreen />}
+				/>
 				<Route
 					path="/emergencymanagement"
 					element={<EmergencyManagement />}

@@ -77,7 +77,7 @@ const menuItems = {
 	security: [
 		{
 			name: "Security",
-			path: "/",
+			path: "/visitortracking-screen",
 			icon: "Cctv",
 			subItems: [
 				{ name: "Visitor Tracking", path: "/visitortracking-screen" },

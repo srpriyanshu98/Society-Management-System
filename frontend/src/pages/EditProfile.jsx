@@ -17,12 +17,11 @@ export default function EditProfile({ userRole }) {
         country: "",
         state: "",
         city: "",
+        photo: "",
     });
 
     const [errors, setErrors] = useState({});
-
     const [isEditing, setIsEditing] = useState(false);
-
     const [profileImage, setProfileImage] = useState("./src/assets/img1.png");
     const fileInputRef = useRef(null);
 
@@ -49,7 +48,6 @@ export default function EditProfile({ userRole }) {
                     throw new Error("No token found in local storage");
                 }
                 const decodedToken = jwtDecode(token);
-
                 const userId = decodedToken.id;
 
                 const response = await axiosInstance.get(`/auth/${userId}`);
@@ -62,16 +60,25 @@ export default function EditProfile({ userRole }) {
                     country,
                     state,
                     city,
+                    photo,
                 } = response.data;
+
+                // Ensure societyname is a string
+                const societynameStr =
+                    typeof societyname === "string"
+                        ? societyname
+                        : societyname.name || societyname.societyname || "";
+
                 setFormData({
                     firstName,
                     lastName,
                     phoneNumber,
                     email,
-                    societyname,
+                    societyname: societynameStr,
                     country,
                     state,
                     city,
+                    photo,
                 });
             } catch (error) {
                 console.error("Error fetching user profile:", error);
@@ -97,7 +104,12 @@ export default function EditProfile({ userRole }) {
         }
         if (!/\S+@\S+\.\S+/.test(formData.email))
             newErrors.email = "Enter a valid email address";
-        if (!formData.society.trim()) newErrors.society = "Society is required";
+        if (
+            typeof formData.societyname === "string" &&
+            !formData.societyname.trim()
+        ) {
+            newErrors.societyname = "Society is required";
+        }
         if (!formData.country.trim()) newErrors.country = "Country is required";
         if (!formData.state.trim()) newErrors.state = "State is required";
         if (!formData.city.trim()) newErrors.city = "City is required";
@@ -109,6 +121,7 @@ export default function EditProfile({ userRole }) {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const validationErrors = validateFields();
@@ -121,10 +134,33 @@ export default function EditProfile({ userRole }) {
                 const decodedToken = jwtDecode(token);
                 const userId = decodedToken.id;
 
-                await axiosInstance.put(`/auth/${userId}`, formData);
+                const formDataToSend = new FormData();
+                formDataToSend.append("firstName", formData.firstName);
+                formDataToSend.append("lastName", formData.lastName);
+                formDataToSend.append("phoneNumber", formData.phoneNumber);
+                formDataToSend.append("email", formData.email);
+                formDataToSend.append("societyname", formData.societyname);
+                formDataToSend.append("country", formData.country);
+                formDataToSend.append("state", formData.state);
+                formDataToSend.append("city", formData.city);
+                if (fileInputRef.current.files[0]) {
+                    formDataToSend.append(
+                        "photo",
+                        fileInputRef.current.files[0]
+                    );
+                }
+
+                const response = await axiosInstance.put(
+                    `/auth/${userId}`,
+                    formDataToSend
+                );
+                console.log("Server Response:", response.data);
                 setIsEditing(false);
             } catch (error) {
                 console.error("Error updating profile:", error);
+                if (error.response) {
+                    console.error("Server Response Data:", error.response.data);
+                }
             }
         } else {
             setErrors(validationErrors);
@@ -214,19 +250,28 @@ export default function EditProfile({ userRole }) {
                                         <div className="text-center mt-5 font-poppins">
                                             {isEditing ? (
                                                 <>
-                                                    <span className="font-medium font-poppins">{formData.firstName || "First Name"}</span>{" "}
-                                                    <span className="font-medium font-poppins">{formData.lastName || "Last Name"}</span>
+                                                    <span className="font-medium font-poppins">
+                                                        {formData.firstName ||
+                                                            "First Name"}
+                                                    </span>{" "}
+                                                    <span className="font-medium font-poppins">
+                                                        {formData.lastName ||
+                                                            "Last Name"}
+                                                    </span>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <span className="font-medium text-xl font-poppins">{formData.firstName}</span>{" "}
-                                                    <span className="font-medium text-xl font-poppins">{formData.lastName}</span>
+                                                    <span className="font-medium text-xl font-poppins">
+                                                        {formData.firstName}
+                                                    </span>{" "}
+                                                    <span className="font-medium text-xl font-poppins">
+                                                        {formData.lastName}
+                                                    </span>
                                                 </>
                                             )}
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div className="grid grid-cols-2">
@@ -235,7 +280,7 @@ export default function EditProfile({ userRole }) {
                                     "lastName",
                                     "phoneNumber",
                                     "email",
-                                    "society",
+                                    "societyname",
                                     "country",
                                     "state",
                                     "city",
