@@ -1,17 +1,34 @@
 import Owner from "../model/residentmodel.js";
+import { sendMail } from "../config/mailer.js";
+import crypto from "crypto";
 
 // Create a new owner
 export const createOwner = async (req, res) => {
   try {
+    const generateRandomPassword = (length = 10) => {
+      return crypto.randomBytes(length).toString("hex").slice(0, length);
+    };
+
+    const { emailAddress } = req.body;
+
+    const password = generateRandomPassword();
     const ownerData = {
       ...req.body,
-      aadharCardFront: req.files.aadharCardFront[0].path,
-      aadharCardBack: req.files.aadharCardBack[0].path,
-      addressProof: req.files.addressProof[0].path,
-      rentAgreement: req.files.rentAgreement[0].path,
+      password,
+      // aadharCardFront: req.files.aadharCardFront[0].path,
+      // aadharCardBack: req.files.aadharCardBack[0].path,
+      // addressProof: req.files.addressProof[0].path,
+      // rentAgreement: req.files.rentAgreement[0].path,
     };
     const owner = new Owner(ownerData);
     await owner.save();
+
+    await sendMail(
+      emailAddress,
+      "Your New Account Password",
+      `Your new account password is: ${password}`
+    );
+
     res.status(201).json(owner);
   } catch (error) {
     res.status(400).json({ message: error.message });

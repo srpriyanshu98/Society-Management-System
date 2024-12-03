@@ -17,7 +17,7 @@ const MemberSchema = new mongoose.Schema(
   {
     fullName: { type: String },
     phoneNumber: { type: String },
-    emailAddress: { type: String, unique: true },
+    emailAddress: { type: String, unique: true, required: true },
     age: { type: Number },
     gender: {
       type: String,
@@ -29,14 +29,20 @@ const MemberSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+MemberSchema.index({ emailAddress: 1, _id: 1 }, { unique: true });
+
 const OwnerSchema = new mongoose.Schema(
   {
     OwnerfullName: { type: String },
     Ownerphone: { type: String },
-    Owneraddress: { type: String, unique: true },
+    Owneraddress: { type: String, unique: true, required: true },
+    emailAddress: { type: String, unique: true, required: true },
   },
   { timestamps: true }
 );
+
+OwnerSchema.index({ emailAddress: 1, _id: 1 }, { unique: true });
+OwnerSchema.index({ Owneraddress: 1, _id: 1 }, { unique: true });
 
 const residentSchema = new mongoose.Schema(
   {
@@ -62,5 +68,7 @@ const residentSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+residentSchema.index({ emailAddress: 1, _id: 1 }, { unique: true });
 
 export default mongoose.model("Resident", residentSchema);
