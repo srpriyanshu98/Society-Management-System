@@ -11,20 +11,31 @@ import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Eye } from "lucide-react";
 import axiosInstance from "@/test/axiosInstance";
-import { fetchPolls, categorizePolls } from "@/components/services/pollUtils";
+import {
+    fetchPolls,
+    categorizePollsByDate,
+    getLoggedInUser,
+} from "@/components/services/pollUtils";
 
 export default function NewPoll() {
     const [newPolls, setNewPolls] = useState([]);
     const [votedPolls, setVotedPolls] = useState({});
+    const loggedInUser = getLoggedInUser();
 
     useEffect(() => {
         const getNewPolls = async () => {
             const data = await fetchPolls();
-            const { newPolls } = categorizePolls(data);
+            const { newPolls } = categorizePollsByDate(data);
             setNewPolls(newPolls);
         };
 
         getNewPolls();
+
+        const interval = setInterval(() => {
+            getNewPolls();
+        }, 60000); // Check every minute
+
+        return () => clearInterval(interval);
     }, []);
 
     const handleVote = async (pollId, optionText) => {
@@ -79,20 +90,27 @@ export default function NewPoll() {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {newPolls.map((poll) => (
-                            <Card key={poll._id} className="shadow rounded-lg p-4">
+                            <Card
+                                key={poll._id}
+                                className="shadow rounded-lg p-4"
+                            >
                                 {/* Header Section */}
                                 <div className="flex items-center justify-between mb-4">
                                     <div className="flex items-center space-x-2">
                                         <Avatar className="w-10 h-10">
                                             <AvatarImage
                                                 src="https://github.com/shadcn.png"
-                                                alt={poll.createdBy}
+                                                alt={
+                                                    loggedInUser?.username ||
+                                                    "User"
+                                                }
                                             />
                                             <AvatarFallback>CN</AvatarFallback>
                                         </Avatar>
                                         <div>
                                             <h3 className="text-lg font-bold">
-                                                {poll.createdBy}
+                                                {loggedInUser?.username ||
+                                                    "User"}
                                             </h3>
                                             <span className="text-sm text-gray-500">
                                                 {poll.type}
@@ -125,7 +143,10 @@ export default function NewPoll() {
                                                       )
                                                     : 0;
                                             return (
-                                                <div key={option.text} className="space-y-2">
+                                                <div
+                                                    key={option.text}
+                                                    className="space-y-2"
+                                                >
                                                     <div className="grid grid-cols-[1fr_auto_auto] items-center gap-2">
                                                         <label className="space-x-2">
                                                             <input
