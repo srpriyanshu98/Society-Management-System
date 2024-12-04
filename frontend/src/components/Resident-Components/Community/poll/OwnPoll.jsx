@@ -13,21 +13,33 @@ import { Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CreatePollDialog from "./CreatePoll";
 import axiosInstance from "@/test/axiosInstance";
-import { fetchPolls, categorizePolls } from "@/components/services/pollUtils";
+import {
+    fetchPolls,
+    categorizePollsByDate,
+    getLoggedInUser,
+    handlePollCreationAndCategorization, // Import the function
+} from "@/components/services/pollUtils";
 
 export default function OwnPoll() {
     const [polls, setPolls] = useState([]);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [votedPolls, setVotedPolls] = useState({});
+    const loggedInUser = getLoggedInUser();
 
     useEffect(() => {
         const getPolls = async () => {
             const data = await fetchPolls();
-            const { newPolls, previousPolls } = categorizePolls(data);
+            const { newPolls, previousPolls } = categorizePollsByDate(data);
             setPolls([...newPolls, ...previousPolls]);
         };
 
         getPolls();
+
+        const interval = setInterval(() => {
+            getPolls();
+        }, 60000); // Check every minute
+
+        return () => clearInterval(interval);
     }, []);
 
     const handleVote = async (pollId, optionText) => {
@@ -70,12 +82,7 @@ export default function OwnPoll() {
     };
 
     const handleCreatePoll = async (newPoll) => {
-        try {
-            const response = await axiosInstance.post("/polls", newPoll);
-            setPolls((prevPolls) => [...prevPolls, response.data.poll]);
-        } catch (error) {
-            console.error("Error creating poll:", error);
-        }
+        await handlePollCreationAndCategorization(newPoll, setPolls, setPolls);
     };
 
     return (
@@ -99,13 +106,15 @@ export default function OwnPoll() {
                                     <Avatar className="w-10 h-10">
                                         <AvatarImage
                                             src="https://github.com/shadcn.png"
-                                            alt={poll.createdBy}
+                                            alt={
+                                                loggedInUser?.username || "User"
+                                            }
                                         />
                                         <AvatarFallback>CN</AvatarFallback>
                                     </Avatar>
                                     <div>
                                         <h3 className="text-lg font-bold">
-                                            {poll.createdBy}
+                                            {loggedInUser?.username || "User"}
                                         </h3>
                                         <span className="text-sm text-gray-500">
                                             {poll.type}
