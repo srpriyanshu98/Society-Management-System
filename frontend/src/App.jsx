@@ -48,6 +48,8 @@ import ChatFooter from "./components/Resident-Components/Community/AccessForums/
 
 // MIDDLEWARES IMPORTS
 import ProtectedRoute from "./middlewares/ProtectedRoute";
+import PaymentPage from "./pages/PaymentPage";
+import SuccessPage from "./pages/SuccessPage";
 
 function App() {
 	return (
@@ -104,6 +106,10 @@ function App() {
 					path="/security-protocals"
 					element={<SecurityProtocols />}
 				/>
+
+				{/* PAYMENT ROUTES */}
+				<Route path="/payment" element={<PaymentPage />} />
+				<Route path="/success" element={<SuccessPage />} />
 
 				{/* SECURITY ROUTES */}
 				<Route

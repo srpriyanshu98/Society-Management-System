@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import IncomeInvoices from "@/components/Resident-Components/PaymentPortal/IncomeInvoices";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import axiosInstance from "@/test/axiosInstance"; // Adjust the path as necessary
+import axiosInstance from "@/test/axiosInstance";
 
 export default function OtherInvoice({ userRole }) {
     const [incomeData, setIncomeData] = useState([]);
@@ -27,17 +27,17 @@ export default function OtherInvoice({ userRole }) {
         fetchIncomeData();
     }, []);
 
-    const handleViewInvoice = () => {
-        setShowInvoicePage(true);
-    };
+	const handleViewInvoice = () => {
+		setShowInvoicePage(true);
+	};
 
-    if (loading) {
-        return <Layout userRole={userRole}>Loading...</Layout>;
-    }
+	if (loading) {
+		return <Layout userRole={userRole}>Loading...</Layout>;
+	}
 
-    if (error) {
-        return <Layout userRole={userRole}>Error: {error}</Layout>;
-    }
+	if (error) {
+		return <Layout userRole={userRole}>Error: {error}</Layout>;
+	}
 
     return (
         <Layout userRole={userRole}>
