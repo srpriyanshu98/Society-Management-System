@@ -150,7 +150,7 @@ export default function EditProfile({ userRole }) {
                     );
                 }
 
-                const response = await axiosInstance.put(
+                const response = await axiosInstance.patch(
                     `/auth/${userId}`,
                     formDataToSend
                 );

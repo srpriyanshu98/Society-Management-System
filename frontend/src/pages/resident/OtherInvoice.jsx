@@ -6,24 +6,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import axiosInstance from "@/test/axiosInstance"; // Adjust the path as necessary
 
-export default function OtherInvoice({ userRole, incomeId }) {
-    const [incomeData, setIncomeData] = useState(null);
+export default function OtherInvoice({ userRole }) {
+    const [incomeData, setIncomeData] = useState([]);
     const [showInvoicePage, setShowInvoicePage] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        if (!incomeId) {
-            setError("Income ID is missing");
-            setLoading(false);
-            return;
-        }
-
         const fetchIncomeData = async () => {
             try {
-                const response = await axiosInstance.get(
-                    `/otherIncome/${incomeId}`
-                );
+                const response = await axiosInstance.get(`/otherIncome`);
                 setIncomeData(response.data);
             } catch (err) {
                 setError(err.message);
@@ -33,7 +25,7 @@ export default function OtherInvoice({ userRole, incomeId }) {
         };
 
         fetchIncomeData();
-    }, [incomeId]);
+    }, []);
 
     const handleViewInvoice = () => {
         setShowInvoicePage(true);
@@ -63,8 +55,8 @@ export default function OtherInvoice({ userRole, incomeId }) {
                             </Button>
                         </CardHeader>
                         <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            {incomeData && (
-                                <Card key={incomeData._id} className="">
+                            {incomeData.map((income) => (
+                                <Card key={income._id} className="">
                                     <CardHeader className="bg-blue-500 rounded-t-lg text-white">
                                         <CardTitle className="text-base">
                                             Due Event Payment
@@ -79,7 +71,7 @@ export default function OtherInvoice({ userRole, incomeId }) {
                                                 Event Name
                                             </span>
                                             <span className="float-right">
-                                                {incomeData.title}
+                                                {income.title}
                                             </span>
                                         </p>
                                         <p>
@@ -88,7 +80,7 @@ export default function OtherInvoice({ userRole, incomeId }) {
                                             </span>
                                             <span className="float-right">
                                                 {new Date(
-                                                    incomeData.dueDate
+                                                    income.dueDate
                                                 ).toLocaleDateString()}
                                             </span>
                                         </p>
@@ -98,7 +90,7 @@ export default function OtherInvoice({ userRole, incomeId }) {
                                                 Amount
                                             </span>
                                             <span className="float-right">
-                                                ₹{incomeData.amount}
+                                                ₹{income.amount}
                                             </span>
                                         </p>
                                         <Button className="w-full">
@@ -106,7 +98,7 @@ export default function OtherInvoice({ userRole, incomeId }) {
                                         </Button>
                                     </CardContent>
                                 </Card>
-                            )}
+                            ))}
                         </CardContent>
                     </Card>
                 </>
