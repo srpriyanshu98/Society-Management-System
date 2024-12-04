@@ -1,10 +1,20 @@
 import Security from "../model/securitymodel.js";
 import fs from "fs";
 import path from "path";
+import { sendMail } from "../config/mailer.js";
+import crypto from "crypto";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { ENV_VARS } from "../config/envVars.js";
 
 // Create a new security record
 export const createSecurity = async (req, res) => {
-  const { fullName, phoneNumber, gender, shift, shiftDate, shiftTime } =
+  const generateRandomPassword = (length = 10) => {
+    return crypto.randomBytes(length).toString("hex").slice(0, length);
+  };
+
+  const password = generateRandomPassword();
+  const { fullName, phoneNumber, gender, shift, shiftDate, shiftTime, email } =
     req.body;
   // Access the files
   const guardPhoto = req.files?.guardPhoto
@@ -26,9 +36,17 @@ export const createSecurity = async (req, res) => {
       shift,
       shiftDate,
       shiftTime,
+      email,
       guardPhoto,
       aadharCard,
+      password,
     });
+
+    await sendMail(
+      email,
+      "Your New Account Password",
+      `Your new account password is: ${password}`
+    );
     await newSecurity.save();
     res.status(201).json({
       message: "Security record created successfully",
@@ -165,4 +183,32 @@ export const deleteSecurity = async (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
+};
+
+export const loginSecurity = async (req, res) => {
+  const { email, password } = req.body;
+
+  const security = await Security.findOne({ email });
+
+  if (!security) {
+    return res.status(401).json({ message: "Invalid credentials" });
+  }
+
+  const passwordMatch = await bcrypt.compare(password, security.password);
+
+  if (!passwordMatch) {
+    return res.status(401).json({ message: "Invalid credentials" });
+  }
+
+  const token = jwt.sign({ id: security._id }, ENV_VARS.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 60 * 60 * 1000,
+  });
+
+  res.status(200).json({ message: "Login successful", token });
 };

@@ -25,11 +25,7 @@ router.post("/validate-password", verifyToken, validatePassword);
 
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
-router.get("/:id", getUserProfile);
-router.put(
-  "/:id",
-  upload.fields([{ name: "photo", maxCount: 1 }]),
-  updateProfile
-);
+router.get("/:id", verifyToken, getUserProfile);
+router.patch("/:id", verifyToken, upload.single("photo"), updateProfile);
 
 export default router;

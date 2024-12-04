@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const securitySchema = new mongoose.Schema(
   {
@@ -8,6 +9,11 @@ const securitySchema = new mongoose.Schema(
     },
     fullName: {
       type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      unique: true,
       required: true,
     },
     phoneNumber: {
@@ -36,9 +42,20 @@ const securitySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    password: { type: String, required: true },
   },
   { timestamps: true }
 );
+
+securitySchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+
+securitySchema.methods.comparePassword = function (enteredPassword) {
+  return bcrypt.compare(enteredPassword, this.password);
+};
 
 const Security = mongoose.model("Security", securitySchema);
 

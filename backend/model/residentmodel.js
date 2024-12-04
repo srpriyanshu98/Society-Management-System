@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const vehicleSchema = new mongoose.Schema(
   {
@@ -65,10 +66,21 @@ const residentSchema = new mongoose.Schema(
     vehicle: [vehicleSchema],
     memberSchema: [MemberSchema],
     ownerSchema: [OwnerSchema],
+    password: { type: String, required: true },
   },
   { timestamps: true }
 );
 
 residentSchema.index({ emailAddress: 1, _id: 1 }, { unique: true });
+
+residentSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+
+residentSchema.methods.comparePassword = function (enteredPassword) {
+  return bcrypt.compare(enteredPassword, this.password);
+};
 
 export default mongoose.model("Resident", residentSchema);

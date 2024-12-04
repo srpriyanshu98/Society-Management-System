@@ -6,6 +6,7 @@ import {
   getResidentById,
   updateResident,
   deleteResident,
+  loginResident,
 } from "../controller/residentcontroller.js";
 
 const router = express.Router();
@@ -23,5 +24,6 @@ router.get("/", getResident); // Get all owners
 router.get("/:id", getResidentById); // Get an owner by ID
 router.put("/:id", upload.fields(uploadFields), updateResident); // Update an owner by ID
 router.delete("/:id", deleteResident); // Delete an owner by ID
+router.post("/login", loginResident);
 
 export default router;

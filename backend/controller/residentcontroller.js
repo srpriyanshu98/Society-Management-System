@@ -1,6 +1,9 @@
 import { sendMail } from "../config/mailer.js";
 import crypto from "crypto";
 import Resident from "../model/residentmodel.js";
+import bcrypt from "bcryptjs";
+import { ENV_VARS } from "../config/envVars.js";
+import jwt from "jsonwebtoken";
 
 // Create a new Resident
 export const createResident = async (req, res) => {
@@ -27,7 +30,7 @@ export const createResident = async (req, res) => {
       `Your new account password is: ${password}`
     );
 
-    res.status(201).json(owner);
+    // res.status(201).json(owner);
     const resident = new Resident(residentData);
     await resident.save();
     res.status(201).json(resident);
@@ -114,4 +117,32 @@ export const deleteResident = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+export const loginResident = async (req, res) => {
+  const { emailAddress, password } = req.body;
+
+  const resident = await Resident.findOne({ emailAddress });
+
+  if (!resident) {
+    return res.status(401).json({ message: "Invalid credentials" });
+  }
+
+  const passwordMatch = await bcrypt.compare(password, resident.password);
+
+  if (!passwordMatch) {
+    return res.status(401).json({ message: "Invalid credentials" });
+  }
+
+  const token = jwt.sign({ id: resident._id }, ENV_VARS.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 60 * 60 * 1000,
+  });
+
+  res.status(200).json({ message: "Login successful", token });
 };
