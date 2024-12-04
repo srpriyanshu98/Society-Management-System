@@ -6,20 +6,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import axiosInstance from "@/test/axiosInstance";
 import { useNavigate } from "react-router-dom";
-import useStripePayment from "@/hooks/useStripePayment";
 
 export default function OtherInvoice({ userRole }) {
 	const [incomeData, setIncomeData] = useState([]);
 	const [showInvoicePage, setShowInvoicePage] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const { clientSecret, createPaymentIntent } = useStripePayment();
 	const navigate = useNavigate();
+	const [clientSecret, setClientSecret] = useState(null);
 
 	useEffect(() => {
 		const fetchIncomeData = async () => {
 			try {
-				const response = await axiosInstance.get(`/otherIncome`);
+				const response = await axiosInstance.get("/otherIncome");
 				setIncomeData(response.data);
 			} catch (err) {
 				setError(err.message);
@@ -43,26 +42,37 @@ export default function OtherInvoice({ userRole }) {
 				"with amount:",
 				amount
 			);
-			await createPaymentIntent(amount);
-			console.log(
-				"Client Secret after createPaymentIntent:",
-				clientSecret
+
+			// Create payment intent
+			const response = await axiosInstance.post(
+				"/payments/create-payment-intent",
+				{
+					amount,
+				}
 			);
-			if (clientSecret) {
+
+			console.log("Received response from server:", response);
+
+			if (response.data.clientSecret) {
+				setClientSecret(response.data.clientSecret);
+				console.log(
+					"Client Secret successfully set:",
+					response.data.clientSecret
+				);
+
+				// Navigate to the payment page if clientSecret is valid
 				navigate("/payment", {
 					state: {
-						client_secret: clientSecret,
+						client_secret: response.data.clientSecret,
 						amount,
 					},
 				});
 			} else {
-				console.error(
-					"Client Secret is not available after createPaymentIntent"
-				);
+				console.error("Client Secret not returned from the backend");
 				alert("Unable to initiate payment. Please try again.");
 			}
 		} catch (error) {
-			console.error("Error navigating to payment page:", error);
+			console.error("Error creating payment intent:", error);
 			alert("Unable to initiate payment. Please try again.");
 		}
 	};
@@ -74,7 +84,6 @@ export default function OtherInvoice({ userRole }) {
 	if (error) {
 		return <Layout userRole={userRole}>Error: {error}</Layout>;
 	}
-
 	return (
 		<Layout userRole={userRole}>
 			{showInvoicePage ? (

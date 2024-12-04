@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { residentDataFront } from "@/data/PersonalDetail/residentDataFront";
 import axiosInstance from "@/test/axiosInstance";
-import useStripePayment from "@/hooks/useStripePayment";
 import { useNavigate } from "react-router-dom";
 
 // Fetch maintenance records from the API
@@ -50,7 +49,7 @@ export default function Owner() {
 	const [maintenanceRecords, setMaintenanceRecords] = useState([]);
 	const [totalMaintenanceAmount, setTotalMaintenanceAmount] = useState(0);
 	const [totalPenaltyAmount, setTotalPenaltyAmount] = useState(0);
-	const { clientSecret, createPaymentIntent } = useStripePayment();
+	const [clientSecret, setClientSecret] = useState(null);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -63,34 +62,45 @@ export default function Owner() {
 	}, []);
 
 	// Redirect to the payment page
-	const handlePayNow = async (recordId, amount) => {
+	const handlePayNow = async (incomeId, amount) => {
 		try {
 			console.log(
-				"Initiating payment for record ID:",
-				recordId,
+				"Initiating payment for income ID:",
+				incomeId,
 				"with amount:",
 				amount
 			);
-			await createPaymentIntent(amount);
-			console.log(
-				"Client Secret after createPaymentIntent:",
-				clientSecret
+
+			// Create payment intent
+			const response = await axiosInstance.post(
+				"/payments/create-payment-intent",
+				{
+					amount,
+				}
 			);
-			if (clientSecret) {
+
+			console.log("Received response from server:", response);
+
+			if (response.data.clientSecret) {
+				setClientSecret(response.data.clientSecret);
+				console.log(
+					"Client Secret successfully set:",
+					response.data.clientSecret
+				);
+
+				// Navigate to the payment page if clientSecret is valid
 				navigate("/payment", {
 					state: {
-						client_secret: clientSecret,
+						client_secret: response.data.clientSecret,
 						amount,
 					},
 				});
 			} else {
-				console.error(
-					"Client Secret is not available after createPaymentIntent"
-				);
+				console.error("Client Secret not returned from the backend");
 				alert("Unable to initiate payment. Please try again.");
 			}
 		} catch (error) {
-			console.error("Error navigating to payment page:", error);
+			console.error("Error creating payment intent:", error);
 			alert("Unable to initiate payment. Please try again.");
 		}
 	};
