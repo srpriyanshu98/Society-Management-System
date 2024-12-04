@@ -11,7 +11,7 @@ import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Eye } from "lucide-react";
 import axiosInstance from "@/test/axiosInstance";
-import { fetchPolls } from "@/components/services/pollUtils";
+import { fetchPolls, categorizePolls } from "@/components/services/pollUtils";
 
 export default function PreviousPoll() {
     const [previousPolls, setPreviousPolls] = useState([]);
@@ -20,9 +20,7 @@ export default function PreviousPoll() {
     useEffect(() => {
         const getPreviousPolls = async () => {
             const data = await fetchPolls();
-            const previousPolls = data.filter(
-                (poll) => new Date(poll.createdAt) < new Date()
-            );
+            const { previousPolls } = categorizePolls(data);
             setPreviousPolls(previousPolls);
         };
 

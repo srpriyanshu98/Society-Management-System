@@ -13,7 +13,7 @@ import { Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CreatePollDialog from "./CreatePoll";
 import axiosInstance from "@/test/axiosInstance";
-import { fetchPolls } from "@/components/services/pollUtils";
+import { fetchPolls, categorizePolls } from "@/components/services/pollUtils";
 
 export default function OwnPoll() {
     const [polls, setPolls] = useState([]);
@@ -23,7 +23,8 @@ export default function OwnPoll() {
     useEffect(() => {
         const getPolls = async () => {
             const data = await fetchPolls();
-            setPolls(data);
+            const { newPolls, previousPolls } = categorizePolls(data);
+            setPolls([...newPolls, ...previousPolls]);
         };
 
         getPolls();

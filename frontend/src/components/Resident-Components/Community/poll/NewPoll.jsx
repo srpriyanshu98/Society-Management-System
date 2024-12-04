@@ -11,7 +11,7 @@ import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Eye } from "lucide-react";
 import axiosInstance from "@/test/axiosInstance";
-import { fetchPolls } from "@/components/services/pollUtils";
+import { fetchPolls, categorizePolls } from "@/components/services/pollUtils";
 
 export default function NewPoll() {
     const [newPolls, setNewPolls] = useState([]);
@@ -20,9 +20,7 @@ export default function NewPoll() {
     useEffect(() => {
         const getNewPolls = async () => {
             const data = await fetchPolls();
-            const newPolls = data.filter(
-                (poll) => new Date(poll.createdAt) > new Date()
-            );
+            const { newPolls } = categorizePolls(data);
             setNewPolls(newPolls);
         };
 
@@ -81,10 +79,7 @@ export default function NewPoll() {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {newPolls.map((poll) => (
-                            <Card
-                                key={poll._id}
-                                className="shadow rounded-lg p-4"
-                            >
+                            <Card key={poll._id} className="shadow rounded-lg p-4">
                                 {/* Header Section */}
                                 <div className="flex items-center justify-between mb-4">
                                     <div className="flex items-center space-x-2">
@@ -130,10 +125,7 @@ export default function NewPoll() {
                                                       )
                                                     : 0;
                                             return (
-                                                <div
-                                                    key={option.text}
-                                                    className="space-y-2"
-                                                >
+                                                <div key={option.text} className="space-y-2">
                                                     <div className="grid grid-cols-[1fr_auto_auto] items-center gap-2">
                                                         <label className="space-x-2">
                                                             <input
