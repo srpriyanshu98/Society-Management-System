@@ -35,20 +35,11 @@ const calculateTotalPenaltyAmount = (maintenanceRecords) => {
 	);
 };
 
-// Calculate overdue items
-const getOverdueRecords = (maintenanceRecords) => {
-	const today = new Date();
-	return maintenanceRecords.filter(
-		(record) => new Date(record.maintenanceDueDate) < today
-	);
-};
-
 export default function MaintenanceInvoices({ userRole }) {
 	const [showInvoicePage, setShowInvoicePage] = useState(false);
 	const [maintenanceRecords, setMaintenanceRecords] = useState([]);
 	const [totalMaintenanceAmount, setTotalMaintenanceAmount] = useState(0);
 	const [totalPenaltyAmount, setTotalPenaltyAmount] = useState(0);
-	const [overdueRecords, setOverdueRecords] = useState([]);
 	const { clientSecret, createPaymentIntent } = useStripePayment();
 	const navigate = useNavigate();
 
@@ -58,7 +49,6 @@ export default function MaintenanceInvoices({ userRole }) {
 			setMaintenanceRecords(data);
 			setTotalMaintenanceAmount(calculateTotalMaintenanceAmount(data));
 			setTotalPenaltyAmount(calculateTotalPenaltyAmount(data));
-			setOverdueRecords(getOverdueRecords(data));
 		});
 	}, []);
 
@@ -231,77 +221,89 @@ export default function MaintenanceInvoices({ userRole }) {
 					</Card>
 
 					{/* Overdue Maintenance Section */}
-					{overdueRecords.length > 0 && (
-						<Card className="mt-8">
-							<CardHeader>
-								<CardTitle className="text-lg font-semibold font-poppins text-red-600">
-									Overdue Maintenance
-								</CardTitle>
-							</CardHeader>
-							<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-								{overdueRecords.map((items, index) => (
-									<Card key={index} className="bg-red-100">
-										<CardHeader className="bg-red-600 rounded-t-lg text-white">
-											<CardTitle className="text-base font-poppins">
-												Overdue Maintenance
-											</CardTitle>
-										</CardHeader>
-										<CardContent className="space-y-2 mt-3 font-poppins">
-											<p>
-												<span className="inline-block text-slate-600">
-													Due Date
-												</span>
-												<span className="float-right text-red-500">
-													{new Date(
-														items.maintenanceDueDate
-													).toLocaleDateString()}
-												</span>
-											</p>
-											<Separator />
-											<p>
-												<span className="inline-block text-slate-600">
-													Maintenance Amount
-												</span>
-												<span className="float-right text-red-500">
-													{items.maintenanceAmount}
-												</span>
-											</p>
-											<p>
-												<span className="inline-block text-slate-600">
-													Penalty Amount
-												</span>
-												<span className="float-right text-red-500">
-													{items.penaltyAmount}
-												</span>
-											</p>
-											<Separator />
-											<p>
-												<span className="inline-block text-slate-600 font-semibold font-poppins">
-													Grand Total
-												</span>
-												<span className="float-right text-red-600">
-													{items.maintenanceAmount +
-														items.penaltyAmount}
-												</span>
-											</p>
-											<Button
-												className="w-full"
-												onClick={() =>
-													handlePayNow(
-														items.id,
-														items.maintenanceAmount +
-															items.penaltyAmount
-													)
-												}
-											>
-												Pay Now
-											</Button>
-										</CardContent>
-									</Card>
-								))}
-							</CardContent>
-						</Card>
-					)}
+					{/* Pending Section */}
+					<Card className="mt-8">
+						<CardHeader>
+							<CardTitle className="text-lg font-semibold">
+								Pending Maintanance
+							</CardTitle>
+						</CardHeader>
+						<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+							{maintenanceRecords.map((items, index) => (
+								<Card key={index} className="">
+									<CardHeader className="bg-blue-500 rounded-t-lg text-white">
+										<CardTitle className="text-base">
+											Maintenance
+											<span className="float-end">
+												Pending
+											</span>
+										</CardTitle>
+									</CardHeader>
+									<CardContent className="space-y-2 mt-3">
+										<p>
+											<span className="inline-block text-slate-600">
+												Bill Date
+											</span>
+											<span className="float-right">
+												{new Date(
+													items.maintenanceDueDate
+												).toLocaleDateString()}
+											</span>
+										</p>
+										<p>
+											<span className="inline-block text-slate-600">
+												Pending Date
+											</span>
+											<span className="float-right">
+												{new Date(
+													items.maintenanceDueDate
+												).toLocaleDateString()}
+											</span>
+										</p>
+										<Separator />
+										<p>
+											<span className="inline-block text-slate-600">
+												Maintanance Amount
+											</span>
+											<span className="float-right text-red-500">
+												{items.maintenanceAmount}
+											</span>
+										</p>
+										<p>
+											<span className="inline-block text-slate-600">
+												Maintenance Penalty Amount
+											</span>
+											<span className="float-right text-red-500">
+												{items.penaltyAmount}
+											</span>
+										</p>
+										<Separator />
+										<p>
+											<span className="inline-block text-slate-600">
+												Grand Total
+											</span>
+											<span className="float-right text-green-500">
+												{items.maintenanceAmount +
+													items.penaltyAmount}
+											</span>
+										</p>
+										<Button
+											className="w-full"
+											onClick={() =>
+												handlePayNow(
+													items.id,
+													items.maintenanceAmount +
+														items.penaltyAmount
+												)
+											}
+										>
+											Pay Now
+										</Button>
+									</CardContent>
+								</Card>
+							))}
+						</CardContent>
+					</Card>
 				</>
 			)}
 		</Layout>
