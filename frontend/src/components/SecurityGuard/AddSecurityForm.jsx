@@ -103,6 +103,9 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 		if (!formData.phoneNumber || formData.phoneNumber.length !== 10) {
 			errors.phoneNumber = "Phone Number must be exactly 10 digits.";
 		}
+		if (!formData.email) {
+			errors.email = "please enter email Id";
+		}
 		if (!formData.gender) {
 			errors.gender = "Gender is required.";
 		}
@@ -187,6 +190,23 @@ export default function AddSecurityForm({ isOpen, onClose, onSave, editData }) {
 						{formErrors.phoneNumber && (
 							<p className="text-red-500 text-sm mt-1">
 								{formErrors.phoneNumber}
+							</p>
+						)}
+					</div>
+					<div className="mb-3">
+						<label className="block font-medium mb-1">
+							Email
+							<span className="text-red-600">*</span>
+						</label>
+						<Input
+							name="email"
+							type="email"
+							value={formData.email}
+							placeholder="please enter email"
+						/>
+						{formErrors.email && (
+							<p className="text-red-500 text-sm mt-1">
+								{formErrors.email}
 							</p>
 						)}
 					</div>

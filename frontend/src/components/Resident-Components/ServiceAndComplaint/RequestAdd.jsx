@@ -77,15 +77,15 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
-			<DialogContent>
+			<DialogContent className="w-[300px] md:w-full p-3 md:p-6 rounded-xl">
 				<DialogHeader>
-					<DialogTitle>Add Request</DialogTitle>
+					<DialogTitle className="text-start">Add Request</DialogTitle>
 				</DialogHeader>
 				<Separator />
 				<div className="space-y-4">
-					<div className="grid grid-cols-1 gap-2">
+					<div className="grid grid-cols-1 gap-1 md:gap-2">
 						<div className="text-left">
-							<div className="font-poppins">
+							<div className="font-poppins text-sm md:text-[16px]">
 								Requester Name
 								<span className="text-[#E74C3C]">*</span>
 							</div>
@@ -94,12 +94,13 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 								value={newRequest.requesterName || ""}
 								onChange={handleChange}
 								placeholder="Requester Name"
+								className="w-64 md:w-full"
 							/>
 						</div>
 					</div>
-					<div className="grid grid-cols-1 gap-2">
+					<div className="grid grid-cols-1 gap-1 md:gap-2">
 						<div className="text-left">
-							<div className="font-poppins">
+							<div className="font-poppins text-sm md:text-[16px]">
 								Request Name
 								<span className="text-[#E74C3C]">*</span>
 							</div>
@@ -108,12 +109,13 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 								value={newRequest.requestName || ""}
 								onChange={handleChange}
 								placeholder="Request Name"
+								className="w-64 md:w-full"
 							/>
 						</div>
 					</div>
-					<div className="grid grid-cols-1 gap-2">
+					<div className="grid grid-cols-1 gap-1 md:gap-2">
 						<div className="text-left">
-							<div className="font-poppins">
+							<div className="font-poppins text-sm md:text-[16px]">
 								Description
 								<span className="text-[#E74C3C]">*</span>
 							</div>
@@ -122,14 +124,15 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 								value={newRequest.requestDescp || ""}
 								onChange={handleChange}
 								placeholder="Description"
+								className="w-64 md:w-full"
 							/>
 						</div>
 					</div>
 				</div>
 				<div className="flex  space-x-4">
-					<div className="grid grid-cols-1 gap-2">
+					<div className="grid grid-cols-1 gap-1 md:gap-2">
 						<div className="text-left">
-							<div className="font-poppins">
+							<div className="font-poppins text-sm md:text-[16px]">
 								Wing<span className="text-[#E74C3C]">*</span>
 							</div>
 							<Input
@@ -137,12 +140,13 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 								value={newRequest.wing || ""}
 								onChange={handleChange}
 								placeholder="Wing"
+								className="w-28 md:w-full"
 							/>
 						</div>
 					</div>
-					<div className="grid grid-cols-1 gap-2">
+					<div className="grid grid-cols-1 gap-1 md:gap-2">
 						<div className="text-left">
-							<div className="font-poppins">
+							<div className="font-poppins text-sm md:text-[16px]">
 								Unit<span className="text-[#E74C3C]">*</span>
 							</div>
 							<Input
@@ -151,21 +155,22 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 								value={newRequest.unit || ""}
 								onChange={handleChange}
 								placeholder="Unit"
+								className="w-28 md:w-full"
 							/>
 						</div>
 					</div>
 				</div>
 
 				{/* Date Picker for Request Date */}
-				<div className="grid grid-cols-1 gap-2 mt-4">
+				<div className="grid grid-cols-1 gap-1 md:gap-2 mt-2 md:mt-4">
 					<div className="text-left">
-						<div className="font-poppins">
+						<div className="font-poppins text-sm md:text-[16px]">
 							Request Date
 							<span className="text-[#E74C3C]">*</span>
 						</div>
 						<Popover>
 							<PopoverTrigger asChild>
-								<Button variant={"outline"} className="w-full">
+								<Button variant={"outline"} className="w-64 md:w-full">
 									{newRequest.requestDate ? (
 										moment(newRequest.requestDate).format(
 											"MMM DD, YYYY"
@@ -189,9 +194,9 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 
 				{/* Radio Group for Priority */}
 				<div>
-					<label className="block font-medium">Priority</label>
+					<label className="block font-medium text-sm md:text-[16px]">Priority</label>
 					<div className="flex space-x-4">
-						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-15 md:w-28">
 							<input
 								type="radio"
 								name="priority"
@@ -200,9 +205,9 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
-							<span className="text-gray-500">High</span>
+							<span className="text-gray-500 text-xs md:text-[16px]">High</span>
 						</label>
-						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-15 md:w-28">
 							<input
 								type="radio"
 								name="priority"
@@ -211,9 +216,9 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
-							<span className="text-gray-500">Medium</span>
+							<span className="text-gray-500 text-xs md:text-[16px]">Medium</span>
 						</label>
-						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-15 md:w-28">
 							<input
 								type="radio"
 								name="priority"
@@ -222,16 +227,16 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
-							<span className="text-gray-500">Low</span>
+							<span className="text-gray-500 text-xs md:text-[16px]">Low</span>
 						</label>
 					</div>
 				</div>
 
 				{/* Radio Group for Status */}
 				<div>
-					<label className="block font-medium">Status</label>
+					<label className="block font-medium text-sm md:text-[16px]">Status</label>
 					<div className="flex space-x-4">
-						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-15 md:w-28">
 							<input
 								type="radio"
 								name="status"
@@ -240,9 +245,9 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
-							<span className="text-gray-500">Open</span>
+							<span className="text-gray-500 text-xs md:text-[16px]">Open</span>
 						</label>
-						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-15 md:w-28">
 							<input
 								type="radio"
 								name="status"
@@ -251,9 +256,9 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
-							<span className="text-gray-500">Pending</span>
+							<span className="text-gray-500 text-xs md:text-[16px]">Pending</span>
 						</label>
-						<label className="flex items-center p-2 border rounded-md cursor-pointer w-28">
+						<label className="flex items-center p-2 border rounded-md cursor-pointer w-15 md:w-28">
 							<input
 								type="radio"
 								name="status"
@@ -262,7 +267,7 @@ export default function RequestAdd({ isOpen, onClose, onSave }) {
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
-							<span className="text-gray-500">Solve</span>
+							<span className="text-gray-500 text-xs md:text-[16px]">Solve</span>
 						</label>
 					</div>
 				</div>

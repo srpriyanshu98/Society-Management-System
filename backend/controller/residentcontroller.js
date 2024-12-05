@@ -18,10 +18,10 @@ export const createResident = async (req, res) => {
     const residentData = {
       ...req.body,
       password,
-      // aadharCardFront: req.files.aadharCardFront[0].path,
-      // aadharCardBack: req.files.aadharCardBack[0].path,
-      // addressProof: req.files.addressProof[0].path,
-      // rentAgreement: req.files.rentAgreement[0].path,
+      aadharCardFront: req.files.aadharCardFront[0].path,
+      aadharCardBack: req.files.aadharCardBack[0].path,
+      addressProof: req.files.addressProof[0].path,
+      rentAgreement: req.files.rentAgreement[0].path,
     };
 
     await sendMail(

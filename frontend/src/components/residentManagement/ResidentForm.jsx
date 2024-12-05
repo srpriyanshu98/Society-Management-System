@@ -25,7 +25,10 @@ export default function ResidentForm({ userRole }) {
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Tabs defaultValue="owner">
 					<TabsList className="grid grid-cols-2 w-[400px]">
-						<TabsTrigger value="owner" className="p-5 rounded-t-xl border-b-orange-500 text-black">
+						<TabsTrigger
+							value="owner"
+							className="p-5 rounded-t-xl border-b-orange-500 text-black"
+						>
 							Owner
 						</TabsTrigger>
 						<TabsTrigger
@@ -38,9 +41,7 @@ export default function ResidentForm({ userRole }) {
 
 					<TabsContent value="owner">
 						<ResidentDetail control={control} errors={errors} />
-
 						<MembersCounting control={control} errors={errors} />
-
 						<VehicleCounting control={control} errors={errors} />
 					</TabsContent>
 
@@ -48,7 +49,6 @@ export default function ResidentForm({ userRole }) {
 						<OwnerDetail control={control} errors={errors} />
 						<ResidentDetail control={control} errors={errors} />
 						<MembersCounting control={control} errors={errors} />
-
 						<VehicleCounting control={control} errors={errors} />
 					</TabsContent>
 				</Tabs>

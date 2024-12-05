@@ -40,9 +40,9 @@ export default function PendingMaintenance() {
 	}
 
 	return (
-		<Card className="bg-white p-4 shadow-md rounded-xl max-w-md w-[450px]">
+		<Card className="bg-white p-6 shadow-md rounded-xl w-[310px] md:w-full sm:w-full lg:w-[380px]">
 			<div className="flex justify-between items-center mb-4">
-				<h2 className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">
+				<h2 className="text-[15px] font-semibold font-poppins md:text[15px] lg:text-[20px] leading-[30px] text-left decoration-slice">
 					Pending Maintenances
 				</h2>
 				<Link to="/view-all" className="text-blue-500 text-sm">
@@ -64,13 +64,13 @@ export default function PendingMaintenance() {
 									<img
 										src={member.img}
 										alt={member.name}
-										className="w-10 h-10 rounded-full object-cover"
+										className="w-8 h-8 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full object-cover"
 									/>
 									<div>
-										<div className="font-semibold">
+										<div className="font-semibold text-sm md:text-md lg:text-md">
 											{member.name}
 										</div>
-										<div className="text-gray-500 text-sm">
+										<div className="text-gray-500 text-[12px] md:text-sm lg:text-sm">
 											{member.monthsPending} Month
 											{member.monthsPending > 1
 												? "s"
@@ -79,7 +79,7 @@ export default function PendingMaintenance() {
 										</div>
 									</div>
 								</div>
-								<div className="text-red-500 font-bold">
+								<div className="text-red-500 font-bold text-sm md:text-md lg:text-md">
 									₹ {member.amount.toLocaleString()}
 								</div>
 							</div>

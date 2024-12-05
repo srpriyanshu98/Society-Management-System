@@ -114,9 +114,9 @@ export default function ImportantNumbers() {
 	};
 
 	return (
-		<div className="bg-white p-4 shadow-md rounded-xl">
+		<div className="bg-white p-6 shadow-md rounded-xl">
 			<div className="flex justify-between">
-				<h2 className="text-xl font-bold mb-4">Important Numbers</h2>
+				<h2 className="text-md lg:text-xl md:text-xl font-bold mb-4 mt-2">Important Numbers</h2>
 				<Button
 					onClick={() => {
 						resetForm();
@@ -134,26 +134,26 @@ export default function ImportantNumbers() {
 							className="flex justify-between items-center border rounded-lg border-gray-100 p-2 mt-4"
 						>
 							<div className="truncate">
-								<div className="text-gray-700">
+								<div className="text-gray-700 text-sm md:-text-md lg-text-md">
 									Name:
 									<span className="text-stone-400 ms-1">
 										{number.fullName}
 									</span>
 								</div>
-								<div className="text-gray-700">
+								<div className="text-gray-700 text-sm md:-text-md lg-text-md">
 									Phone:
 									<span className="text-stone-400 ms-1">
 										{number.phoneNumber}
 									</span>
 								</div>
-								<div className="text-gray-700">
+								<div className="text-gray-700 text-sm md:-text-md lg-text-md">
 									Work:
 									<span className="text-stone-400 ms-1">
 										{number.work}
 									</span>
 								</div>
 							</div>
-							<div className="mx-4">
+							<div className="mx-2">
 								<Separator />
 							</div>
 							<div className="space-x-2 flex">
@@ -193,10 +193,10 @@ export default function ImportantNumbers() {
 			/>
 
 			{/* Add/Edit Dialog */}
-			<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-				<DialogContent className="w-96">
+			<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen} >
+				<DialogContent className="w-[310px] md:w-96 lg:w-96 rounded-xl">
 					<DialogHeader>
-						<DialogTitle>
+						<DialogTitle className="text-sm md:text-xl lg:text-xl">
 							{editId
 								? "Edit Important Number"
 								: "Add Important Number"}
@@ -204,7 +204,7 @@ export default function ImportantNumbers() {
 					</DialogHeader>
 					<div className="space-y-4">
 						<div className="grid grid-cols-1 gap-2">
-							<div className="text-left">
+							<div className="text-left text-sm">
 								Full Name
 								<span className="text-[#E74C3C]">*</span>
 							</div>
@@ -213,12 +213,12 @@ export default function ImportantNumbers() {
 								type="text"
 								value={newName}
 								onChange={(e) => setNewName(e.target.value)}
-								className="w-full p-2 border border-gray-300 rounded-lg"
+								className="w-full border border-gray-300 rounded-lg"
 							/>
 						</div>
 
 						<div className="grid grid-cols-1 gap-2">
-							<div className="text-left">
+							<div className="text-left text-sm ">
 								<div>
 									Phone Number
 									<span className="text-[#E74C3C]">*</span>
@@ -237,7 +237,7 @@ export default function ImportantNumbers() {
 							</div>
 						</div>
 						<div className="grid grid-cols-1 gap-2">
-							<div className="text-left">
+							<div className="text-left text-sm">
 								<div>
 									Work
 									<span className="text-[#E74C3C]">*</span>
@@ -252,14 +252,14 @@ export default function ImportantNumbers() {
 						</div>
 						<Button
 							variant="outline"
-							className="w-40 mr-3"
+							className="w-[115px] md:w-40 lg:w-40 mr-7 md:mr-3 lg:mr-3"
 							onClick={() => setIsDialogOpen(false)} // Close dialog on cancel
 						>
 							Cancle
 						</Button>
 						<Button
 							onClick={handleAdd}
-							className="w-40"
+							className="w-[115px] md:w-40 lg:w-40"
 							disabled={!newName || !newPhone || !newWork} // Disable button if any field is empty
 						>
 							{editId ? "Add" : "Save"}

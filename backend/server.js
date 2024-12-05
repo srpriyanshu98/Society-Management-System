@@ -7,21 +7,6 @@ import { ENV_VARS } from "./config/envVars.js";
 import { connectDB } from "./config/db.js";
 import { app, server } from "./config/socket.js";
 
-// const app = express();
-const PORT = ENV_VARS.PORT;
-
-app.use(express.json());
-app.use(cookieParser());
-
-// Serve static files in 'uploads' directory
-app.use("/uploads", express.static("uploads"));
-
-app.use(
-	cors({
-		origin: "http://localhost:3000",
-	})
-);
-
 import authRoutes from "./routes/authroutes.js";
 import societyRoutes from "./routes/societyRoutes.js";
 import importantNumberRoutes from "./routes/importantNumberRoutes.js";
@@ -40,6 +25,22 @@ import pollRoutes from "./routes/pollRoutes.js";
 import visitorRoutes from "./routes/visitorRoutes.js";
 import alertRoutes from "./routes/alertRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
+
+// const app = express();
+const PORT = ENV_VARS.PORT;
+
+app.use(express.json());
+app.use(cookieParser());
+
+// Serve static files in 'uploads' directory
+app.use("/uploads", express.static("uploads"));
+
+app.use(
+	cors({
+		origin: "http://localhost:3000",
+	})
+);
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -60,6 +61,7 @@ app.use("/api/polls", pollRoutes);
 app.use("/api/visitors", visitorRoutes);
 app.use("/api/alerts", alertRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/payments", paymentRoutes);
 
 app.listen(PORT, () => {
 	console.log("server is running on port http://localhost:" + PORT);

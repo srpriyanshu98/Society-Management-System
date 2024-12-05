@@ -29,11 +29,11 @@ export default function SecurityProtocols({ userRole }) {
 		<Layout userRole={userRole}>
 			<Card>
 				<CardHeader className="flex flex-row justify-between items-center">
-					<CardTitle>Security Protocols</CardTitle>
+					<CardTitle className="text-base md:text-[24px]">Security Protocols</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<ScrollArea className="max-h-[715px] overflow-y-auto custom-scrollbar">
-						<div>
+					<ScrollArea className="max-h-[570px] md:max-h-[715px] overflow-y-auto custom-scrollbar">
+						<div className="overflow-auto">
 							{loading ? (
 								<div className="flex justify-center items-center h-64">
 									<Skeleton />
@@ -41,7 +41,7 @@ export default function SecurityProtocols({ userRole }) {
 							) : (
 								<table className="w-full text-left border-collapse">
 									<thead className="text-center text-gray-700">
-										<tr className="bg-blue-50 font-semibold font-poppins">
+										<tr className="bg-blue-50 font-semibold font-poppins text-sm md:text-[16px]">
 											<th className="p-3 rounded-tl-xl text-start">
 												Title
 											</th>
@@ -54,7 +54,7 @@ export default function SecurityProtocols({ userRole }) {
 											</th>
 										</tr>
 									</thead>
-									<tbody className="text-gray-600 font-poppins">
+									<tbody className="text-gray-600 font-poppins text-xs md:text-base">
 										{protocols.map((protocol) => (
 											<tr
 												key={protocol._id}

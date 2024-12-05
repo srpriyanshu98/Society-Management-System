@@ -27,16 +27,16 @@ export default function Invoices() {
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle className="text-lg font-semibold">
+				<CardTitle className="text-base md:text-[24px]">
 					Maintenance Invoices
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<ScrollArea className="max-h-[715px] overflow-y-auto custom-scrollbar">
+				<ScrollArea className="max-h-[570px] md:max-h-[715px] overflow-y-auto custom-scrollbar">
 					<div className="overflow-auto">
 						<table className="w-full text-left border-collapse">
 							<thead className="text-center text-gray-600">
-								<tr className="bg-blue-50 font-semibold">
+								<tr className="bg-blue-50 font-semibold text-sm md:text-[16px]">
 									<th className="p-3 rounded-tl-xl text-start">
 										Invoice ID
 									</th>
@@ -49,7 +49,7 @@ export default function Invoices() {
 									</th>
 								</tr>
 							</thead>
-							<tbody className="text-center">
+							<tbody className="text-center text-xs md:text-base">
 								{sortedInvoices.map((invoice) => (
 									<tr
 										key={invoice.invoiceId}

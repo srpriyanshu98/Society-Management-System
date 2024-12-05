@@ -7,7 +7,7 @@ export default function BalanceCards() {
 			{data.map((item, index) => (
 				<Card
 					key={index}
-					className="flex items-center justify-between p-4 space-x-4 rounded-lg shadow-lg relative overflow-hidden"
+					className="flex items-center justify-between p-2 md:p-4 space-x-4 rounded-lg shadow-lg relative overflow-hidden"
 				>
 					{/* Left Accent Bar */}
 					<div
@@ -21,7 +21,7 @@ export default function BalanceCards() {
 						</h2>
 					</div>
 					{/* Icon */}
-					<img src={item.imgSrc} alt={`${item.label} icon`} />
+					<img className="md:h-[40px] md:w-[40px] lg:h-10 lg:w-12 h-9 w-9" src={item.imgSrc} alt={`${item.label} icon`} />
 				</Card>
 			))}
 		</div>

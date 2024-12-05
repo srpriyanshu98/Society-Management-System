@@ -98,13 +98,13 @@ export default function ComplaintList() {
 	};
 
 	return (
-		<Card className="bg-white p-4 shadow-md rounded-xl w-full">
+		<Card className="bg-white p-4 shadow-md rounded-xl w-[19rem] md:w-[70rem] ">
 			<div className="flex justify-between items-center mb-4">
-				<h2 className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">
+				<h2 className="text-[18px] md:text-[20px] lg:text-[20px]  font-semibold font-poppins leading-[30px] text-left decoration-slice">
 					Complaint List
 				</h2>
 				<Select value={filter} onValueChange={setFilter}>
-					<SelectTrigger className="border p-2 rounded-md text-sm w-[160px]">
+					<SelectTrigger className="border p-2 rounded-md text-sm w-[100px] md:w-[160px]">
 						{filter}
 					</SelectTrigger>
 					<SelectContent className="font-semibold font-poppins">
@@ -182,7 +182,7 @@ export default function ComplaintList() {
 										</td>
 										<td className="flex justify-center space-x-4">
 											<button
-												className="rounded-md bg-gray-100 p-2 font-semibold font-poppins"
+												className="rounded-md bg-gray-100 p-2 h-10 w-10 font-semibold font-poppins"
 												onClick={() =>
 													handleEditComplaint(
 														complaint
@@ -195,7 +195,7 @@ export default function ComplaintList() {
 												/>
 											</button>
 											<button
-												className="rounded-md bg-gray-100 p-2 font-semibold font-poppins"
+												className="rounded-md bg-gray-100 p-2 h-10 w-10 font-semibold font-poppins"
 												onClick={() =>
 													handleViewComplaint(
 														complaint
@@ -208,7 +208,7 @@ export default function ComplaintList() {
 												/>
 											</button>
 											<button
-												className="rounded-md bg-gray-100 p-2 font-semibold font-poppins"
+												className="rounded-md bg-gray-100 p-2 h-10 w-10 font-semibold font-poppins"
 												onClick={() =>
 													handleDeleteComplaint(
 														complaint

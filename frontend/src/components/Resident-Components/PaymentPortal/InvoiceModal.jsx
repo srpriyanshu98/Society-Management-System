@@ -96,63 +96,63 @@ export function InvoiceModal({ open, onClose, invoice }) {
 
 	return (
 		<Dialog open={open} onOpenChange={onClose}>
-			<DialogContent className="max-w-md bg-white rounded-lg shadow-lg">
-				<DialogHeader>
-					<DialogTitle className="text-xl font-bold text-center text-gray-800 mb-3">
+			<DialogContent className="max-w-md bg-white rounded-lg w-[380px] md:w-full shadow-lg p-2 md:p-6">
+				<DialogHeader className="p-0 md:p-6">
+					<DialogTitle className="text-base md:text-xl font-bold text-start text-gray-800 mb-1 md:mb-3 ">
 						Maintenance Invoice
 					</DialogTitle>
 					<Separator />
 					<DialogDescription className="space-y-10">
 						<div className="grid grid-cols-2 gap-x-6 gap-y-4 mt-5">
 							<div>
-								<p className="text-sm text-gray-500">
+								<p className="text-xs md:text-sm text-gray-500">
 									Invoice ID
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-base font-medium text-gray-800">
 									{invoice.invoiceId}
 								</p>
 							</div>
 							<div>
-								<p className="text-sm text-gray-500">
+								<p className="text-xs md:text-sm text-gray-500">
 									Owner Name
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-base font-medium text-gray-800">
 									{invoice.ownerName}
 								</p>
 							</div>
 							<div>
-								<p className="text-sm text-gray-500">
+								<p className="text-xs md:text-sm text-gray-500">
 									Bill Date
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-base font-medium text-gray-800">
 									{invoice.billDate}
 								</p>
 							</div>
 							<div>
-								<p className="text-sm text-gray-500">
+								<p className="text-xs md:text-sm text-gray-500">
 									Payment Date
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-base font-medium text-gray-800">
 									{invoice.paymentDate}
 								</p>
 							</div>
 							<div>
-								<p className="text-sm text-gray-500">
+								<p className="text-xs md:text-sm text-gray-500">
 									Phone Number
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-base font-medium text-gray-800">
 									{invoice.phoneNumber}
 								</p>
 							</div>
 							<div>
 								<p className="text-sm text-gray-500">Email</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-base font-medium text-gray-800">
 									{invoice.email}
 								</p>
 							</div>
 							<div className="col-span-2">
 								<p className="text-sm text-gray-500">Address</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-base font-medium text-gray-800">
 									{invoice.address}
 								</p>
 							</div>
@@ -160,27 +160,27 @@ export function InvoiceModal({ open, onClose, invoice }) {
 
 						<div className="bg-gray-50 p-4 rounded-lg shadow-sm space-y-2">
 							<div className="grid grid-cols-2">
-								<p className="text-sm font-medium text-gray-700">
+								<p className="text-xs md:text-sm font-medium text-gray-700">
 									Maintenance Amount
 								</p>
-								<p className="text-sm font-medium text-green-600 text-right">
+								<p className="text-sm md:text-base font-medium text-green-600 text-right">
 									₹ {invoice.maintenanceAmount}
 								</p>
 							</div>
 							<div className="grid grid-cols-2">
-								<p className="text-sm font-medium text-gray-700">
+								<p className="text-xs md:text-sm font-medium text-gray-700">
 									Penalty
 								</p>
-								<p className="text-sm font-medium text-red-500 text-right">
+								<p className="text-sm md:text-base font-medium text-red-500 text-right">
 									₹ {invoice.pendingAmount}
 								</p>
 							</div>
 							<Separator />
 							<div className="grid grid-cols-2 pt-2 mt-2">
-								<p className="text-sm font-semibold text-gray-900">
+								<p className="text-xs md:text-sm font-semibold text-gray-900">
 									Grand Total
 								</p>
-								<p className="text-sm font-semibold text-gray-900 text-right">
+								<p className="text-sm md:text-base font-semibold text-gray-900 text-right">
 									₹{" "}
 									{(
 										parseFloat(invoice.maintenanceAmount) +
@@ -191,8 +191,8 @@ export function InvoiceModal({ open, onClose, invoice }) {
 						</div>
 
 						<div>
-							<p className="text-sm text-gray-500">Note</p>
-							<p className="text-base font-medium text-gray-800">
+							<p className="text-xs md:text-sm text-gray-500">Note</p>
+							<p className="text-sm md:text-base font-medium text-gray-800">
 								{invoice.note ||
 									"No additional notes provided."}
 							</p>
@@ -201,7 +201,7 @@ export function InvoiceModal({ open, onClose, invoice }) {
 						<div>
 							<Button
 								onClick={handleDownload}
-								className="w-full py-3 rounded-lg font-medium shadow-md bg-blue-500 text-white hover:bg-blue-600"
+								className="w-full py-1 md:py-3 rounded-lg font-medium shadow-md bg-blue-500 text-white hover:bg-blue-600"
 							>
 								Download Invoice
 							</Button>
