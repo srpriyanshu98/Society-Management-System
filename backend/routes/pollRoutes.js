@@ -1,17 +1,18 @@
 import express from "express";
 import {
-    createPoll,
-    getAllPolls,
-    getPollById,
-    updatePoll,
-    deletePoll,
-    votePoll,
+  createPoll,
+  getAllPolls,
+  getPollById,
+  updatePoll,
+  deletePoll,
+  votePoll,
 } from "../controller/pollcontroller.js";
+import { verifyTokenResident } from "../middleware/authmiddleware.js";
 
 const router = express.Router();
 
 // CRUD endpoints
-router.post("/", createPoll); // Create a poll
+router.post("/", verifyTokenResident, createPoll); // Create a poll
 router.get("/", getAllPolls); // Get all polls
 router.get("/:id", getPollById); // Get a specific poll by ID
 router.put("/:id", updatePoll); // Update a poll

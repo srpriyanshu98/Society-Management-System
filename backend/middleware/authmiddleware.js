@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../model/usermodel.js";
 import { ENV_VARS } from "../config/envVars.js";
+import Resident from "../model/residentmodel.js";
 
 export const admin = async (req, res, next) => {
   try {
@@ -37,6 +38,8 @@ export const verifyToken = async (req, res, next) => {
 
     const decoded = jwt.verify(token, ENV_VARS.JWT_SECRET);
     const user = await User.findById(decoded.id);
+    const resident = await Resident.findById(decoded.id);
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -45,6 +48,39 @@ export const verifyToken = async (req, res, next) => {
       role: user.role,
     };
     req.userId = user._id;
+
+    if (!resident) {
+      return res.status(404).json({ message: "resident not found" });
+    }
+    req.user = {
+      id: resident._id,
+    };
+    req.userId = user._id;
+
+    next();
+  } catch (err) {
+    res.status(401).json({ message: "Unauthorized", error: err.message });
+  }
+};
+
+export const verifyTokenResident = async (req, res, next) => {
+  try {
+    const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      return res.status(403).json({ message: "No token provided" });
+    }
+
+    const decoded = jwt.verify(token, ENV_VARS.JWT_SECRET);
+    const resident = await Resident.findById(decoded.id);
+
+    if (!resident) {
+      return res.status(404).json({ message: "resident not found" });
+    }
+    req.resident = {
+      id: resident._id,
+      fullName: resident.fullName,
+    };
+    req.residentId = resident._id;
 
     next();
   } catch (err) {

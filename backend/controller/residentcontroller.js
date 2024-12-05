@@ -15,6 +15,7 @@ export const createResident = async (req, res) => {
     const { emailAddress } = req.body;
 
     const password = generateRandomPassword();
+    console.log(password);
     const residentData = {
       ...req.body,
       password,
