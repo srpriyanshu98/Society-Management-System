@@ -66,13 +66,13 @@ export default function UpcomingActivity() {
 	};
 
 	return (
-		<Card className="bg-white p-4 shadow-md rounded-xl max-w-md w-[450px]">
+		<Card className="bg-white p-4 shadow-md rounded-xl w-[310px] md:w-full">
 			<div className="flex justify-between items-center mb-4">
-				<h2 className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">
+				<h2 className="text-md lg:text-xl md:text-xl font-semibold font-poppins leading-[30px] text-left decoration-slice">
 					Upcoming Activity
 				</h2>
 				<Select value={filter} onValueChange={setFilter}>
-					<SelectTrigger className="border p-2 rounded-md text-sm w-[160px]">
+					<SelectTrigger className="border p-2 rounded-md text-sm w-[110px]">
 						{filter}
 					</SelectTrigger>
 					<SelectContent className="font-semibold font-poppins">

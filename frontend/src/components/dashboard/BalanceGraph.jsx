@@ -42,34 +42,34 @@ export default function BalanceGraph() {
 	}, [timeRange]);
 
 	return (
-		<Card className="rounded-xl">
+		<Card className="rounded-xl w-[305px] md:w-full sm:w-full lg:w-full">
 			<CardHeader>
-				<div className="flex  justify-between font-poppins">
-					<CardTitle className="text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">
+				<div className="flex justify-between font-poppins">
+					<CardTitle className="text-[15px] md:text[15px] lg:text-[20px] font-semibold font-poppins leading-[30px] text-left decoration-slice">
 						Total Balance
 					</CardTitle>
 					<Select value={timeRange} onValueChange={setTimeRange}>
-						<SelectTrigger className="w-[160px]">
+						<SelectTrigger className="w-[125px] md:w-[160px] lg:w-[160px]">
 							<SelectValue placeholder="Select time range" />
 						</SelectTrigger>
-						<SelectContent className="rounded-xl">
-							<SelectItem value="all" className="rounded-lg">
+						<SelectContent className="rounded-xl w-[140px] md:w-[190px] lg:w-[180px]">
+							<SelectItem value="all" className="rounded-lg text-xs md:text-[0.9rem]">
 								All Data
 							</SelectItem>
-							<SelectItem value="90d" className="rounded-lg">
+							<SelectItem value="90d" className="rounded-lg text-xs md:text-[0.9rem]">
 								Last 3 months
 							</SelectItem>
-							<SelectItem value="30d" className="rounded-lg">
+							<SelectItem value="30d" className="rounded-lg text-xs md:text-[0.9rem]">
 								Last 30 days
 							</SelectItem>
-							<SelectItem value="7d" className="rounded-lg">
+							<SelectItem value="7d" className="rounded-lg text-xs md:text-[0.9rem]">
 								Last 7 days
 							</SelectItem>
 						</SelectContent>
 					</Select>
 				</div>
 			</CardHeader>
-			<CardContent className="flex flex-col h-full justify-center font-poppins">
+			<CardContent className="flex flex-col h-full p-0 md:p-6 justify-center font-poppins">
 				<div className="w-full h-[285px]">
 					<ResponsiveContainer>
 						<LineChart
@@ -105,11 +105,13 @@ export default function BalanceGraph() {
 								tickLine={false}
 								tickMargin={20}
 								tickFormatter={(value) => value.slice(0, 3)}
+								className="text-[15px] md:text-[15px]"
 							/>
 							<YAxis
 								tickLine={false}
 								tickMargin={20}
 								tickFormatter={(value) => `${value / 10}k`}
+								className="text-[15px] md:text-[15px]"
 							/>
 							<Tooltip
 								contentStyle={{

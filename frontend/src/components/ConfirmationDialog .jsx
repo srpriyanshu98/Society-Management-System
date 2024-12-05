@@ -10,8 +10,8 @@ export default function ConfirmationDialog({
 	onCancel,
 }) {
 	return (
-		<Dialog open={isOpen} onOpenChange={onCancel}>
-			<DialogContent>
+		<Dialog open={isOpen} onOpenChange={onCancel} >
+			<DialogContent className="w-64 rounded-xl md:w-full">
 				<DialogHeader>
 					<DialogTitle>{title}</DialogTitle>
 				</DialogHeader>

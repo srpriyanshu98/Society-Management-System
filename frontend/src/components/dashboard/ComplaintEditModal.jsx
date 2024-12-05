@@ -79,9 +79,9 @@ export default function ComplaintEditModal({
 				resetForm();
 			}}
 		>
-			<DialogContent>
+			<DialogContent className="w-[300px] md:w-full p-3 md:p-6 rounded-xl">
 				<DialogHeader>
-					<DialogTitle>
+					<DialogTitle className="text-start md:text-start">
 						{complaint ? "Edit Complaint" : "Add Complaint"}
 					</DialogTitle>
 				</DialogHeader>
@@ -89,7 +89,7 @@ export default function ComplaintEditModal({
 				<div className="space-y-4">
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
-							<div className="font-poppins">
+							<div className="font-poppins text-sm md:text-[16px]">
 								Complainer Name
 								<span className="text-[#E74C3C]">*</span>
 							</div>
@@ -98,12 +98,13 @@ export default function ComplaintEditModal({
 								value={editedComplaint.complainerName || ""}
 								onChange={handleChange}
 								placeholder="Complainer Name"
+								className="w-64 md:w-full"
 							/>
 						</div>
 					</div>
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
-							<div className="font-poppins">
+							<div className="font-poppins text-sm md:text-[16px]">
 								Complaint Name
 								<span className="text-[#E74C3C]">*</span>
 							</div>
@@ -112,12 +113,13 @@ export default function ComplaintEditModal({
 								value={editedComplaint.complaintName || ""}
 								onChange={handleChange}
 								placeholder="Complaint Name"
+								className="w-64 md:w-full"
 							/>
 						</div>
 					</div>
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
-							<div className="font-poppins">
+							<div className="font-poppins text-sm md:text-[16px]">
 								Description
 								<span className="text-[#E74C3C]">*</span>
 							</div>
@@ -126,6 +128,7 @@ export default function ComplaintEditModal({
 								value={editedComplaint.description || ""}
 								onChange={handleChange}
 								placeholder="Description"
+								className="w-64 md:w-full"
 							/>
 						</div>
 					</div>
@@ -133,7 +136,7 @@ export default function ComplaintEditModal({
 				<div className="flex  space-x-4">
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
-							<div className="font-poppins">
+							<div className="font-poppins text-sm md:text-[16px]">
 								Wing<span className="text-[#E74C3C]">*</span>
 							</div>
 							<Input
@@ -141,12 +144,13 @@ export default function ComplaintEditModal({
 								value={editedComplaint.wing || ""}
 								onChange={handleChange}
 								placeholder="Wing"
+								className="w-28 md:w-full"
 							/>
 						</div>
 					</div>
 					<div className="grid grid-cols-1 gap-2">
 						<div className="text-left">
-							<div className="font-poppins">
+							<div className="font-poppins text-sm md:text-[16px]">
 								Unit<span className="text-[#E74C3C]">*</span>
 							</div>
 							<Input
@@ -155,6 +159,7 @@ export default function ComplaintEditModal({
 								value={editedComplaint.unit || ""}
 								onChange={handleChange}
 								placeholder="Unit"
+								className="w-28 md:w-full"
 							/>
 						</div>
 					</div>
@@ -162,10 +167,10 @@ export default function ComplaintEditModal({
 
 				{/* Radio Group for Priority */}
 				<div>
-					<label className="block font-medium">Priority</label>
+					<label className="block font-medium text-sm md:text-[16px]">Priority</label>
 					<div className="flex space-x-4">
 						<label
-							className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${
+							className={`flex items-center p-2 border rounded-md cursor-pointer  w-15 md:w-28 ${
 								selectedLabel === "High"
 									? "border-solid border-coral"
 									: ""
@@ -180,10 +185,10 @@ export default function ComplaintEditModal({
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
-							<span className="text-gray-500">High</span>
+							<span className="text-gray-500 text-xs md:text-[16px]">High</span>
 						</label>
 						<label
-							className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${
+							className={`flex items-center p-2 border rounded-md cursor-pointer  w-15 md:w-28 ${
 								selectedLabel === "Medium"
 									? "border-solid border-coral"
 									: ""
@@ -198,10 +203,10 @@ export default function ComplaintEditModal({
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
-							<span className="text-gray-500">Medium</span>
+							<span className="text-gray-500 text-xs md:text-[16px]">Medium</span>
 						</label>
 						<label
-							className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${
+							className={`flex items-center p-2 border rounded-md cursor-pointer w-15 md:w-28 ${
 								selectedLabel === "Low"
 									? "border-solid border-coral"
 									: ""
@@ -216,17 +221,17 @@ export default function ComplaintEditModal({
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
-							<span className="text-gray-500">Low</span>
+							<span className="text-gray-500 text-xs md:text-[16px]">Low</span>
 						</label>
 					</div>
 				</div>
 
 				{/* Radio Group for Status */}
 				<div>
-					<label className="block font-medium">Status</label>
+					<label className="block font-medium text-sm md:text-[16px]">Status</label>
 					<div className="flex space-x-4">
 						<label
-							className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${
+							className={`flex items-center p-2 border rounded-md cursor-pointer w-15 md:w-28 ${
 								selectedLabels === "Open"
 									? "border-solid border-coral"
 									: ""
@@ -241,10 +246,10 @@ export default function ComplaintEditModal({
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
-							<span className="text-gray-500">Open</span>
+							<span className="text-gray-500 text-xs md:text-[16px]">Open</span>
 						</label>
 						<label
-							className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${
+							className={`flex items-center p-2 border rounded-md cursor-pointer w-15 md:w-28 ${
 								selectedLabels === "Pending"
 									? "border-solid border-coral"
 									: ""
@@ -259,10 +264,10 @@ export default function ComplaintEditModal({
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
-							<span className="text-gray-500">Pending</span>
+							<span className="text-gray-500 text-xs md:text-[16px]">Pending</span>
 						</label>
 						<label
-							className={`flex items-center p-2 border rounded-md cursor-pointer w-28 ${
+							className={`flex items-center p-2 border rounded-md cursor-pointer w-15 md:w-28 ${
 								selectedLabels === "Solve"
 									? "border-solid border-coral"
 									: ""
@@ -277,7 +282,7 @@ export default function ComplaintEditModal({
 								onChange={handleRadioChange}
 								className="mr-2 radio-gradient"
 							/>
-							<span className="text-gray-500">Solve</span>
+							<span className="text-gray-500 text-xs md:text-[16px]">Solve</span>
 						</label>
 					</div>
 				</div>

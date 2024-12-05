@@ -23,14 +23,14 @@ export default function Events() {
 	return (
 		<Card>
 			<CardHeader className="flex flex-row justify-between items-center">
-				<CardTitle>Events Participation</CardTitle>
+				<CardTitle className="text-base md:text-[24px]">Events Participation</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<ScrollArea className="max-h-[675px] overflow-y-auto custom-scrollbar">
-					<div>
+				<ScrollArea className="max-h-[495px] md:max-h-[675px] overflow-y-auto custom-scrollbar">
+					<div className="overflow-auto">
 						<table className="w-full text-left border-collapse">
 							<thead className="text-center text-gray-700">
-								<tr className="bg-blue-50 font-semibold font-poppins">
+								<tr className="bg-blue-50 font-semibold font-poppins text-sm md:text-[16px]">
 									<th className="p-3 rounded-tl-xl text-start">
 										Participator Name
 									</th>
@@ -42,7 +42,7 @@ export default function Events() {
 									</th>
 								</tr>
 							</thead>
-							<tbody className="text-center text-gray-600 font-poppins">
+							<tbody className="text-center text-gray-600 font-poppins text-xs md:text-base">
 								{isLoading ? (
 									<tr>
 										<td
@@ -56,7 +56,7 @@ export default function Events() {
 									events.map((event) => (
 										<tr key={event.id} className="border-b">
 											<td className="p-3 text-start flex items-center">
-												<Avatar className="w-10 h-10 me-3">
+												<Avatar className="w-7 h-7 md:w-10 md:h-10 me-3">
 													<AvatarImage
 														src="https://github.com/shadcn.png"
 														alt={
@@ -73,11 +73,11 @@ export default function Events() {
 												{event.description}
 											</td>
 											<td className="p-3">
-												<span className="bg-slate-100 rounded-full px-4 py-2">
+												<span className="bg-slate-100 rounded-full px-0 py-0 md:px-4 md:py-2">
 													{event.eventTime}
 												</span>
 											</td>
-											<td className="p-3">
+											<td className="p-0 md:p-3">
 												{event.eventDate}
 											</td>
 											<td className="p-3">

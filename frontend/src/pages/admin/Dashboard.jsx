@@ -12,22 +12,22 @@ export default function Dashboard({ userRole }) {
 		<Layout userRole={userRole}>
 			<div className="flex flex-col h-full overflow-auto">
 				<BalanceCards />
-				<div className="flex gap-4 mt-6">
-					<div className="w-full">
+				<div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-4 mt-6">
+					<div className="lg:col-span-2 md:col-span-2">
 						<BalanceGraph />
 					</div>
-					<div className="w-1/2">
+					<div className="lg:col-span-1 md:col-span-2">
 						<ImportantNumbers />
 					</div>
-					<div className="w-1/2">
+					<div className="lg:col-span-1 md:col-span-1">
 						<PendingMaintenance />
 					</div>
 				</div>
-				<div className="flex gap-4 mt-6">
-					<div className="w-full">
+				<div className="grid md:grid-cols-[auto_1fr] gap-4 mt-6">
+					<div className="grid-cols-1">
 						<ComplaintList />
 					</div>
-					<div>
+					<div className="grid-cols-1">
 						<UpcomingActivity />
 					</div>
 				</div>
