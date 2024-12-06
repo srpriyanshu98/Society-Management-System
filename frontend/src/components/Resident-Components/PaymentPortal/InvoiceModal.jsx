@@ -96,14 +96,14 @@ export function InvoiceModal({ open, onClose, invoice }) {
 
 	return (
 		<Dialog open={open} onOpenChange={onClose}>
-			<DialogContent className="max-w-md bg-white rounded-lg w-[380px] md:w-full shadow-lg p-2 md:p-6">
+			<DialogContent className="max-w-md bg-white rounded-lg w-[300px] md:w-full shadow-lg p-2 md:p-6">
 				<DialogHeader className="p-0 md:p-6">
 					<DialogTitle className="text-base md:text-xl font-bold text-start text-gray-800 mb-1 md:mb-3 ">
 						Maintenance Invoice
 					</DialogTitle>
 					<Separator />
-					<DialogDescription className="space-y-10">
-						<div className="grid grid-cols-2 gap-x-6 gap-y-4 mt-5">
+					<DialogDescription className="space-y-10 text-start">
+						<div className="grid grid-cols-2 gap-x-6 gap-y-4 mt-5 bg-gray-50 p-2 md:p-4 rounded-lg">
 							<div>
 								<p className="text-xs md:text-sm text-gray-500">
 									Invoice ID
@@ -144,14 +144,14 @@ export function InvoiceModal({ open, onClose, invoice }) {
 									{invoice.phoneNumber}
 								</p>
 							</div>
-							<div>
-								<p className="text-sm text-gray-500">Email</p>
+							<div className="col-span-2">
+								<p className="text-xs md:text-sm text-gray-500">Email</p>
 								<p className="text-sm md:text-base font-medium text-gray-800">
 									{invoice.email}
 								</p>
 							</div>
 							<div className="col-span-2">
-								<p className="text-sm text-gray-500">Address</p>
+								<p className="text-xs md:text-sm text-gray-500">Address</p>
 								<p className="text-sm md:text-base font-medium text-gray-800">
 									{invoice.address}
 								</p>
@@ -190,8 +190,8 @@ export function InvoiceModal({ open, onClose, invoice }) {
 							</div>
 						</div>
 
-						<div>
-							<p className="text-xs md:text-sm text-gray-500">Note</p>
+						<div className="bg-gray-50 p-2 md:p-4 rounded-lg">
+							<p className="text-xs md:text-sm  text-gray-500">Note</p>
 							<p className="text-sm md:text-base font-medium text-gray-800">
 								{invoice.note ||
 									"No additional notes provided."}

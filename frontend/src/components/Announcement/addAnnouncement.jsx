@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import axiosInstance from "@/test/axiosInstance";
 import moment from "moment";
 import { Separator } from "../ui/separator";
+import { Select } from "../ui/select";
 
 export default function AddAnnouncement({
 	isOpen,
@@ -59,6 +60,12 @@ export default function AddAnnouncement({
 		}
 	};
 
+	const [selectedType, setSelectedType] = useState('Select');
+
+	const handleTypeChange = (event) => {
+	  setSelectedType(event.target.value);
+	};
+
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent className="max-w-md p-6 rounded-xl">
@@ -68,6 +75,25 @@ export default function AddAnnouncement({
 				<Separator />
 				<div className="grid grid-cols-1 gap-4">
 					<div>
+						<label htmlFor="announcementType" className="block text-sm font-medium">
+							Announcement Type
+							<span className="text-red-500">*</span>
+							</label>
+						<select
+							id="announcementType"
+							name="announcementType"
+							placeholder="Enter announcement type"
+							value={selectedType}
+							onChange={handleTypeChange}
+							className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-gray-150 sm:text-sm rounded-md"
+						>
+							<option value="Select">Select Announcement Type</option>
+							<option value="Event">Event</option>
+							<option value="Activity">Activity</option>
+						</select>
+					</div>
+					<div>
+
 						<label className="text-sm font-medium">
 							Announcement Title
 							<span className="text-red-500">*</span>
@@ -81,7 +107,7 @@ export default function AddAnnouncement({
 					</div>
 					<div>
 						<label className="text-sm font-medium">
-							Announcement Description
+							 Description
 							<span className="text-red-500">*</span>
 						</label>
 						<Input

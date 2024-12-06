@@ -13,12 +13,14 @@ import EditIncomeDialog from "./EditIncomeDialog";
 import ConfirmationDialog from "../ConfirmationDialog ";
 import axiosInstance from "@/test/axiosInstance"; // Adjust the path as necessary
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 export default function OtherIncome() {
     const [incomeData, setIncomeData] = useState([]);
     const [dropdownOpenId, setDropdownOpenId] = useState(null);
     const [editingIncome, setEditingIncome] = useState(null);
     const [deleteItem, setDeleteItem] = useState(null);
+    const navigate = useNavigate();
 
     const fetchIncomeData = async () => {
         try {
@@ -126,11 +128,7 @@ export default function OtherIncome() {
                                             >
                                                 Edit
                                             </DropdownMenuItem>
-                                            <DropdownMenuItem
-                                                onClick={() =>
-                                                    alert("View item")
-                                                }
-                                            >
+                                            <DropdownMenuItem onClick={() => navigate('/View-other-income')}>
                                                 View
                                             </DropdownMenuItem>
                                             <DropdownMenuItem

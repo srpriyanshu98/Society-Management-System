@@ -90,19 +90,19 @@ export default function OtherInvoice({ userRole }) {
 				<IncomeInvoices />
 			) : (
 				<>
-					<Card className="mt-8">
-						<CardHeader className="grid grid-cols-[auto_auto] items-center justify-between">
-							<CardTitle className="text-lg font-semibold">
-								Income Details
+					<Card className="mt-2 md:mt-8">
+						<CardHeader className="grid grid-cols-[auto_auto] items-center justify-between p-3 md:p-6">
+							<CardTitle className="font-semibold text-base md:text-lg">
+							Due Event Payment
 							</CardTitle>
 							<Button onClick={handleViewInvoice}>
 								View Invoice
 							</Button>
 						</CardHeader>
-						<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+						<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 p-2 md:p-6">
 							{incomeData.map((income) => (
 								<Card key={income._id} className="">
-									<CardHeader className="bg-blue-500 rounded-t-lg text-white">
+									<CardHeader className="bg-blue-500 rounded-t-lg text-white p-3 md:p-6">
 										<CardTitle className="text-base">
 											Due Event Payment
 											<span className="float-end">
@@ -110,9 +110,9 @@ export default function OtherInvoice({ userRole }) {
 											</span>
 										</CardTitle>
 									</CardHeader>
-									<CardContent className="space-y-2 mt-3">
+									<CardContent className="space-y-2 mt-3  font-poppins text-sm md:text-[16px] p-2 md:p-6">
 										<p>
-											<span className="inline-block text-slate-600">
+											<span className="inline-block text-start text-slate-600">
 												Event Name
 											</span>
 											<span className="float-right">

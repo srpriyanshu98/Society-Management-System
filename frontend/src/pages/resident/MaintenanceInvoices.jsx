@@ -107,33 +107,35 @@ export default function MaintenanceInvoices({ userRole }) {
 			) : (
 				<>
 					{/* Maintenance Summary */}
-					<Card className="mt-8 flex justify-between items-center">
-						<CardHeader>
-							<CardTitle className="text-lg font-semibold font-poppins">
+					<Card className="mt-2 md:mt-8 flex flex-col lg:flex-row justify-between items-start lg:items-center">
+						<CardHeader className="p-3 md:p-6">
+							<CardTitle className="font-semibold font-poppins text-[16px] md:text-lg">
 								Show Maintenance Details:
 							</CardTitle>
 						</CardHeader>
-						<CardContent>
-							<div className="inline-flex gap-4 overflow-x-auto font-poppins">
-								{/* Total Maintenance Amount */}
-								<Card className="p-4 space-x-4 rounded-lg shadow-lg relative w-60 mt-5">
-									<div className="absolute left-0 top-0 bottom-0 w-2 h-14 rounded-e-lg m-auto bg-gradient-to-b from-green-400 to-green-600 opacity-40" />
+						<CardContent className="p-3 md:p-6">
+							<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-2 md:gap-6 overflow-x-auto font-poppins w-full">
+								<Card className="p-4 space-x-4 rounded-lg shadow-lg relative w-[250px] md:w-full max-w-xs mt-2 md:mt-5">
+									{/* Left Accent Bar */}
+									<div
+										className={`absolute left-0 top-0 bottom-0 w-2 h-14 rounded-e-lg m-auto bg-gradient-to-b from-green-400 to-green-600 opacity-40`}
+									/>
+									{/* Content */}
 									<div>
-										<p className="text-sm font-semibold">
-											Maintenance Amount
-										</p>
+										<p className="text-sm font-semibold">Maintenance Amount</p>
 										<h2 className="text-2xl font-semibold text-green-600">
 											{totalMaintenanceAmount}
 										</h2>
 									</div>
 								</Card>
-								{/* Total Penalty Amount */}
-								<Card className="p-4 space-x-4 rounded-lg shadow-lg relative w-60 mt-5">
-									<div className="absolute left-0 top-0 bottom-0 w-2 h-14 rounded-e-lg m-auto bg-gradient-to-b from-red-400 to-red-600 opacity-40" />
+								<Card className="p-4 space-x-4 rounded-lg shadow-lg relative w-[250px] md:w-full max-w-xs mt-2 md:mt-5">
+									{/* Left Accent Bar */}
+									<div
+										className={`absolute left-0 top-0 bottom-0 w-2 h-14 rounded-e-lg m-auto bg-gradient-to-b from-red-400 to-red-600 opacity-40`}
+									/>
+									{/* Content */}
 									<div>
-										<p className="text-sm font-semibold">
-											Penalty Amount
-										</p>
+										<p className="text-sm font-semibold">Penalty Amount</p>
 										<h2 className="text-2xl font-semibold text-red-600">
 											{totalPenaltyAmount}
 										</h2>
@@ -144,19 +146,19 @@ export default function MaintenanceInvoices({ userRole }) {
 					</Card>
 
 					{/* Pending Maintenance Section */}
-					<Card className="mt-8">
-						<CardHeader className="grid grid-cols-[auto_auto] items-center justify-between">
-							<CardTitle className="text-lg font-semibold font-poppins">
+					<Card className="mt-2 md:mt-8">
+						<CardHeader className="grid grid-cols-[auto_auto] items-center justify-between p-3 md:p-6">
+							<CardTitle className="font-semibold font-poppins text-[16px] md:text-lg">
 								Pending Maintenance
 							</CardTitle>
-							<Button onClick={handleViewInvoice}>
+							<Button onClick={handleViewInvoice} className="w-24">
 								View Invoice
 							</Button>
 						</CardHeader>
-						<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+						<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-2 md:p-6">
 							{maintenanceRecords.map((items, index) => (
 								<Card key={index} className="">
-									<CardHeader className="bg-blue-500 rounded-t-lg text-white">
+									<CardHeader className="bg-blue-500 rounded-t-lg text-white p-3 md:p-6">
 										<CardTitle className="text-base font-poppins">
 											Maintenance
 											<span className="float-end font-poppins">
@@ -164,7 +166,7 @@ export default function MaintenanceInvoices({ userRole }) {
 											</span>
 										</CardTitle>
 									</CardHeader>
-									<CardContent className="space-y-2 mt-3 font-poppins">
+									<CardContent className="space-y-2 mt-3 font-poppins text-[15px] md:text-lg p-2 md:p-6">
 										<p>
 											<span className="inline-block text-slate-600">
 												Bill Date
@@ -188,7 +190,7 @@ export default function MaintenanceInvoices({ userRole }) {
 										<Separator />
 										<p>
 											<span className="inline-block text-slate-600">
-												Maintenance Amount
+												Maintanance Amount
 											</span>
 											<span className="float-right text-red-500">
 												{items.maintenanceAmount}
@@ -218,7 +220,7 @@ export default function MaintenanceInvoices({ userRole }) {
 												handlePayNow(
 													items.id,
 													items.maintenanceAmount +
-														items.penaltyAmount
+													items.penaltyAmount
 												)
 											}
 										>
@@ -230,18 +232,17 @@ export default function MaintenanceInvoices({ userRole }) {
 						</CardContent>
 					</Card>
 
-					{/* Overdue Maintenance Section */}
-					{/* Pending Section */}
-					<Card className="mt-8">
-						<CardHeader>
-							<CardTitle className="text-lg font-semibold">
-								Pending Maintanance
+					{/* Due Section */}
+					<Card className="mt-2 md:mt-8">
+						<CardHeader className="p-3 md:p-6">
+							<CardTitle className="text-lg font-semibold font-poppins text-[16px] md:text-lg">
+								Due Maintanance
 							</CardTitle>
 						</CardHeader>
-						<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+						<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-2 md:p-6">
 							{maintenanceRecords.map((items, index) => (
 								<Card key={index} className="">
-									<CardHeader className="bg-blue-500 rounded-t-lg text-white">
+									<CardHeader className="bg-blue-500 rounded-t-lg text-white p-3 md:p-6">
 										<CardTitle className="text-base">
 											Maintenance
 											<span className="float-end">
@@ -249,20 +250,10 @@ export default function MaintenanceInvoices({ userRole }) {
 											</span>
 										</CardTitle>
 									</CardHeader>
-									<CardContent className="space-y-2 mt-3">
+									<CardContent className="space-y-2 mt-1 md:mt-3 text-[15px] md:text-lg p-2 md:p-6">
 										<p>
 											<span className="inline-block text-slate-600">
-												Bill Date
-											</span>
-											<span className="float-right">
-												{new Date(
-													items.maintenanceDueDate
-												).toLocaleDateString()}
-											</span>
-										</p>
-										<p>
-											<span className="inline-block text-slate-600">
-												Pending Date
+												Date
 											</span>
 											<span className="float-right">
 												{new Date(
@@ -273,7 +264,7 @@ export default function MaintenanceInvoices({ userRole }) {
 										<Separator />
 										<p>
 											<span className="inline-block text-slate-600">
-												Maintanance Amount
+												Amount
 											</span>
 											<span className="float-right text-red-500">
 												{items.maintenanceAmount}
@@ -281,29 +272,20 @@ export default function MaintenanceInvoices({ userRole }) {
 										</p>
 										<p>
 											<span className="inline-block text-slate-600">
-												Maintenance Penalty Amount
+												Due Maintanance Amount
 											</span>
 											<span className="float-right text-red-500">
 												{items.penaltyAmount}
 											</span>
 										</p>
 										<Separator />
-										<p>
-											<span className="inline-block text-slate-600">
-												Grand Total
-											</span>
-											<span className="float-right text-green-500">
-												{items.maintenanceAmount +
-													items.penaltyAmount}
-											</span>
-										</p>
 										<Button
 											className="w-full"
 											onClick={() =>
 												handlePayNow(
 													items.id,
 													items.maintenanceAmount +
-														items.penaltyAmount
+													items.penaltyAmount
 												)
 											}
 										>

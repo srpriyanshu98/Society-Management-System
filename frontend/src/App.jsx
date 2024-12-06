@@ -50,6 +50,7 @@ import ChatFooter from "./components/Resident-Components/Community/AccessForums/
 import ProtectedRoute from "./middlewares/ProtectedRoute";
 import PaymentPage from "./pages/PaymentPage";
 import SuccessPage from "./pages/SuccessPage";
+import ViewOtherIncome from "./components/financialManagement/ViewOtherIncome";
 
 function App() {
 	return (
@@ -67,6 +68,7 @@ function App() {
 				<Route path="/residents" element={<ResidentManagement />} />
 				<Route path="/resident-form" element={<ResidentForm />} />
 				<Route path="/financial" element={<FinancialManagement />} />
+				<Route path="/View-other-income" element={<ViewOtherIncome />} />
 				<Route path="/add-expenses" element={<AddExpenses />} />
 				<Route path="/note" element={<Note />} />
 				<Route path="/facilities" element={<FacilityManagement />} />

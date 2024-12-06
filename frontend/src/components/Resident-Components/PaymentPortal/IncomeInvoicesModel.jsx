@@ -96,103 +96,103 @@ export default function IncomeInvoicesModel({ open, onClose, income }) {
 
 	return (
 		<Dialog open={open} onOpenChange={onClose}>
-			<DialogContent className="max-w-md bg-white rounded-lg shadow-lg">
-				<DialogHeader>
-					<DialogTitle className="text-xl font-bold text-center text-gray-800 mb-3">
-						Event Invoice
+			<DialogContent className="w-[300px] md:w-full p-3 md:p-6 bg-white rounded-lg shadow-lg">
+				<DialogHeader >
+					<DialogTitle className="text-xl text-start md:text-start font-bold text-gray-800 mb-1 md:mb-3">
+						Event Invoice 
 					</DialogTitle>
 					<Separator />
 					<DialogDescription className="space-y-10">
 						<div className="grid grid-cols-2 gap-x-6 gap-y-4 mt-5">
 							<div>
-								<p className="text-sm text-gray-500">
+								<p className="text-sm text-gray-500 text-start">
 									Invoice ID
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="font-medium text-sm md:text-[16px] text-gray-800 text-start">
 									{income.invoiceId}
 								</p>
 							</div>
 							<div>
-								<p className="text-sm text-gray-500">
+								<p className="text-sm text-gray-500 text-start">
 									Owner Name
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-[16px] font-medium text-gray-800 text-start">
 									{income.ownerName}
 								</p>
 							</div>
 							<div>
-								<p className="text-sm text-gray-500">
+								<p className="text-sm text-gray-500 text-start">
 									Bill Date
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-[16px] font-medium text-gray-800 text-start">
 									{income.billDate}
 								</p>
 							</div>
 							<div>
-								<p className="text-sm text-gray-500">
+								<p className="text-sm text-gray-500 text-start">
 									Payment Date
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-[16px] font-medium text-gray-800 text-start">
 									{income.paymentDate}
 								</p>
 							</div>
 							<div>
-								<p className="text-sm text-gray-500">
+								<p className="text-sm text-gray-500 text-start">
 									Next Event Date
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-[16px] font-medium text-gray-800 text-start">
 									{income.nextEventDate}
 								</p>
 							</div>
 							<div>
-								<p className="text-sm text-gray-500">
+								<p className="text-sm text-gray-500 text-start">
 									Phone Number
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-[16px] font-medium text-gray-800 text-start">
 									{income.phoneNumber}
 								</p>
 							</div>
 							<div>
-								<p className="text-sm text-gray-500">Email</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm text-gray-500 text-start">Email</p>
+								<p className="text-sm md:text-[16px] font-medium text-gray-800 text-start">
 									{income.email}
 								</p>
 							</div>
 							<div className="col-span-2">
-								<p className="text-sm text-gray-500">
+								<p className="text-sm text-gray-500 text-start">
 									Event Name
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-[16px] font-medium text-gray-800 text-start">
 									{income.eventName}
 								</p>
 							</div>
 							<div className="col-span-2">
-								<p className="text-sm text-gray-500">
+								<p className="text-sm text-start text-gray-500">
 									Description
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-base text-start font-medium text-gray-800">
 									{income.description}
 								</p>
 							</div>
 							<div className="col-span-2">
-								<p className="text-sm text-gray-500">
+								<p className="text-sm text-gray-500 text-start">
 									Event Amount
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-[16px] font-medium text-gray-800 text-start">
 									₹{income.eventAmount}
 								</p>
 							</div>
 							<div className="col-span-2">
-								<p className="text-sm text-gray-500">Members</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm text-gray-500 text-start">Members</p>
+								<p className="text-sm md:text-[16px] font-medium text-gray-800 text-start">
 									{income.members}
 								</p>
 							</div>
 							<div className="col-span-2">
-								<p className="text-sm text-gray-500">
+								<p className="text-sm text-gray-500 text-start">
 									Grand Total
 								</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm md:text-[16px] font-medium text-gray-800 text-start">
 									₹{" "}
 									{(
 										income.members *
@@ -201,8 +201,8 @@ export default function IncomeInvoicesModel({ open, onClose, income }) {
 								</p>
 							</div>
 							<div className="col-span-2">
-								<p className="text-sm text-gray-500">Note</p>
-								<p className="text-base font-medium text-gray-800">
+								<p className="text-sm text-gray-500 text-start">Note</p>
+								<p className="text-sm md:text-[16px] font-medium text-gray-800 text-start">
 									{income.note ||
 										"No additional notes provided."}
 								</p>

@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 
 // NotificationOne Component
-function NotificationOne({ id, message, date, name, onView, onIgnore, money, festival, wing, unit }) {
+function NotificationOne({ id, message, date, name, onView, onIgnore, money, festival, wing, unit, paymentMode }) {
     return (
         <div className="bg-white rounded-lg">
             <div className="flex items-center mb-2">
@@ -18,11 +18,40 @@ function NotificationOne({ id, message, date, name, onView, onIgnore, money, fes
                         />
                     </div>
                 </div>
-                <div className="flex-1 ml-4">
-                    <h2 className="text-lg font-semibold">{name}
-                        {wing && <span> ({wing} -</span>}
-                        {unit && <span>{unit})</span>}
-                    </h2>
+                <div className="flex-1 justify-between ml-4">
+                    <div className="flex justify-between">
+
+                        <div>
+
+                            <h2 className="text-lg font-semibold">{name}
+                                {wing && <span> ({wing} -</span>}
+                                {unit && <span>{unit})</span>}
+                            </h2>
+                        </div>
+                        <div>
+
+                            <span
+                                className={`p-1 ps-3 pe-3 rounded-full text-base font-semibold ${paymentMode === "Online"
+                                    ? "bg-blue-100 text-blue-800"
+                                    : "bg-gray-100 text-gray-800"
+                                    }`}
+                            >
+                                <span className="inline-block align-middle me-2">
+                                    <img
+                                        src={
+                                            paymentMode ===
+                                                "Online"
+                                                ? "./src/assets/wallet-2.svg"
+                                                : "./src/assets/wallet-1.svg"
+                                        }
+                                        className="w-5 h-5"
+                                        alt="Payment Icon"
+                                    />
+                                </span>
+                                <span>{paymentMode}</span>
+                            </span>
+                        </div>
+                    </div>
                     <p className="text-gray-500 text-sm">{date}</p>
                     <p className="text-gray-700 text-sm">
                         {message}
@@ -107,57 +136,10 @@ function NotificationItem({ id, message, date, name, scheduleDate, onView, onIgn
 }
 // {name.charAt(0).toUpperCase()}
 
-function NotificationTwo({ id, message, date, name, onView, onIgnore, wing, unit, money }) {
-    return (
-        <div className="bg-white rounded-lg">
-            <div className="flex items-center mb-2">
-                <div className="flex-shrink-0 mr-4">
-                    <div className="bg-green-100 rounded-full h-10 w-10 flex items-center justify-center">
-                        <img
-                            src="/src/assets/moneys.svg"
-                            alt="Maintenance img"
-                            className=""
-                        />
-                    </div>
-                </div>
-                <div className="flex-1">
-                    <h2 className="text-lg font-semibold">{name}
-                        {wing && <span> ({wing} -</span>}
-                        {unit && <span>{unit})</span>}
-                    </h2>
-                    <p className="text-gray-500 text-sm">{date}</p>
-                    <p className="text-gray-700 text-sm">{message}
-                        {money && <span className="text-blue-500">  Maintenance of {money} rupees.</span>}
-                    </p>
-                </div>
-            </div>
 
-            <div className="flex justify-between mb-2">
-                <div className="ml-14">
-                    <Button
-                        className="text-gray-900 py-2 px-4 rounded-lg mr-2"
-                        onClick={onView}
-                        variant="outline"
-                    >
-                        Accept
-                    </Button>
-                    <Button
-                        className="text-white py-2 px-4 rounded-lg"
-                        onClick={() => onIgnore(id)}
-                        variant="secondary"
-                    >
-                        Decline
-                    </Button>
-                </div>
-                <div className="text-gray-500 text-sm text-right mt-2">2 Minutes ago</div>
-            </div>
-            <Separator />
-        </div>
-    );
-}
-function Notificationthird({ id, message, date, name, onView, onIgnore, wing, unit }) {
+function Notificationthird({ id, message, date, name, onView, onIgnore, wing, unit, paymentMode }) {
     return (
-        <div className="bg-white rounded-lg mb-4">
+        <div className="bg-white rounded-lg mt-3">
             <div className="flex items-center mb-2">
                 <div className="flex-shrink-0 mr-4">
                     <div className="bg-blue-100 rounded-full h-10 w-10 flex items-center text-xl font-bold text-blue-600 justify-center mb-8">
@@ -165,10 +147,32 @@ function Notificationthird({ id, message, date, name, onView, onIgnore, wing, un
                     </div>
                 </div>
                 <div className="flex-1">
-                    <h2 className="text-lg font-semibold">{name}
-                        {wing && <span> ({wing} -</span>}
-                        {unit && <span>{unit})</span>}
-                    </h2>
+                    <div className="flex justify-between">
+                        <h2 className="text-lg font-semibold">{name}
+                            {wing && <span> ({wing} -</span>}
+                            {unit && <span>{unit})</span>}
+                        </h2>
+                        <span
+                            className={`p-1 ps-3 pe-3 rounded-full text-base font-semibold ${paymentMode === "Online"
+                                ? "bg-blue-100 text-blue-800"
+                                : "bg-gray-100 text-gray-800"
+                                }`}
+                        >
+                            <span className="inline-block align-middle me-2">
+                                <img
+                                    src={
+                                        paymentMode ===
+                                            "Online"
+                                            ? "./src/assets/wallet-2.svg"
+                                            : "./src/assets/wallet-1.svg"
+                                    }
+                                    className="w-5 h-5"
+                                    alt="Payment Icon"
+                                />
+                            </span>
+                            <span>{paymentMode}</span>
+                        </span>
+                    </div>
                     <p className="text-gray-500 text-sm">{date}</p>
                     <p className="text-gray-700 text-justify w-80">{message}</p>
                 </div>
@@ -198,38 +202,6 @@ function Notificationthird({ id, message, date, name, onView, onIgnore, wing, un
     );
 }
 
-function Notificationfour({ message, date, amount, penalty }) {
-    return (
-        <div className="bg-white rounded-lg">
-            <div className="flex items-center mb-2">
-                <div className="bg-green-100 rounded-full h-10 w-10 flex items-center justify-center mb-20">
-                    <img
-                        src="/src/assets/moneys.svg"
-                        alt="Maintenance img"
-                        className=""
-                    />
-                </div>
-                <div className="flex-1 ml-4">
-                    <h2 className="text-lg font-semibold">{message}</h2>
-                    <p className="text-gray-500 text-sm">{date}</p>
-                    <div className="flex flex-col bg-gray-200 p-2 rounded-xl">
-                        <div className="flex justify-between">
-                            <p className="text-gray-700">Maintenance Amount :</p>
-                            <p className="text-green-500 font-semibold">₹{amount}</p>
-                        </div>
-                        <div className="w-full h-px bg-white my-2"></div>
-                        <div className="flex justify-between">
-                            <p className="text-gray-700">Maintenance Penalty :</p>
-                            <p className="text-red-500 font-semibold">₹{penalty}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <Separator />
-        </div>
-    );
-}
-
 
 // Main Notification Component
 export default function Notification({ isCardVisible, onClose, cardRef }) {
@@ -244,6 +216,7 @@ export default function Notification({ isCardVisible, onClose, cardRef }) {
             name: "Project Alpha",
             wing: "A",
             unit: "101",
+            paymentMode: "Cash",
         },
         {
             id: 2,
@@ -253,16 +226,7 @@ export default function Notification({ isCardVisible, onClose, cardRef }) {
             name: "Parking Facility",
             scheduleDate: "01/03/2024",
         },
-        {
-            id: 3,
-            type: "typeTwo",
-            message: "Evelyn Harper gave a",
-            date: "Tuesday 10:05 AM",
-            name: "Maintenance",
-            wing: "A",
-            unit: "101",
-            money: "1000",
-        },
+
         {
             id: 4,
             type: "typeThree",
@@ -271,15 +235,9 @@ export default function Notification({ isCardVisible, onClose, cardRef }) {
             name: "Ganesh Chaturthi",
             wing: "A",
             unit: "101",
+            paymentMode: "Online",
         },
-        {
-            id: 5,
-            type: "typeFour",
-            message: "Update Maintenance",
-            date: "Thursday 2:00 PM",
-            amount: "2000",
-            penalty: "200",
-        },
+
     ]);
     const [imageVisible, setImageVisible] = useState(false); // State to control image visibility
 
@@ -337,22 +295,8 @@ export default function Notification({ isCardVisible, onClose, cardRef }) {
                                     festival={notification.festival}
                                     wing={notification.wing}
                                     unit={notification.unit}
+                                    paymentMode={notification.paymentMode}
                                     onView={() => console.log(`View clicked for ${notification.name}`)}
-                                    onIgnore={() => handleIgnoreNotification(notification.id)}
-                                />
-                            );
-                        } else if (notification.type === "typeTwo") {
-                            return (
-                                <NotificationTwo
-                                    key={notification.id}
-                                    id={notification.id}
-                                    message={notification.message}
-                                    date={notification.date}
-                                    name={notification.name}
-                                    wing={notification.wing}
-                                    unit={notification.unit}
-                                    money={notification.money}
-                                    onView={() => console.log("View clicked for", notification.name)}
                                     onIgnore={() => handleIgnoreNotification(notification.id)}
                                 />
                             );
@@ -366,18 +310,9 @@ export default function Notification({ isCardVisible, onClose, cardRef }) {
                                     name={notification.name}
                                     wing={notification.wing}
                                     unit={notification.unit}
+                                    paymentMode={notification.paymentMode}
                                     onView={() => console.log("View clicked for", notification.name)}
                                     onIgnore={() => handleIgnoreNotification(notification.id)}
-                                />
-                            );
-                        } else if (notification.type === "typeFour") {
-                            return (
-                                <Notificationfour
-                                    key={notification.id}
-                                    message={notification.message}
-                                    date={notification.date}
-                                    amount={notification.amount}
-                                    penalty={notification.penalty}
                                 />
                             );
                         } else {

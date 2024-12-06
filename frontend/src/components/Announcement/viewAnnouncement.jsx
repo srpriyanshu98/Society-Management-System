@@ -19,6 +19,10 @@ export default function ViewAnnouncement({ announcement, isOpen, onClose }) {
                 <Separator />
                 <div className="mt-4 space-y-4 ">
                     <div>
+                    <p className="text-gray-400">Announcement Type</p>
+                    <p className="text-gray-800">{announcement.title}</p>
+                    </div>
+                    <div>
                         <p className="text-gray-400">Title</p>
                         <p className="text-gray-800">{announcement.title}</p>
                     </div>

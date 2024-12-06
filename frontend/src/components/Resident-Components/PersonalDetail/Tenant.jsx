@@ -110,64 +110,58 @@ export default function Tenant() {
 		<>
 			{/* Owner Details */}
 			<Card>
-				<CardContent className="grid grid-cols-3 p-5 font-medium">
+				<CardContent className="grid md:grid-cols-6 gap-6 p-5 font-medium text-[15px] md:text-md">
 					<div>
 						<p>Full Name</p>
-						<span className="text-slate-600">
-							{profile.fullName}
-						</span>
+						<span className="text-slate-600">{profile.fullName}</span>
 					</div>
 					<div>
 						<p>Phone Number</p>
-						<span className="text-slate-600">
-							{profile.phoneNumber}
-						</span>
+						<span className="text-slate-600">{profile.phoneNumber}</span>
 					</div>
 					<div>
 						<p>Email Address</p>
-						<span className="text-slate-600">
-							{profile.emailAddress}
-						</span>
+						<span className="text-slate-600">{profile.emailAddress}</span>
 					</div>
 				</CardContent>
 			</Card>
 
 			{/* Profile Section */}
-			<Card className="flex gap-4 items-center p-6 shadow-md rounded-lg mt-8">
+			<Card className="flex flex-col lg:flex-row gap-4 mt-3 md:mt-3 items-center p-3 md:p-6 shadow-md rounded-lg">
 				{/* Profile Avatar and Details */}
-				<Avatar className="w-24 h-24 rounded-full me-10">
-					<AvatarImage
-						src="https://github.com/shadcn.png"
-						alt={profile.fullName}
-					/>
-					<AvatarFallback>CN</AvatarFallback>
-				</Avatar>
+				<div className="grid grid-cols-2">
+
+					<Avatar className="w-20 h-20 md:w-24 md:h-24 rounded-full">
+						<AvatarImage
+							src="https://github.com/shadcn.png"
+							alt={profile.fullName}
+						/>
+						<AvatarFallback>CN</AvatarFallback>
+					</Avatar>
+					<div className="md:hidden font-medium font-poppins mt-4">
+						<p>Full Name</p>
+						<span className="text-slate-600">{profile.fullName}</span>
+					</div>
+				</div>
 
 				{/* Profile Information */}
-				<div className="grid grid-cols-4 gap-x-5 gap-y-6 font-medium">
-					<div>
+				<div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-6 font-medium font-poppins w-full">
+					<div className="hidden md:block">
 						<p>Full Name</p>
-						<span className="text-slate-600">
-							{profile.fullName}
-						</span>
+						<span className="text-slate-600">{profile.fullName}</span>
 					</div>
 					<div>
 						<p>Phone Number</p>
-						<span className="text-slate-600">
-							{profile.phoneNumber}
-						</span>
+						<span className="text-slate-600">{profile.phoneNumber}</span>
 					</div>
 					<div>
 						<p>Email Address</p>
-						<span className="text-slate-600">
-							{profile.emailAddress}
-						</span>
+						<span className="text-slate-600">{profile.emailAddress}</span>
 					</div>
 					<div>
 						<p>Gender</p>
 						<span className="text-slate-600">{profile.gender}</span>
 					</div>
-
 					<div>
 						<p>Wing</p>
 						<span className="text-slate-600">{profile.wing}</span>
@@ -182,11 +176,10 @@ export default function Tenant() {
 					</div>
 					<div>
 						<p>Relation</p>
-						<span className="text-slate-600">
-							{profile.relation}
-						</span>
+						<span className="text-slate-600">{profile.relation}</span>
 					</div>
 				</div>
+
 
 				{/* Uploaded Documents */}
 				<div className="space-y-2">
@@ -210,21 +203,21 @@ export default function Tenant() {
 			</Card>
 
 			{/* Members Section */}
-			<Card className="mt-8">
-				<CardHeader>
-					<CardTitle className="text-lg font-semibold mb-4">
+			<Card className="mt-2 md:mt-8">
+				<CardHeader className="p-3 md:p-6">
+					<CardTitle className="mb-2 md:mb-4 font-semibold text-md md:text-lg">
 						Members ({members.length}):
 					</CardTitle>
 				</CardHeader>
-				<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+				<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 p-2 md:p-6">
 					{members.map((items, index) => (
 						<Card key={index} className="">
-							<CardHeader className="bg-blue-500 rounded-t-lg text-white">
+							<CardHeader className="bg-blue-500 rounded-t-lg text-white p-3 md:p-6">
 								<CardTitle className="text-base">
 									{items.name}
 								</CardTitle>
 							</CardHeader>
-							<CardContent className="space-y-2 mt-3">
+							<CardContent className="space-y-2 mt-3 text-sm md:text-[16px]  p-2 md:p-6">
 								<p>
 									<span className="inline-block text-slate-600">
 										Email:
@@ -272,21 +265,21 @@ export default function Tenant() {
 			</Card>
 
 			{/* Vehicles Section */}
-			<Card className="mt-8">
-				<CardHeader>
-					<CardTitle className="text-lg font-semibold mb-4">
+			<Card className="mt-2 md:mt-8">
+				<CardHeader className="p-3 md:p-6">
+					<CardTitle className="mb-2 md:mb-4 font-semibold text-md md:text-lg">
 						Vehicles ({vehicles.length}):
 					</CardTitle>
 				</CardHeader>
-				<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+				<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 p-2 md:p-6">
 					{vehicles.map((items, index) => (
 						<Card key={index} className="">
-							<CardHeader className="bg-blue-500 rounded-t-lg text-white">
+							<CardHeader className="bg-blue-500 rounded-t-lg text-white p-3 md:p-6">
 								<CardTitle className="text-base">
 									{items.type}
 								</CardTitle>
 							</CardHeader>
-							<CardContent className="space-y-2 mt-3">
+							<CardContent className="space-y-2 mt-3 text-sm md:text-[16px] p-2 md:p-6">
 								<p>
 									<span className="inline-block text-slate-600">
 										Vehicle Name:
@@ -310,39 +303,35 @@ export default function Tenant() {
 			</Card>
 
 			{/* Maintenance Section */}
-			<Card className="mt-8 flex justify-between items-center">
-				<CardHeader>
-					<CardTitle className="text-lg font-semibold font-poppins">
+			<Card className="mt-2 md:mt-8 flex flex-col lg:flex-row justify-between items-start lg:items-center">
+				<CardHeader className="p-3 md:p-6">
+					<CardTitle className="font-semibold font-poppins text-[16px] md:text-lg">
 						Show Maintenance Details:
 					</CardTitle>
 				</CardHeader>
-				<CardContent>
-					<div className="inline-flex gap-4 overflow-x-auto font-poppins">
-						<Card className="p-4 space-x-4 rounded-lg shadow-lg relative w-60 mt-5">
+				<CardContent className="p-3 md:p-6">
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-2 md:gap-6 overflow-x-auto font-poppins w-full">
+						<Card className="p-4 space-x-4 rounded-lg shadow-lg relative w-[250px] md:w-full max-w-xs mt-2 md:mt-5">
 							{/* Left Accent Bar */}
 							<div
 								className={`absolute left-0 top-0 bottom-0 w-2 h-14 rounded-e-lg m-auto bg-gradient-to-b from-green-400 to-green-600 opacity-40`}
 							/>
 							{/* Content */}
 							<div>
-								<p className="text-sm font-semibold">
-									Maintenance Amount
-								</p>
+								<p className="text-sm font-semibold">Maintenance Amount</p>
 								<h2 className="text-2xl font-semibold text-green-600">
 									{totalMaintenanceAmount}
 								</h2>
 							</div>
 						</Card>
-						<Card className="p-4 space-x-4 rounded-lg shadow-lg relative w-60 mt-5">
+						<Card className="p-4 space-x-4 rounded-lg shadow-lg relative w-[250px] md:w-full max-w-xs mt-2 md:mt-5">
 							{/* Left Accent Bar */}
 							<div
 								className={`absolute left-0 top-0 bottom-0 w-2 h-14 rounded-e-lg m-auto bg-gradient-to-b from-red-400 to-red-600 opacity-40`}
 							/>
 							{/* Content */}
 							<div>
-								<p className="text-sm font-semibold">
-									Penalty Amount
-								</p>
+								<p className="text-sm font-semibold">Penalty Amount</p>
 								<h2 className="text-2xl font-semibold text-red-600">
 									{totalPenaltyAmount}
 								</h2>
@@ -353,22 +342,22 @@ export default function Tenant() {
 			</Card>
 
 			{/* Pending Section */}
-			<Card className="mt-8">
-				<CardHeader>
-					<CardTitle className="text-lg font-semibold">
+			<Card className="mt-2 md:mt-8">
+				<CardHeader className="p-3 md:p-6">
+					<CardTitle className="font-semibold font-poppins text-[16px] md:text-lg">
 						Pending Maintanance
 					</CardTitle>
 				</CardHeader>
-				<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+				<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-2 md:p-6">
 					{maintenanceRecords.map((items, index) => (
 						<Card key={index} className="">
-							<CardHeader className="bg-blue-500 rounded-t-lg text-white">
+							<CardHeader className="bg-blue-500 rounded-t-lg text-white p-3 md:p-6">
 								<CardTitle className="text-base">
 									Maintenance
 									<span className="float-end">Pending</span>
 								</CardTitle>
 							</CardHeader>
-							<CardContent className="space-y-2 mt-3">
+							<CardContent className="space-y-2 mt-3 text-[15px] md:text-lg p-2 md:p-6">
 								<p>
 									<span className="inline-block text-slate-600">
 										Bill Date
@@ -422,12 +411,11 @@ export default function Tenant() {
 										handlePayNow(
 											items.id,
 											items.maintenanceAmount +
-												items.penaltyAmount
+											items.penaltyAmount
 										)
 									}
 								>
-									Pay Now
-								</Button>
+									Pay Now</Button>
 							</CardContent>
 						</Card>
 					))}
@@ -435,22 +423,22 @@ export default function Tenant() {
 			</Card>
 
 			{/* Due Section */}
-			<Card className="mt-8">
-				<CardHeader>
-					<CardTitle className="text-lg font-semibold">
+			<Card className="mt-2 md:mt-8">
+				<CardHeader className="p-3 md:p-6">
+					<CardTitle className="font-semibold font-poppins text-[16px] md:text-lg">
 						Due Maintanance
 					</CardTitle>
 				</CardHeader>
-				<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+				<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-2 md:p-6">
 					{maintenanceRecords.map((items, index) => (
 						<Card key={index} className="">
-							<CardHeader className="bg-blue-500 rounded-t-lg text-white">
+							<CardHeader className="bg-blue-500 rounded-t-lg text-white p-3 md:p-6">
 								<CardTitle className="text-base">
 									Maintenance
 									<span className="float-end">Pending</span>
 								</CardTitle>
 							</CardHeader>
-							<CardContent className="space-y-2 mt-3">
+							<CardContent className="space-y-2 mt-1 md:mt-3 text-[15px] md:text-lg p-2 md:p-6">
 								<p>
 									<span className="inline-block text-slate-600">
 										Date
@@ -485,12 +473,11 @@ export default function Tenant() {
 										handlePayNow(
 											items.id,
 											items.maintenanceAmount +
-												items.penaltyAmount
+											items.penaltyAmount
 										)
 									}
 								>
-									Pay Now
-								</Button>
+									Pay Now</Button>
 							</CardContent>
 						</Card>
 					))}
@@ -498,21 +485,21 @@ export default function Tenant() {
 			</Card>
 
 			{/* Announcement Section */}
-			<Card className="mt-8">
-				<CardHeader>
-					<CardTitle className="text-lg font-bold">
+			<Card className="mt-2 md:mt-8">
+				<CardHeader className="p-3 md:p-6">
+					<CardTitle className="font-semibold font-poppins text-[16px] md:text-lg">
 						Announcement Details
 					</CardTitle>
 				</CardHeader>
-				<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+				<CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-2 md:p-6">
 					{announcements.map((items, index) => (
 						<Card key={index} className="">
-							<CardHeader className="bg-blue-500 rounded-t-lg text-white">
+							<CardHeader className="bg-blue-500 rounded-t-lg text-white p-3 md:p-6">
 								<CardTitle className="text-base">
 									{items.title}
 								</CardTitle>
 							</CardHeader>
-							<CardContent className="space-y-2 mt-3">
+							<CardContent className="space-y-2 mt-1 md:mt-3 text-[15px] md:text-lg p-2 md:p-6">
 								<p>
 									<span className="inline-block text-slate-600">
 										Announcement Date

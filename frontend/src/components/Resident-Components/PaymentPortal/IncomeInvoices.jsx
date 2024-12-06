@@ -32,16 +32,16 @@ export default function IncomeInvoices() {
 	return (
 		<Card className="shadow-md rounded-lg">
 			<CardHeader>
-				<CardTitle className="text-lg font-semibold text-gray-800">
+				<CardTitle className="text-base md:text-[24px] font-semibold text-gray-800">
 					Income Invoices
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<ScrollArea className="max-h-[715px] overflow-y-auto custom-scrollbar">
+				<ScrollArea className="max-h-[570px] md:max-h-[715px] overflow-y-auto custom-scrollbar">
 					<div className="overflow-auto">
 						<table className="w-full text-left border-collapse">
 							<thead className="text-center text-gray-600">
-								<tr className="bg-blue-50 font-semibold">
+								<tr className="bg-blue-50 font-semibold text-sm md:text-[16px]">
 									<th className="p-3 rounded-tl-xl text-start">
 										Invoice ID
 									</th>
@@ -55,7 +55,7 @@ export default function IncomeInvoices() {
 									</th>
 								</tr>
 							</thead>
-							<tbody className="text-center">
+							<tbody className="text-center text-xs font-poppins md:text-base">
 								{sortedIncomes.map((income) => (
 									<tr
 										key={income.invoiceId}
@@ -89,9 +89,9 @@ export default function IncomeInvoices() {
 												onClick={() =>
 													handleViewIncome(income)
 												}
-												className="flex items-center justify-center p-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition"
+												className="flex items-center  justify-center p-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition"
 											>
-												<Eye className="h-5 w-5" />
+												<Eye className="h-3 w-3 md:h-5 md:w-5" />
 											</button>
 										</td>
 									</tr>
