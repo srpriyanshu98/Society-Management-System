@@ -27,7 +27,11 @@ const pollSchema = new mongoose.Schema(
   {
     question: { type: String, required: true },
     options: [optionSchema], // Use the optionSchema here
-    createdBy: { type: String, required: true },
+    createdById: {
+      type: mongoose.Schema.Types.ObjectId,
+      // required: true,
+      ref: "Resident", // Dynamic reference field
+    },
   },
   { timestamps: true }
 );
