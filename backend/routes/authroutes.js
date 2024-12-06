@@ -27,5 +27,4 @@ router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
 router.get("/:id", admin, getUserProfile);
 router.patch("/:id", admin, upload.single("photo"), updateProfile);
-
 export default router;
