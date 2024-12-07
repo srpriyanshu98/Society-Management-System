@@ -32,7 +32,7 @@ const PORT = ENV_VARS.PORT;
 
 // Allow requests from your frontend domain
 const corsOptions = {
-	origin: "society-management-system-omega.vercel.app",
+	origin: "https://society-management-system-omega.vercel.app",
 	optionsSuccessStatus: 200,
 };
 
