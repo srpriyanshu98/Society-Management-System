@@ -13,7 +13,6 @@ import Sellect from "./test/Sellect";
 // ADMIN IMPORTS
 import Dashboard from "./pages/admin/Dashboard";
 import ResidentManagement from "./pages/admin/ResidentManagement";
-import FinancialManagement from "./pages/admin/FinancialManagement";
 import FacilityManagement from "./pages/admin/FacilityManagement";
 import ComplaintTracking from "./pages/admin/ComplaintTracking";
 import SecurityManagement from "./pages/admin/SecurityManagement";
@@ -51,6 +50,7 @@ import ProtectedRoute from "./middlewares/ProtectedRoute";
 import PaymentPage from "./pages/PaymentPage";
 import SuccessPage from "./pages/SuccessPage";
 import ViewOtherIncome from "./components/financialManagement/ViewOtherIncome";
+import FinancialManagement from "./pages/admin/FinancialManagement";
 
 function App() {
 	return (
