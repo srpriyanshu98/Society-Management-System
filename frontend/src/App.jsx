@@ -2,9 +2,9 @@ import { Route, Routes } from "react-router-dom";
 
 // AUTH IMPORTS
 import Signup from "./pages/auth/SignUpPage";
-import Login from "./pages/auth/LoginPage";
 import ForgotPassPage from "./pages/auth/ForgotPassPage";
 import EditProfile from "./pages/EditProfile";
+import Login from "./pages/auth/LogInPage";
 
 // TEST IMPORTS
 import Slider from "./test/Slider";
@@ -68,7 +68,10 @@ function App() {
 				<Route path="/residents" element={<ResidentManagement />} />
 				<Route path="/resident-form" element={<ResidentForm />} />
 				<Route path="/financial" element={<FinancialManagement />} />
-				<Route path="/View-other-income" element={<ViewOtherIncome />} />
+				<Route
+					path="/View-other-income"
+					element={<ViewOtherIncome />}
+				/>
 				<Route path="/add-expenses" element={<AddExpenses />} />
 				<Route path="/note" element={<Note />} />
 				<Route path="/facilities" element={<FacilityManagement />} />
