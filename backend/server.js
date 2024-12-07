@@ -30,17 +30,19 @@ import paymentRoutes from "./routes/paymentRoutes.js";
 // const app = express();
 const PORT = ENV_VARS.PORT;
 
+// Allow requests from your frontend domain
+const corsOptions = {
+	origin: "https://society-frontend.vercel.app",
+	optionsSuccessStatus: 200,
+};
+
 app.use(express.json());
 app.use(cookieParser());
 
 // Serve static files in 'uploads' directory
 app.use("/uploads", express.static("uploads"));
 
-app.use(
-	cors({
-		origin: "http://localhost:3000",
-	})
-);
+app.use(cors(corsOptions));
 
 // Routes
 app.use("/api/auth", authRoutes);
