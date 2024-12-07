@@ -26,9 +26,12 @@ import visitorRoutes from "./routes/visitorRoutes.js";
 import alertRoutes from "./routes/alertRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
+import path from "path";
 
 // const app = express();
 const PORT = ENV_VARS.PORT;
+
+const __dirname = path.resolve();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -63,6 +66,13 @@ app.use("/api/alerts", alertRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/payments", paymentRoutes);
 
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+	});
+}
 app.listen(PORT, () => {
 	console.log("server is running on port http://localhost:" + PORT);
 	connectDB();
