@@ -4,7 +4,6 @@ import { ScrollArea } from "../ui/scroll-area";
 import { Skeleton } from "../ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
-import AddVisitorDetails from "./AddVisitorDetails";
 import axiosInstance from "@/test/axiosInstance";
 import moment from "moment";
 import {
@@ -13,6 +12,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import AddVisitorDetails from "./addVisitorDetails";
 
 export default function VisitorTracking() {
 	const [Visitors, setVisitors] = useState([]);
