@@ -109,7 +109,7 @@ export default function VisitorTracking() {
 						<table className="w-full text-left">
 							<thead className="text-center text-gray-600">
 								<tr className="bg-blue-50">
-									<th className="p-3 text-left">
+									<th className="p-4 text-left">
 										Visitor Name
 									</th>
 									<th className="p-3">Phone Number</th>
