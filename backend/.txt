@@ -17,37 +17,37 @@ router.post("/forgot-password", forgotPassword);
 router.post("/reset-password/:token", resetPassword);"
 
 //Create complain
-http://localhost:5000/api/complaints/
+https://society-management-system-w3do.onrender.com/api/complaints/
 
 //Create important number
-http://localhost:5000/api/important-numbers/
+https://society-management-system-w3do.onrender.com/api/important-numbers/
 
 //Create owners
-http://localhost:5000/api/owners/
+https://society-management-system-w3do.onrender.com/api/owners/
 
 //Create tenant
-http://localhost:5000/api/tenants/
+https://society-management-system-w3do.onrender.com/api/tenants/
 
 //Create vehicle
-http://localhost:5000/api/vehicles/
+https://society-management-system-w3do.onrender.com/api/vehicles/
 
 //Create maintenance
-http://localhost:5000/api/maintenance/
+https://society-management-system-w3do.onrender.com/api/maintenance/
 
 //Create otherincome
-http://localhost:5000/api/otherIncome/
+https://society-management-system-w3do.onrender.com/api/otherIncome/
 
 //Create expense
-http://localhost:5000/api/expense/
+https://society-management-system-w3do.onrender.com/api/expense/
 
 //Create note
-http://localhost:5000/api/notes/
+https://society-management-system-w3do.onrender.com/api/notes/
 
 //Create facilities
-http://localhost:5000/api/facilities/
+https://society-management-system-w3do.onrender.com/api/facilities/
 
 //Create requests
-http://localhost:5000/api/requests/
+https://society-management-system-w3do.onrender.com/api/requests/
 
 //Create security-protocols
-http://localhost:5000/api/security-protocols/
+https://society-management-system-w3do.onrender.com/api/security-protocols/

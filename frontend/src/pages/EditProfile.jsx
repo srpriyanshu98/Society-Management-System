@@ -227,7 +227,7 @@ export default function EditProfile({ userRole }) {
 								<div className="w-[285px] h-[460px]">
 									<div className="relative w-[145px] h-[145px] border-t-4 border-transparent">
 										<img
-											src={`http://localhost:5000/${formData.photo}`}
+											src={`https://society-management-system-w3do.onrender.com/${formData.photo}`}
 											alt="Profile"
 											className="w-full h-full object-cover rounded-full"
 										/>

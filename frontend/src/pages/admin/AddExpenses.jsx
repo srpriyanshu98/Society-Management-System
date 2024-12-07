@@ -145,7 +145,7 @@ export default function AddExpenses({ userRole }) {
 											{/* <img
 												src={
 													item.bill
-														? `http://localhost:5000/${item.bill}`
+														? `https://society-management-system-w3do.onrender.com/${item.bill}`
 														: "no image"
 												}
 												alt="Bill"
