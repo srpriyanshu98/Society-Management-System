@@ -11,10 +11,10 @@ import {
 import { MoreVertical } from "lucide-react";
 import AddAnnouncement from "@/components/Announcement/addAnnouncement";
 import EditAnnouncement from "@/components/Announcement/editAnnouncement";
-import ViewAnnouncement from "@/components/Announcement/ViewAnnouncement";
 import axiosInstance from "@/test/axiosInstance";
 import ConfirmationDialog from "@/components/ConfirmationDialog ";
 import moment from "moment"; // Import Moment.js
+import ViewAnnouncement from "@/components/Announcement/viewAnnouncement";
 
 export default function Announcement({ userRole }) {
 	const [announcements, setAnnouncements] = useState([]);
