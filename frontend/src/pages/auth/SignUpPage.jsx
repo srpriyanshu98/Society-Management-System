@@ -6,7 +6,7 @@ export default function Signup() {
 
 	const slides = [
 		{
-			image: "/assets/1.png",
+			image: "./src/assets/1.png",
 			title: (
 				<p className="font-semibold text-center text-[24px] leading-[36px] text-opacity-0 gap-0">
 					Your Space, Your Place:{" "}
