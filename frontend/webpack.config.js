@@ -4,7 +4,7 @@ export default {
 	plugins: [
 		new CompressionPlugin({
 			algorithm: "gzip",
-			test: /\.(js|css|html|svg)$/,
+			test: /\.(js|css|html)$/,
 		}),
 	],
 };
