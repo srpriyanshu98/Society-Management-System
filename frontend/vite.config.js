@@ -7,7 +7,8 @@ export default defineConfig({
 	plugins: [react()],
 	build: {
 		outDir: "dist", // Output directory
-		emptyOutDir: true,
+		emptyOutDir: false,
+		chunkSizeWarningLimit: 3000,
 	},
 	resolve: {
 		alias: {
