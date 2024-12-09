@@ -409,7 +409,7 @@ export default function Notification({ isCardVisible, onClose, cardRef }) {
 								/>
 							)}
 						</div>
-						<p className="text-gray-500 text-lg flex justify-center items-center">
+						<p className="text-gray-400 text-lg flex justify-center items-center">
 							No Notifications yet!
 						</p>
 					</>
