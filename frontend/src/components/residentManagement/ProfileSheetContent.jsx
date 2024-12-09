@@ -16,7 +16,7 @@ export default function ProfileSheetContent() {
 		<Sheet>
 			<SheetTrigger asChild>
 				<button className="bg-gray-200 p-2 w-8 h-8 rounded-lg">
-					<img src="/src/assets/view.svg" alt="View" />
+					<img src="/assets/view.svg" alt="View" />
 				</button>
 			</SheetTrigger>
 			<SheetContent>
@@ -64,7 +64,7 @@ export default function ProfileSheetContent() {
 					<div className="flex items-center justify-between mt-2 p-2 bg-white rounded-lg shadow-sm">
 						<div className="flex items-center">
 							<img
-								src="/src/assets/jpg.svg"
+								src="/assets/jpg.svg"
 								alt="Document Icon"
 								className="w-6 h-6 mr-2"
 							/>
@@ -82,7 +82,7 @@ export default function ProfileSheetContent() {
 					<div className="flex items-center justify-between mt-2 p-2 bg-white rounded-lg shadow-sm">
 						<div className="flex items-center">
 							<img
-								src="/src/assets/document.svg"
+								src="/assets/document.svg"
 								alt="Document Icon"
 								className="w-6 h-6 mr-2"
 							/>

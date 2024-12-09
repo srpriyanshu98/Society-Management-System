@@ -46,8 +46,8 @@ export default function ExpenseViewDialog({ isOpen, onClose, expense }) {
 						<img
 							src={
 								expense.billPermit === "PDF"
-									? "/src/assets/Document.svg"
-									: "/src/assets/jpg.svg"
+									? "/assets/Document.svg"
+									: "/assets/jpg.svg"
 							}
 							alt={`${expense.billPermit} Icon`}
 							className="w-6 h-6"

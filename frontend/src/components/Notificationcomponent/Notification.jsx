@@ -24,7 +24,7 @@ function NotificationOne({
 				<div className="border-2 rounded-full">
 					<div className="flex-shrink-0">
 						<img
-							src="/src/assets/profileimg.jpeg"
+							src="/assets/profileimg.jpeg"
 							alt="Notification img"
 							className="w-10 h-10 rounded-full"
 						/>
@@ -403,7 +403,7 @@ export default function Notification({ isCardVisible, onClose, cardRef }) {
 							{/* Add the image here */}
 							{imageVisible && (
 								<img
-									src="/src/assets/notification.png"
+									src="/assets/notification.png"
 									alt="No notifications"
 									className="w-72 h-72"
 								/>

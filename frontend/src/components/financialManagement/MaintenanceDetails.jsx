@@ -157,7 +157,7 @@ export const MaintenanceDetails = () => {
 											}
 										>
 											<img
-												src="/src/assets/view.svg"
+												src="/assets/view.svg"
 												alt="View"
 											/>
 										</Button>

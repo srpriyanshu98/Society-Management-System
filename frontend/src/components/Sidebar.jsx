@@ -113,7 +113,7 @@ export default function Sidebar({ isVisible, onClose }) {
 				<Separator className="mb-3 w-52 ms-5" />
 				<div>
 					<img
-						src="/src/assets/logout.svg"
+						src="/assets/logout.svg"
 						alt="Logout"
 						className="inline-block"
 					/>

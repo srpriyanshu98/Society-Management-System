@@ -7,7 +7,7 @@ export const securityGuardsData = [
 		shiftDate: "10/02/2024",
 		shiftTime: "2:45 PM",
 		gender: "Male",
-		image: "/src/assets/securityMale.svg",
+		image: "/assets/securityMale.svg",
 	},
 	{
 		id: 2,
@@ -17,7 +17,7 @@ export const securityGuardsData = [
 		shiftDate: "10/02/2024",
 		shiftTime: "2:45 PM",
 		gender: "Female",
-		image: "/src/assets/securityFemale.svg",
+		image: "/assets/securityFemale.svg",
 	},
 	{
 		id: 3,
@@ -27,7 +27,7 @@ export const securityGuardsData = [
 		shiftDate: "11/02/2024",
 		shiftTime: "3:00 PM",
 		gender: "Female",
-		image: "/src/assets/securityFemale.svg",
+		image: "/assets/securityFemale.svg",
 	},
 	{
 		id: 4,
@@ -37,7 +37,7 @@ export const securityGuardsData = [
 		shiftDate: "11/02/2024",
 		shiftTime: "3:00 PM",
 		gender: "Male",
-		image: "/src/assets/securityMale.svg",
+		image: "/assets/securityMale.svg",
 	},
 	{
 		id: 5,
@@ -47,7 +47,7 @@ export const securityGuardsData = [
 		shiftDate: "12/02/2024",
 		shiftTime: "4:00 PM",
 		gender: "Female",
-		image: "/src/assets/securityFemale.svg",
+		image: "/assets/securityFemale.svg",
 	},
 	{
 		id: 6,
@@ -57,7 +57,7 @@ export const securityGuardsData = [
 		shiftDate: "12/02/2024",
 		shiftTime: "4:00 PM",
 		gender: "Male",
-		image: "/src/assets/securityMale.svg",
+		image: "/assets/securityMale.svg",
 	},
 	{
 		id: 7,
@@ -67,7 +67,7 @@ export const securityGuardsData = [
 		shiftDate: "13/02/2024",
 		shiftTime: "5:00 PM",
 		gender: "Female",
-		image: "/src/assets/securityFemale.svg",
+		image: "/assets/securityFemale.svg",
 	},
 	{
 		id: 8,
@@ -77,7 +77,7 @@ export const securityGuardsData = [
 		shiftDate: "13/02/2024",
 		shiftTime: "5:00 PM",
 		gender: "Male",
-		image: "/src/assets/securityMale.svg",
+		image: "/assets/securityMale.svg",
 	},
 	{
 		id: 9,
@@ -87,7 +87,7 @@ export const securityGuardsData = [
 		shiftDate: "14/02/2024",
 		shiftTime: "6:00 PM",
 		gender: "Female",
-		image: "/src/assets/securityFemale.svg",
+		image: "/assets/securityFemale.svg",
 	},
 	{
 		id: 10,
@@ -97,7 +97,7 @@ export const securityGuardsData = [
 		shiftDate: "14/02/2024",
 		shiftTime: "6:00 PM",
 		gender: "Male",
-		image: "/src/assets/securityMale.svg",
+		image: "/assets/securityMale.svg",
 	},
 	{
 		id: 11,
@@ -107,7 +107,7 @@ export const securityGuardsData = [
 		shiftDate: "15/02/2024",
 		shiftTime: "7:00 PM",
 		gender: "Female",
-		image: "/src/assets/securityFemale.svg",
+		image: "/assets/securityFemale.svg",
 	},
 	{
 		id: 12,
@@ -117,7 +117,7 @@ export const securityGuardsData = [
 		shiftDate: "15/02/2024",
 		shiftTime: "7:00 PM",
 		gender: "Male",
-		image: "/src/assets/securityMale.svg",
+		image: "/assets/securityMale.svg",
 	},
 	{
 		id: 13,
@@ -127,7 +127,7 @@ export const securityGuardsData = [
 		shiftDate: "16/02/2024",
 		shiftTime: "8:00 PM",
 		gender: "Female",
-		image: "/src/assets/securityFemale.svg",
+		image: "/assets/securityFemale.svg",
 	},
 	{
 		id: 14,
@@ -137,7 +137,7 @@ export const securityGuardsData = [
 		shiftDate: "16/02/2024",
 		shiftTime: "8:00 PM",
 		gender: "Male",
-		image: "/src/assets/securityMale.svg",
+		image: "/assets/securityMale.svg",
 	},
 	{
 		id: 15,
@@ -147,7 +147,7 @@ export const securityGuardsData = [
 		shiftDate: "17/02/2024",
 		shiftTime: "9:00 PM",
 		gender: "Female",
-		image: "/src/assets/securityFemale.svg",
+		image: "/assets/securityFemale.svg",
 	},
 	{
 		id: 16,
@@ -157,6 +157,6 @@ export const securityGuardsData = [
 		shiftDate: "17/02/2024",
 		shiftTime: "9:00 PM",
 		gender: "Male",
-		image: "/src/assets/securityMale.svg",
+		image: "/assets/securityMale.svg",
 	},
 ];

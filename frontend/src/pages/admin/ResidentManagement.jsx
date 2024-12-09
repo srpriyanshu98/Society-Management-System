@@ -12,18 +12,18 @@ import { useState } from "react";
 // Function to get image based on unit status
 const getUnitStatusImage = (unitStatus) => {
 	if (unitStatus === "Occupied") {
-		return "/src/assets/Occupied.svg";
+		return "/assets/Occupied.svg";
 	} else if (unitStatus === "Vacant") {
-		return "/src/assets/Vacant.svg";
+		return "/assets/Vacant.svg";
 	}
 };
 
 // Function to get image based on resident status
 const getResidentStatusImage = (residentStatus) => {
 	if (residentStatus === "Owner") {
-		return "/src/assets/Owner.svg";
+		return "/assets/Owner.svg";
 	} else if (residentStatus === "Tenant") {
-		return "/src/assets/Tenant.svg";
+		return "/assets/Tenant.svg";
 	}
 };
 
@@ -247,7 +247,7 @@ export default function ResidentManagement({ userRole }) {
 														<div className="flex space-x-2 items-center justify-center">
 															<button className="bg-gray-200 p-2 w-8 h-8 rounded-lg">
 																<img
-																	src="/src/assets/edit.svg"
+																	src="/assets/edit.svg"
 																	alt="Edit"
 																/>
 															</button>

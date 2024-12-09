@@ -136,8 +136,8 @@ export default function AddExpenses({ userRole }) {
 											<img
 												src={
 													item.billPermit === "PDF"
-														? "/src/assets/Document.svg"
-														: "/src/assets/jpg.svg"
+														? "/assets/Document.svg"
+														: "/assets/jpg.svg"
 												}
 												alt={`${item.billPermit} Icon`}
 												className="w-6 h-6 inline-block align-middle mr-2"
