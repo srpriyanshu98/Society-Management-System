@@ -33,7 +33,7 @@ const PORT = ENV_VARS.PORT;
 // Allow requests from your frontend domain
 const corsOptions = {
 	// origin: "http://localhost:3000",
-	origin: "https://society-management-system-omega.vercel.app",
+	origin: "https://society-management-two.vercel.app",
 	optionsSuccessStatus: 200,
 };
 
