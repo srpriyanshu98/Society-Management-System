@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
     Dialog,
     DialogContent,
@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 
 export default function CreatePollDialog({ isOpen, onOpenChange, onSubmit }) {
 
-      // const [question, setQuestion] = useState("");
+    // const [question, setQuestion] = useState("");
     // const [options, setOptions] = useState(["", ""]);
     // const [pollType, setPollType] = useState("multichoice");
 
@@ -173,34 +173,62 @@ export default function CreatePollDialog({ isOpen, onOpenChange, onSubmit }) {
     const [isFiveDialogOpen, setIsFiveDialogOpen] = useState(false);
     const [isSixDialogOpen, setIsSixDialogOpen] = useState(false);
 
+
+    //</Second/>
+    const [questionSecond, setQuestionSecond] = React.useState("");
+    const [optionsSecond, setOptionsSecond] = useState([""]);
+
+    const handleQuestionChangeSecond = (e) => {
+        console.log(e.target.value);
+        setQuestionSecond(e.target.value);
+    };
+
+    const handleOptionChangeSecond = (index, value) => {
+        setOptionsSecond((prevOptions) =>
+          prevOptions.map((option, i) => (i === index ? value : option))
+        );
+      };
+
+
+      const handleAddOptionSecond = () => {
+        setOptionsSecond((prevOptions) => [...prevOptions, ""]);
+      };
+
+      const handleRemoveOptionSecond = (index) => {
+        setOptionsSecond((prevOptions) =>
+          prevOptions.filter((_, i) => i !== index)
+        );
+      };
+
     //</Third/>
-    const [questionThird, setQuestionThird] = useState('');
-    const [optionsThird, setOptionsThird] = useState(['', '', '', '', '']);
+    const [questionThird, setQuestionThird] = React.useState("");
+    const [optionsThird, setOptionsThird] = useState([""]);
 
     const handleQuestionChangeThird = (e) => {
+        console.log(e.target.value);
         setQuestionThird(e.target.value);
     };
 
-    const handleOptionChangeThird = (index, e) => {
-        const newOptions = [...optionsThird];
-        newOptions[index] = e.target.value;
-        setOptionsThird(newOptions);
-    };
+    const handleOptionChangeThird = (index, value) => {
+        setOptionsThird((prevOptions) =>
+          prevOptions.map((option, i) => (i === index ? value : option))
+        );
+      };
 
-    const handleAddOptionThird = () => {
-        // if (options.length < 5) {
-        //     setOptions([...options, '']);
-        // }
-        setOptionsThird([...optionsThird, '']);
-    };
 
-    const handleRemoveOptionThird = (index) => {
-        if (optionsThird.length > 2) {
-            const newOptions = [...optionsThird];
-            newOptions.splice(index, 1);
-            setOptionsThird(newOptions);
-        }
-    };
+      const handleAddOptionThird = () => {
+        if (optionsThird.length < 5) {
+            setOptionsThird((prevOptions) => [...prevOptions, ""]);
+          } else {
+            console.log("You can add a maximum of 5 options.");
+          }
+      };
+
+      const handleRemoveOptionThird = (index) => {
+        setOptionsThird((prevOptions) =>
+          prevOptions.filter((_, i) => i !== index)
+        );
+      };
 
 
 
@@ -208,36 +236,38 @@ export default function CreatePollDialog({ isOpen, onOpenChange, onSubmit }) {
 
 
     //</Forth/>
-    const [questionForth, setQuestionForth] = useState('');
-    const [options, setOptions] = useState(['', '', '', '', '']);
+    const [questionForth, setQuestionForth] = React.useState("");
+    const [optionsForth, setOptionsForth] = useState([""]);
 
-    const handleQuestionChange = (e) => {
+    const handleQuestionChangeForth = (e) => {
+        console.log(e.target.value);
         setQuestionForth(e.target.value);
     };
 
-    const handleOptionChange = (index, e) => {
-        const newOptions = [...options];
-        newOptions[index] = e.target.value;
-        setOptions(newOptions);
-    };
+    const handleOptionChangeForth = (index, value) => {
+        setOptionsForth((prevOptions) =>
+          prevOptions.map((option, i) => (i === index ? value : option))
+        );
+      };
 
-    const handleAddOption = () => {
-        // if (options.length < 5) {
-        //     setOptions([...options, '']);
-        // }
-        setOptions([...options, '']);
-    };
 
-    const handleRemoveOption = (index) => {
-        if (options.length > 2) {
-            const newOptions = [...options];
-            newOptions.splice(index, 1);
-            setOptions(newOptions);
-        }
-    };
+      const handleAddOptionForth = () => {
+        if (optionsForth.length < 5) {
+            setOptionsForth((prevOptions) => [...prevOptions, ""]);
+          } else {
+            console.log("You can add a maximum of 5 options.");
+          }
+      };
+
+      const handleRemoveOptionForth = (index) => {
+        setOptionsForth((prevOptions) =>
+          prevOptions.filter((_, i) => i !== index)
+        );
+      };
+
 
     // </five/>
-    const [question, setQuestion] = useState('');
+    const [questionFive, setQuestionFive] = useState('');
     const [minValues, setMinValues] = useState('');
     const [maxValues, setMaxValues] = useState('');
     const [decimalPlaces, setDecimalPlaces] = useState('5');
@@ -452,8 +482,8 @@ export default function CreatePollDialog({ isOpen, onOpenChange, onSubmit }) {
                                 <>
                                     {/* Poll Type */}
                                     <div className="relative">
-                                        <label htmlFor="pollType" className="block text-sm font-medium text-gray-700">
-                                            Poll Type
+                                        <label htmlFor="pollType" className="block text-sm font-medium">
+                                            Polls
                                         </label>
                                         <select
                                             id="pollType"
@@ -467,15 +497,72 @@ export default function CreatePollDialog({ isOpen, onOpenChange, onSubmit }) {
                                             </option>
                                         </select>
                                     </div>
-                                    <div>
-                                        Multichoice polls
+                                    <div className="mb-4">
+                                        <label htmlFor="question" className="block text-sm font-medium">
+                                            Question<span className="text-[#E74C3C]">*</span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="question"
+                                            value={questionSecond}
+                                            onChange={handleQuestionChangeSecond}
+                                            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                            placeholder="Ask a question"
+                                        />
+                                    </div>
+
+                                    {optionsSecond.map((option, index) => (
+                                        <div key={index} className="mb-4">
+                                            <label htmlFor={`option-${index}`} className="block text-sm font-medium">
+                                                Option {index + 1}<span className="text-[#E74C3C]">*</span>
+                                            </label>
+                                            <div className="flex">
+
+                                                <input
+                                                    type="text"
+                                                    id={`option-${index}`}
+                                                    value={option}
+                                                    onChange={(e) => handleOptionChangeSecond(index, e.target.value)}
+                                                    className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                    placeholder="Ask a question"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    className="ml-2 text-red-500 hover:text-red-700"
+                                                    onClick={() => handleRemoveOptionSecond(index)}
+                                                >
+                                                    <img
+                                                        src="/src/assets/trash.svg"
+                                                        alt="Poll icon"
+                                                        className="w-5 h-5 mr-2"
+                                                    />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    <div className="flex">
+
+                                        <div className="h-9 w-9 bg-amber-500 rounded-md">
+                                            <img
+                                                src="/src/assets/plussign.svg"
+                                                alt="Poll icon"
+                                                className="w-5 h-5 mt-2 ml-2"
+                                            />
+                                        </div>
+                                        <button
+                                            type="button"
+                                            className="text-orange-500 hover:text-orange-600 ml-1 text-xl font-semibold"
+                                            onClick={handleAddOptionSecond}
+                                        >
+                                            Add an option
+                                        </button>
                                     </div>
                                 </>
                             )}
                         </div>
 
                         <DialogFooter className="mt-4">
-                            <Button variant="secondary" onClick={handleSecondDialogClose}>
+                            <Button variant="outline" onClick={handleSecondDialogClose}>
                                 Cancel
                             </Button>
                             <Button type="submit">Create</Button>
@@ -563,6 +650,7 @@ export default function CreatePollDialog({ isOpen, onOpenChange, onSubmit }) {
                                             type="button"
                                             className="text-orange-500 hover:text-orange-600 ml-1 text-xl font-semibold"
                                             onClick={handleAddOptionThird}
+                                            disabled={optionsThird.length >= 5}
                                         >
                                             Add an option
                                         </button>
@@ -617,18 +705,18 @@ export default function CreatePollDialog({ isOpen, onOpenChange, onSubmit }) {
                                             type="text"
                                             id="question"
                                             value={questionForth}
-                                            onChange={handleQuestionChange}
+                                            onChange={handleQuestionChangeForth}
                                             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                                             placeholder="Ask a question"
                                         />
                                     </div>
 
-                                    {options.map((option, index) => (
+                                    {optionsForth.map((option, index) => (
                                         <div key={index} className="flex items-center mb-4">
                                             <input
                                                 type="text"
                                                 value={option}
-                                                onChange={(e) => handleOptionChange(index, e.target.value)}
+                                                onChange={(e) => handleOptionChangeForth(index, e.target.value)}
                                                 className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                                                 placeholder={`Option ${index + 1}`}
 
@@ -636,7 +724,7 @@ export default function CreatePollDialog({ isOpen, onOpenChange, onSubmit }) {
                                             <button
                                                 type="button"
                                                 className="ml-2 text-red-500 hover:text-red-700"
-                                                onClick={() => handleRemoveOption(index)}
+                                                onClick={() => handleRemoveOptionForth(index)}
 
                                             >
                                                 <img
@@ -660,7 +748,8 @@ export default function CreatePollDialog({ isOpen, onOpenChange, onSubmit }) {
                                         <button
                                             type="button"
                                             className="text-orange-500 hover:text-orange-600 ml-1 text-xl font-semibold"
-                                            onClick={handleAddOption}
+                                            onClick={handleAddOptionForth}
+                                            disabled={optionsForth.length >= 5}
                                         >
                                             Add an option
                                         </button>
@@ -714,8 +803,8 @@ export default function CreatePollDialog({ isOpen, onOpenChange, onSubmit }) {
                                         <input
                                             type="text"
                                             id="question"
-                                            value={question}
-                                            onChange={(e) => setQuestion(e.target.value)}
+                                            value={questionFive}
+                                            onChange={(e) => setQuestionFive(e.target.value)}
                                             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                                             placeholder="Ask a question"
                                         />
