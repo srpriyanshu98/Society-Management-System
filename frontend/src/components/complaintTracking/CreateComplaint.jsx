@@ -228,7 +228,7 @@ export default function CreateComplaint() {
 													}
 												>
 													<img
-														src="./src/assets/edit.svg"
+														src="/assets/edit.svg"
 														alt=""
 													/>
 												</button>
@@ -241,7 +241,7 @@ export default function CreateComplaint() {
 													}
 												>
 													<img
-														src="./src/assets/view.svg"
+														src="/assets/view.svg"
 														alt=""
 													/>
 												</button>
@@ -254,7 +254,7 @@ export default function CreateComplaint() {
 													}
 												>
 													<img
-														src="./src/assets/delete.svg"
+														src="/assets/delete.svg"
 														alt=""
 													/>
 												</button>

@@ -98,7 +98,7 @@ export default function VisitorTracking() {
 					className="flex items-center space-x-2"
 					onClick={handleAddVisitors}
 				>
-					<img src="./src/assets/add-square.svg" alt="" />
+					<img src="/assets/add-square.svg" alt="" />
 					<span>Add Visitor details</span>
 				</Button>
 			</CardHeader>

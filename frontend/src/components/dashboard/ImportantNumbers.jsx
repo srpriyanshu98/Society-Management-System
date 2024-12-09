@@ -116,7 +116,9 @@ export default function ImportantNumbers() {
 	return (
 		<div className="bg-white p-6 shadow-md rounded-xl">
 			<div className="flex justify-between">
-				<h2 className="text-md lg:text-xl md:text-xl font-bold mb-4 mt-2">Important Numbers</h2>
+				<h2 className="text-md lg:text-xl md:text-xl font-bold mb-4 mt-2">
+					Important Numbers
+				</h2>
 				<Button
 					onClick={() => {
 						resetForm();
@@ -163,7 +165,7 @@ export default function ImportantNumbers() {
 									className="bg-gray-100 p-1.5 rounded-md"
 								>
 									<img
-										src="./src/assets/delete.svg"
+										src="/assets/delete.svg"
 										alt="Delete"
 									/>
 								</Link>
@@ -172,10 +174,7 @@ export default function ImportantNumbers() {
 									onClick={() => handleEdit(number._id)}
 									className="bg-gray-100 p-1.5 rounded-md"
 								>
-									<img
-										src="./src/assets/edit.svg"
-										alt="Edit"
-									/>
+									<img src="/assets/edit.svg" alt="Edit" />
 								</Link>
 							</div>
 						</div>
@@ -193,7 +192,7 @@ export default function ImportantNumbers() {
 			/>
 
 			{/* Add/Edit Dialog */}
-			<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen} >
+			<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
 				<DialogContent className="w-[310px] md:w-96 lg:w-96 rounded-xl">
 					<DialogHeader>
 						<DialogTitle className="text-sm md:text-xl lg:text-xl">

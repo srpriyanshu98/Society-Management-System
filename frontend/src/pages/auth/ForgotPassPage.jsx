@@ -8,19 +8,19 @@ export default function ForgotPassPage() {
 			{/* Left side - Image */}
 			<div className="w-full md:w-1/2 bg-transparent md:bg-[#F6F8FB] h-screen flex items-center justify-center p-4 relative">
 				<img
-					src="./src/assets/Bright Web.png"
+					src="/assets/Bright Web.png"
 					alt="Illustration"
 					className="absolute top-14 left-40"
 				/>
 				{/* Left side - Image */}
 				<div className="hidden md:block m-auto ">
 					<img
-						src="./src/assets/forgot.png"
+						src="/assets/forgot.png"
 						alt="Illustration"
 						className="z-10"
 					/>
 					<img
-						src="./src/assets/bg-graphic.png"
+						src="/assets/bg-graphic.png"
 						alt=""
 						className="absolute top-0 right-0 h-screen -z-10"
 					/>
@@ -29,7 +29,7 @@ export default function ForgotPassPage() {
 			{/* Right side - Form */}
 
 			<img
-				src="./src/assets/bg-graphic.png"
+				src="/assets/bg-graphic.png"
 				alt=""
 				className="absolute top-0 right-0 h-full md:h-screen -z-10"
 			/>

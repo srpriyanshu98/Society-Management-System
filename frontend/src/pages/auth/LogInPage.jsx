@@ -6,7 +6,7 @@ export default function Login() {
 
 	const slides = [
 		{
-			image: "./src/assets/1.png",
+			image: "/assets/1.png",
 			title: (
 				<p className="font-semibold text-center text-[24px] leading-[36px] text-opacity-0 gap-0">
 					Your Space, Your Place:{" "}
@@ -18,7 +18,7 @@ export default function Login() {
 			),
 		},
 		{
-			image: "./src/assets/2.png",
+			image: "/assets/2.png",
 			title: (
 				<p className="font-semibold text-center text-[24px] leading-[36px] text-opacity-0 gap-0">
 					Connect, Collaborate, and Control -{" "}
@@ -45,7 +45,7 @@ export default function Login() {
 			{/* Left side - Image */}
 			<div className="w-full md:w-1/2 bg-transparent md:bg-[#F6F8FB] h-screen flex items-center justify-center relative">
 				<img
-					src="./src/assets/Bright Web.png"
+					src="/assets/Bright Web.png"
 					alt="Illustration"
 					className="absolute top-14 left-10 md:left-40"
 				/>
@@ -103,7 +103,7 @@ export default function Login() {
 			{/* Right side - Form */}
 
 			<img
-				src="./src/assets/bg-graphic.png"
+				src="/assets/bg-graphic.png"
 				alt=""
 				className="absolute top-0 right-0 h-full md:h-screen -z-10"
 			/>

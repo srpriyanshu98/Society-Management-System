@@ -45,8 +45,8 @@ export default function ViewOtherIncome({ userRole }) {
 														src={
 															item.status ===
 															"Owner"
-																? "./src/assets/owner.svg"
-																: "./src/assets/tenant.svg"
+																? "/assets/owner.svg"
+																: "/assets/tenant.svg"
 														}
 														className="w-5 h-5"
 														alt={`${item.status} Icon`}
@@ -76,8 +76,8 @@ export default function ViewOtherIncome({ userRole }) {
 														src={
 															item.paymentMode ===
 															"Online"
-																? "./src/assets/wallet-2.svg"
-																: "./src/assets/wallet-1.svg"
+																? "/assets/wallet-2.svg"
+																: "/assets/wallet-1.svg"
 														}
 														className="w-5 h-5"
 														alt="Payment Icon"

@@ -5,12 +5,12 @@ const Slider = () => {
 
 	const slides = [
 		{
-			image: "./src/assets/1.png",
+			image: "/assets/1.png",
 			title: "Slide Title 1",
 			description: "This is the description for slide 1.",
 		},
 		{
-			image: "./src/assets/2.png",
+			image: "/assets/2.png",
 			title: "Slide Title 2",
 			description: "This is the description for slide 2.",
 		},

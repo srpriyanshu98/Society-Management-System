@@ -92,7 +92,7 @@ export default function AddExpenses({ userRole }) {
 						className="flex items-center space-x-2"
 						onClick={() => setIsAddDialogOpen(true)}
 					>
-						<img src="./src/assets/add-square.svg" alt="" />
+						<img src="/assets/add-square.svg" alt="" />
 						<span>Add New Expenses Detail</span>
 					</Button>
 				</CardHeader>
@@ -169,7 +169,7 @@ export default function AddExpenses({ userRole }) {
 												}
 											>
 												<img
-													src="./src/assets/edit.svg"
+													src="/assets/edit.svg"
 													alt="Edit"
 												/>
 											</button>
@@ -180,7 +180,7 @@ export default function AddExpenses({ userRole }) {
 												}
 											>
 												<img
-													src="./src/assets/view.svg"
+													src="/assets/view.svg"
 													alt="View"
 												/>
 											</button>
@@ -191,7 +191,7 @@ export default function AddExpenses({ userRole }) {
 												}
 											>
 												<img
-													src="./src/assets/delete.svg"
+													src="/assets/delete.svg"
 													alt="Delete"
 												/>
 											</button>

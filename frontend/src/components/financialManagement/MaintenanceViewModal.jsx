@@ -61,8 +61,8 @@ export default function MaintenanceViewModal({ isOpen, onClose, maintenance }) {
 							<img
 								src={
 									maintenance.status === "Owner"
-										? "./src/assets/owner.svg"
-										: "./src/assets/tenant.svg"
+										? "/assets/owner.svg"
+										: "/assets/tenant.svg"
 								}
 								className="w-5 h-5 mr-2"
 								alt={`${maintenance.status} Icon`}
@@ -92,8 +92,8 @@ export default function MaintenanceViewModal({ isOpen, onClose, maintenance }) {
 							<img
 								src={
 									maintenance.maintenanceStatus === "Done"
-										? "./src/assets/verify.svg"
-										: "./src/assets/timer.svg"
+										? "/assets/verify.svg"
+										: "/assets/timer.svg"
 								}
 								className="w-5 h-5 mr-2"
 								alt="Status Icon"
@@ -111,8 +111,8 @@ export default function MaintenanceViewModal({ isOpen, onClose, maintenance }) {
 							<img
 								src={
 									maintenance.paymentMode === "Online"
-										? "./src/assets/wallet-2.svg"
-										: "./src/assets/wallet-1.svg"
+										? "/assets/wallet-2.svg"
+										: "/assets/wallet-1.svg"
 								}
 								className="w-5 h-5 mr-2"
 								alt="Payment Icon"

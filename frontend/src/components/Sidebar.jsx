@@ -40,8 +40,9 @@ export default function Sidebar({ isVisible, onClose }) {
 
 	return (
 		<div
-			className={`fixed top-0 left-0 z-40 h-screen w-64 bg-white shadow-lg transform transition-transform ${isVisible ? "translate-x-0" : "-translate-x-full"
-				} md:translate-x-0 md:block`}
+			className={`fixed top-0 left-0 z-40 h-screen w-64 bg-white shadow-lg transform transition-transform ${
+				isVisible ? "translate-x-0" : "-translate-x-full"
+			} md:translate-x-0 md:block`}
 		>
 			<button
 				onClick={onClose}
@@ -50,7 +51,7 @@ export default function Sidebar({ isVisible, onClose }) {
 				<Icons.X className="h-5 w-5 text-gray-500" />
 			</button>
 			<div className="p-4 lg:mt-4 lg:ml-7 ml-9 font-bold text-xl">
-				<img src="./src/assets/Logo.png" alt="Logo" />
+				<img src="/assets/Logo.png" alt="Logo" />
 			</div>
 			<Separator className="my-2 w-52 mx-auto mb-7" />
 			<div className="space-y-2">
@@ -74,9 +75,10 @@ export default function Sidebar({ isVisible, onClose }) {
 											: null
 									}
 									className={() =>
-										`flex items-center space-x-4 w-56 font-poppins p-3 text-sm rounded-lg ${isActive || isExpanded
-											? "bg-gradient-to-r from-orange-600 to-orange-400 text-white shadow-md"
-											: "text-gray-700 hover:bg-gray-100"
+										`flex items-center space-x-4 w-56 font-poppins p-3 text-sm rounded-lg ${
+											isActive || isExpanded
+												? "bg-gradient-to-r from-orange-600 to-orange-400 text-white shadow-md"
+												: "text-gray-700 hover:bg-gray-100"
 										}`
 									}
 								>
@@ -91,9 +93,10 @@ export default function Sidebar({ isVisible, onClose }) {
 									<NavLink
 										to={subItem.path}
 										className={({ isActive }) =>
-											`ml-8 block p-2 mt-2 text-sm rounded-lg ${isActive
-												? "bg-gradient-to-r from-orange-600 to-orange-400 text-white shadow-md"
-												: "text-gray-700 hover:bg-gray-100"
+											`ml-8 block p-2 mt-2 text-sm rounded-lg ${
+												isActive
+													? "bg-gradient-to-r from-orange-600 to-orange-400 text-white shadow-md"
+													: "text-gray-700 hover:bg-gray-100"
 											}`
 										}
 										key={subItem.name}

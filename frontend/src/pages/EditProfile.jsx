@@ -180,17 +180,17 @@ export default function EditProfile({ userRole }) {
 				<div className="absolute inset-0 bg-blue-200 opacity-50 z-10"></div>
 				<div className="flex items-center justify-between w-full  left-0 top-0 z-0">
 					<img
-						src="./src/assets/background-design-1.svg"
+						src="/assets/background-design-1.svg"
 						alt=""
 						className="w-1/2 h-auto"
 					/>
 					<img
-						src="./src/assets/background-design-2.svg"
+						src="/assets/background-design-2.svg"
 						alt=""
 						className="w-1/3 h-auto"
 					/>
 					<img
-						src="./src/assets/background-design-3.svg"
+						src="/assets/background-design-3.svg"
 						alt=""
 						className="w-1/3 h-auto"
 					/>
@@ -209,7 +209,7 @@ export default function EditProfile({ userRole }) {
 								onClick={() => setIsEditing(true)}
 							>
 								<img
-									src="./src/assets/editwhite.svg"
+									src="/assets/editwhite.svg"
 									alt=""
 									className="rounded-full w-[20px] h-[20px] mr-2"
 								/>
@@ -218,7 +218,7 @@ export default function EditProfile({ userRole }) {
 						)}
 					</div>
 
-					<Card className="p-3 w-[991px] h-[526px] mt-3 transition-all rounded-[20px] duration-300 ease-in-out transform">
+					<Card className="p-3 w-[991px] h-[526px] mt-10 transition-all rounded-[20px] duration-300 ease-in-out transform">
 						<form
 							onSubmit={handleSubmit}
 							className="flex mt-10 ml-10"
@@ -240,7 +240,7 @@ export default function EditProfile({ userRole }) {
 												onClick={openFileSelector}
 											>
 												<img
-													src="./src/assets/editblack.svg"
+													src="/assets/editblack.svg"
 													alt="Edit"
 													className="rounded-full m-1 w-[20px] h-[20px] fill-[#202224]"
 												/>

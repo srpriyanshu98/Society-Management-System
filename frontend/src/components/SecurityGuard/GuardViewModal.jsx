@@ -49,8 +49,8 @@ export default function GuardViewModal({ isOpen, onClose, guard }) {
 						<img
 							src={
 								guard.gender === "Male"
-									? "./src/assets/male.svg"
-									: "./src/assets/female.svg"
+									? "/assets/male.svg"
+									: "/assets/female.svg"
 							}
 							className="w-5 h-5 mr-2"
 							alt={`${guard.gender} Icon`}
@@ -72,8 +72,8 @@ export default function GuardViewModal({ isOpen, onClose, guard }) {
 						<img
 							src={
 								guard.shift === "Day"
-									? "./src/assets/Day.svg"
-									: "./src/assets/Night.svg"
+									? "/assets/Day.svg"
+									: "/assets/Night.svg"
 							}
 							alt={`${guard.shift} Icon`}
 							className="w-4 h-4 mr-2"

@@ -78,7 +78,7 @@ export default function ResidentManagement({ userRole }) {
 						className="flex items-center space-x-2"
 						onClick={handleAddResident}
 					>
-						<img src="./src/assets/add-square.svg" alt="" />
+						<img src="/assets/add-square.svg" alt="" />
 						<span>Add New Resident Details</span>
 					</Button>
 				</CardHeader>
@@ -90,12 +90,24 @@ export default function ResidentManagement({ userRole }) {
 									<th className="p-3 text-left rounded-tl-3xl font-poppins decoration-1 text-slate-900">
 										Full Name
 									</th>
-									<th className="p-3 font-poppins decoration-1 text-slate-900">Unit Number</th>
-									<th className="p-3 font-poppins decoration-1 text-slate-900">Unit Status</th>
-									<th className="p-3 font-poppins decoration-1 text-slate-900">Resident Status</th>
-									<th className="p-3 font-poppins decoration-1 text-slate-900">Phone Number</th>
-									<th className="p-3 font-poppins decoration-1 text-slate-900">Member</th>
-									<th className="p-3 font-poppins decoration-1 text-slate-900">Vehicle</th>
+									<th className="p-3 font-poppins decoration-1 text-slate-900">
+										Unit Number
+									</th>
+									<th className="p-3 font-poppins decoration-1 text-slate-900">
+										Unit Status
+									</th>
+									<th className="p-3 font-poppins decoration-1 text-slate-900">
+										Resident Status
+									</th>
+									<th className="p-3 font-poppins decoration-1 text-slate-900">
+										Phone Number
+									</th>
+									<th className="p-3 font-poppins decoration-1 text-slate-900">
+										Member
+									</th>
+									<th className="p-3 font-poppins decoration-1 text-slate-900">
+										Vehicle
+									</th>
 									<th className="p-3 rounded-tr-3xl font-poppins decoration-1 text-slate-900">
 										Action
 									</th>
@@ -251,7 +263,6 @@ export default function ResidentManagement({ userRole }) {
 								})}
 							</tbody>
 						</table>
-						
 					</ScrollArea>
 				</CardContent>
 			</Card>

@@ -12,7 +12,7 @@ export default function ResidentDetail({ control, errors }) {
 					<div className="flex-col items-center">
 						<div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center">
 							<span className="text-gray-500">
-								<img src="./src/assets/add-photo.svg" alt="" />
+								<img src="/assets/add-photo.svg" alt="" />
 							</span>
 						</div>
 						<Button variant="link" className="text-blue-700">
